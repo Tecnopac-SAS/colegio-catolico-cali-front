@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';;
 import * as $ from 'jquery'
-//import * from jquery;
-
 
 @Component({
   selector: 'app-dashboard',
@@ -10,13 +8,13 @@ import * as $ from 'jquery'
 })
 export class DashboardComponent implements OnInit {
 
-  //window:any;
+
   constructor() { }
 
   ngOnInit(): void {
     this.jquery();
   }
-  //($('.sidebar .collapse')as any).collapse('hide');
+
   jquery() {
 
     (function($) {
