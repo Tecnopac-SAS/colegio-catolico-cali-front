@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';;
+import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 import * as $ from 'jquery'
 
 @Component({
@@ -7,12 +9,25 @@ import * as $ from 'jquery'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  public token:any
 
-
-  constructor() { }
+  constructor(private loginService:LoginService, private router:Router)
+   {
+    this.token= this.loginService.getToken();
+   }
 
   ngOnInit(): void {
     this.jquery();
+    this.sessionValidation();
+  }
+
+  sessionValidation(){
+    if(this.token){
+
+    }
+    else{
+      this.router.navigate([''])
+    }
   }
 
   jquery() {
