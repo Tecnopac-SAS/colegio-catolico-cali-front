@@ -112,5 +112,8 @@
       }
     }
   },
-  "defaultProject": "front-colegio-catolico"
+  "defaultProject": "front-colegio-catolico",
+  "cli": {
+    "analytics": "aab4eefb-19ba-4daf-ba3d-27da498ac4a4"
+  }
 }
