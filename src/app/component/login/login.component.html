@@ -1,3 +1,4 @@
+<script src="sweetalert2/dist/sweetalert2.min.js"></script>
 <section class="hero">
 	<div class="background-image" style="background-image: url(assets/img/hero.png);"></div>
 	<div class="card shadow-2-strong">
@@ -10,13 +11,15 @@
 					<label for="exampleInputEmail1" class="form-label">Usuario</label>
 					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingresa tu usuario" formControlName="email">
 				</div>
-				<div class="mb-1">
+				<div class="mb-3">
 					<label for="exampleInputPassword1" class="form-label">Contraseña</label>
 					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" formControlName="password">
 				</div>
-				<div class="mb-4 form-check">
-					<label class="form-check-label" for="exampleCheck1"><a href="#">Olvidé la contraseña</a></label>
-				</div>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check" checked />
+				<label class="form-check-label" for="form2Example31"> Recordar contraseña</label>
+				<a href="#">Olvidé la contraseña</a>
 			</div>
 			<button type="button" class="btn btn-primary w-100" (click)="login()">Iniciar Sesión</button>
 			<!-- <label class="form-check-label" for="exampleCheck1">¿No tienes una cuenta? <a href="#">Registrate aquí</a></label> -->
