@@ -10,6 +10,7 @@ import { CreateUserComponent } from './component/user-manager/create-user/create
 import { IndexUserComponent } from './component/user-manager/index-user/index-user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SidebarComponent } from './component/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     UserManagerComponent,
     CreateUserComponent,
-    IndexUserComponent
+    IndexUserComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
