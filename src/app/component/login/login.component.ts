@@ -49,9 +49,6 @@ export class LoginComponent implements OnInit {
         '',
         'warning'
        )
-      //  setTimeout(() => {
-      //     this.router.navigate(['producto-index']);
-      //   }, 2000);
     }
 
     else if(this.formValue.value.password==""){
@@ -129,29 +126,5 @@ export class LoginComponent implements OnInit {
 
   }
 
-  alerta(){
-    $('.trigger-swal').on('click', function () {
-      Swal.fire({
-        title: 'SweetAlert2 + Bootstrap 4',
-        input: 'text',
-        buttonsStyling: false,
-        showCancelButton: true,
-        customClass: {
-          confirmButton: 'btn btn-primary btn-lg',
-          cancelButton: 'btn btn-danger btn-lg',
-          loader: 'custom-loader'
-        },
-        loaderHtml: '<div class="spinner-border text-primary"></div>',
-        preConfirm: () => {
-          Swal.showLoading()
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve(true)
-            }, 3000)
-          })
-        }
-      })
-    })
-  }
 
 }
