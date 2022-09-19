@@ -20,4 +20,11 @@ export class UserService {
     }))
   }
 
+  getRoles(){
+    return this._htpp.get<any>(base_url+'role/listarRoles')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
 }

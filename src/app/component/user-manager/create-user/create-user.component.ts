@@ -16,7 +16,7 @@ export class CreateUserComponent implements OnInit {
 
  formValue!: FormGroup;
  userModel:User= new User();
- public rol =[1]
+ role !: any;
  public mensaje_ok:any;
  public mensaje_error:any;
 
@@ -37,6 +37,7 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.fieldCapture()
+    this.roleList()
   }
 
   CrearUsuario(){
@@ -71,6 +72,12 @@ export class CreateUserComponent implements OnInit {
         }
         else{
           this.mensaje_ok="Se registro correctamente"
+          this.formValue = this.formBuilder.group({
+            name:[''],
+            email: [''],
+            role: [''],
+            password: [''],
+          })
         }
       },
       err=>{
@@ -80,6 +87,15 @@ export class CreateUserComponent implements OnInit {
   }
   cerrarAlerta(){
     this.mensaje_error=""
+  }
+
+  roleList(){
+    this.userService.getRoles()
+    .subscribe(res=>{
+      this.role=res.result
+      console.log(this.role)
+    })
+
   }
 
 }

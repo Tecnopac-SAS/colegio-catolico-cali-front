@@ -5,6 +5,8 @@ import { User } from '../../models/user.models';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from'sweetalert2';
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,8 +45,8 @@ export class LoginComponent implements OnInit {
   login(){
     if(this.formValue.value.email==""){
       Swal.fire(
-        'Ingre su correo!',
-        'You clicked the button!',
+        'Ingrese su correo!',
+        '',
         'warning'
        )
       //  setTimeout(() => {
@@ -54,8 +56,8 @@ export class LoginComponent implements OnInit {
 
     else if(this.formValue.value.password==""){
       Swal.fire(
-        'Ingre su contraseña!',
-        'You clicked the button!',
+        'Ingrese su contraseña!',
+        '',
         'warning'
        )
     }
@@ -66,21 +68,21 @@ export class LoginComponent implements OnInit {
           if(response.mensaje=="correo invalido"){
             Swal.fire(
               'El correo no existe!',
-              'You clicked the button!',
+              '',
               'error'
              )
           }
           else if(response.mensaje=="Contraseña incorrecta"){
             Swal.fire(
               'Contraseña incorrecta!',
-              'You clicked the button!',
+              '',
               'error'
              )
           }
           else{
             Swal.fire(
               'Inicio de sesión correcto!',
-              'You clicked the button!',
+              '',
               'success'
              )
                 //estas variables auxiliares contiene los datos de la bd
@@ -110,6 +112,46 @@ export class LoginComponent implements OnInit {
         }
       )
     }
+  }
+
+  clearForm(e:any){
+
+    if(e.target.checked)
+    {
+
+    }
+    else{
+      this.formValue= this.formBuilder.group({
+        email:[''],
+        password:['']
+      })
+    }
+
+  }
+
+  alerta(){
+    $('.trigger-swal').on('click', function () {
+      Swal.fire({
+        title: 'SweetAlert2 + Bootstrap 4',
+        input: 'text',
+        buttonsStyling: false,
+        showCancelButton: true,
+        customClass: {
+          confirmButton: 'btn btn-primary btn-lg',
+          cancelButton: 'btn btn-danger btn-lg',
+          loader: 'custom-loader'
+        },
+        loaderHtml: '<div class="spinner-border text-primary"></div>',
+        preConfirm: () => {
+          Swal.showLoading()
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(true)
+            }, 3000)
+          })
+        }
+      })
+    })
   }
 
 }
