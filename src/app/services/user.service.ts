@@ -11,6 +11,9 @@ const base_url = environment.url;
 })
 export class UserService {
 
+  public name: any;
+  public role: any;
+
   constructor( private _htpp:HttpClient,) { }
 
   createUser(data:any){
@@ -25,6 +28,28 @@ export class UserService {
     .pipe(map((res:any)=>{
       return res;
     }))
+  }
+
+  getRol():Observable<any>{
+    let name = localStorage.getItem('idRole');
+    if(name){
+      this.name = name
+    }
+    else {
+      this.name= null;
+    }
+    return this.name;
+  }
+
+  getName():Observable<any>{
+    let name = localStorage.getItem('usuario');
+    if(name){
+      this.name = name
+    }
+    else {
+      this.name= null;
+    }
+    return this.name;
   }
 
 }

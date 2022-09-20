@@ -6,7 +6,7 @@
   transform: rotate(0deg);
   position: absolute;
   right: 11px;
-  top: 1.8em;
+  top: 1em;
 }
 
 .dropdown-submenu .dropdown-menu {
@@ -18,4 +18,10 @@
 
 .dropdown-toggle {
   white-space: normal;
+}
+
+.sidebar .nav-item .nav-link {
+
+  padding: 0.38rem;
+
 }

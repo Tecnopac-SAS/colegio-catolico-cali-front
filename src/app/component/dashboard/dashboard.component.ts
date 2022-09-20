@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery'
 
@@ -10,10 +11,17 @@ import * as $ from 'jquery'
 })
 export class DashboardComponent implements OnInit {
   public token:any
+  public name: any;
+  public role: any;
 
-  constructor(private loginService:LoginService, private router:Router)
+  constructor(
+    private loginService:LoginService,
+    private userService:UserService,
+    private router:Router)
    {
     this.token= this.loginService.getToken();
+    this.name= this.userService.getName();
+    this.role= this.userService.getRol();
    }
 
   ngOnInit(): void {

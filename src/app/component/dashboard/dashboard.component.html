@@ -40,6 +40,27 @@
                 </div>
               </div>
           </li>
+          <div class="sidebar-heading">
+          </div>
+          <li class="nav-item active">
+            <a class="nav-link" href="">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span class="text-secondary ">Configuraciones</span></a>
+          </li>
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark dropdown-item " href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-gear text-dark"></i><span> Configuraciones</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Configuraciones:</h6>
+                  <a class="dropdown-item" routerLink="/listar-usuarios">Usuarios</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" routerLink="/crear-usuario">Cambio de periodo</a>
+                </div>
+              </div>
+          </li>
           <!-- Nav Item - Utilities Collapse Menu -->
           <!-- Divider -->
           <!-- Heading -->
@@ -49,7 +70,7 @@
             <a class="nav-link" href="">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span class="text-secondary ">Servicios</span></a>
-         </li>
+          </li>
           <!-- Nav Item - Pages Collapse Menu -->
           <li class="nav-item">
               <div class="dropright dropdown-submenu">
@@ -58,7 +79,7 @@
                 </a>
                 <div class="dropdown-menu">
                   <h6 class="dropdown-item collapse-header">Matricula:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
+                  <a class="dropdown-item" routerLink="/listar-usuarios">Matricula</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Separated link</a>
                 </div>
@@ -188,7 +209,7 @@
               <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                   <!-- Sidebar Toggle (Topbar) -->
                   <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                      <i class="fa fa-bars"></i>
+                    <i class="bi bi-list text-dark"></i>
                   </button>
                   <!-- Topbar Search -->
                   <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -219,11 +240,11 @@
                       <li class="nav-item dropdown no-arrow">
                           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <img class="img-profile rounded-circle m-1" src="https://media.revistagq.com/photos/5f45010acb266484bb785c78/master/pass/dragon-ball-z.jpg">
-                              <span class="mr-2 d-none d-lg-inline text-gray-600 small">USUARIO</span>
+                              <span *ngIf="token" class="mr-2 d-none d-lg-inline text-gray-600 small">{{name}}</span>
+                              <span *ngIf="token" class="mr-2 d-none d-lg-inline text-gray-600 small">{{role}}</span>
                           </a>
                           <!-- Dropdown - User Information -->
                           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
@@ -232,6 +253,7 @@
                       </li>
                   </ul>
               </nav>
+              <ng-content> </ng-content>
               <!-- End of Topbar  aqui es el final-->
               <!-- <app-create-user></app-create-user> -->
               <!-- <div style="background-color: red">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi veniam laboriosam corporis repudiandae, doloremque unde ipsa rerum, consequuntur cum itaque autem eveniet quos qui nulla dolorum sunt culpa. Nihil, ab?</div> -->
