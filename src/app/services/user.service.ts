@@ -23,6 +23,20 @@ export class UserService {
     }))
   }
 
+  listUsers(){
+    return this._htpp.get<any>(base_url+'user/listarUsuarios')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  updateUser(id:any, data:any){
+    return this._htpp.put<any>(base_url+'user/actualizarUsuario/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
   getRoles(){
     return this._htpp.get<any>(base_url+'role/listarRoles')
     .pipe(map((res:any)=>{

@@ -10,6 +10,7 @@ import { IndexUserComponent } from './component/user-manager/index-user/index-us
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
+import { NavTitleComponent } from './component/nav-title/nav-title.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
     DashboardComponent,
     CreateUserComponent,
     IndexUserComponent,
-    SidebarComponent
+    SidebarComponent,
+    NavTitleComponent
   ],
   imports: [
     BrowserModule,

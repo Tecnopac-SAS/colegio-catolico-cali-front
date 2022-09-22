@@ -10,6 +10,9 @@ import * as $ from 'jquery'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+
+  public navTitle:any
   public token:any
   public name: any;
   public role: any;
@@ -27,6 +30,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.jquery();
     this.sessionValidation();
+    this.navTitle="Hola " + this.name
   }
 
   sessionValidation(){
