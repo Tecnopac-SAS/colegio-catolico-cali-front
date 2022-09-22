@@ -25,3 +25,36 @@
   padding: 0.38rem;
 
 }
+
+.navbar-nav {
+  margin: 0px 10px;
+}
+
+.content-section {
+    width: 100vw;
+    padding-left: 5px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  background: rgb(58,98,168);
+  background: linear-gradient(90deg, rgba(58,98,168,1) 0%, rgba(116,191,200,1) 100%);
+}
+
+.section-title .text{
+  color: white;
+  padding-top: 20px;
+  padding-left: 30px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.logo {
+  height: 128px;
+  padding: 20px 75px;
+}
+
