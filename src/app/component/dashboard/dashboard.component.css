@@ -26,7 +26,18 @@
 
 }
 
+.user-info {
+  display: flex;
+  padding: 0% 10%;
+}
+
+.top-text {
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar-nav {
+  display: flex;
   margin: 0px 10px;
 }
 
