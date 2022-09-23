@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-nav-title',
@@ -6,11 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-title.component.css']
 })
 export class NavTitleComponent implements OnInit {
+  @Input()
   public navTitle:any
   constructor() { }
 
   ngOnInit(): void {
-    this.navTitle="Pendiente"
+
   }
 
 }

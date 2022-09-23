@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
+import { HomepageComponent } from './componente/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavTitleComponent } from './component/nav-title/nav-title.component';
     CreateUserComponent,
     IndexUserComponent,
     SidebarComponent,
-    NavTitleComponent
+    NavTitleComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,

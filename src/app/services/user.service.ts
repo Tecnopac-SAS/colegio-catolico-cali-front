@@ -45,14 +45,14 @@ export class UserService {
   }
 
   getRol():Observable<any>{
-    let name = localStorage.getItem('idRole');
-    if(name){
-      this.name = name
+    let role = localStorage.getItem('idRole');
+    if(role){
+      this.role = role
     }
     else {
-      this.name= null;
+      this.role= null;
     }
-    return this.name;
+    return this.role;
   }
 
   getName():Observable<any>{

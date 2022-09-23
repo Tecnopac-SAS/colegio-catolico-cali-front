@@ -14,6 +14,7 @@ export class CreateUserComponent implements OnInit {
 
    //Variables auxiliares
 
+ public navTitle:any
  formValue!: FormGroup;
  userModel:User= new User();
  role !: any;
@@ -36,6 +37,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.navTitle="Estoy en crear"
     this.fieldCapture()
     this.roleList()
   }

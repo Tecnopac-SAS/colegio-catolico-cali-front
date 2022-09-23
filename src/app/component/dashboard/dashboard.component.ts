@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.jquery();
     this.sessionValidation();
-    this.navTitle="Hola " + this.name
+    this.navTitle="Estoy en dash " + this.name
   }
 
   sessionValidation(){

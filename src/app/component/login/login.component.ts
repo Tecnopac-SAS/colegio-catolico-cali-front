@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
             this.loginService.login(this.formValue.value).subscribe(
               response=>{
                 console.log(response)
-                this.router.navigate(['dashboard'])
+                this.router.navigate(['inicio'])
               },
               error=>{
                 console.log(error)
