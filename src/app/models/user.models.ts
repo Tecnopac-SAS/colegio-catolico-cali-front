@@ -4,5 +4,5 @@ export class User{
   public email="";
   public password="";
   public idRole=0
-  public isActive=0
+  public isActive=1
 }

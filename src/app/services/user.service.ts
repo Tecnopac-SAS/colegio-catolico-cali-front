@@ -13,6 +13,7 @@ export class UserService {
 
   public name: any;
   public role: any;
+  public id: any;
 
   constructor( private _htpp:HttpClient,) { }
 
@@ -64,6 +65,17 @@ export class UserService {
       this.name= null;
     }
     return this.name;
+  }
+
+  getId():Observable<any>{
+    let id = localStorage.getItem('id');
+    if(id){
+      this.id = id
+    }
+    else {
+      this.id= null;
+    }
+    return this.id;
   }
 
 }

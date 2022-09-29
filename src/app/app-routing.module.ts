@@ -6,7 +6,11 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { CreateUserComponent } from './component/user-manager/create-user/create-user.component';
 import { IndexUserComponent } from './component/user-manager/index-user/index-user.component';
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
-import { HomepageComponent } from './componente/homepage/homepage.component';
+import { HomepageComponent } from './component/homepage/homepage.component';
+import { PeriodIndexComponent } from './component/period/period-index/period-index.component';
+import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
+import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
+import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -15,6 +19,10 @@ const routes: Routes = [
   {path: 'sidebar', component: SidebarComponent },
   {path: 'listar-usuarios', component: IndexUserComponent },
   {path: 'inicio', component: HomepageComponent },
+  {path: 'inscripcion', component: InscriptionIndexComponent },
+  {path: 'periodo', component: PeriodIndexComponent },
+  {path: 'periodo-crear', component: PeriodCreateComponent },
+  {path: 'inscripcion-crear', component: InscriptionCreateComponent },
 ];
 
 @NgModule({

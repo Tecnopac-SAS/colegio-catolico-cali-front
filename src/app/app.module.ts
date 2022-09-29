@@ -11,7 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
-import { HomepageComponent } from './componente/homepage/homepage.component';
+import { HomepageComponent } from './component/homepage/homepage.component';
+import { PeriodIndexComponent } from './component/period/period-index/period-index.component';
+import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
+import { PeriodChangeComponent } from './component/period/period-change/period-change.component';
+import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
+import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,12 @@ import { HomepageComponent } from './componente/homepage/homepage.component';
     IndexUserComponent,
     SidebarComponent,
     NavTitleComponent,
-    HomepageComponent
+    HomepageComponent,
+    PeriodIndexComponent,
+    PeriodCreateComponent,
+    PeriodChangeComponent,
+    InscriptionIndexComponent,
+    InscriptionCreateComponent
   ],
   imports: [
     BrowserModule,

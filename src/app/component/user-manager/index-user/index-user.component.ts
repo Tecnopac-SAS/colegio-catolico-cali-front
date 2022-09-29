@@ -16,7 +16,8 @@ export class IndexUserComponent implements OnInit {
   formValue !:FormGroup
   public navTitle:any
   public dataUsers:any
-
+  role !: any;
+  isActive !: any;
   userModel:User = new User();
 
   constructor(
@@ -49,14 +50,19 @@ export class IndexUserComponent implements OnInit {
   }
 
   editUser(user:any){
-
+    this.roleList();
+    this.userModel.id = user.id
     this.formValue.controls['name'].setValue(user.name)
     this.formValue.controls['email'].setValue(user.email)
-    this.formValue.controls['password'].setValue(user.password)
     this.formValue.controls['role'].setValue(user.idRole)
-    this.formValue.controls['isActive'].setValue(user.isActive)
 
-    this.userModel.id = user.id
+    if (user.isActive==0) {
+      this.formValue.controls['isActive'].setValue(0)
+
+    } else {
+      this.formValue.controls['isActive'].setValue(1)
+    }
+
   }
 
   updateUser(){
@@ -67,17 +73,54 @@ export class IndexUserComponent implements OnInit {
     this.userModel.idRole= this.formValue.value.idRole;
     this.userModel.isActive= this.formValue.value.isActive;
 
-    this.userService.updateUser(this.userModel.id,this.userModel)
-    .subscribe(res=>{
+    if (this.userModel.password=="") {
 
       Swal.fire(
-        'Usuario actualizado!',
+        'El campo contraseña no puede estar vacio!',
         '',
-        'success'
+        'warning'
        )
-      this.listUsers()
-    })
+    }
 
+    else if (this.userModel.isActive==null) {
+
+      Swal.fire(
+        'El campo estado no puede estar vacio!',
+        '',
+        'warning'
+       )
+    }
+
+    else {
+      this.userService.updateUser(this.userModel.id,this.userModel)
+      .subscribe(res=>{
+
+        Swal.fire(
+          'Usuario actualizado!',
+          '',
+          'success'
+         )
+        this.listUsers()
+      })
+
+      this.formValue= this.formBuilder.group({
+        name:[''],
+        email:[''],
+        password:[''],
+        role:[''],
+        isActive:[''],
+      })
+
+    }
+
+  }
+
+  roleList(){
+    this.userService.getRoles()
+    .subscribe(res=>{
+      this.role=res.result
+      console.log(this.role)
+    })
 
   }
 
