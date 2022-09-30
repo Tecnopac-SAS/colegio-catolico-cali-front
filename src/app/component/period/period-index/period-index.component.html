@@ -9,7 +9,7 @@
           <th scope="col">Identificador</th>
           <th scope="col">Consecutivo</th>
           <th scope="col">Estado</th>
-          <th scope="col">Creado</th>
+          <th scope="col">Fecha de creación</th>
         </tr>
       </thead>
       <tbody *ngFor="let period of dataPeriod; let index = index ">
@@ -18,7 +18,8 @@
           <td>{{period.age}}</td>
           <td>{{period.identifier}}</td>
           <td>{{period.consecutive}}</td>
-          <td>{{period.isActive}}</td>
+          <td *ngIf="period.isActive==0">Inactivo</td>
+          <td *ngIf="period.isActive==1">Activo</td>
           <td>{{period.createdAt}}</td>
           <td>
             <!-- <button  class="btn btn-outline-info" style="width: 38px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editUser(user)"><i class="bi bi-wrench-adjustable"></i></button> -->

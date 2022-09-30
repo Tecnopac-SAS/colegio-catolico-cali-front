@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import Swal from'sweetalert2';
 import * as $ from 'jquery'
 
 @Component({
@@ -40,6 +41,21 @@ export class DashboardComponent implements OnInit {
     else{
       this.router.navigate([''])
     }
+  }
+
+  SignOff(){
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('idRole');
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('id');
+
+    Swal.fire(
+      'Has cerrado sesión correctamente!',
+     )
+
+    this.router.navigate([''])
+
   }
 
   jquery() {

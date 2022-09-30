@@ -50,21 +50,24 @@ export class InscriptionCreateComponent implements OnInit {
     this.inscriptionModel.idUser = this.idUser;
     this.inscriptionModel.idPeriod = this.formValue.value.idPeriod;
 
-    if(this.inscriptionModel.description==""){
-      this.mensaje_error="El campo nombre no puede estar vacio"
+    if(this.inscriptionModel.price <=0 ){
+      this.mensaje_error="El campo precio no puede estar vacio"
     }
 
 
-    else if(this.inscriptionModel.price==0){
-      this.mensaje_error="Debe seleccionar un rol"
+    else if(this.inscriptionModel.description==""){
+      this.mensaje_error="El campo descripción no puede estar vacio"
+    }
+
+    else if(this.inscriptionModel.idPeriod==0){
+      this.mensaje_error="El campo periodo no puede estar vacio"
     }
 
     else{
-      //Cuando salta acá ya esta alimentada la información
       this.inscriptionService.createInscription(this.inscriptionModel)
       .subscribe(res=>{
       console.log(res);
-        if (res.mensaje=="El usuario ya existe") {
+        if (res.mensaje=="La inscripción ya existe") {
           this.mensaje_error=res.mensaje;
         }
         else{

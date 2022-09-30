@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Period } from 'src/app/models/period.model';
 import { PeriodService } from 'src/app/services/period.service';
 import { Router } from '@angular/router';
+import Swal from'sweetalert2';
 
 @Component({
   selector: 'app-period-create',
@@ -24,6 +25,11 @@ export class PeriodCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    Swal.fire(
+      'Recuerde que el cambio de periodo es una vez al año, ¡Esta acción es irreversible!',
+      '',
+      'warning'
+     )
     this.fieldCapture()
   }
 
@@ -38,60 +44,81 @@ export class PeriodCreateComponent implements OnInit {
 
   CrearPeriodo(){
     this.periodModel.age = this.formValue.value.age;
-    this.periodModel.password = this.formValue.value.password;
     this.periodModel.identifier = this.formValue.value.identifier;
     this.periodModel.consecutive = this.formValue.value.consecutive;
 
     if(this.periodModel.age==""){
-      this.mensaje_error="El campo nombre no puede estar vacio"
+      this.mensaje_error="El campo año no puede estar vacio"
     }
 
-    else if(this.periodModel.password==""){
-      this.mensaje_error="El campo correo no puede estar vacio"
+    else if(this.periodModel.identifier==""){
+      this.mensaje_error="El campo identificador no puede estar vacio"
     }
 
     else if(this.periodModel.consecutive==0){
-      this.mensaje_error="Debe seleccionar un rol"
-    }
-
-    else if(this.periodModel.password==""){
-      this.mensaje_error="Digite la contraseña"
+      this.mensaje_error="El campo consecutivo no puede estar vacio"
     }
 
     else{
-      //Cuando salta acá ya esta alimentada la información
-      this.periodService.createPeriod(this.periodModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="El usuario ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-          this.formValue = this.formBuilder.group({
-            age:[''],
-            password: [''],
-            identifier: [''],
-            consecutive: [''],
-          })
-        }
-      },
-      err=>{
-        console.log(err)
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success m-2',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
       })
+
+      swalWithBootstrapButtons.fire({
+        title: '¡Esta acción es irreversible!',
+        text: "¿Desea continuar?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, cambiar periodo!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Cambio de periodo exitoso!',
+            '',
+            'success'
+          )
+          this.periodService.createPeriod(this.periodModel)
+          .subscribe(res=>{
+          console.log(res);
+            if (res.mensaje=="El periodo ya existe") {
+              this.mensaje_error=res.mensaje;
+            }
+            else{
+              this.mensaje_ok="Se registro correctamente"
+              this.formValue = this.formBuilder.group({
+                age:[''],
+                identifier: [''],
+                consecutive: [''],
+              })
+            }
+          },
+          err=>{
+            console.log(err)
+          })
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Proceso cancelado',
+            '',
+            'error'
+          )
+        }
+      })
+
+
     }
   }
   cerrarAlerta(){
     this.mensaje_error=""
   }
 
-  /*roleList(){
-    this.periodService.getRoles()
-    .subscribe(res=>{
-      this.role=res.result
-      console.log(this.role)
-    })
-
-  }*/
 
 }

@@ -82,7 +82,7 @@ export class IndexUserComponent implements OnInit {
        )
     }
 
-    else if (this.userModel.isActive==null) {
+    else if (this.userModel.isActive==2) {
 
       Swal.fire(
         'El campo estado no puede estar vacio!',
@@ -102,16 +102,15 @@ export class IndexUserComponent implements OnInit {
          )
         this.listUsers()
       })
-
-      this.formValue= this.formBuilder.group({
-        name:[''],
-        email:[''],
-        password:[''],
-        role:[''],
-        isActive:[''],
-      })
-
     }
+
+    this.formValue= this.formBuilder.group({
+      name:[''],
+      email:[''],
+      password:[''],
+      role:[''],
+      isActive:[''],
+    })
 
   }
 
