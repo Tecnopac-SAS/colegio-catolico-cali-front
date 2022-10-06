@@ -1,0 +1,92 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="content container my-xl-2">
+    <div class="row">
+      <div class="content-section col-md-12 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="formValue">
+              <div class="row">
+
+                <div *ngIf="mensaje_ok">
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{mensaje_ok}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                </div>
+
+
+                <div *ngIf="mensaje_error">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{mensaje_error}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                      (click)="cerrarAlerta()"></button>
+                  </div>
+                </div>
+                <h4>Nueva matricula</h4>
+                <div class="col-md-1 my-3">
+                  <label class="">Desde</label>
+                </div>
+
+                <div class="col-md-5 my-3">
+                  <select class="form-control" formControlName="idGrade">
+                    <option value="" selected>SELECCIONAR</option>
+                    <option *ngFor="let item of grade" value="{{item.id}}">{{item.description}}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-5">
+                </div>
+
+                <div class="col-md-12 my-4">
+                  <label class="text-primary"><b>Ordinaria</b></label>
+                </div>
+
+                <div class="col-md-1">
+                  <label class="">Inicio</label>
+                </div>
+
+                <div class="col-md-5">
+                  <input type="date" class="form-control" formControlName="startDate">
+                </div>
+
+                <div class="col-md-1">
+                  <label class="">Fin</label>
+                </div>
+
+                <div class="col-md-5">
+                  <input type="date" class="form-control" formControlName="finalDate">
+                </div>
+
+                <div class="col-md-12 my-3">
+
+                </div>
+
+                <div class="col-md-1">
+                  <label class="">Valor</label>
+                </div>
+                <div class="col-md-5">
+                  <input type="number" class="form-control" formControlName="price">
+                </div>
+
+
+              </div>
+
+              <div class="col-md-6 my-4">
+                <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
+
+                <button type="submit" class="btn btn-primary m-3" (click)="CrearMatricula()"> Guardar</button>
+
+              </div>
+
+            </form>
+          </div>
+         <hr class="bg-danger">
+       <app-tuitio-extra-create></app-tuitio-extra-create>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>
+
+

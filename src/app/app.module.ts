@@ -17,6 +17,9 @@ import { PeriodCreateComponent } from './component/period/period-create/period-c
 import { PeriodChangeComponent } from './component/period/period-change/period-change.component';
 import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
+import { TuitionIndexComponent } from './component/tuition/tuition-index/tuition-index.component';
+import { TuitionCreateComponent } from './component/tuition/tuition-create/tuition-create.component';
+import { TuitioExtraCreateComponent } from './component/tuition/tuitio-extra-create/tuitio-extra-create.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { InscriptionCreateComponent } from './component/incription/inscription-c
     PeriodCreateComponent,
     PeriodChangeComponent,
     InscriptionIndexComponent,
-    InscriptionCreateComponent
+    InscriptionCreateComponent,
+    TuitionIndexComponent,
+    TuitionCreateComponent,
+    TuitioExtraCreateComponent
   ],
   imports: [
     BrowserModule,

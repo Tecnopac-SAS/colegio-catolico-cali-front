@@ -14,14 +14,14 @@ export class InscriptionService {
   constructor(private _htpp:HttpClient) { }
 
   listInscription(){
-    return this._htpp.get<any>(base_url+'grade/listarGrados')
+    return this._htpp.get<any>(base_url+'inscription/listarInscription')
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
   createInscription(data:any){
-    return this._htpp.post<any>(base_url+'grade/crearGrado',data)
+    return this._htpp.post<any>(base_url+'inscription/crearInscription',data)
     .pipe(map((res:any)=>{
       return res;
     }))

@@ -11,6 +11,9 @@ import { PeriodIndexComponent } from './component/period/period-index/period-ind
 import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
 import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
+import { TuitionIndexComponent } from './component/tuition/tuition-index/tuition-index.component';
+import { TuitionCreateComponent } from './component/tuition/tuition-create/tuition-create.component';
+
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -23,6 +26,8 @@ const routes: Routes = [
   {path: 'periodo', component: PeriodIndexComponent },
   {path: 'periodo-crear', component: PeriodCreateComponent },
   {path: 'inscripcion-crear', component: InscriptionCreateComponent },
+  {path: 'matriculas-crear', component: TuitionCreateComponent },
+  {path: 'matriculas', component: TuitionIndexComponent },
 ];
 
 @NgModule({
