@@ -1,0 +1,111 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="row justify-content-end">
+        <div class="col-md-3 col-12 my-2">
+          <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+              <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                <div class="input-group-append">
+                  <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+              </div>
+                  <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+              </div>
+          </form>
+      </div>
+      <div class="col-md-1 col-4 my-2">
+        <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+      </div>
+      <div class="col-md-3 col-8 my-2">
+        <button type="button" class="btn btn-primary" routerLink="/extracurriculares-crear">Agregar matricula</button>
+      </div>
+  </div>
+  <div class="view">
+    <table class="table table-hover table-bordered table-responsive-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Imagenes<noscript></noscript></th>
+          <th scope="col">Actividad</th>
+          <th scope="col">Inicio</th>
+          <th scope="col">Termina</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Docente</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let data of dataExtracurricular; let index = index ">
+        <tr>
+          <td>{{index+1}}</td>
+          <td>{{data.imagen}}</td>
+          <td>{{data.activity}}</td>
+          <td>{{data.startDate}}</td>
+          <td>{{data.finalDate}}</td>
+          <td *ngIf="data.isActive==0">Inactivo</td>
+          <td *ngIf="data.isActive==1">Activo</td>
+          <td>{{data.teacher}}</td>
+          <td>
+            <button  class="btn btn-outline-info" style="width: 38px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editTuition(data)"><i class="bi bi-wrench-adjustable"></i></button>
+          </td>
+        </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+</app-dashboard>
+<!-- Modal -->
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modificar datos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue">
+          <div class="container">
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Grado</label>
+              <select class="form-control" formControlName="grade">
+                <option value="" selected>SELECCIONAR</option>
+                <option *ngFor="let item of grade" value="{{item.id}}">{{item.description}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Precio</label>
+              <input type="number" formControlName="price" class="form-control">
+            </div>
+
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Tipo de matricula</label>
+              <select class="form-control" formControlName="description">
+                <option value="2" selected>SELECCIONAR</option>
+                <option value="Ordinaria">Ordinaria</option>
+                <option value="ExtraOrdinaria">ExtraOrdinaria</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Estado</label>
+              <select class="form-control" formControlName="isActive">
+                <option value="2" selected>SELECCIONAR</option>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
+            </div>
+
+
+
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateTuition()">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+

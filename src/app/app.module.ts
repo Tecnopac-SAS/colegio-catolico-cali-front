@@ -20,6 +20,8 @@ import { InscriptionCreateComponent } from './component/incription/inscription-c
 import { TuitionIndexComponent } from './component/tuition/tuition-index/tuition-index.component';
 import { TuitionCreateComponent } from './component/tuition/tuition-create/tuition-create.component';
 import { TuitioExtraCreateComponent } from './component/tuition/tuitio-extra-create/tuitio-extra-create.component';
+import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
+import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { TuitioExtraCreateComponent } from './component/tuition/tuitio-extra-cre
     InscriptionCreateComponent,
     TuitionIndexComponent,
     TuitionCreateComponent,
-    TuitioExtraCreateComponent
+    TuitioExtraCreateComponent,
+    ExtracurricularIndexComponent,
+    ExtracurricularCreateComponent
   ],
   imports: [
     BrowserModule,

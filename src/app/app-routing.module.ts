@@ -13,6 +13,8 @@ import { InscriptionIndexComponent } from './component/incription/inscription-in
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
 import { TuitionIndexComponent } from './component/tuition/tuition-index/tuition-index.component';
 import { TuitionCreateComponent } from './component/tuition/tuition-create/tuition-create.component';
+import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
+import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
 
 
 const routes: Routes = [
@@ -28,6 +30,8 @@ const routes: Routes = [
   {path: 'inscripcion-crear', component: InscriptionCreateComponent },
   {path: 'matriculas-crear', component: TuitionCreateComponent },
   {path: 'matriculas', component: TuitionIndexComponent },
+  {path: 'extracurriculares', component: ExtracurricularIndexComponent },
+  {path: 'extracurriculares-crear', component: ExtracurricularCreateComponent },
 ];
 
 @NgModule({
