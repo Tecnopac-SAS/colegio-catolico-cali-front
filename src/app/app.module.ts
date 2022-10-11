@@ -22,6 +22,8 @@ import { TuitionCreateComponent } from './component/tuition/tuition-create/tuiti
 import { TuitioExtraCreateComponent } from './component/tuition/tuitio-extra-create/tuitio-extra-create.component';
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
+import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
+import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ExtracurricularCreateComponent } from './component/extracurricular/extr
     TuitionCreateComponent,
     TuitioExtraCreateComponent,
     ExtracurricularIndexComponent,
-    ExtracurricularCreateComponent
+    ExtracurricularCreateComponent,
+    PensionIndexComponent,
+    PensionCreateComponent
   ],
   imports: [
     BrowserModule,

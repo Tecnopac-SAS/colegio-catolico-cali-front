@@ -34,8 +34,23 @@ export class ExtracurricularService {
     }))
   }
 
+  createExtracurricularFile(data:any){
+    const fd = new FormData();
+    fd.append('imagen',data.imagen);
+    fd.append('startDate',data.startDate);
+    fd.append('finalDate',data.finalDate);
+    fd.append('teacher',data.teacher);
+    fd.append('activity',data.activity);
+    fd.append('price',data.price);
+    fd.append('isActive',data.isActive);
+    fd.append('information',data.information);
+    fd.append('schedule',data.schedule);
+
+    return this._htpp.post(base_url+'extracurricular/CrearExtracurricular',fd);
+  }
+
   updateExtracurricular(id:any, data:any){
-    return this._htpp.put<any>(base_url+'tuitionType/actualizarTuition/'+id,data)
+    return this._htpp.put<any>(base_url+'extracurricular/actualizarExtracurricular/'+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))

@@ -15,6 +15,8 @@ import { TuitionIndexComponent } from './component/tuition/tuition-index/tuition
 import { TuitionCreateComponent } from './component/tuition/tuition-create/tuition-create.component';
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
+import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
+import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 
 
 const routes: Routes = [
@@ -32,6 +34,9 @@ const routes: Routes = [
   {path: 'matriculas', component: TuitionIndexComponent },
   {path: 'extracurriculares', component: ExtracurricularIndexComponent },
   {path: 'extracurriculares-crear', component: ExtracurricularCreateComponent },
+  {path: 'pension', component: PensionIndexComponent },
+  {path: 'pension-crear', component: PensionCreateComponent },
+
 ];
 
 @NgModule({

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import Swal from'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-extracurricular-index',
@@ -12,7 +13,7 @@ import Swal from'sweetalert2';
   styleUrls: ['./extracurricular-index.component.css']
 })
 export class ExtracurricularIndexComponent implements OnInit {
-
+  public base_url = environment.url;
   grade !: any;
   navTitle="Extracurricular"
   formValue !:FormGroup
@@ -28,14 +29,16 @@ export class ExtracurricularIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.listExtracurriculares()
+    this.fieldCapture();
   }
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      grade:[''],
-      price: [''],
-      description: [''],
+      activity:[''],
+      startDate: [''],
+      finalDate: [''],
       isActive:[''],
+      teacher:[''],
     })
   }
 
@@ -63,14 +66,14 @@ export class ExtracurricularIndexComponent implements OnInit {
 
   }
 
-  editTuition(tuition:any){
-    this.listExtracurriculares()
-    this.extracurricularModel.id = tuition.id
-    this.formValue.controls['grade'].setValue(tuition.idGrade)
-    this.formValue.controls['price'].setValue(tuition.price)
-    this.formValue.controls['description'].setValue(tuition.description)
+  editExtracurricular(data:any){
+    this.extracurricularModel.id = data.id
+    this.formValue.controls['activity'].setValue(data.activity)
+    this.formValue.controls['startDate'].setValue(data.startDate)
+    this.formValue.controls['finalDate'].setValue(data.finalDate)
+    this.formValue.controls['teacher'].setValue(data.teacher)
 
-    if (tuition.isActive==0) {
+    if (data.isActive==0) {
       this.formValue.controls['isActive'].setValue(0)
 
     } else {
@@ -79,24 +82,16 @@ export class ExtracurricularIndexComponent implements OnInit {
 
   }
 
-  updateTuition(){
+  updateExtracurricular(){
 
-    this.extracurricularModel.imagen= this.formValue.value.grade;
-    this.extracurricularModel.startDate= this.formValue.value.price;
-    this.extracurricularModel.finalDate= this.formValue.value.description;
-    this.extracurricularModel.teacher= this.formValue.value.isActive;
+    this.extracurricularModel.activity= this.formValue.value.activity;
+    this.extracurricularModel.startDate= this.formValue.value.startDate;
+    this.extracurricularModel.finalDate= this.formValue.value.finalDate;
+    this.extracurricularModel.teacher= this.formValue.value.teacher;
+    this.extracurricularModel.isActive= this.formValue.value.isActive;
 
 
-    if (this.extracurricularModel.imagen=="") {
-
-      Swal.fire(
-        'El campo grado no puede estar vacio!',
-        '',
-        'warning'
-       )
-    }
-
-    else if (this.extracurricularModel.isActive==2) {
+     if (this.extracurricularModel.isActive==2) {
 
       Swal.fire(
         'El campo estado no puede estar vacio!',
@@ -111,7 +106,7 @@ export class ExtracurricularIndexComponent implements OnInit {
       .subscribe(res=>{
 
         Swal.fire(
-          'Matricula actualizada!',
+          'Extracurricular actualizada!',
           '',
           'success'
          )
@@ -120,10 +115,11 @@ export class ExtracurricularIndexComponent implements OnInit {
     }
 
     this.formValue = this.formBuilder.group({
-      grade:[''],
-      price: [''],
-      description: [''],
+      activity:[''],
+      startDate: [''],
+      finalDate: [''],
       isActive:[''],
+      teacher:[''],
     })
 
   }

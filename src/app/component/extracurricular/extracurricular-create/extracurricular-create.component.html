@@ -5,7 +5,17 @@
       <div class="content-section col-md-12 mx-auto">
         <div class="cardM card">
          <div class="card-body">
-          <form [formGroup]="formValue">
+          <div class="card-body">
+          </div>
+          <div class="card text-center" style="width: 15rem;height: 15rem">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text"></p>
+              <img  class="" alt="Imagen" [src]=" imgSelect || '../../../../assets/img/default.jpg'" class="rounded-circle img-responsive mt-2" width="128" height="128">
+              <input [(ngModel)]="imageUrl" (change)="imageSelect($event)"  type="file" style="width: 100% !important;">
+            </div>
+          </div>
+          <form #extracurricularForm="ngForm" (ngSubmit)="onSubmit(extracurricularForm)">
             <div class="row">
 
               <div *ngIf="mensaje_ok">
@@ -24,13 +34,8 @@
                 </div>
               </div>
               <h4>Nuevo extracurricular</h4>
-              <div class="card text-center" style="width: 10rem;height: 10rem">
-                <div class="card-body">
-                  <h5 class="card-title"></h5>
-                  <p class="card-text"></p>
-                  <input type="file" class="btn btn-primary form-control" formControlName="imagen">
-                </div>
-              </div>
+
+
 
               <div class="col-md-12 my-3">
                 <label class=""></label>
@@ -41,7 +46,7 @@
               </div>
 
               <div class="col-md-5 my-3">
-                <input type="text" class="form-control" formControlName="activity">
+                <input type="text" class="form-control" #activity="ngModel" name="activity" [(ngModel)]="dataExtracurricular.activity" required>
               </div>
 
               <div class="col-md-5">
@@ -56,7 +61,7 @@
               </div>
 
               <div class="col-md-5">
-                <input type="date" class="form-control" formControlName="startDate">
+                <input type="date" class="form-control" #startDate="ngModel" name="startDate" [(ngModel)]="dataExtracurricular.startDate" required>
               </div>
 
               <div class="col-md-1">
@@ -64,7 +69,7 @@
               </div>
 
               <div class="col-md-5">
-                <input type="date" class="form-control" formControlName="finalDate">
+                <input type="date" class="form-control"  #finalDate="ngModel" name="finalDate" [(ngModel)]="dataExtracurricular.finalDate" required>
               </div>
 
               <div class="col-md-12 my-3">
@@ -75,14 +80,14 @@
                 <label class="">Valor</label>
               </div>
               <div class="col-md-5">
-                <input type="number" class="form-control" formControlName="price">
+                <input type="number" class="form-control"  #price="ngModel" name="price" [(ngModel)]="dataExtracurricular.price"required>
               </div>
 
               <div class="col-md-1">
                 <label class="">Docente</label>
               </div>
               <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="teacher">
+                <input type="text" class="form-control" #teacher="ngModel" name="teacher" [(ngModel)]="dataExtracurricular.teacher"required>
               </div>
 
               <div class="col-md-12 my-3">
@@ -93,14 +98,14 @@
                 <label class="">Información (URL)</label>
               </div>
               <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="information">
+                <input type="text" class="form-control" #information="ngModel" name="information" [(ngModel)]="dataExtracurricular.information"required>
               </div>
 
               <div class="col-md-1">
                 <label class="">Horario (URL)</label>
               </div>
               <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="schedule">
+                <input type="text" class="form-control"  #schedule="ngModel" name="schedule" [(ngModel)]="dataExtracurricular.schedule"required>
               </div>
 
             </div>
@@ -108,7 +113,7 @@
             <div class="col-md-6 my-4">
               <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
 
-              <button type="submit" class="btn btn-primary m-3" (click)="CrearExtracurricular()"> Guardar</button>
+              <button type="submit" class="btn btn-primary m-3"> Guardar</button>
 
             </div>
 
