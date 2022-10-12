@@ -24,6 +24,10 @@ import { ExtracurricularIndexComponent } from './component/extracurricular/extra
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
+import { ServicesIndexComponent } from './component/services-index/services-index.component';
+import { CoursesCreateComponent } from './component/curses/courses-create/courses-create.component';
+import { CoursesIndexComponent } from './component/curses/courses-index/courses-index.component';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +50,10 @@ import { PensionCreateComponent } from './component/pension/pension-create/pensi
     ExtracurricularIndexComponent,
     ExtracurricularCreateComponent,
     PensionIndexComponent,
-    PensionCreateComponent
+    PensionCreateComponent,
+    ServicesIndexComponent,
+    CoursesCreateComponent,
+    CoursesIndexComponent,
   ],
   imports: [
     BrowserModule,

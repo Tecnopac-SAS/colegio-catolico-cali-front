@@ -1,0 +1,32 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="'Bienvenido  ' + name"></app-nav-title>
+  <div class="container">
+    <div class="my-3 row">
+      <div class="col-sm-4" *ngFor="let item of data">
+        <div type="button" routerLink="{{item.url}}" class="card m-0 bg-dark text-white" style="height: auto;">
+          <img class="card-img-top" src="{{item.img}}" alt="Card image">
+          <div class="card-img-overlay">
+            <h5  class="text-center my-sm-1 my-md-3 my-lg-4 my-xl-5 card-text" >{{item.name}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-sm-2">
+
+      </div>
+      <div class="col-12 col-sm-2 m-1">
+        <a type="button" class="btn btn-primary">Cambio de año lectivo</a>
+      </div>
+      <div class="col-12 col-sm-3 m-1">
+        <a type="button" class="btn btn-primary">Activar recargo de mora del 5%</a>
+      </div>
+      <div class="col-12 col-sm-2 m-1">
+        <a  class="btn btn-primary text-center">Valor de inscripción</a>
+      </div>
+      <div class="col-sm-2">
+
+      </div>
+    </div>
+  </div>
+</app-dashboard>

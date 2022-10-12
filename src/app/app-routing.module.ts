@@ -17,7 +17,9 @@ import { ExtracurricularIndexComponent } from './component/extracurricular/extra
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
-
+import { ServicesIndexComponent } from './component/services-index/services-index.component';
+import { CoursesIndexComponent } from './component/curses/courses-index/courses-index.component';
+import { CoursesCreateComponent } from './component/curses/courses-create/courses-create.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -36,6 +38,10 @@ const routes: Routes = [
   {path: 'extracurriculares-crear', component: ExtracurricularCreateComponent },
   {path: 'pension', component: PensionIndexComponent },
   {path: 'pension-crear', component: PensionCreateComponent },
+  {path: 'servicios', component: ServicesIndexComponent },
+  {path: 'cursos', component: CoursesIndexComponent },
+  {path: 'cursos-crear', component: CoursesCreateComponent },
+
 
 ];
 
