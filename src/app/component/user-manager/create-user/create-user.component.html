@@ -7,15 +7,12 @@
           <div class="card-body">
             <form [formGroup]="formValue">
               <div class="row">
-
                 <div *ngIf="mensaje_ok">
                   <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>{{mensaje_ok}}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
                 </div>
-
-
                 <div *ngIf="mensaje_error">
                   <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>{{mensaje_error}}</strong>
@@ -23,34 +20,56 @@
                       (click)="cerrarAlerta()"></button>
                   </div>
                 </div>
+                <h4>Nuevo administrador:</h4>
+                <div class="col-md-12 my-2">
+                </div>
 
-                <div class="col-md-6">
-                  <label>Nombres</label>
+                <div class="col-md-1">
+                  <label class="">Nombres</label>
+                </div>
+
+                <div class="col-md-5">
                   <input type="text" class="form-control" formControlName="name">
                 </div>
 
+                <div class="col-md-1">
+                  <label class="">Correo</label>
+                </div>
 
-                <div class="col-md-6">
-                  <label>Correo</label>
+                <div class="col-md-5">
                   <input type="email" class="form-control" formControlName="email">
                 </div>
 
-                <div class="role col-md-6">
-                  <label>Rol</label>
+                <div class="col-md-12 my-4">
+                </div>
+                <div class="col-md-1">
+                  <label class="">Rol</label>
+                </div>
+
+                <div class="col-md-5">
                   <select class="form-control" formControlName="role">
                     <option value="" selected>SELECCIONAR</option>
                     <option *ngFor="let item of role" value="{{item.id}}">{{item.role}}</option>
                   </select>
                 </div>
 
-                <div class="col-md-6">
-                  <label>Contraseña</label>
+                <div class="col-md-1">
+                  <label class="">Contraseña</label>
+                </div>
+
+                <div class="col-md-5">
                   <input type="password" class="form-control" formControlName="password">
                 </div>
+
               </div>
 
-              <button type="submit" class="btn btn-outline-info my-3" (click)="CrearUsuario()"> <i
-                  class="bi bi-person-plus-fill"></i> Crear usuario</button>
+              <div class="col-md-6 my-4">
+                <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
+
+                <button type="submit" class="btn btn-primary m-3" (click)="CrearUsuario()"> Guardar</button>
+
+              </div>
+
             </form>
           </div>
         </div>

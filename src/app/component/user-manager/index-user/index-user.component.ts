@@ -13,6 +13,8 @@ import Swal from'sweetalert2';
 })
 export class IndexUserComponent implements OnInit {
 
+  public filter:any;
+  public filterText:any;
   formValue !:FormGroup
   public navTitle:any
   public dataUsers:any
@@ -64,6 +66,23 @@ export class IndexUserComponent implements OnInit {
     }
 
   }
+
+  search(searchForm:any){
+
+    if(this.filterText==""){
+      this.listUsers();
+    }
+
+    else {
+      // this.coursesService.listCourse(searchForm.value.filtro)
+      // .subscribe(res=>{
+      //   this.dataCourse=res.result
+      //   console.log(res.result)
+      // })
+    }
+
+  }
+
 
   updateUser(){
 

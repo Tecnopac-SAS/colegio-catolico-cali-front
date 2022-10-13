@@ -37,7 +37,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.navTitle="Estoy en crear"
+    this.navTitle="Estoy en crear usuario"
     this.fieldCapture()
     this.roleList()
   }
