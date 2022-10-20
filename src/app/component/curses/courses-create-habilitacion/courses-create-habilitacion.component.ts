@@ -6,11 +6,11 @@ import { CoursesService } from 'src/app/services/courses.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-courses-create',
-  templateUrl: './courses-create.component.html',
-  styleUrls: ['./courses-create.component.css']
+  selector: 'app-courses-create-habilitacion',
+  templateUrl: './courses-create-habilitacion.component.html',
+  styleUrls: ['./courses-create-habilitacion.component.css']
 })
-export class CoursesCreateComponent implements OnInit {
+export class CoursesCreateHabilitacionComponent implements OnInit {
 
   course !: any;
   navTitle="cursos crear"
@@ -50,7 +50,7 @@ export class CoursesCreateComponent implements OnInit {
     this.courseModel.finalDate = this.formValueExtra.value.finalDate;
     this.courseModel.price = this.formValueExtra.value.price;
     this.courseModel.teacher = this.formValueExtra.value.teacher;
-    this.courseModel.typeCourse = "verano";;
+    this.courseModel.typeCourse = "habilitacion";;
     this.courseModel.isActive = this.formValueExtra.value.isActive;
 
     if(this.courseModel.asignature =="" ){
@@ -103,6 +103,4 @@ export class CoursesCreateComponent implements OnInit {
   cerrarAlerta(){
     this.mensaje_error=""
   }
-
-
 }

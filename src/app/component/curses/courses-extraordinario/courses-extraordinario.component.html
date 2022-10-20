@@ -1,0 +1,68 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container row ">
+    <div class="col-md-5 col-12 ml-4">
+      <h1>Curso extraordinario</h1>
+    </div>
+   </div>
+  <div class="row justify-content-end">
+        <div class="col-md-3 col-12 my-2">
+          <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+              <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                <div class="input-group-append">
+                  <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+              </div>
+                  <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+              </div>
+          </form>
+      </div>
+      <div class="col-md-1 col-4 my-2">
+        <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+      </div>
+      <div class="col-md-3 col-8 my-2">
+        <button type="button" class="btn btn-primary" routerLink="/cursos-crear-extraordinaria">Agregar curso</button>
+      </div>
+  </div>
+  <div class="view">
+    <table class="table table-hover table-bordered table-responsive-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Asignatura<noscript></noscript></th>
+          <th scope="col">Fecha de inicio</th>
+          <th scope="col">Fecha final</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Docente</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let data of dataCourse; let index = index ">
+        <tr>
+          <td>{{index+1}}</td>
+          <td>{{data.asignature}}</td>
+          <td>{{data.starDate}}</td>
+          <td>{{data.finalDate}}</td>
+          <td>{{data.price}}</td>
+          <td>{{data.teacher}}</td>
+          <td *ngIf="data.isActive==0">Inactivo</td>
+          <td *ngIf="data.isActive==1">Activo</td>
+
+          <td>
+            <button  class="text-info btn"  routerLink="/curso-editar-extraordinaria/{{data.id}}">Editar</button>|
+            <button  class="text-danger btn" routerLink="/producto-editar/{{data.id}}">Desactivar</button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <hr class="container">
+  <app-courses-index></app-courses-index>
+  <hr class="container">
+  <app-courses-habilitacion></app-courses-habilitacion>
+</app-dashboard>
+
+
+
+

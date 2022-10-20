@@ -26,7 +26,17 @@ import { PensionIndexComponent } from './component/pension/pension-index/pension
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 import { ServicesIndexComponent } from './component/services-index/services-index.component';
 import { CoursesCreateComponent } from './component/curses/courses-create/courses-create.component';
-import { CoursesIndexComponent } from './component/curses/courses-index/courses-index.component';
+import { CoursesIndexComponent } from './component/curses/courses-verano/courses-index.component';
+import { CoursesExtraordinarioComponent } from './component/curses/courses-extraordinario/courses-extraordinario.component';
+import { CoursesHabilitacionComponent } from './component/curses/courses-habilitacion/courses-habilitacion.component';
+import { CoursesCreateHabilitacionComponent } from './component/curses/courses-create-habilitacion/courses-create-habilitacion.component';
+import { CoursesCreateExtraordinariaComponent } from './component/curses/courses-create-extraordinaria/courses-create-extraordinaria.component';
+import { CoursesUpdateHabilitacionComponent } from './component/curses/courses-update-habilitacion/courses-update-habilitacion.component';
+import { CoursesUpdateExtraordinariaComponent } from './component/curses/courses-update-extraordinaria/courses-update-extraordinaria.component';
+import { CoursesUpdateVeranoComponent } from './component/curses/courses-update-verano/courses-update-verano.component';
+import { TransportationIndexComponent } from './component/transportation/transportation-index/transportation-index.component';
+import { TransportationCreateComponent } from './component/transportation/transportation-create/transportation-create.component';
+import { TransportationUpdateComponent } from './component/transportation/transportation-update/transportation-update.component';
 
 
 @NgModule({
@@ -54,6 +64,16 @@ import { CoursesIndexComponent } from './component/curses/courses-index/courses-
     ServicesIndexComponent,
     CoursesCreateComponent,
     CoursesIndexComponent,
+    CoursesExtraordinarioComponent,
+    CoursesHabilitacionComponent,
+    CoursesCreateHabilitacionComponent,
+    CoursesCreateExtraordinariaComponent,
+    CoursesUpdateHabilitacionComponent,
+    CoursesUpdateExtraordinariaComponent,
+    CoursesUpdateVeranoComponent,
+    TransportationIndexComponent,
+    TransportationCreateComponent,
+    TransportationUpdateComponent,
   ],
   imports: [
     BrowserModule,

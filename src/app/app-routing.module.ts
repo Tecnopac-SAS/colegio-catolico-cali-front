@@ -18,8 +18,13 @@ import { ExtracurricularCreateComponent } from './component/extracurricular/extr
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 import { ServicesIndexComponent } from './component/services-index/services-index.component';
-import { CoursesIndexComponent } from './component/curses/courses-index/courses-index.component';
+import { CoursesExtraordinarioComponent } from './component/curses/courses-extraordinario/courses-extraordinario.component';
 import { CoursesCreateComponent } from './component/curses/courses-create/courses-create.component';
+import { CoursesCreateExtraordinariaComponent } from './component/curses/courses-create-extraordinaria/courses-create-extraordinaria.component';
+import { CoursesCreateHabilitacionComponent } from './component/curses/courses-create-habilitacion/courses-create-habilitacion.component';
+import { CoursesUpdateVeranoComponent } from './component/curses/courses-update-verano/courses-update-verano.component';
+import { CoursesUpdateExtraordinariaComponent } from './component/curses/courses-update-extraordinaria/courses-update-extraordinaria.component';
+import { CoursesUpdateHabilitacionComponent } from './component/curses/courses-update-habilitacion/courses-update-habilitacion.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -39,8 +44,13 @@ const routes: Routes = [
   {path: 'pension', component: PensionIndexComponent },
   {path: 'pension-crear', component: PensionCreateComponent },
   {path: 'servicios', component: ServicesIndexComponent },
-  {path: 'cursos', component: CoursesIndexComponent },
-  {path: 'cursos-crear', component: CoursesCreateComponent },
+  {path: 'cursos-extraordinaria', component: CoursesExtraordinarioComponent },
+  {path: 'cursos-crear-verano', component: CoursesCreateComponent },
+  {path: 'cursos-crear-habilitacion', component: CoursesCreateHabilitacionComponent },
+  {path: 'cursos-crear-extraordinaria', component: CoursesCreateExtraordinariaComponent },
+  {path: 'curso-editar-verano/:id',component: CoursesUpdateVeranoComponent},
+  {path: 'curso-editar-extraordinaria/:id',component: CoursesUpdateExtraordinariaComponent},
+  {path: 'curso-editar-habilitacion/:id',component: CoursesUpdateHabilitacionComponent},
 
 
 ];

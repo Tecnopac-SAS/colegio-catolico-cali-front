@@ -7,14 +7,13 @@ import { FormGroup } from '@angular/forms';
 import Swal from'sweetalert2';
 
 @Component({
-  selector: 'app-courses-index',
-  templateUrl: './courses-index.component.html',
-  styleUrls: ['./courses-index.component.css']
+  selector: 'app-courses-extraordinario',
+  templateUrl: './courses-extraordinario.component.html',
+  styleUrls: ['./courses-extraordinario.component.css']
 })
-export class CoursesIndexComponent implements OnInit {
-
+export class CoursesExtraordinarioComponent implements OnInit {
   grade !: any;
-  navTitle="Cursos index"
+  navTitle="Cursos extraordinario"
   formValue !:FormGroup
   public dataCourse:any
   public filter:any;
@@ -42,7 +41,7 @@ export class CoursesIndexComponent implements OnInit {
   }
 
   listcourses(){
-    this.coursesService.listCourses()
+    this.coursesService.listCourse("extraordinaria")
     .subscribe(res=>{
       this.dataCourse=res.result
       console.log(this.dataCourse)
@@ -56,7 +55,7 @@ export class CoursesIndexComponent implements OnInit {
     }
 
     else {
-      this.coursesService.listCourse(searchForm.value.filtro)
+      this.coursesService.listAsignature(searchForm.value.filtro)
       .subscribe(res=>{
         this.dataCourse=res.result
         console.log(res.result)

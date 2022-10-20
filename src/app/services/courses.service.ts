@@ -26,6 +26,20 @@ export class CoursesService {
     }))
   }
 
+  listAsignature(params:any){
+    return this._htpp.get<any>(base_url+'course/listarAsignature/'+params)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  obtenerCurso(id:number){
+    return this._htpp.get<any>(base_url+'course/listarAsignatureId/'+id)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
   createCourse(data:any){
     return this._htpp.post<any>(base_url+'course/Crearcourse',data)
     .pipe(map((res:any)=>{
@@ -33,7 +47,7 @@ export class CoursesService {
     }))
   }
 
-  updateCourse(id:any, data:any){
+  updateCourse(data:any, id:number,){
     return this._htpp.put<any>(base_url+'course/actualizarCourse/'+id,data)
     .pipe(map((res:any)=>{
       return res;

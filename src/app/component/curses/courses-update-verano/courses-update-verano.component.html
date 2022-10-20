@@ -5,7 +5,7 @@
       <div class="content-section col-md-12 mx-auto">
         <div class="card">
          <div class="card-body">
-          <form [formGroup]="formValueExtra">
+          <form [formGroup]="formValue">
             <div class="row">
 
               <div *ngIf="mensaje_ok">
@@ -23,7 +23,7 @@
                     (click)="cerrarAlerta()"></button>
                 </div>
               </div>
-              <h4>Nueva verano:</h4>
+              <h4>Nueva extraordinaria:</h4>
               <div class="col-md-1 my-2">
                 <label class="">Asignatura</label>
               </div>
@@ -76,7 +76,7 @@
             <div class="col-md-6 my-4">
               <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
 
-              <button type="submit" class="btn btn-primary m-3" (click)="CrearCourse()"> Guardar</button>
+              <button type="submit" class="btn btn-primary m-3" (click)="actualizarCourse()" > Guardar</button>
 
             </div>
 
@@ -87,8 +87,3 @@
     </div>
   </div>
 </app-dashboard>
-
-
-
-
-

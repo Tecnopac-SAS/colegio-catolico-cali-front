@@ -1,5 +1,8 @@
-<app-dashboard>
-  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+<div class="container row ">
+  <div class="col-md-5 col-12 ml-4">
+    <h1>Curso de Habilitación</h1>
+  </div>
+ </div>
   <div class="row justify-content-end">
         <div class="col-md-3 col-12 my-2">
           <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
@@ -15,7 +18,7 @@
         <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
       </div>
       <div class="col-md-3 col-8 my-2">
-        <button type="button" class="btn btn-primary" routerLink="/cursos-crear">Agregar curso</button>
+        <button type="button" class="btn btn-primary" routerLink="/cursos-crear-habilitacion">Agregar curso</button>
       </div>
   </div>
   <div class="view">
@@ -43,13 +46,15 @@
           <td *ngIf="data.isActive==1">Activo</td>
 
           <td>
-            <button  class="btn btn-outline-info" style="width: 38px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-wrench-adjustable"></i></button>
+            <button  class="text-info btn"  routerLink="/curso-editar-habilitacion/{{data.id}}">Editar</button>|
+            <button  class="text-danger btn" routerLink="/producto-editar/{{data.id}}">Desactivar</button>
           </td>
         </tr>
 
       </tbody>
     </table>
   </div>
-</app-dashboard>
+
+
 
 
