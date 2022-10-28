@@ -20,14 +20,14 @@
     "id": 3,
     "name": "Descuento",
     "img": "assets/img-services/descuentos.png",
-    "url": "/matriculas"
+    "url": "/discount"
 
   },
   {
     "id": 4,
     "name": "Certificados",
     "img": "assets/img-services/certificados.png",
-    "url": "/matriculas"
+    "url": "/certificate"
 
   },
   {
@@ -49,21 +49,21 @@
     "id": 7,
     "name": "Medias tecnicas",
     "img": "assets/img-services/medias-tecnicas.png",
-    "url": "/matriculas"
+    "url": "/medias-tecnica"
 
   },
   {
     "id": 8,
     "name": "Cafeteria",
     "img": "assets/img-services/certificados.png",
-    "url": "/matriculas"
+    "url": "/cafeteria"
 
   },
   {
     "id": 9,
     "name": "Transporte",
     "img": "assets/img-services/transporte.png",
-    "url": "/matriculas"
+    "url": "/transporte"
 
   },
   {
@@ -77,7 +77,7 @@
     "id": 11,
     "name": "Documentos de matricula",
     "img": "assets/img-services/documentos-matricula.png",
-    "url": "/matriculas"
+    "url": "/documentos-matricula"
 
   },
   {

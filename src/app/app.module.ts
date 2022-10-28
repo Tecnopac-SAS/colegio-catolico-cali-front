@@ -37,6 +37,21 @@ import { CoursesUpdateVeranoComponent } from './component/curses/courses-update-
 import { TransportationIndexComponent } from './component/transportation/transportation-index/transportation-index.component';
 import { TransportationCreateComponent } from './component/transportation/transportation-create/transportation-create.component';
 import { TransportationUpdateComponent } from './component/transportation/transportation-update/transportation-update.component';
+import { CafereriaIndexComponent } from './component/cafeteria/cafereria-index/cafereria-index.component';
+import { CafereriaCreateComponent } from './component/cafeteria/cafereria-create/cafereria-create.component';
+import { CafereriaUpdateComponent } from './component/cafeteria/cafereria-update/cafereria-update.component';
+import { DiscountIndexComponent } from './component/discount/discount-index/discount-index.component';
+import { DiscountCreateComponent } from './component/discount/discount-create/discount-create.component';
+import { DiscountUpdateComponent } from './component/discount/discount-update/discount-update.component';
+import { CertificateIndexComponent } from './component/certificate/certificate-index/certificate-index.component';
+import { CertificateCreateComponent } from './component/certificate/certificate-create/certificate-create.component';
+import { CertificateUpdateComponent } from './component/certificate/certificate-update/certificate-update.component';
+import { TechnicalIndexComponent } from './component/technical/technical-index/technical-index.component';
+import { TechnicalCreateComponent } from './component/technical/technical-create/technical-create.component';
+import { TechnicalUpdateComponent } from './component/technical/technical-update/technical-update.component';
+import { DocumentosMatriculaIndexComponent } from './component/documentos-matricula/documentos-matricula-index/documentos-matricula-index.component';
+import { DocumentosMatriculaCreateComponent } from './component/documentos-matricula/documentos-matricula-create/documentos-matricula-create.component';
+import { DocumentosMatriculaUpdateComponent } from './component/documentos-matricula/documentos-matricula-update/documentos-matricula-update.component';
 
 
 @NgModule({
@@ -74,6 +89,21 @@ import { TransportationUpdateComponent } from './component/transportation/transp
     TransportationIndexComponent,
     TransportationCreateComponent,
     TransportationUpdateComponent,
+    CafereriaIndexComponent,
+    CafereriaCreateComponent,
+    CafereriaUpdateComponent,
+    DiscountIndexComponent,
+    DiscountCreateComponent,
+    DiscountUpdateComponent,
+    CertificateIndexComponent,
+    CertificateCreateComponent,
+    CertificateUpdateComponent,
+    TechnicalIndexComponent,
+    TechnicalCreateComponent,
+    TechnicalUpdateComponent,
+    DocumentosMatriculaIndexComponent,
+    DocumentosMatriculaCreateComponent,
+    DocumentosMatriculaUpdateComponent,
   ],
   imports: [
     BrowserModule,

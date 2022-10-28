@@ -1,0 +1,91 @@
+
+[
+  {
+      "id": 1,
+      "name": "Matriculas",
+      "img": "assets/img-services/matriculas.png",
+      "url": "/matriculas"
+
+
+  },
+  {
+    "id": 2,
+    "name": "Pensión",
+    "img": "assets/img-services/pension.png",
+    "url": "/pension"
+
+  }
+  ,
+  {
+    "id": 3,
+    "name": "Descuento",
+    "img": "assets/img-services/descuentos.png",
+    "url": "/matriculas"
+
+  },
+  {
+    "id": 4,
+    "name": "Certificados",
+    "img": "assets/img-services/certificados.png",
+    "url": "/matriculas"
+
+  },
+  {
+    "id": 5,
+    "name": "Cursos",
+    "img": "assets/img-services/cursos.png",
+    "url": "/cursos-extraordinaria"
+
+  },
+
+  {
+    "id": 6,
+    "name": "Extracurriculares",
+    "img": "assets/img-services/extracurriculares.png",
+    "url": "/extracurriculares"
+
+  },
+  {
+    "id": 7,
+    "name": "Medias tecnicas",
+    "img": "assets/img-services/medias-tecnicas.png",
+    "url": "/matriculas"
+
+  },
+  {
+    "id": 8,
+    "name": "Cafeteria",
+    "img": "assets/img-services/certificados.png",
+    "url": "/matriculas"
+
+  },
+  {
+    "id": 9,
+    "name": "Transporte",
+    "img": "assets/img-services/transporte.png",
+    "url": "/matriculas"
+
+  },
+  {
+    "id": 10,
+    "name": "Configuración de textos",
+    "img": "assets/img-services/configuracion-textos.png",
+    "url": "/matriculas"
+
+  },
+  {
+    "id": 11,
+    "name": "Documentos de matricula",
+    "img": "assets/img-services/documentos-matricula.png",
+    "url": "/matriculas"
+
+  },
+  {
+    "id": 12,
+    "name": "Periodos escolares",
+    "img": "assets/img-services/periodo-escolares.png",
+    "url": "/matriculas"
+
+  }
+
+]

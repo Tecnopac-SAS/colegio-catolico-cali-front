@@ -29,10 +29,13 @@ export class LoginComponent implements OnInit {
     private formBuilder:FormBuilder,
     private loginService:LoginService,
     private router:Router
-  ) { }
+  ) {
+    this.token= this.loginService.getToken();
+   }
 
   ngOnInit(): void {
     this.fieldCapture();
+    this.sessionValidation();
   }
 
   fieldCapture(){
@@ -94,7 +97,7 @@ export class LoginComponent implements OnInit {
             this.loginService.login(this.formValue.value).subscribe(
               response=>{
                 console.log(response)
-                this.router.navigate(['inicio'])
+                this.router.navigate(['servicios'])
               },
               error=>{
                 console.log(error)
@@ -124,6 +127,15 @@ export class LoginComponent implements OnInit {
       })
     }
 
+  }
+
+  sessionValidation(){
+    if(this.token){
+      this.router.navigate(['servicios'])
+    }
+    else{
+      this.router.navigate([''])
+    }
   }
 
 

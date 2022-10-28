@@ -16,13 +16,13 @@
 
       </div>
       <div class="col-12 col-sm-2 m-1">
-        <a type="button" class="btn btn-primary">Cambio de año lectivo</a>
+        <a type="button" class="btn btn-primary" data-bs-toggle="modal" href="#anioModalToggle">Cambio de año lectivo</a>
       </div>
       <div class="col-12 col-sm-3 m-1">
-        <a type="button" class="btn btn-primary">Activar recargo de mora del 5%</a>
+        <a type="button" class="btn btn-primary" data-bs-toggle="modal" href="#recargoModalToggle">Activar recargo de mora del 5%</a>
       </div>
       <div class="col-12 col-sm-2 m-1">
-        <a  class="btn btn-primary text-center">Valor de inscripción</a>
+        <a  class="btn btn-primary text-center" data-bs-toggle="modal" href="#inscripcionModalToggle">Valor de inscripción</a>
       </div>
       <div class="col-sm-2">
 
@@ -30,3 +30,126 @@
     </div>
   </div>
 </app-dashboard>
+
+<div id="modalAñoLectivo">
+  <div class="modal fade" id="anioModalToggle" aria-hidden="true" aria-labelledby="anioModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <br>
+          <br>
+          <br>
+          <h4 class="text-center text-primary">"Esta acción es irreversible"</h4>
+          <br>
+          <div class="text-center">
+          <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary m-2" data-bs-target="#anioModalToggle2" data-bs-toggle="modal">Aceptar</button>
+          <br>
+          <br>
+          <br>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="anioModalToggle2" aria-hidden="true" aria-labelledby="anioModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h4 class="text-center text-primary">Ingrese clave de seguridad</h4>
+          <br>
+          <input type="password" class="form-control" id="anioInputPassword1" placeholder="Password">
+          <br>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary m-2" data-bs-target="#anioModalToggle2" data-bs-toggle="modal">Continuar</button>
+            <br>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalRecargo">
+  <div class="modal fade" id="recargoModalToggle" aria-hidden="true" aria-labelledby="recargoModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <br>
+          <br>
+          <br>
+          <h4 class="text-center text-primary">"Esta acción es irreversible"</h4>
+          <br>
+          <div class="text-center">
+          <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary m-2" data-bs-target="#recargoModalToggle2" data-bs-toggle="modal">Aceptar</button>
+          <br>
+          <br>
+          <br>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="recargoModalToggle2" aria-hidden="true" aria-labelledby="recargoModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h4 class="text-center text-primary">Ingrese clave de seguridad</h4>
+          <br>
+          <input type="password" class="form-control" id="anioInputPassword1" placeholder="Password">
+          <br>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary m-2" data-bs-target="#recargoModalToggle2" data-bs-toggle="modal">Continuar</button>
+            <br>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalInscripcion">
+  <div class="modal fade" id="inscripcionModalToggle" aria-hidden="true" aria-labelledby="inscripcionModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <br>
+          <br>
+          <br>
+          <h4 class="text-center text-primary">"Esta acción es irreversible"</h4>
+          <br>
+          <div class="text-center">
+          <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary m-2" data-bs-target="#inscripcionModalToggle2" data-bs-toggle="modal">Aceptar</button>
+          <br>
+          <br>
+          <br>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="inscripcionModalToggle2" aria-hidden="true" aria-labelledby="inscripcionModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h4 class="text-center text-primary">Ingrese clave de seguridad</h4>
+          <br>
+          <input type="password" class="form-control" id="anioInputPassword1" placeholder="Password">
+          <br>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary m-2" data-bs-target="#inscripcionModalToggle2" data-bs-toggle="modal">Continuar</button>
+            <br>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

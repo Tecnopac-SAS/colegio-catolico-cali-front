@@ -1,0 +1,106 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="content container my-xl-2">
+    <div class="row">
+      <div class="content-section col-md-12 mx-auto">
+        <div class="card">
+         <div class="card-body">
+          <form [formGroup]="formValue">
+            <div class="row">
+
+              <div *ngIf="mensaje_ok">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_ok}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+
+
+              <div *ngIf="mensaje_error">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_error}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    (click)="cerrarAlerta()"></button>
+                </div>
+              </div>
+              <h4>Nuevo descuento:</h4>
+
+              <div class="col-md-12 my-2">
+              </div>
+
+              <div class="col-md-2">
+                <label class="">Nombre del descuento</label>
+              </div>
+
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="name">
+              </div>
+
+              <div class="col-md-2">
+                <label class="">Porcentaje del descuento</label>
+              </div>
+
+              <div class="col-md-4">
+                <input type="number" class="form-control" formControlName="percentage">
+              </div>
+
+              <div class="col-md-12 my-4">
+              </div>
+
+              <div class="col-md-2">
+                <label class="">Inicio</label>
+              </div>
+
+              <div class="col-md-4">
+                <input type="date" class="form-control" formControlName="starDate">
+              </div>
+
+              <div class="col-md-2">
+                <label class="">Termina</label>
+              </div>
+
+              <div class="col-md-4">
+                <input type="date" class="form-control" formControlName="finalDate">
+              </div>
+
+              <div class="col-md-12 my-4">
+              </div>
+
+              <div class="col-md-2">
+                <label class="">Frecuencia</label>
+              </div>
+
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="frequency">
+              </div>
+
+              <div class="col-md-2">
+                <label class="">Servicio aplicar</label>
+              </div>
+
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="service">
+              </div>
+            </div>
+
+            <div class="col-md-6 my-4">
+              <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
+
+              <button type="submit" class="btn btn-primary m-3" (click)="CrearDiscount()"> Guardar</button>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>
+
+
+
+
+
+
+

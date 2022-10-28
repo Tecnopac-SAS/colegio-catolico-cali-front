@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CoursesService } from 'src/app/services/courses.service';
-import { Course } from 'src/app/models/course.model';
+import { TransportationService } from 'src/app/services/transportation.service';
+import { Transportation } from 'src/app/models/transportation.model';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -14,120 +14,84 @@ import Swal from'sweetalert2';
 export class TransportationIndexComponent implements OnInit {
 
   grade !: any;
-  navTitle="Cursos extraordinario"
+  navTitle="Transporte"
   formValue !:FormGroup
-  public dataCourse:any
+  public dataTransportation:any
   public filter:any;
   public filterText:any;
-  courseModel:Course = new Course();
+  TransportationModel:Transportation = new Transportation();
+  id !: any;
   constructor(
     private formBuilder:FormBuilder,
-    private coursesService:CoursesService,
+    private transportationService:TransportationService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
-    this.listcourses()
+    this.listTransportations()
     this.fieldCapture()
   }
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      price: [''],
-      idGrade: [''],
-      use: [''],
-      isActive:[''],
-      discount:[''],
+      routeName: [''],
+      routeNumber: [''],
+      responsible: [''],
+      price:[''],
+      isActive:['']
+
     })
   }
 
-  listcourses(){
-    this.coursesService.listCourse("extraordinaria")
+  listTransportations(){
+    this.transportationService.listTransportes()
     .subscribe(res=>{
-      this.dataCourse=res.result
-      console.log(this.dataCourse)
+      this.dataTransportation=res.result
+      console.log(this.dataTransportation)
     })
   }
 
   search(searchForm:any){
 
     if(this.filterText==""){
-      this.listcourses();
+      this.listTransportations();
     }
 
     else {
-      this.coursesService.listAsignature(searchForm.value.filtro)
+      this.transportationService.listTransporte(searchForm.value.filtro)
       .subscribe(res=>{
-        this.dataCourse=res.result
+        this.dataTransportation=res.result
         console.log(res.result)
       })
     }
 
   }
 
-  editcourse(course:any){
-    this.courseModel.id = course.id
-    this.formValue.controls['idGrade'].setValue(course.idGrade)
-    this.formValue.controls['price'].setValue(course.price)
-    this.formValue.controls['discount'].setValue(course.discount)
-
-    if (course.isActive==0) {
-      this.formValue.controls['isActive'].setValue(0)
-
-    } else {
-      this.formValue.controls['isActive'].setValue(1)
+  deshabilitar(data:any){
+   this.TransportationModel.isActive = data.isActive
+    if (data.isActive==0) {
+      this.TransportationModel.isActive= 1;
+      Swal.fire(
+        'Transporte habilitado!',
+        '',
+        'success'
+       )
     }
+
+    else if (data.isActive=1) {
+      this.TransportationModel.isActive= 0;
+      Swal.fire(
+        'Transporte deshabilitado!',
+        '',
+        'warning'
+       )
+    }
+    this.transportationService.deshabilitar(this.TransportationModel,data.id)
+    .subscribe(res=>{
+    this.listTransportations()
+    })
+
 
   }
 
-  // updatecourse(){
-
-  //   this.courseModel.price= this.formValue.value.price;
-  //   this.courseModel.discount= this.formValue.value.discount;
-  //   this.courseModel.isActive= this.formValue.value.isActive;
-  //   this.courseModel.idGrade= this.formValue.value.idGrade;
-
-
-
-  //   if (this.courseModel.price==0) {
-
-  //     Swal.fire(
-  //       'El campo precio no puede estar vacio!',
-  //       '',
-  //       'warning'
-  //      )
-  //   }
-
-  //   else if (this.courseModel.isActive==2) {
-
-  //     Swal.fire(
-  //       'El campo estado no puede estar vacio!',
-  //       '',
-  //       'warning'
-  //      )
-  //   }
-
-  //   else {
-  //     console.log(this.courseModel)
-  //     this.courseService.updatecourse(this.courseModel.id,this.courseModel)
-  //     .subscribe(res=>{
-
-  //       Swal.fire(
-  //         'Pensión actualizada!',
-  //         '',
-  //         'success'
-  //        )
-  //       this.listcourses()
-  //     })
-  //   }
-
-  //   this.formValue = this.formBuilder.group({
-  //     price: [''],
-  //     idGrade: [''],
-  //     use: [''],
-  //     isActive:[''],
-  //     discount:[''],
-  //   })
-
-  // }
 }
