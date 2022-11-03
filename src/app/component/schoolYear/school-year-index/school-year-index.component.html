@@ -2,7 +2,7 @@
   <app-nav-title [navTitle]="navTitle"></app-nav-title>
   <div class="container row ">
     <div class="col-md-5 col-12 ml-4">
-      <h1>Medias tecnicas</h1>
+      <h1>Periodos</h1>
     </div>
    </div>
   <div class="row justify-content-end">
@@ -20,7 +20,7 @@
         <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
       </div>
       <div class="col-md-3 col-8 my-2">
-        <button type="button" class="btn btn-primary" routerLink="/medias-tecnica-crear">Agregar media tecnica</button>
+        <button type="button" class="btn btn-primary" routerLink="/año-lectivo-crear">Agregar</button>
       </div>
   </div>
   <div class="view">
@@ -28,28 +28,22 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Asignatura<noscript></noscript></th>
-          <th scope="col">Fecha de inicio</th>
-          <th scope="col">Fecha final</th>
-          <th scope="col">Valor</th>
-          <th scope="col">Docente</th>
+          <th scope="col">Código del estudiante<noscript></noscript></th>
+          <th scope="col">Año lectivo</th>
           <th scope="col">Estado</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
-      <tbody *ngFor="let data of dataTechnical; let index = index ">
+      <tbody *ngFor="let data of dataSchoolYear; let index = index ">
         <tr>
           <td>{{index+1}}</td>
-          <td>{{data.course}}</td>
-          <td>{{data.startDate |date:'dd/MM/yy'}}</td>
-          <td>{{data.finalDate |date:'dd/MM/yy'}}</td>
-          <td>{{data.price}}</td>
-          <td>{{data.teacher}}</td>
+          <td>{{data.code}}</td>
+          <td>{{data.age}}</td>
           <td *ngIf="data.isActive==0">Inactivo</td>
           <td *ngIf="data.isActive==1">Activo</td>
 
           <td>
-            <button  class="text-info btn"  routerLink="/medias-tecnica-editar/{{data.id}}">Editar</button>|
+            <button  class="text-info btn"  routerLink="/año-lectivo-editar/{{data.id}}">Editar</button>|
             <button  class="text-danger btn" (click)="deshabilitar(data)">Desactivar</button>
           </td>
         </tr>
@@ -57,6 +51,8 @@
     </table>
   </div>
 </app-dashboard>
+
+
 
 
 

@@ -38,8 +38,8 @@
         <tr>
           <td>{{index+1}}</td>
           <td>{{data.asignature}}</td>
-          <td>{{data.starDate}}</td>
-          <td>{{data.finalDate}}</td>
+          <td>{{data.starDate |date:'dd/MM/yy'}}</td>
+          <td>{{data.finalDate |date:'dd/MM/yy'}}</td>
           <td>{{data.price}}</td>
           <td>{{data.teacher}}</td>
           <td *ngIf="data.isActive==0">Inactivo</td>

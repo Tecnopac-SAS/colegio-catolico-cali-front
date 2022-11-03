@@ -41,8 +41,8 @@
           </td>
 
           <td>{{data.activity}}</td>
-          <td>{{data.startDate}}</td>
-          <td>{{data.finalDate}}</td>
+          <td>{{data.startDate |date:'dd/MM/yy'}}</td>
+          <td>{{data.finalDate |date:'dd/MM/yy'}}</td>
           <td *ngIf="data.isActive==0">Inactivo</td>
           <td *ngIf="data.isActive==1">Activo</td>
           <td>{{data.teacher}}</td>

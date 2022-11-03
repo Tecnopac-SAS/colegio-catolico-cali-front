@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
             this.loginService.login(this.formValue.value).subscribe(
               response=>{
                 console.log(response)
-                this.router.navigate(['servicios'])
+                this.router.navigate(['home'])
               },
               error=>{
                 console.log(error)
@@ -131,7 +131,7 @@ export class LoginComponent implements OnInit {
 
   sessionValidation(){
     if(this.token){
-      this.router.navigate(['servicios'])
+      this.router.navigate(['home'])
     }
     else{
       this.router.navigate([''])

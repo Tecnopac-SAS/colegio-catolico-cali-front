@@ -1,12 +1,12 @@
 <app-dashboard>
-  <app-nav-title [navTitle]="'Bienvenido  ' + name"></app-nav-title>
+  <app-nav-title [navTitle]="'Hola  ' + name"></app-nav-title>
   <div class="container">
     <div class="my-3 row">
       <div class="col-sm-4" *ngFor="let item of data">
         <div type="button" routerLink="{{item.url}}" class="card m-0 bg-dark text-white" style="height: auto;">
           <img class="card-img-top" src="{{item.img}}" alt="Card image">
           <div class="card-img-overlay">
-            <h5  class="text-center my-sm-1 my-md-3 my-lg-4 my-xl-5 card-text" >{{item.name}}</h5>
+            <h5  class="text-center p-sm-1 p-md-3 p-lg-5 my-sm-1 my-md-3 my-lg-4 my-xl-5 card-text" >{{item.name}}</h5>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
           <br>
           <br>
           <br>
-          <h4 class="text-center text-primary">"Esta acción es irreversible"</h4>
+          <h4 class="text-center text-primary">¿Estás seguro de que quieres modificar el valor de la inscripción?</h4>
           <br>
           <div class="text-center">
           <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Cancelar</button>
@@ -138,12 +138,16 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
-          <h4 class="text-center text-primary">Ingrese clave de seguridad</h4>
           <br>
-          <input type="password" class="form-control" id="anioInputPassword1" placeholder="Password">
+          <br>
+          <br>
+          <h4 class="text-center text-primary">Valor de la inscripción</h4>
+          <br>
+          <input type="number" class="form-control" id="anioInputPassword1" placeholder="$">
           <br>
           <div class="text-center">
-            <button type="button" class="btn btn-primary m-2" data-bs-target="#inscripcionModalToggle2" data-bs-toggle="modal">Continuar</button>
+            <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary m-2" data-bs-target="#inscripcionModalToggle2" data-bs-toggle="modal">Guardar</button>
             <br>
             <br>
             <br>

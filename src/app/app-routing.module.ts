@@ -43,10 +43,14 @@ import { TechnicalUpdateComponent } from './component/technical/technical-update
 import { DocumentosMatriculaIndexComponent } from './component/documentos-matricula/documentos-matricula-index/documentos-matricula-index.component';
 import { DocumentosMatriculaCreateComponent } from './component/documentos-matricula/documentos-matricula-create/documentos-matricula-create.component';
 import { DocumentosMatriculaUpdateComponent } from './component/documentos-matricula/documentos-matricula-update/documentos-matricula-update.component';
+import { SchoolYearIndexComponent } from './component/schoolYear/school-year-index/school-year-index.component';
+import { SchoolYearCreateComponent } from './component/schoolYear/school-year-create/school-year-create.component';
+import { SchoolYearUpdateComponent } from './component/schoolYear/school-year-update/school-year-update.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
   {path: 'dashboard', component: DashboardComponent },
+  {path: 'home', component: HomepageComponent },
   {path: 'crear-usuario', component: CreateUserComponent },
   {path: 'sidebar', component: SidebarComponent },
   {path: 'listar-usuarios', component: IndexUserComponent },
@@ -87,7 +91,9 @@ const routes: Routes = [
   {path: 'documentos-matricula',component: DocumentosMatriculaIndexComponent},
   {path: 'documentos-matricula-editar/:id',component: DocumentosMatriculaUpdateComponent},
   {path: 'documentos-matricula-crear',component: DocumentosMatriculaCreateComponent},
-
+  {path: 'año-lectivo',component: SchoolYearIndexComponent},
+  {path: 'año-lectivo-crear',component: SchoolYearCreateComponent},
+  {path: 'año-lectivo-editar/:id',component: SchoolYearUpdateComponent},
 
 ];
 

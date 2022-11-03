@@ -52,6 +52,9 @@ import { TechnicalUpdateComponent } from './component/technical/technical-update
 import { DocumentosMatriculaIndexComponent } from './component/documentos-matricula/documentos-matricula-index/documentos-matricula-index.component';
 import { DocumentosMatriculaCreateComponent } from './component/documentos-matricula/documentos-matricula-create/documentos-matricula-create.component';
 import { DocumentosMatriculaUpdateComponent } from './component/documentos-matricula/documentos-matricula-update/documentos-matricula-update.component';
+import { SchoolYearIndexComponent } from './component/schoolYear/school-year-index/school-year-index.component';
+import { SchoolYearCreateComponent } from './component/schoolYear/school-year-create/school-year-create.component';
+import { SchoolYearUpdateComponent } from './component/schoolYear/school-year-update/school-year-update.component';
 
 
 @NgModule({
@@ -104,6 +107,9 @@ import { DocumentosMatriculaUpdateComponent } from './component/documentos-matri
     DocumentosMatriculaIndexComponent,
     DocumentosMatriculaCreateComponent,
     DocumentosMatriculaUpdateComponent,
+    SchoolYearIndexComponent,
+    SchoolYearCreateComponent,
+    SchoolYearUpdateComponent,
   ],
   imports: [
     BrowserModule,
