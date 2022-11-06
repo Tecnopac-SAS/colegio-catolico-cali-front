@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -26,6 +27,20 @@ export class LoginService {
     let headers = new HttpHeaders().set('Content-Type','application/json')
     return this._htpp.post(base_url +'user/login',json,{headers:headers})
 
+  }
+
+  generarCaptcha(){
+    return this._htpp.get<any>(base_url+'user/generarCaptcha')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  recuperarContrasena(params:any){
+    return this._htpp.get<any>(base_url+'user/recuperarPass/'+params)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
   }
 
   getToken():Observable<any>{

@@ -55,6 +55,7 @@ import { DocumentosMatriculaUpdateComponent } from './component/documentos-matri
 import { SchoolYearIndexComponent } from './component/schoolYear/school-year-index/school-year-index.component';
 import { SchoolYearCreateComponent } from './component/schoolYear/school-year-create/school-year-create.component';
 import { SchoolYearUpdateComponent } from './component/schoolYear/school-year-update/school-year-update.component';
+import { RecoveryPasswordComponent } from './component/user-manager/recovery-password/recovery-password.component';
 
 
 @NgModule({
@@ -110,6 +111,7 @@ import { SchoolYearUpdateComponent } from './component/schoolYear/school-year-up
     SchoolYearIndexComponent,
     SchoolYearCreateComponent,
     SchoolYearUpdateComponent,
+    RecoveryPasswordComponent,
   ],
   imports: [
     BrowserModule,

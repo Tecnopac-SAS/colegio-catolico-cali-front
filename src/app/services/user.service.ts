@@ -31,6 +31,8 @@ export class UserService {
     }))
   }
 
+
+
   updateUser(id:any, data:any){
     return this._htpp.put<any>(base_url+'user/actualizarUsuario/'+id,data)
     .pipe(map((res:any)=>{
