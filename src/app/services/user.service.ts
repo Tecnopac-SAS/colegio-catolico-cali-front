@@ -31,10 +31,22 @@ export class UserService {
     }))
   }
 
-
+  obtenerUsuario(params:any){
+    return this._htpp.get<any>(base_url+'user/listarUsuario/'+params)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   updateUser(id:any, data:any){
     return this._htpp.put<any>(base_url+'user/actualizarUsuario/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  updatePassword(id:any, data:any){
+    return this._htpp.put<any>(base_url+'user/nuevaContrasena/'+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))

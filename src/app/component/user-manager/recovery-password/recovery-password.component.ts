@@ -78,11 +78,10 @@ restablecerContrasena(){
       '',
       'warning'
      )
-     console.log("cap " + this.captcha)
-     console.log("code " + this.formValue.value.code)
      this.generarCap();
      this.formValue= this.formBuilder.group({
-
+      email:[''],
+      captcha:[''],
       code:['']
     })
   }
@@ -101,11 +100,12 @@ restablecerContrasena(){
 
         else{
           Swal.fire(
-            'Se ha restablecido la contraseña!',
+            'Se ha enviado un link a su correo!',
             '',
             'success'
            )
 
+           this.router.navigate([''])
         }
       },
       error=>{

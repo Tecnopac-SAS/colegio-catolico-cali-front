@@ -47,6 +47,7 @@ import { SchoolYearIndexComponent } from './component/schoolYear/school-year-ind
 import { SchoolYearCreateComponent } from './component/schoolYear/school-year-create/school-year-create.component';
 import { SchoolYearUpdateComponent } from './component/schoolYear/school-year-update/school-year-update.component';
 import { RecoveryPasswordComponent } from './component/user-manager/recovery-password/recovery-password.component';
+import { NewPasswordComponent } from './component/user-manager/new-password/new-password.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -96,6 +97,7 @@ const routes: Routes = [
   {path: 'año-lectivo-crear',component: SchoolYearCreateComponent},
   {path: 'año-lectivo-editar/:id',component: SchoolYearUpdateComponent},
   {path: 'recuperar-contrasena',component: RecoveryPasswordComponent},
+  {path: 'nueva-contrasena/:id',component: NewPasswordComponent},
 
 ];
 

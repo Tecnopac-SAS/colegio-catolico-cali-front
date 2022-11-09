@@ -56,6 +56,7 @@ import { SchoolYearIndexComponent } from './component/schoolYear/school-year-ind
 import { SchoolYearCreateComponent } from './component/schoolYear/school-year-create/school-year-create.component';
 import { SchoolYearUpdateComponent } from './component/schoolYear/school-year-update/school-year-update.component';
 import { RecoveryPasswordComponent } from './component/user-manager/recovery-password/recovery-password.component';
+import { NewPasswordComponent } from './component/user-manager/new-password/new-password.component';
 
 
 @NgModule({
@@ -112,6 +113,7 @@ import { RecoveryPasswordComponent } from './component/user-manager/recovery-pas
     SchoolYearCreateComponent,
     SchoolYearUpdateComponent,
     RecoveryPasswordComponent,
+    NewPasswordComponent,
   ],
   imports: [
     BrowserModule,
