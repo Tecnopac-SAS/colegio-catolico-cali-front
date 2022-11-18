@@ -55,4 +55,17 @@ export class LoginService {
 
     return this.token;
   }
+
+  getId():Observable<any>{
+    let token = localStorage.getItem('id');
+    if(token){
+      this.token = token
+    }
+
+    else {
+      this.token= null;
+    }
+
+    return this.token;
+  }
 }

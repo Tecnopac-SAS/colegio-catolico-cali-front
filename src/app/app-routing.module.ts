@@ -48,6 +48,12 @@ import { SchoolYearCreateComponent } from './component/schoolYear/school-year-cr
 import { SchoolYearUpdateComponent } from './component/schoolYear/school-year-update/school-year-update.component';
 import { RecoveryPasswordComponent } from './component/user-manager/recovery-password/recovery-password.component';
 import { NewPasswordComponent } from './component/user-manager/new-password/new-password.component';
+import { AttendingManagementsIndexComponent } from './component/attendingManagements/attending-managements-index/attending-managements-index.component';
+import { AttendingManagementsUpdateComponent } from './component/attendingManagements/attending-managements-update/attending-managements-update.component';
+import { AttendingManagementsCreateComponent } from './component/attendingManagements/attending-managements-create/attending-managements-create.component';
+import { TeacherIndexComponent } from './component/teacher/teacher-index/teacher-index.component';
+import { TeacherCreateComponent } from './component/teacher/teacher-create/teacher-create.component';
+import { TeacherUpdateComponent } from './component/teacher/teacher-update/teacher-update.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -98,6 +104,12 @@ const routes: Routes = [
   {path: 'año-lectivo-editar/:id',component: SchoolYearUpdateComponent},
   {path: 'recuperar-contrasena',component: RecoveryPasswordComponent},
   {path: 'nueva-contrasena/:id',component: NewPasswordComponent},
+  {path: 'gestion-acudiente',component: AttendingManagementsIndexComponent},
+  {path: 'gestion-acudiente-editar/:id',component: AttendingManagementsUpdateComponent},
+  {path: 'gestion-acudiente-crear',component: AttendingManagementsCreateComponent},
+  {path: 'docente',component: TeacherIndexComponent},
+  {path: 'docente-editar/:id',component: TeacherUpdateComponent},
+  {path: 'docente-crear',component: TeacherCreateComponent},
 
 ];
 

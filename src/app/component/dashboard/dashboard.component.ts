@@ -117,6 +117,4 @@ export class DashboardComponent implements OnInit {
     })(jQuery); // End of use strict
  }
 
-
-
 }

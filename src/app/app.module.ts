@@ -57,6 +57,12 @@ import { SchoolYearCreateComponent } from './component/schoolYear/school-year-cr
 import { SchoolYearUpdateComponent } from './component/schoolYear/school-year-update/school-year-update.component';
 import { RecoveryPasswordComponent } from './component/user-manager/recovery-password/recovery-password.component';
 import { NewPasswordComponent } from './component/user-manager/new-password/new-password.component';
+import { AttendingManagementsIndexComponent } from './component/attendingManagements/attending-managements-index/attending-managements-index.component';
+import { AttendingManagementsCreateComponent } from './component/attendingManagements/attending-managements-create/attending-managements-create.component';
+import { AttendingManagementsUpdateComponent } from './component/attendingManagements/attending-managements-update/attending-managements-update.component';
+import { TeacherIndexComponent } from './component/teacher/teacher-index/teacher-index.component';
+import { TeacherCreateComponent } from './component/teacher/teacher-create/teacher-create.component';
+import { TeacherUpdateComponent } from './component/teacher/teacher-update/teacher-update.component';
 
 
 @NgModule({
@@ -114,6 +120,12 @@ import { NewPasswordComponent } from './component/user-manager/new-password/new-
     SchoolYearUpdateComponent,
     RecoveryPasswordComponent,
     NewPasswordComponent,
+    AttendingManagementsIndexComponent,
+    AttendingManagementsCreateComponent,
+    AttendingManagementsUpdateComponent,
+    TeacherIndexComponent,
+    TeacherCreateComponent,
+    TeacherUpdateComponent,
   ],
   imports: [
     BrowserModule,

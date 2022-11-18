@@ -27,4 +27,18 @@ export class InscriptionService {
     }))
   }
 
+  actualizarPrecio(data:any){
+    return this._htpp.post<any>(base_url+'inscription/actualizarValorInscription',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  actualizarPrecio2(data: any):Observable<any>{
+    let json = data;
+    //return this._htpp.put(base_url +'schoolYear/actualizarAnioLectivo/'+id,data)
+    return this._htpp.post(base_url +'inscription/actualizarValorInscription/',json)
+
+  }
+
 }

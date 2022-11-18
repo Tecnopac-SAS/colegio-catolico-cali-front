@@ -55,4 +55,24 @@ export class SchoolYearService {
       return res;
     }))
   }
+
+  cambioAnioLectivo2(){
+    return this._htpp.put<any>(base_url+'schoolYear/actualizarAnioLectivo/','')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  cambioAnioLectivo(user: any,getToken=null):Observable<any>{
+    let json = user;
+    if(getToken!=null){
+      user.token= true
+    }
+    let headers = new HttpHeaders().set('Content-Type','application/json')
+    //return this._htpp.put(base_url +'schoolYear/actualizarAnioLectivo/'+id,data)
+    return this._htpp.post(base_url +'schoolYear/actualizarAnioLectivo',json,{headers:headers})
+
+  }
 }
+//return this._htpp.put<any>(base_url+'schoolYear/actualizarSchoolYear/'+id,data)
+
