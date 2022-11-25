@@ -1,0 +1,47 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="'Estadisticas'"></app-nav-title>
+    <div class="container">
+      <div class="m-3 row">
+        <div class="col-sm-12 col-md-6" type="button" routerLink="/estudiantes-matriculados" >  
+            <div class="m-2  card bg-personalizado">
+                <div class="col-12">
+                <h4  class="text-left p-sm-1 p-md-2 p-lg-2 my-sm-1 my-md-2 my-lg-2 my-xl-2 card-text text-primary" >Estudiantes Activos/Matriculados.</h4>
+                </div>
+                <div class="col-12">
+                <h4  class="text-left p-sm-1 p-md-2 p-lg-2 my-sm-1 my-md-2 my-lg-2 my-xl-5 card-text text-black">Número de estudiantes: {{dataMatriculados}}</h4>
+                </div> 
+            </div>
+      </div>
+      <div class="col-sm-12 col-md-6" type="button" routerLink="/estudiantes-desertados"> 
+        <div class="m-2 card bg-personalizado">
+            <div class="col-12">
+              <h4  class="text-left p-sm-1 p-md-2 p-lg-2 my-sm-1 my-md-2 my-lg-2 my-xl-2 card-text text-primary" >Estudiantes desertores tales por años lectivos</h4>
+            </div>
+            <div class="col-12">
+              <h4  class="text-left p-sm-1 p-md-2 p-lg-2 my-sm-1 my-md-2 my-lg-2 my-xl-5 card-text text-black">Número de estudiantes: {{dataDesertores}}</h4>
+            </div> 
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6" type="button" routerLink="/estudiantes-inscritos"> 
+        <div class="m-2 card bg-personalizado">
+            <div class="col-12">
+              <h4  class="text-left p-sm-1 p-md-2 p-lg-2 my-sm-1 my-md-2 my-lg-2 my-xl-2 card-text text-primary" >Estudiantes inscritos totales por años lectivos.</h4>
+            </div>
+            <div class="col-12">
+              <h4  class="text-left p-sm-1 p-md-2 p-lg-2 my-sm-1 my-md-2 my-lg-2 my-xl-5 card-text text-black">Número de estudiantes: {{dataInscritos}}</h4>
+            </div> 
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6" type="button" routerLink="/estudiantes-graduados"> 
+        <div class="m-2  card bg-personalizado">
+            <div class="col-12">
+              <h4  class="text-left p-sm-1 p-md-2 p-lg-2 my-sm-1 my-md-2 my-lg-2 my-xl-2 card-text text-primary" >Estudiantes graduados totales por años lectivos.</h4>
+            </div>
+            <div class="col-12">
+              <h4  class="text-left p-sm-1 p-md-2 p-lg-2 my-sm-1 my-md-2 my-lg-2 my-xl-5 card-text text-black">Número de estudiantes: {{dataGraduados}}</h4>
+            </div> 
+        </div>
+    </div>
+      </div>
+    </div>
+  </app-dashboard>

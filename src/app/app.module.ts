@@ -63,6 +63,17 @@ import { AttendingManagementsUpdateComponent } from './component/attendingManage
 import { TeacherIndexComponent } from './component/teacher/teacher-index/teacher-index.component';
 import { TeacherCreateComponent } from './component/teacher/teacher-create/teacher-create.component';
 import { TeacherUpdateComponent } from './component/teacher/teacher-update/teacher-update.component';
+import { StudentDatabaseIndexComponent } from './component/studentDatabase/student-database-index/student-database-index.component';
+import { StudentDatabaseMatriculadosComponent } from './component/studentDatabase/student-database-matriculados/student-database-matriculados.component';
+import { StudentDatabaseInscritosComponent } from './component/studentDatabase/student-database-inscritos/student-database-inscritos.component';
+import { StudentDatabaseSinInscribirComponent } from './component/studentDatabase/student-database-sin-inscribir/student-database-sin-inscribir.component';
+import { StudentDatabaseRetiradosComponent } from './component/studentDatabase/student-database-retirados/student-database-retirados.component';
+import { StudentDatabaseDesertadosComponent } from './component/studentDatabase/student-database-desertados/student-database-desertados.component';
+import { StudentDatabaseGraduadosComponent } from './component/studentDatabase/student-database-graduados/student-database-graduados.component';
+import { StatisticsComponent } from './component/studentDatabase/statistics/statistics.component';
+import { LevelingIndexComponent } from './component/leveling/leveling-index/leveling-index.component';
+import { LevelingCreateComponent } from './component/leveling/leveling-create/leveling-create.component';
+import { LevelingUpdateComponent } from './component/leveling/leveling-update/leveling-update.component';
 
 
 @NgModule({
@@ -126,6 +137,17 @@ import { TeacherUpdateComponent } from './component/teacher/teacher-update/teach
     TeacherIndexComponent,
     TeacherCreateComponent,
     TeacherUpdateComponent,
+    StudentDatabaseIndexComponent,
+    StudentDatabaseMatriculadosComponent,
+    StudentDatabaseInscritosComponent,
+    StudentDatabaseSinInscribirComponent,
+    StudentDatabaseRetiradosComponent,
+    StudentDatabaseDesertadosComponent,
+    StudentDatabaseGraduadosComponent,
+    StatisticsComponent,
+    LevelingIndexComponent,
+    LevelingCreateComponent,
+    LevelingUpdateComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AttendingManagements } from 'src/app/models/attendingManagements.model';
-import { AttendingManagementsService } from 'src/app/services/attending-managements.service';
+import { StudentDatabase } from 'src/app/models/studentDatabase.model';
+import { StudentDatabaseService } from 'src/app/services/student-database.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -8,29 +8,29 @@ import { LoginService } from 'src/app/services/login.service';
 import Swal from'sweetalert2';
 
 @Component({
-  selector: 'app-attending-managements-index',
-  templateUrl: './attending-managements-index.component.html',
-  styleUrls: ['./attending-managements-index.component.css']
+  selector: 'app-student-database-retirados',
+  templateUrl: './student-database-retirados.component.html',
+  styleUrls: ['./student-database-retirados.component.css']
 })
-export class AttendingManagementsIndexComponent implements OnInit {
+export class StudentDatabaseRetiradosComponent implements OnInit {
 
   grade !: any;
-  navTitle="Gestión de acudientes"
+  navTitle="Estudiantes retirados"
   formValue !:FormGroup
-  public dataAttendingManagements:any
+  public dataStudentDatabase:any
   public filter:any;
   public filterText:any;
-  attendingManagementsModel:AttendingManagements = new AttendingManagements();
+  studentDatabaseModel:StudentDatabase = new StudentDatabase();
   id !: any;
   constructor(
     private formBuilder:FormBuilder,
-    private attendingManagementsService:AttendingManagementsService,
+    private StudentDatabaseService:StudentDatabaseService,
     private loginService:LoginService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
-    this.listAttendingManagementss()
+    this.listarCriterio()
     this.fieldCapture()
   }
 
@@ -47,24 +47,24 @@ export class AttendingManagementsIndexComponent implements OnInit {
     })
   }
 
-  listAttendingManagementss(){
-    this.attendingManagementsService.listAttendingManagements()
-    .subscribe(res=>{
-      this.dataAttendingManagements=res.result
-      console.log(this.dataAttendingManagements)
-    })
+  listarCriterio(){
+      this.StudentDatabaseService.listStudentDatabaseTipo("Graduado")
+      .subscribe(res=>{
+        this.dataStudentDatabase=res.result
+        console.log(res.result)
+      })
   }
 
   search(searchForm:any){
 
     if(this.filterText==""){
-      this.listAttendingManagementss();
+      this.listarCriterio()
     }
 
     else {
-      this.attendingManagementsService.listAttendingManagement(searchForm.value.filtro)
+      this.StudentDatabaseService.listStudentDatabase(searchForm.value.filtro,"Matriculado")
       .subscribe(res=>{
-        this.dataAttendingManagements=res.result
+        this.dataStudentDatabase=res.result
         console.log(res.result)
       })
     }
@@ -72,26 +72,50 @@ export class AttendingManagementsIndexComponent implements OnInit {
   }
 
   deshabilitar(data:any){
-   this.attendingManagementsModel.isActive = data.isActive
+   this.studentDatabaseModel.isActive = data.isActive
      if (data.isActive=1) {
-      this.attendingManagementsModel.isActive= 0;
+      this.studentDatabaseModel.isActive= 0;
       Swal.fire(
         'Acudiente deshabilitado!',
         '',
         'warning'
        )
     }
-    this.attendingManagementsService.deshabilitar(this.attendingManagementsModel,data.id)
+    this.StudentDatabaseService.deshabilitar(this.studentDatabaseModel,data.id)
     .subscribe(res=>{
-    this.listAttendingManagementss()
+    //this.listStudentDatabases()
     })
   }
 
+  actualizarEstado(data:any, estado:any){
+     this.studentDatabaseModel.tipo = estado
+     this.StudentDatabaseService.updateStudentDatabaseEstado(this.studentDatabaseModel,data.id)
+     .subscribe(res=>{
+      this.listarCriterio()
+     if (res) {
+      Swal.fire(
+        '¡Cambio de estado exitoso!',
+        '',
+        'success'
+       )
+      
+     } else {
+      Swal.fire(
+        '¡No se logró actualizar el estado!',
+        '',
+        'error'
+       )
+      
+     }
+     })
+   
+  
+   }
 
   activar(data:any){
-    this.attendingManagementsModel.isActive = data.isActive
+    this.studentDatabaseModel.isActive = data.isActive
      if (data.isActive==0) {
-       this.attendingManagementsModel.isActive= 1;
+       this.studentDatabaseModel.isActive= 1;
        Swal.fire(
          'Acudiente habilitado!',
          '',
@@ -99,9 +123,9 @@ export class AttendingManagementsIndexComponent implements OnInit {
         )
      }
  
-     this.attendingManagementsService.deshabilitar(this.attendingManagementsModel,data.id)
+     this.StudentDatabaseService.deshabilitar(this.studentDatabaseModel,data.id)
      .subscribe(res=>{
-     this.listAttendingManagementss()
+     //this.listStudentDatabases()
      })
    }
 
@@ -131,6 +155,5 @@ export class AttendingManagementsIndexComponent implements OnInit {
         }
       )
   }
-  
 
 }

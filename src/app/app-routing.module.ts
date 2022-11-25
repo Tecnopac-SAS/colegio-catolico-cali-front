@@ -54,6 +54,17 @@ import { AttendingManagementsCreateComponent } from './component/attendingManage
 import { TeacherIndexComponent } from './component/teacher/teacher-index/teacher-index.component';
 import { TeacherCreateComponent } from './component/teacher/teacher-create/teacher-create.component';
 import { TeacherUpdateComponent } from './component/teacher/teacher-update/teacher-update.component';
+import { StudentDatabaseIndexComponent } from './component/studentDatabase/student-database-index/student-database-index.component';
+import { StudentDatabaseDesertadosComponent } from './component/studentDatabase/student-database-desertados/student-database-desertados.component';
+import { StudentDatabaseGraduadosComponent } from './component/studentDatabase/student-database-graduados/student-database-graduados.component';
+import { StudentDatabaseInscritosComponent } from './component/studentDatabase/student-database-inscritos/student-database-inscritos.component';
+import { StudentDatabaseMatriculadosComponent } from './component/studentDatabase/student-database-matriculados/student-database-matriculados.component';
+import { StudentDatabaseRetiradosComponent } from './component/studentDatabase/student-database-retirados/student-database-retirados.component';
+import { StudentDatabaseSinInscribirComponent } from './component/studentDatabase/student-database-sin-inscribir/student-database-sin-inscribir.component';
+import { StatisticsComponent } from './component/studentDatabase/statistics/statistics.component';
+import { LevelingIndexComponent } from './component/leveling/leveling-index/leveling-index.component';
+import { LevelingCreateComponent } from './component/leveling/leveling-create/leveling-create.component';
+import { LevelingUpdateComponent } from './component/leveling/leveling-update/leveling-update.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -110,7 +121,18 @@ const routes: Routes = [
   {path: 'docente',component: TeacherIndexComponent},
   {path: 'docente-editar/:id',component: TeacherUpdateComponent},
   {path: 'docente-crear',component: TeacherCreateComponent},
-
+  {path: 'base-estudiantes',component: StudentDatabaseIndexComponent},
+  {path: 'estudiantes-desertados',component: StudentDatabaseDesertadosComponent},
+  {path: 'estudiantes-graduados',component: StudentDatabaseGraduadosComponent},
+  {path: 'estudiantes-inscritos',component: StudentDatabaseInscritosComponent},
+  {path: 'estudiantes-matriculados',component: StudentDatabaseMatriculadosComponent},
+  {path: 'estudiantes-retirados',component: StudentDatabaseRetiradosComponent},
+  {path: 'estudiantes-sin-inscribir',component: StudentDatabaseSinInscribirComponent},
+  {path: 'estudiantes-estadisticas',component: StatisticsComponent},
+  {path: 'nivelaciones',component: LevelingIndexComponent},
+  {path: 'nivelaciones-crear',component: LevelingCreateComponent},
+  {path: 'nivelaciones-editar/:id',component: LevelingUpdateComponent},
+  
 ];
 
 @NgModule({

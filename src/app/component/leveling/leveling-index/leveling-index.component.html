@@ -1,0 +1,68 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+            <div class="card"> 
+              <div class="card-body"> 
+                <div class="container row ">
+                  <div class="col-md-5 col-12 ml-4">
+                    <h5 class="text-info btn">Asignaturas por cursar</h5>
+                  </div>
+                 </div>
+                <div class="row justify-content-end">
+                      <div class="col-md-3 col-12 my-2">
+                        <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                            <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                              <div class="input-group-append">
+                                <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                            </div>
+                                <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-1 col-6 my-2">
+                      <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+                    </div>
+                    <div class="col-md-2 col-6 my-2">
+                        <button  class="btn btn-primary" routerLink="/nivelaciones-crear"> Nueva nivelación</button>
+                      </div>
+                </div>
+                <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código del estudiante<noscript></noscript></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos del estudiante</th>
+                        <th scope="col">Modalidad del curso</th>
+                        <th scope="col">Asignatura a nivelar</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col"  class = "text-center">¿Aprobado?</th>
+                      </tr>
+                    </thead>
+                    <tbody  *ngFor="let data of dataLeveling; let index = index ">
+                      <tr class="align-bottom">
+                        <th scope="row">{{index+1}}</th>
+                        <td >{{data.codigo}}</td>
+                        <td>{{data.nombres}}</td>
+                        <td>{{data.apellidos}}</td>
+                        <td>{{data.ModalidadCurso}}</td>
+                        <td>{{data.asignatura}}</td>
+                        <td *ngIf="data.estadoAprobado==0">Pendiente</td>
+                        <td *ngIf="data.estadoAprobado==1">Cursado</td>
+                        <td>
+                            <button  class="text-info btn" (click)="activar(data)">Si</button>|
+                            <button  class="text-danger btn"(click)="inactivar(data)">No</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+    </div>
+  </app-dashboard>
+  
+  
+
+

@@ -1,0 +1,165 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+            <div class="card"> 
+              <div class="card-body"> 
+                <div class="container row ">
+                  <div class="col-md-5 col-12 ml-4">
+                    <h5 class="text-info btn">Estudiantes</h5>
+                  </div>
+                 </div>
+                <div class="row justify-content-end">
+                      <div class="col-md-3 col-12 my-2">
+                        <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                            <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                              <div class="input-group-append">
+                                <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                            </div>
+                                <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-1 col-4 my-2">
+                      <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+                    </div>
+                </div>
+                <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código del estudiante<noscript></noscript></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos del estudiante</th>
+                        <th scope="col">Doc. Identidad</th>
+                        <th scope="col">Correro electrónico</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col"  class = "text-center">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody  *ngFor="let data of dataStudentDatabase; let index = index ">
+                      <tr class="align-bottom">
+                        <th scope="row">{{index+1}}</th>
+                        <td >{{data.codigo}}</td>
+                        <td>{{data.nombres}}</td>
+                        <td>{{data.apellidos}}</td>
+                        <td>{{data.identificacion}}</td>
+                        <td>{{data.correo}}</td>
+                        <td *ngIf="data.isActive==0">Inactivo</td>
+                        <td *ngIf="data.isActive==1">Activo</td>
+                        <td>
+                            <button  class="text-info btn" data-bs-target="#verModalToggle" data-bs-toggle="modal">Ver</button>|
+                            <button  class="text-danger btn" data-bs-target="#editarModalToggle" data-bs-toggle="modal">Editar</button>|
+                            <button  class="text-warning btn" data-bs-target="#imprimirModalToggle" data-bs-toggle="modal" >Imprim...</button>
+                        </td>
+                      </tr>
+                      <!-- modal cambiar estado -->
+                      <div class="modal fade" id="editarModalToggle" aria-hidden="true" aria-labelledby="editarModalToggleLabel" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-body">
+                              <br>
+                              <h4 class="text-center text-primary">¿Estás seguro de cambiar el estado del estudiante?</h4>
+                              <br>
+                            
+                              <div class="row justify-content-center">
+                                <div class="col-3 align-self-center">
+                                  <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal"(click)="actualizarEstado(data,'Retirado')">Retirado</button>
+                                </div>
+                                <div class="col-3 align-self-center">
+                                  <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal"(click)="actualizarEstado(data,'Graduado')">Graduado</button>
+                                </div>
+                                <div class="col-3 align-self-center">
+                                  <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal"(click)="actualizarEstado(data,'Desertor')">Desertor</button>
+                                </div>
+                                <div class="col-4 my-4 ml-5">
+                                  <button type="button" class="btn btn-outline-danger m-2" data-bs-dismiss="modal">Cancelar</button>
+                                </div>
+                                <div class="col-4 my-4">
+                                  <button type="button" class="btn btn-primary m-2" data-bs-dismiss="modal">Aceptar</button>
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                          <!-- modal ver -->
+                          <div class="modal fade" id="verModalToggle" aria-hidden="true" aria-labelledby="verModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-body">
+                                  <br>
+                                  <h4 class="text-center text-black">¿Que deseas ver?</h4>
+                                  <br>
+                                  <div class="row justify-content-center">
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Estudiante</button>
+                                    </div>
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Acudiente</button>
+                                    </div>
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Madre</button>
+                                    </div>
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Codeudor</button>
+                                    </div>
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Padre</button>
+                                    </div>
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">H.Estudiantes</button>
+                                    </div>
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">H.Clinica</button>
+                                    </div>
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Grupo familiar</button>
+                                    </div>
+                                  
+                                    
+                                    <br>
+                                    <br>
+                                    <br>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- modal imprimir -->
+                          <div class="modal fade" id="imprimirModalToggle" aria-hidden="true" aria-labelledby="imprimirModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-body">
+                                  <br>
+                                  <h4 class="text-center text-primary">Imprimir</h4>
+                                  <br>
+                                  <div class="row justify-content-center">
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Ficha</button>
+                                    </div>
+                                    <div class="col-5 d-grid gap-1 align-self-center">
+                                      <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Constancia</button>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+    </div>
+  </app-dashboard>
+  
+  
+

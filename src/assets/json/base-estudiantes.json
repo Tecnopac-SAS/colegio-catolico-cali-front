@@ -1,0 +1,61 @@
+
+[
+  {
+      "id": 1,
+      "name": "Estudiantes   Activos/Matriculados",
+      "img": "assets/img-base-estudiantes/activos-matriculados.png",
+      "url": "/estudiantes-matriculados"
+
+
+  },
+  {
+    "id": 2,
+    "name": "Estudiantes inscritos",
+    "img": "assets/img-base-estudiantes/inscritos.png",
+    "url": "/estudiantes-inscritos"
+
+  }
+  ,
+  {
+    "id": 3,
+    "name": "Estudiantes sin inscribir",
+    "img": "assets/img-base-estudiantes/sin-inscribir.png",
+    "url": "/estudiantes-sin-inscribir"
+
+  },
+  {
+    "id": 4,
+    "name": "Estudiantes retirados",
+    "img": "assets/img-base-estudiantes/retirados.png",
+    "url": "/estudiantes-retirados"
+
+  },
+  {
+    "id": 5,
+    "name": "Estudiantes desertados",
+    "img": "assets/img-base-estudiantes/desertados.png",
+    "url": "/estudiantes-desertados"
+
+  },
+  {
+    "id": 6,
+    "name": "Estudiantes graduados",
+    "img": "assets/img-base-estudiantes/graduados.png",
+    "url": "/estudiantes-graduados"
+
+  },
+
+  {
+    "id": 7,
+    "name": "Estadisticas",
+    "img": "assets/img-base-estudiantes/estadisticas.png",
+    "url": "/estudiantes-estadisticas"
+
+  },
+  {
+    "id": 8,
+    "name": "Copias de seguridad y descarga de datos",
+    "img": "assets/img-base-estudiantes/copia-seguridad.png",
+    "url": "/"
+  }
+]

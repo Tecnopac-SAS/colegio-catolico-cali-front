@@ -1,0 +1,13 @@
+.card{
+    --bs-card-border-width: -1px;
+  }
+  
+  .bg-personalizado{
+   background-color:  #DEE2E6
+  }
+
+  .col-md-6 {
+    flex: 0 0 auto;
+    width: 48%;
+  }
+
