@@ -23,7 +23,7 @@
                     (click)="cerrarAlerta()"></button>
                 </div>
               </div>
-              <h4>Editar media tecnica:</h4>
+              <h5 class="text-primary">Editar media tecnica:</h5>
 
               <div class="col-md-12 my-2">
               </div>
@@ -33,7 +33,7 @@
               </div>
 
               <div class="col-md-4">
-                <input type="text" class="form-control" formControlName="course">
+                <input type="text" class="form-control" formControlName="course" readonly>
               </div>
 
               <div class="col-md-2">
@@ -79,12 +79,15 @@
               </div>
 
               <div class="col-md-4">
-                <input type="text" class="form-control" formControlName="teacher">
+                <select class="form-control" formControlName="idTeacher">
+                  <option value="" selected>SELECCIONAR</option>
+                  <option *ngFor="let item of teacherData" value="{{item.id}}">{{item.name}}</option>
+                </select> 
               </div>
             </div>
 
             <div class="col-md-6 my-4">
-              <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
+              <button type="submit" class="btn btn-outline-primary m-3" routerLink="/medias-tecnica"> Cancelar</button>
 
               <button type="submit" class="btn btn-primary m-3" (click)="actualizarTechnical()"> Guardar</button>
 

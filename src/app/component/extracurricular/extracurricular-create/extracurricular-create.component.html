@@ -7,6 +7,7 @@
          <div class="card-body">
           <div class="card-body">
           </div>
+          <h5 class="text-primary">Nuevo extracurricular</h5>
           <div class="card text-center" style="width: 15rem;height: 15rem">
             <div class="card-body">
               <h5 class="card-title"></h5>
@@ -33,7 +34,7 @@
                     (click)="cerrarAlerta()"></button>
                 </div>
               </div>
-              <h4>Nuevo extracurricular</h4>
+            
 
 
 
@@ -87,7 +88,10 @@
                 <label class="">Docente</label>
               </div>
               <div class="col-md-5">
-                <input type="text" class="form-control" #teacher="ngModel" name="teacher" [(ngModel)]="dataExtracurricular.teacher"required>
+                <select class="form-control"  #idTeacher="ngModel" name="idTeacher" [(ngModel)]="dataExtracurricular.idTeacher"required>
+                  <option value="" selected>SELECCIONAR</option>
+                  <option *ngFor="let item of teacherData" value="{{item.id}}">{{item.name}}</option>
+                </select> 
               </div>
 
               <div class="col-md-12 my-3">
@@ -98,20 +102,20 @@
                 <label class="">Información (URL)</label>
               </div>
               <div class="col-md-5">
-                <input type="text" class="form-control" #information="ngModel" name="information" [(ngModel)]="dataExtracurricular.information"required>
+                <input type="text" class="form-control" #information="ngModel" name="information" [(ngModel)]="dataExtracurricular.information">
               </div>
 
               <div class="col-md-1">
                 <label class="">Horario (URL)</label>
               </div>
               <div class="col-md-5">
-                <input type="text" class="form-control"  #schedule="ngModel" name="schedule" [(ngModel)]="dataExtracurricular.schedule"required>
+                <input type="text" class="form-control"  #schedule="ngModel" name="schedule" [(ngModel)]="dataExtracurricular.schedule">
               </div>
 
             </div>
 
             <div class="col-md-6 my-4">
-              <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
+              <button class="btn btn-outline-primary m-3" routerLink="/extracurriculares"> Cancelar</button>
 
               <button type="submit" class="btn btn-primary m-3"> Guardar</button>
 

@@ -40,7 +40,7 @@ export class TuitionCreateComponent implements OnInit {
       startDate: [''],
       finalDate: [''],
       surcharge: [''],
-      idGrade: [''],
+      grade: [''],
     })
   }
 
@@ -49,9 +49,9 @@ export class TuitionCreateComponent implements OnInit {
     this.tuitionModel.price = this.formValue.value.price;
     this.tuitionModel.startDate = this.formValue.value.startDate;
     this.tuitionModel.finalDate = this.formValue.value.finalDate;
-    this.tuitionModel.idGrade = this.formValue.value.idGrade;
+    this.tuitionModel.grade = this.formValue.value.grade;
 
-    if(this.tuitionModel.idGrade ==0 ){
+    if(this.tuitionModel.grade =="" ){
       this.mensaje_error="El campo grado no puede estar vacio"
     }
 
@@ -84,8 +84,11 @@ export class TuitionCreateComponent implements OnInit {
             startDate: [''],
             finalDate: [''],
             surcharge: [''],
-            idGrade: [''],
+            grade: [''],
           })
+          setTimeout(() => {
+            this.router.navigate(['matriculas']);
+          }, 2000);
         }
       },
       err=>{

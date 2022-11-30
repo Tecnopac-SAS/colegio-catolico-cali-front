@@ -14,7 +14,7 @@ import Swal from'sweetalert2';
 export class DiscountIndexComponent implements OnInit {
 
   grade !: any;
-  navTitle="Discount"
+  navTitle="Descuentos"
   formValue !:FormGroup
   public dataDiscount:any
   public filter:any;
@@ -70,30 +70,36 @@ export class DiscountIndexComponent implements OnInit {
   }
 
   deshabilitar(data:any){
-   this.DiscountModel.isActive = data.isActive
-    if (data.isActive==0) {
-      this.DiscountModel.isActive= 1;
-      Swal.fire(
-        'habilitado!',
-        '',
-        'success'
-       )
+    this.DiscountModel.isActive = data.isActive
+      if (data.isActive=1) {
+       this.DiscountModel.isActive= 0;
+       Swal.fire(
+         'Descuento deshabilitado!',
+         '',
+         'warning'
+        )
+     }
+     this.DiscountService.deshabilitar(this.DiscountModel,data.id)
+     .subscribe(res=>{
+      this.listDiscounts()
+     })
+   }
+ 
+   activar(data:any){
+     this.DiscountModel.isActive = data.isActive
+      if (data.isActive==0) {
+        this.DiscountModel.isActive= 1;
+        Swal.fire(
+          'Descuento habilitado!',
+          '',
+          'success'
+         )
+      }
+  
+      this.DiscountService.deshabilitar(this.DiscountModel,data.id)
+      .subscribe(res=>{
+      this.listDiscounts()
+      })
     }
-
-    else if (data.isActive=1) {
-      this.DiscountModel.isActive= 0;
-      Swal.fire(
-        'deshabilitado!',
-        '',
-        'warning'
-       )
-    }
-    this.DiscountService.deshabilitar(this.DiscountModel,data.id)
-    .subscribe(res=>{
-    this.listDiscounts()
-    })
-
-
-  }
 
 }

@@ -14,7 +14,7 @@ import Swal from'sweetalert2'
 export class CertificateUpdateComponent implements OnInit {
 
   Certificate !: any;
-  navTitle="descuento editar"
+  navTitle="Certificado editar"
   public dataCertificate:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;

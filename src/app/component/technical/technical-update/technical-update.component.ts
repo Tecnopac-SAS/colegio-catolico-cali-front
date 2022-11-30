@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Technical } from 'src/app/models/technical.model';
 import { TechnicalService } from 'src/app/services/technical.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TeacherService } from 'src/app/services/teacher.service';
 import Swal from'sweetalert2'
 
 @Component({
@@ -13,8 +14,9 @@ import Swal from'sweetalert2'
 })
 export class TechnicalUpdateComponent implements OnInit {
 
+  teacherData !: any;
   Technical !: any;
-  navTitle="descuento editar"
+  navTitle="Editar media técnica"
   public dataTechnical:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
@@ -25,12 +27,14 @@ export class TechnicalUpdateComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private TechnicalService:TechnicalService,
+    private teacherService:TeacherService,
     private router:Router,
     private route : ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     this.fieldCapture()
+    this.idTeacherList()
 
   }
 
@@ -40,7 +44,7 @@ export class TechnicalUpdateComponent implements OnInit {
       startDate: [''],
       finalDate:[''],
       price:[''],
-      teacher:[''],
+      idTeacher:[''],
       isActive:['']
     })
     this.fieldCaptureIndex()
@@ -57,7 +61,7 @@ export class TechnicalUpdateComponent implements OnInit {
           this.formValue.controls['startDate'].setValue(this.Technical.result.startDate)
           this.formValue.controls['finalDate'].setValue(this.Technical.result.finalDate)
           this.formValue.controls['price'].setValue(this.Technical.result.price)
-          this.formValue.controls['teacher'].setValue(this.Technical.result.teacher)
+          this.formValue.controls['idTeacher'].setValue(this.Technical.result.idTeacher)
           this.formValue.controls['isActive'].setValue(this.Technical.result.isActive)
           this.technicalModel.id = this.Technical.result.id
         }
@@ -71,7 +75,7 @@ export class TechnicalUpdateComponent implements OnInit {
     this.technicalModel.startDate= this.formValue.value.startDate;
     this.technicalModel.finalDate= this.formValue.value.finalDate;
     this.technicalModel.price= this.formValue.value.price;
-    this.technicalModel.teacher= this.formValue.value.teacher;
+    this.technicalModel.idTeacher= this.formValue.value.idTeacher;
     this.technicalModel.isActive= this.formValue.value.isActive;
     console.log(this.technicalModel)
 
@@ -91,7 +95,7 @@ export class TechnicalUpdateComponent implements OnInit {
       this.mensaje_error="El campo precio no puede estar vacio"
     }
 
-    else if(this.technicalModel.teacher  == "" ){
+    else if(this.technicalModel.idTeacher  == 0 ){
       this.mensaje_error="El campo profesor no puede estar vacio"
     }
     else {
@@ -115,6 +119,15 @@ export class TechnicalUpdateComponent implements OnInit {
 
   cerrarAlerta(){
     this.mensaje_error=""
+  }
+
+  idTeacherList(){
+    this.teacherService.listTeachers()
+    .subscribe(res=>{
+      this.teacherData=res.result
+      console.log(this.teacherData)
+    })
+
   }
 
 }

@@ -5,6 +5,7 @@ import { Tuition } from 'src/app/models/tuition.model';
 import { TuitionExtra } from 'src/app/models/tuition.model';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { Router } from '@angular/router';
+import {formatCurrency, getCurrencySymbol} from '@angular/common';
 
 @Component({
   selector: 'app-tuitio-extra-create',
@@ -12,8 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./tuitio-extra-create.component.css']
 })
 export class TuitioExtraCreateComponent implements OnInit {
-
+  formatter!: any;
   grade !: any;
+  priceExt !: any;
   navTitle="crear matricula"
   public dataTuition:any
   formValue!: FormGroup;
@@ -31,6 +33,7 @@ export class TuitioExtraCreateComponent implements OnInit {
   ngOnInit(): void {
     this.gradeList()
     this.fieldCaptureExtra()
+    
 
   }
 
@@ -38,12 +41,13 @@ export class TuitioExtraCreateComponent implements OnInit {
     this.formValueExtra = this.formBuilder.group({
       isActiveExt:[''],
       descriptionExt: [''],
-      priceExt: [''],
+      priceExt: ['currency:USD'],
       startDateExt: [''],
       finalDateExt: [''],
       surchargeExt: [''],
-      idGradeExt: [''],
+      gradeExt: [''],
     })
+    //this.convertirMoneda()
   }
 
   CrearMatriculaExtra(){
@@ -51,9 +55,9 @@ export class TuitioExtraCreateComponent implements OnInit {
     this.tuitionExtraModel.price = this.formValueExtra.value.priceExt;
     this.tuitionExtraModel.startDate = this.formValueExtra.value.startDateExt;
     this.tuitionExtraModel.finalDate = this.formValueExtra.value.finalDateExt;
-    this.tuitionExtraModel.idGrade = this.formValueExtra.value.idGradeExt;
+    this.tuitionExtraModel.grade = this.formValueExtra.value.gradeExt;
 
-    if(this.tuitionExtraModel.idGrade ==0 ){
+    if(this.tuitionExtraModel.grade =="" ){
       this.mensaje_error="El campo grado no puede estar vacio"
     }
 
@@ -70,7 +74,7 @@ export class TuitioExtraCreateComponent implements OnInit {
     }
     else{
       this.tuitionExtraModel.description = "ExtraOrdinaria";
-      this.tuitionExtraModel.surcharge = 0;
+      this.tuitionExtraModel.surcharge = 10;
       this.tuitionService.createTuition(this.tuitionExtraModel)
       .subscribe(res=>{
       console.log(res);
@@ -82,12 +86,15 @@ export class TuitioExtraCreateComponent implements OnInit {
           this.formValueExtra = this.formBuilder.group({
             isActiveExt:[''],
             descriptionExt: [''],
-            priceExt: [''],
+            priceExt: [],
             startDateExt: [''],
             finalDateExt: [''],
             surchargeExt: [''],
-            idGradeExt: [''],
+            gradeExt: [''],
           })
+          setTimeout(() => {
+            this.router.navigate(['matriculas']);
+          }, 2000);
         }
       },
       err=>{
@@ -108,5 +115,20 @@ export class TuitioExtraCreateComponent implements OnInit {
   cerrarAlerta(){
     this.mensaje_error=""
   }
+
+  convertirMoneda(){
+    //this.priceExt=new Intl.NumberFormat().format(this.formValueExtra.value.priceExt);
+
+    const formatterPeso = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    })
+    console.log(formatterPeso.format(this.formValueExtra.value.priceExt))
+    //this.priceExt=formatterPeso.format(this.formValueExtra.value.priceExt)
+    // → $ 12.500
+  }
+
+
 
 }

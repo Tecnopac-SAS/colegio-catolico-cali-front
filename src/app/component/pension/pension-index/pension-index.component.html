@@ -1,54 +1,66 @@
 <app-dashboard>
   <app-nav-title [navTitle]="navTitle"></app-nav-title>
-  <div class="row justify-content-end">
-        <div class="col-md-3 col-12 my-2">
-          <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
-              <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
-                <div class="input-group-append">
-                  <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
-              </div>
-                  <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
-              </div>
-          </form>
+  <div class="container my-xl-2">
+    <div class="row">   
+      <div class="card"> 
+         <div class="card-body"> 
+          <div class="row justify-content-end">
+            <div class="col-md-3 col-12 my-2">
+              <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                  <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                    <div class="input-group-append">
+                      <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                  </div>
+                      <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                  </div>
+              </form>
+          </div>
+          <div class="col-md-1 col-4 my-2">
+            <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+          </div>
+          <div class="col-md-3 col-8 my-2">
+            <button type="button" class="btn btn-primary" routerLink="/pension-crear">Agregar pensión</button>
+          </div>
       </div>
-      <div class="col-md-1 col-4 my-2">
-        <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+      <div class="view">
+        <table class="table table-hover table-bordered table-responsive-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Grado<noscript></noscript></th>
+              <th scope="col">Valor</th>
+              <th scope="col">Porcentaje de descuento</th>
+              <th scope="col">Uso</th>
+              <th scope="col">Estado</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let data of dataPension; let index = index ">
+            <tr>
+              <td>{{index+1}}</td>
+              <!-- <td>{{data.pensionAsGrade.description}}</td> -->
+              <td>{{data.idGrade}}</td>
+              <td>{{data.price}}</td>
+              <td>{{data.discount}}</td>
+              <td>{{data.use}}</td>
+              <td *ngIf="data.isActive==0">Inactivo</td>
+              <td *ngIf="data.isActive==1">Activo</td>
+    
+              <td class="text-center">
+                <button  class="text-black btn" routerLink="/pension-editar/{{data.id}}">Editar</button>|
+                <button  class="text-info btn" (click)="activar(data)">Activar</button>|
+                <button  class="text-danger btn"(click)="deshabilitar(data)">Desactivar</button>
+              </td>
+            </tr>
+    
+          </tbody>
+        </table>
       </div>
-      <div class="col-md-3 col-8 my-2">
-        <button type="button" class="btn btn-primary" routerLink="/pension-crear">Agregar matricula</button>
+          </div>
       </div>
+    </div>
   </div>
-  <div class="view">
-    <table class="table table-hover table-bordered table-responsive-sm">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Grado<noscript></noscript></th>
-          <th scope="col">Valor</th>
-          <th scope="col">Porcentaje de descuento</th>
-          <th scope="col">Uso</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let data of dataPension; let index = index ">
-        <tr>
-          <td>{{index+1}}</td>
-          <td>{{data.pensionAsGrade.description}}</td>
-          <td>{{data.price}}</td>
-          <td>{{data.discount}}</td>
-          <td>{{data.use}}</td>
-          <td *ngIf="data.isActive==0">Inactivo</td>
-          <td *ngIf="data.isActive==1">Activo</td>
 
-          <td>
-            <button  class="btn btn-outline-info" style="width: 38px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editPension(data)"><i class="bi bi-wrench-adjustable"></i></button>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
 </app-dashboard>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

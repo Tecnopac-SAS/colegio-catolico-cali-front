@@ -34,6 +34,20 @@ export class PensionService {
     }))
   }
 
+  obtenerPension(id:number){
+    return this._htpp.get<any>(base_url+'pension/listarPensionId/'+id)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  deshabilitar(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'pension/deshabilitar/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
   createPension(data:any){
     return this._htpp.post<any>(base_url+'pension/CrearPension',data)
     .pipe(map((res:any)=>{

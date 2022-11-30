@@ -14,7 +14,7 @@ import Swal from'sweetalert2';
 export class CertificateIndexComponent implements OnInit {
 
   grade !: any;
-  navTitle="Certificate"
+  navTitle="Certificados"
   formValue !:FormGroup
   public dataCertificate:any
   public filter:any;

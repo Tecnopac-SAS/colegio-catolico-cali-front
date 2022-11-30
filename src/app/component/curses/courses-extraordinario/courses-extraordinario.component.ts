@@ -13,7 +13,7 @@ import Swal from'sweetalert2';
 })
 export class CoursesExtraordinarioComponent implements OnInit {
   grade !: any;
-  navTitle="Cursos extraordinario"
+  navTitle="Inscripción a nivelación extraordinaria, curso de verano, curso de habilitación"
   formValue !:FormGroup
   public dataCourse:any
   public filter:any;
@@ -79,55 +79,31 @@ export class CoursesExtraordinarioComponent implements OnInit {
 
   }
 
-  // updatecourse(){
-
-  //   this.courseModel.price= this.formValue.value.price;
-  //   this.courseModel.discount= this.formValue.value.discount;
-  //   this.courseModel.isActive= this.formValue.value.isActive;
-  //   this.courseModel.idGrade= this.formValue.value.idGrade;
-
-
-
-  //   if (this.courseModel.price==0) {
-
-  //     Swal.fire(
-  //       'El campo precio no puede estar vacio!',
-  //       '',
-  //       'warning'
-  //      )
-  //   }
-
-  //   else if (this.courseModel.isActive==2) {
-
-  //     Swal.fire(
-  //       'El campo estado no puede estar vacio!',
-  //       '',
-  //       'warning'
-  //      )
-  //   }
-
-  //   else {
-  //     console.log(this.courseModel)
-  //     this.courseService.updatecourse(this.courseModel.id,this.courseModel)
-  //     .subscribe(res=>{
-
-  //       Swal.fire(
-  //         'Pensión actualizada!',
-  //         '',
-  //         'success'
-  //        )
-  //       this.listcourses()
-  //     })
-  //   }
-
-  //   this.formValue = this.formBuilder.group({
-  //     price: [''],
-  //     idGrade: [''],
-  //     use: [''],
-  //     isActive:[''],
-  //     discount:[''],
-  //   })
-
-  // }
+  deshabilitar(data:any){
+    this.courseModel.isActive = data.isActive
+     if (data.isActive==0) {
+       this.courseModel.isActive= 1;
+       Swal.fire(
+         'habilitado!',
+         '',
+         'success'
+        )
+     }
+ 
+     else if (data.isActive=1) {
+       this.courseModel.isActive= 0;
+       Swal.fire(
+         'deshabilitado!',
+         '',
+         'warning'
+        )
+     }
+     this.coursesService.deshabilitar(this.courseModel,data.id)
+     .subscribe(res=>{
+     this.listcourses()
+     })
+ 
+ 
+   }
 
 }

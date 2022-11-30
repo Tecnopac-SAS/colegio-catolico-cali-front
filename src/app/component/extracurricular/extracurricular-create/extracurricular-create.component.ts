@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Extracurricular } from 'src/app/models/extracurricular.model';
 import { ExtracurricularFile } from 'src/app/models/extracurricular.model';
 import { ExtracurricularService } from 'src/app/services/extracurricular.service';
+import { TeacherService } from 'src/app/services/teacher.service';
 import { Router } from '@angular/router';
 
 interface HtmlInputEvent extends Event{
@@ -13,11 +14,13 @@ interface HtmlInputEvent extends Event{
 @Component({
   selector: 'app-extracurricular-create',
   templateUrl: './extracurricular-create.component.html',
-  styleUrls: ['./extracurricular-create.component.css']
+  styleUrls: ['./extracurricular-create.component.css'],
+
 })
 export class ExtracurricularCreateComponent implements OnInit {
 
-  navTitle="crear Extracurricular"
+  teacherData !: any;
+  navTitle="Crear extracurricular"
   public dataExtracurricular:any
   formValue!: FormGroup;
   extracurricularModel:Extracurricular= new Extracurricular();
@@ -30,12 +33,14 @@ export class ExtracurricularCreateComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private extracurricularService:ExtracurricularService,
-    private router:Router
-  ) {this.dataExtracurricular = new ExtracurricularFile('','','','','',0,'','');}
+    private router:Router,
+    private teacherService:TeacherService,
+  ) {this.dataExtracurricular = new ExtracurricularFile('','','','',0,0,'','');}
 
   ngOnInit(): void {
 
     this.fieldCapture()
+    this.idTeacherList()
 
   }
 
@@ -44,7 +49,7 @@ export class ExtracurricularCreateComponent implements OnInit {
 
       startDate: [''],
       finalDate: [''],
-      teacher: [''],
+      idTeacher: [''],
       activity: [''],
       price: [''],
       information: [''],
@@ -57,7 +62,7 @@ export class ExtracurricularCreateComponent implements OnInit {
     this.extracurricularModel.imagen =  this.file.name;
     this.extracurricularModel.startDate = this.formValue.value.startDate;
     this.extracurricularModel.finalDate = this.formValue.value.finalDate;
-    this.extracurricularModel.teacher = this.formValue.value.teacher;
+    this.extracurricularModel.idTeacher = this.formValue.value.idTeacher;
     this.extracurricularModel.activity = this.formValue.value.activity;
     this.extracurricularModel.price = this.formValue.value.price;
     this.extracurricularModel.information = this.formValue.value.information;
@@ -85,15 +90,10 @@ export class ExtracurricularCreateComponent implements OnInit {
       this.mensaje_error="El campo precio  no puede estar vacio"
     }
 
-    else if(this.extracurricularModel.teacher==""){
+    else if(this.extracurricularModel.idTeacher==0){
       this.mensaje_error="El campo docente  no puede estar vacio"
     }
-    else if(this.extracurricularModel.schedule==""){
-      this.mensaje_error="El campo horario  no puede estar vacio"
-    }
-    else if(this.extracurricularModel.information==""){
-      this.mensaje_error="El campo información  no puede estar vacio"
-    }
+
 
     else{
       console.log("desde el front " +this.extracurricularModel)
@@ -106,7 +106,7 @@ export class ExtracurricularCreateComponent implements OnInit {
 
             startDate: [''],
             finalDate: [''],
-            teacher: [''],
+            idTeacher: [''],
             activity: [''],
             price: [''],
             information: [''],
@@ -125,12 +125,13 @@ export class ExtracurricularCreateComponent implements OnInit {
   onSubmit(extracurricularForm:any){
     if(extracurricularForm.valid){
       if (this.file!=this.imgSelect) {
-        this.extracurricularService.createExtracurricularFile({
+          console.log(extracurricularForm.value.idTeacher)
+          this.extracurricularService.createExtracurricularFile({
           imagen: this.file,
           startDate: extracurricularForm.value.startDate,
           finalDate: extracurricularForm.value.finalDate,
           activity: extracurricularForm.value.activity,
-          teacher: extracurricularForm.value.teacher,
+          idTeacher: extracurricularForm.value.idTeacher,
           price: extracurricularForm.value.price,
           information: extracurricularForm.value.information,
           schedule: extracurricularForm.value.schedule,
@@ -139,7 +140,7 @@ export class ExtracurricularCreateComponent implements OnInit {
         }).subscribe(
           response =>{
            this.mensaje_ok = 'la información se registro  correctamente';
-           this.dataExtracurricular = new ExtracurricularFile('','','','','',0,'','');
+           this.dataExtracurricular = new ExtracurricularFile('','','','',0,0,'','');
            this.imgSelect = '../../../../assets/img/default.jpg';
            this.imageUrl=""
            this.file=this.imgSelect;
@@ -148,6 +149,9 @@ export class ExtracurricularCreateComponent implements OnInit {
 
           }
         );
+        setTimeout(() => {
+          this.router.navigate(['extracurriculares']);
+        }, 1000);
 
       }
 
@@ -175,6 +179,15 @@ export class ExtracurricularCreateComponent implements OnInit {
         console.log("soy el file " +this.file)
         console.log("soy el file " +this.file.name)
     }
+  }
+
+  idTeacherList(){
+    this.teacherService.listTeachers()
+    .subscribe(res=>{
+      this.teacherData=res.result
+      console.log(this.teacherData)
+    })
+
   }
 
 }

@@ -5,6 +5,7 @@ import { Course } from 'src/app/models/course.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { TeacherService } from 'src/app/services/teacher.service';
 import Swal from'sweetalert2';
 @Component({
   selector: 'app-courses-update-extraordinaria',
@@ -14,6 +15,7 @@ import Swal from'sweetalert2';
 export class CoursesUpdateExtraordinariaComponent implements OnInit {
 
   course !: any;
+  teacher !: any;
   navTitle="cursos actualizar"
   public dataPension:any
   formValue!: FormGroup;
@@ -26,10 +28,12 @@ export class CoursesUpdateExtraordinariaComponent implements OnInit {
     private coursesService:CoursesService,
     private router:Router,
     private route : ActivatedRoute,
+    private teacherService:TeacherService,
   ) { }
 
   ngOnInit(): void {
     this.fieldCaptureExtra()
+    this.idTeacherList()
   }
 
   fieldCaptureExtra(){
@@ -38,7 +42,7 @@ export class CoursesUpdateExtraordinariaComponent implements OnInit {
       starDate: [''],
       finalDate: [''],
       price: [''],
-      teacher: [''],
+      idTeacher: [''],
       typeCourse: [''],
       isActive: [''],
     })
@@ -60,19 +64,11 @@ export class CoursesUpdateExtraordinariaComponent implements OnInit {
           this.formValue.controls['starDate'].setValue(this.course.result.starDate)
           this.formValue.controls['finalDate'].setValue(this.course.result.finalDate)
           this.formValue.controls['price'].setValue(this.course.result.price)
-          this.formValue.controls['teacher'].setValue(this.course.result.teacher)
+          this.formValue.controls['idTeacher'].setValue(this.course.result.idTeacher)
           this.formValue.controls['typeCourse'].setValue(this.course.result.typeCourse)
           this.formValue.controls['isActive'].setValue(this.course.result.isActive)
 
           this.courseModel.id = this.course.result.id
-
-          console.log("holaa " +this.courseModel.id)
-          // this.productoService.obtenerCategoria().subscribe(
-          //   response=>{
-          //     this.categorias=response
-          //     console.log(this.categorias)
-          //   }
-          // )
 
         }
       )
@@ -85,7 +81,7 @@ export class CoursesUpdateExtraordinariaComponent implements OnInit {
     this.courseModel.starDate= this.formValue.value.starDate;
     this.courseModel.finalDate= this.formValue.value.finalDate;
     this.courseModel.price= this.formValue.value.price;
-    this.courseModel.teacher= this.formValue.value.teacher;
+    this.courseModel.idTeacher= this.formValue.value.idTeacher;
     this.courseModel.typeCourse= "extraordinaria";
     this.courseModel.isActive= this.formValue.value.isActive;
     console.log(this.courseModel)
@@ -101,7 +97,14 @@ export class CoursesUpdateExtraordinariaComponent implements OnInit {
           this.router.navigate(['cursos-extraordinaria']);
         }, 2000);
     })
+  }
 
+  idTeacherList(){
+    this.teacherService.listTeachers()
+    .subscribe(res=>{
+      this.teacher=res.result
+      console.log(this.teacher)
+    })
 
   }
 }

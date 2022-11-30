@@ -14,7 +14,7 @@ import Swal from'sweetalert2'
 export class DiscountUpdateComponent implements OnInit {
 
   Discount !: any;
-  navTitle="descuento editar"
+  navTitle="Editar descuento"
   public dataDiscount:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;

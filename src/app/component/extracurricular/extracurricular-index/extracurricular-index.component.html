@@ -1,60 +1,76 @@
 <app-dashboard>
   <app-nav-title [navTitle]="navTitle"></app-nav-title>
-  <div class="row justify-content-end">
-        <div class="col-md-3 col-12 my-2">
-          <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
-              <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
-                <div class="input-group-append">
-                  <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
-              </div>
-                  <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
-              </div>
-          </form>
+  <div class="container my-xl-2">
+    <div class="row">   
+      <div class="card"> 
+         <div class="card-body"> 
+          <div class="row justify-content-end">
+            <h5 class="text-primary">Extracurriculares</h5>
+            <div class="col-md-3 col-12 my-2">
+              <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                  <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                    <div class="input-group-append">
+                      <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                  </div>
+                      <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                  </div>
+              </form>
+          </div>
+          <div class="col-md-1 col-4 my-2">
+            <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+          </div>
+          <div class="col-md-3 col-8 my-2">
+            <button type="button" class="btn btn-primary" routerLink="/extracurriculares-crear">Agregar extracurricular</button>
+          </div>
       </div>
-      <div class="col-md-1 col-4 my-2">
-        <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+      <div class="view">
+       
+        <table class="table table-hover table-bordered table-responsive-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" class="text-center">Imagenes<noscript></noscript></th>
+              <th scope="col">Actividad</th>
+              <th scope="col">Inicio</th>
+              <th scope="col">Termina</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Docente</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let data of dataExtracurricular; let index = index ">
+            <tr>
+              <td>{{index+1}}</td>
+              <td class="text-center">
+                <img  [src]="base_url + 'extracurricular/extracurricular/img/'+ data.imagen" width="88" height="88" class="rounded-circle mr-2 " alt="Avatar">
+    
+              </td>
+    
+              <td>{{data.activity}}</td>
+              <td>{{data.startDate |date:'dd/MM/yy'}}</td>
+              <td>{{data.finalDate |date:'dd/MM/yy'}}</td>
+              <td *ngIf="data.isActive==0">Inactivo</td>
+              <td *ngIf="data.isActive==1">Activo</td>
+              <!-- <td>{{data.teacher}}</td> -->
+              <td>{{data.extracurricularAsTeacher.name}}</td>
+              <td>
+                <!-- <button  class="btn btn-outline-primary" style="width: 48px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editExtracurricular(data)"><i class="bi bi-wrench-adjustable"></i></button> -->
+                <button  class="text-black btn" routerLink="/extracurriculares-editar/{{data.id}}">Editar</button>|
+                <button  class="text-info btn" (click)="activar(data)">Activar</button>|
+                <button  class="text-danger btn"(click)="deshabilitar(data)">Desactivar</button>
+              </td>
+            </tr>
+    
+    
+          </tbody>
+        </table>
       </div>
-      <div class="col-md-3 col-8 my-2">
-        <button type="button" class="btn btn-primary" routerLink="/extracurriculares-crear">Agregar matricula</button>
+   
+          </div>
       </div>
-  </div>
-  <div class="view">
-    <table class="table table-hover table-bordered table-responsive-sm">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Imagenes<noscript></noscript></th>
-          <th scope="col">Actividad</th>
-          <th scope="col">Inicio</th>
-          <th scope="col">Termina</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Docente</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let data of dataExtracurricular; let index = index ">
-        <tr>
-          <td>{{index+1}}</td>
-          <td>
-            <img  [src]="base_url + 'extracurricular/extracurricular/img/'+ data.imagen" width="48" height="48" class="rounded-circle mr-2" alt="Avatar">
-
-          </td>
-
-          <td>{{data.activity}}</td>
-          <td>{{data.startDate |date:'dd/MM/yy'}}</td>
-          <td>{{data.finalDate |date:'dd/MM/yy'}}</td>
-          <td *ngIf="data.isActive==0">Inactivo</td>
-          <td *ngIf="data.isActive==1">Activo</td>
-          <td>{{data.teacher}}</td>
-          <td>
-            <button  class="btn btn-outline-info" style="width: 38px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editExtracurricular(data)"><i class="bi bi-wrench-adjustable"></i></button>
-          </td>
-        </tr>
-
-
-      </tbody>
-    </table>
-  </div>
+      </div>
+    </div>
+ 
 </app-dashboard>
 
 <!-- Modal -->
@@ -101,10 +117,10 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateExtracurricular()">Guardar cambios</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

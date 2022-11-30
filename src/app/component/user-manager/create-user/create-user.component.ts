@@ -80,6 +80,10 @@ export class CreateUserComponent implements OnInit {
             role: [''],
             password: [''],
           })
+
+          setTimeout(() => {
+            this.router.navigate(['listar-usuarios']);
+          }, 1000);
         }
       },
       err=>{

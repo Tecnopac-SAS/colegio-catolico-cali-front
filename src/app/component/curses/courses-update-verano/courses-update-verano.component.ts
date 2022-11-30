@@ -5,6 +5,7 @@ import { Course } from 'src/app/models/course.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { TeacherService } from 'src/app/services/teacher.service';
 import Swal from'sweetalert2';
 
 @Component({
@@ -15,6 +16,7 @@ import Swal from'sweetalert2';
 export class CoursesUpdateVeranoComponent implements OnInit {
 
   course !: any;
+  teacher !: any;
   navTitle="cursos actualizar"
   public dataPension:any
   formValue!: FormGroup;
@@ -27,10 +29,12 @@ export class CoursesUpdateVeranoComponent implements OnInit {
     private coursesService:CoursesService,
     private router:Router,
     private route : ActivatedRoute,
+    private teacherService:TeacherService,
   ) { }
 
   ngOnInit(): void {
     this.fieldCaptureExtra()
+    this.idTeacherList()
   }
 
   fieldCaptureExtra(){
@@ -39,7 +43,7 @@ export class CoursesUpdateVeranoComponent implements OnInit {
       starDate: [''],
       finalDate: [''],
       price: [''],
-      teacher: [''],
+      idTeacher: [''],
       typeCourse: [''],
       isActive: [''],
     })
@@ -61,7 +65,7 @@ export class CoursesUpdateVeranoComponent implements OnInit {
           this.formValue.controls['starDate'].setValue(this.course.result.starDate)
           this.formValue.controls['finalDate'].setValue(this.course.result.finalDate)
           this.formValue.controls['price'].setValue(this.course.result.price)
-          this.formValue.controls['teacher'].setValue(this.course.result.teacher)
+          this.formValue.controls['idTeacher'].setValue(this.course.result.idTeacher)
           this.formValue.controls['typeCourse'].setValue(this.course.result.typeCourse)
           this.formValue.controls['isActive'].setValue(this.course.result.isActive)
 
@@ -86,7 +90,7 @@ export class CoursesUpdateVeranoComponent implements OnInit {
     this.courseModel.starDate= this.formValue.value.starDate;
     this.courseModel.finalDate= this.formValue.value.finalDate;
     this.courseModel.price= this.formValue.value.price;
-    this.courseModel.teacher= this.formValue.value.teacher;
+    this.courseModel.idTeacher= this.formValue.value.teacher;
     this.courseModel.typeCourse= "extraordinaria";
     this.courseModel.isActive= this.formValue.value.isActive;
     console.log(this.courseModel)
@@ -103,6 +107,15 @@ export class CoursesUpdateVeranoComponent implements OnInit {
         }, 2000);
     })
 
+
+  }
+
+  idTeacherList(){
+    this.teacherService.listTeachers()
+    .subscribe(res=>{
+      this.teacher=res.result
+      console.log(this.teacher)
+    })
 
   }
 }

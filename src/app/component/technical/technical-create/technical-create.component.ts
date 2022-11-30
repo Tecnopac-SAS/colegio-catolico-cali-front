@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Technical } from 'src/app/models/technical.model';
 import { TechnicalService } from 'src/app/services/technical.service';
+import { TeacherService } from 'src/app/services/teacher.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-technical-create',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class TechnicalCreateComponent implements OnInit {
 
+  teacherData !: any;
   Technical !: any;
   navTitle="medias tecnicas crear"
   public dataTransporte:any
@@ -22,11 +24,13 @@ export class TechnicalCreateComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private TechnicalService:TechnicalService,
+    private teacherService:TeacherService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
     this.fieldCapture()
+    this.idTeacherList()
 
   }
 
@@ -36,7 +40,7 @@ export class TechnicalCreateComponent implements OnInit {
       startDate: [''],
       finalDate:[''],
       price:[''],
-      teacher:[''],
+      idTeacher:[''],
       isActive:['']
     })
   }
@@ -46,7 +50,7 @@ export class TechnicalCreateComponent implements OnInit {
     this.technicalModel.startDate = this.formValue.value.startDate;
     this.technicalModel.finalDate = this.formValue.value.finalDate;
     this.technicalModel.price = this.formValue.value.price;
-    this.technicalModel.teacher = this.formValue.value.teacher;
+    this.technicalModel.idTeacher = this.formValue.value.idTeacher;
     this.technicalModel.isActive = this.formValue.value.isActive;
 
     if(this.technicalModel.course =="" ){
@@ -65,7 +69,7 @@ export class TechnicalCreateComponent implements OnInit {
       this.mensaje_error="El campo precio no puede estar vacio"
     }
 
-    else if(this.technicalModel.teacher  == "" ){
+    else if(this.technicalModel.idTeacher  == 0 ){
       this.mensaje_error="El campo profesor no puede estar vacio"
     }
 
@@ -84,10 +88,13 @@ export class TechnicalCreateComponent implements OnInit {
             startDate: [''],
             finalDate:[''],
             price:[''],
-            teacher:[''],
+            idTeacher:[''],
             isActive:['']
           })
         }
+        setTimeout(() => {
+          this.router.navigate(['medias-tecnica']);
+        }, 1000);
       },
       err=>{
         console.log(err)
@@ -97,6 +104,14 @@ export class TechnicalCreateComponent implements OnInit {
 
   cerrarAlerta(){
     this.mensaje_error=""
+  }
+  idTeacherList(){
+    this.teacherService.listTeachers()
+    .subscribe(res=>{
+      this.teacherData=res.result
+      console.log(this.teacherData)
+    })
+
   }
 
 }

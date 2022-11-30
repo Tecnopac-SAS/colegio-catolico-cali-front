@@ -1,50 +1,67 @@
 <app-dashboard>
   <app-nav-title [navTitle]="navTitle"></app-nav-title>
-  <div class="row justify-content-end">
-        <div class="col-md-3 col-12 my-2">
-          <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
-              <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
-                <div class="input-group-append">
-                  <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
-              </div>
-                  <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
-              </div>
-          </form>
-      </div>
-      <div class="col-md-1 col-4 my-2">
-        <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
-      </div>
-      <div class="col-md-3 col-8 my-2">
-        <button type="button" class="btn btn-primary" routerLink="/matriculas-crear">Agregar matricula</button>
-      </div>
-  </div>
-  <div class="view">
-    <table class="table table-hover table-bordered table-responsive-sm">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Grado<noscript></noscript></th>
-          <th scope="col">Valor ordinario</th>
-          <th scope="col">Valor (Extraordinario)</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let tuition of dataTuition; let index = index ">
-        <tr>
-          <td>{{index+1}}</td>
-          <td>{{tuition.grade}}</td>
-          <td *ngIf="tuition.description== 'Ordinaria'; then thenBlock else elseBlock"></td>
-          <td *ngIf="tuition.description== 'ExtraOrdinaria'; then thenBlock else elseBlock"></td>
-          <td>
-            <button  class="btn btn-outline-info" style="width: 38px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editTuition(tuition)"><i class="bi bi-wrench-adjustable"></i></button>
-          </td>
-        </tr>
-        <ng-template #thenBlock><td>{{tuition.price}}</td></ng-template>
-        <ng-template #elseBlock><td>-</td></ng-template>
+  <div class="container my-xl-2">
+    <div class="row">   
+      <div class="card"> 
+        <div class="card-body"> 
 
-      </tbody>
-    </table>
+          <div class="row justify-content-end">
+            <div class="col-md-3 col-12 my-2">
+              <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                  <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                    <div class="input-group-append">
+                      <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                  </div>
+                      <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                  </div>
+              </form>
+          </div>
+          <div class="col-md-1 col-4 my-2">
+            <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+          </div>
+          <div class="col-md-3 col-8 my-2">
+            <button type="button" class="btn btn-primary" routerLink="/matriculas-crear">Agregar matricula</button>
+          </div>
+      </div>
+      <div class="view">
+        <table class="table table-hover table-bordered table-responsive-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Grado<noscript></noscript></th>
+              <th scope="col">Valor ordinario</th>
+              <th scope="col">Valor (Extraordinario)</th>
+              <th scope="col">Estado</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let tuition of dataTuition; let index = index ">
+            <tr>
+              <td>{{index+1}}</td>
+              <td>{{tuition.grade}}</td>
+              <td *ngIf="tuition.description== 'Ordinaria'; then thenBlock else elseBlock"></td>
+              <td *ngIf="tuition.description== 'ExtraOrdinaria'; then thenBlock else elseBlock"></td>
+              <td *ngIf="tuition.isActive==0">Inactivo</td>
+              <td *ngIf="tuition.isActive==1">Activo</td>
+              <td class="text-center">
+                <button  class="text-black btn" routerLink="/matriculas-editar/{{tuition.id}}">Editar</button>|
+                <button  class="text-info btn" (click)="activar(tuition)">Activar</button>|
+                <button  class="text-danger btn"(click)="deshabilitar(tuition)">Desactivar</button>
+              </td>
+            </tr>
+            <ng-template #thenBlock><td>{{tuition.price}}</td></ng-template>
+            <ng-template #elseBlock><td>-</td></ng-template>
+    
+          </tbody>
+        </table>
+      </div>
+    
+        </div>
+      </div>
+    </div>
   </div>
+
+ 
 </app-dashboard>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

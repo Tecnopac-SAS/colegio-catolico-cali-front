@@ -4,7 +4,7 @@ export class Course{
   public starDate="";
   public finalDate="";
   public price=0;
-  public teacher="";
+  public idTeacher=0;
   public typeCourse=""
   public isActive=0;
 

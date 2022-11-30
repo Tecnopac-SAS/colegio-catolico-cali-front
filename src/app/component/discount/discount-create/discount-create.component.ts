@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class DiscountCreateComponent implements OnInit {
 
   Discount !: any;
-  navTitle="descuento crear"
+  navTitle="Descuento crear"
   public dataTransporte:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;

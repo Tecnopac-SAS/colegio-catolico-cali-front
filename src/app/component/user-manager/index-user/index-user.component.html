@@ -1,52 +1,63 @@
 <app-dashboard>
   <app-nav-title [navTitle]="navTitle"></app-nav-title>
-  <div class="row justify-content-end">
-        <div class="col-md-3 col-12 my-2">
-          <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
-              <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
-                <div class="input-group-append">
-                  <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
-              </div>
-                  <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
-              </div>
-          </form>
+  <div class="container my-xl-2">
+    <div class="row">   
+     <div class="card"> 
+         <div class="card-body"> 
+
+          <div class="row justify-content-end">
+            <div class="col-md-3 col-12 my-2">
+              <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                  <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                    <div class="input-group-append">
+                      <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                  </div>
+                      <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                  </div>
+              </form>
+          </div>
+          <div class="col-md-1 col-4 my-2">
+            <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+          </div>
+          <div class="col-md-3 col-8 my-2">
+            <button type="button" class="btn btn-primary" routerLink="/crear-usuario">Agregar usuario</button>
+          </div>
       </div>
-      <div class="col-md-1 col-4 my-2">
-        <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+      <div class="view">
+        <table class="table table-hover table-bordered table-responsive-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombres</th>
+              <th scope="col">Email</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Rol</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let user of dataUsers; let index = index ">
+            <tr>
+              <td>{{index+1}}</td>
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td *ngIf="user.isActive==0">Inactivo</td>
+              <td *ngIf="user.isActive==1">Activo</td>
+              <td>{{user.userAsRole.role}}</td>
+              <td class="text-center">
+                <button  class="btn btn-outline-primary" style="width: 38px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editUser(user)"><i class="bi bi-wrench-adjustable"></i></button>
+              </td>
+            </tr>
+    
+    
+          </tbody>
+        </table>
       </div>
-      <div class="col-md-3 col-8 my-2">
-        <button type="button" class="btn btn-primary" routerLink="/crear-usuario">Agregar usuario</button>
+   
+          </div>
+      </div>
       </div>
   </div>
-  <div class="view">
-    <table class="table table-hover table-bordered table-responsive-sm">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nombres</th>
-          <th scope="col">Email</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Rol</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let user of dataUsers; let index = index ">
-        <tr>
-          <td>{{index+1}}</td>
-          <td>{{user.name}}</td>
-          <td>{{user.email}}</td>
-          <td *ngIf="user.isActive==0">Inactivo</td>
-          <td *ngIf="user.isActive==1">Activo</td>
-          <td>{{user.userAsRole.role}}</td>
-          <td>
-            <button  class="btn btn-outline-info" style="width: 38px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editUser(user)"><i class="bi bi-wrench-adjustable"></i></button>
-          </td>
-        </tr>
 
-
-      </tbody>
-    </table>
-  </div>
 </app-dashboard>
 
 <!-- Modal -->

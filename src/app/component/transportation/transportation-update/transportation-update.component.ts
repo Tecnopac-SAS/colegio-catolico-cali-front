@@ -80,13 +80,13 @@ export class TransportationUpdateComponent implements OnInit {
     .subscribe(res=>{
 
       Swal.fire(
-        'Curso actualizado!',
-        'You clicked the button!',
+        '¡Transporte actualizado!',
+        '',
         'success'
        )
        setTimeout(() => {
           this.router.navigate(['transporte']);
-        }, 2000);
+        }, 1000);
     })
 
 

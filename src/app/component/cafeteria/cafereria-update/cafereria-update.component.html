@@ -23,7 +23,7 @@
                     (click)="cerrarAlerta()"></button>
                 </div>
               </div>
-              <h4>Cafeteria actualizar:</h4>
+              <h5 class="text-primary">Cafeteria actualizar:</h5>
 
               <div class="col-md-12 my-2">
               </div>
@@ -33,7 +33,7 @@
               </div>
 
               <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="description">
+                <input type="text" class="form-control" formControlName="description" readonly>
               </div>
 
               <div class="col-md-1">
@@ -50,7 +50,7 @@
             </div>
 
             <div class="col-md-6 my-4">
-              <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
+              <button type="submit" class="btn btn-outline-primary m-3" routerLink="/cafeteria"> Cancelar</button>
 
               <button type="submit" class="btn btn-primary m-3" (click)="actualizarCafeteria()"> Guardar</button>
 

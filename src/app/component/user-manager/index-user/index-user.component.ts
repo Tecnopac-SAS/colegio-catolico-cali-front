@@ -30,7 +30,7 @@ export class IndexUserComponent implements OnInit {
   ngOnInit(): void {
     this.listUsers();
     this.getFields();
-    this.navTitle="Estoy en listar"
+    this.navTitle="Administración de usuarios"
   }
 
   listUsers(){

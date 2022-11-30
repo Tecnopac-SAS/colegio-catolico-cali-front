@@ -77,6 +77,10 @@ export class TransportationCreateComponent implements OnInit {
             isActive:[''],
             routeType:[''],
           })
+
+          setTimeout(() => {
+            this.router.navigate(['transporte']);
+          }, 1000);
         }
       },
       err=>{

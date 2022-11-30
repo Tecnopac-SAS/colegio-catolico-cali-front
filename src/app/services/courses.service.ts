@@ -53,4 +53,11 @@ export class CoursesService {
       return res;
     }))
   }
+
+  deshabilitar(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'course/deshabilitar/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }

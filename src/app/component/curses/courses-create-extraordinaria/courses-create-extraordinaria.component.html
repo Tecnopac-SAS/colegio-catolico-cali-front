@@ -23,7 +23,7 @@
                     (click)="cerrarAlerta()"></button>
                 </div>
               </div>
-              <h4>Nueva extraordinaria:</h4>
+              <h5 class="text-primary">Nueva nivelación</h5>
               <div class="col-md-1 my-2">
                 <label class="">Asignatura</label>
               </div>
@@ -68,13 +68,16 @@
               </div>
 
               <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="teacher">
+                 <select class="form-control" formControlName="idTeacher">
+                    <option value="" selected>SELECCIONAR</option>
+                    <option *ngFor="let item of teacher" value="{{item.id}}">{{item.name}}</option>
+                  </select> 
               </div>
 
             </div>
 
             <div class="col-md-6 my-4">
-              <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
+              <button type="submit" class="btn btn-outline-primary m-3" routerLink="/cursos-extraordinaria"> Cancelar</button>
 
               <button type="submit" class="btn btn-primary m-3" (click)="CrearCourse()"> Guardar</button>
 

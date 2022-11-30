@@ -4,7 +4,7 @@ export class Technical{
   public startDate="";
   public finalDate=""
   public price=""
-  public teacher=""
+  public idTeacher=0
   public isActive=0;
 
 }

@@ -22,23 +22,20 @@
                     (click)="cerrarAlerta()"></button>
                 </div>
               </div>
-              <h4>Nueva matricula</h4>
+              <h5 class="text-primary py-3">Extraordinaria</h5>
               <div class="col-md-1 my-3">
-                <label class="">Desde</label>
+                <label class="">Grado *</label>
               </div>
 
               <div class="col-md-5 my-3">
-                <select class="form-control" formControlName="idGradeExt">
-                  <option value="" selected>SELECCIONAR</option>
-                  <option *ngFor="let item of grade" value="{{item.id}}">{{item.description}}</option>
-                </select>
+                <input type="text" class="form-control" formControlName="gradeExt">
               </div>
 
               <div class="col-md-5">
               </div>
 
               <div class="col-md-12 my-4">
-                <label class="text-primary"><b>ExtraOrdinaria</b></label>
+              
               </div>
 
               <div class="col-md-1">
@@ -65,14 +62,14 @@
                 <label class="">Valor</label>
               </div>
               <div class="col-md-5">
-                <input type="number" class="form-control" formControlName="priceExt">
+                <input type="text" class="form-control" formControlName="priceExt" ngModel="{{priceExt}}" (change)="convertirMoneda()">
               </div>
 
 
             </div>
 
             <div class="col-md-6 my-4">
-              <button type="submit" class="btn btn-outline-info m-3"> Cancelar</button>
+              <button type="submit" class="btn btn-outline-primary m-3" routerLink="/matriculas"> Cancelar</button>
 
               <button type="submit" class="btn btn-primary m-3" (click)="CrearMatriculaExtra()"> Guardar</button>
 

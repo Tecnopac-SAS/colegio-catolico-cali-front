@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class CafereriaCreateComponent implements OnInit {
 
   cafeteria !: any;
-  navTitle="cafeteria crear"
+  navTitle="Crear cafetería"
   public dataTransporte:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;

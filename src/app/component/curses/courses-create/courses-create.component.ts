@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
 import { CoursesService } from 'src/app/services/courses.service';
+import { TeacherService } from 'src/app/services/teacher.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +14,8 @@ import { Router } from '@angular/router';
 export class CoursesCreateComponent implements OnInit {
 
   course !: any;
-  navTitle="cursos crear"
+  teacher !: any;
+  navTitle="Cursos crear"
   public dataPension:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
@@ -23,11 +25,12 @@ export class CoursesCreateComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private coursesService:CoursesService,
+    private teacherService:TeacherService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
-    //this.gradeList()
+    this.teacherList()
     this.fieldCaptureExtra()
 
   }
@@ -38,7 +41,7 @@ export class CoursesCreateComponent implements OnInit {
       starDate: [''],
       finalDate: [''],
       price: [''],
-      teacher: [''],
+      idTeacher: [''],
       typeCourse: [''],
       isActive: [''],
     })
@@ -49,7 +52,7 @@ export class CoursesCreateComponent implements OnInit {
     this.courseModel.starDate = this.formValueExtra.value.starDate;
     this.courseModel.finalDate = this.formValueExtra.value.finalDate;
     this.courseModel.price = this.formValueExtra.value.price;
-    this.courseModel.teacher = this.formValueExtra.value.teacher;
+    this.courseModel.idTeacher = this.formValueExtra.value.idTeacher;
     this.courseModel.typeCourse = "verano";;
     this.courseModel.isActive = this.formValueExtra.value.isActive;
 
@@ -78,7 +81,7 @@ export class CoursesCreateComponent implements OnInit {
             starDate: [''],
             finalDate: [''],
             price: [''],
-            teacher: [''],
+            idTeacher: [''],
             typeCourse: [''],
             isActive: [''],
           })
@@ -91,14 +94,14 @@ export class CoursesCreateComponent implements OnInit {
   }
 
 
-  // gradeList(){
-  //   this.pensionService.listGrades()
-  //   .subscribe(res=>{
-  //     this.grade=res.result
-  //     console.log(this.grade)
-  //   })
+  teacherList(){
+    this.teacherService.listTeachers()
+    .subscribe(res=>{
+      this.teacher=res.result
+      console.log(this.teacher)
+    })
 
-  // }
+  }
 
   cerrarAlerta(){
     this.mensaje_error=""

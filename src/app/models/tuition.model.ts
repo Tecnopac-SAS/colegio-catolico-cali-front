@@ -6,7 +6,7 @@ export class Tuition{
   public startDate="";
   public finalDate=""
   public surcharge=0;
-  public idGrade=0;
+  public grade="";
 
 }
 
@@ -18,6 +18,6 @@ export class TuitionExtra{
   public startDate="";
   public finalDate=""
   public surcharge=0;
-  public idGrade=0;
+  public grade="";
 
 }

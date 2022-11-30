@@ -1,6 +1,6 @@
 <div class="container row ">
   <div class="col-md-5 col-12 ml-4">
-    <h1>Curso de Habilitación</h1>
+    <h5 class="text-primary">Curso de habilitación</h5>
   </div>
  </div>
   <div class="row justify-content-end">
@@ -31,6 +31,7 @@
           <th scope="col">Fecha final</th>
           <th scope="col">Valor</th>
           <th scope="col">Docente</th>
+          <th scope="col">Estado</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
@@ -41,13 +42,13 @@
           <td>{{data.starDate |date:'dd/MM/yy'}}</td>
           <td>{{data.finalDate |date:'dd/MM/yy'}}</td>
           <td>{{data.price}}</td>
-          <td>{{data.teacher}}</td>
+          <td>{{data.courseAsTeacher.name}}</td>
           <td *ngIf="data.isActive==0">Inactivo</td>
           <td *ngIf="data.isActive==1">Activo</td>
 
           <td>
             <button  class="text-info btn"  routerLink="/curso-editar-habilitacion/{{data.id}}">Editar</button>|
-            <button  class="text-danger btn" routerLink="/producto-editar/{{data.id}}">Desactivar</button>
+            <button  class="text-danger btn" (click)="deshabilitar(data)">Desactivar</button>
           </td>
         </tr>
 

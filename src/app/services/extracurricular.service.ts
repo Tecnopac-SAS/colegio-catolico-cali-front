@@ -27,6 +27,13 @@ export class ExtracurricularService {
     }))
   }
 
+  obtenerExtracurricular(id:number){
+    return this._htpp.get<any>(base_url+'extracurricular/listarExtracurricularId/'+id)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
   createExtracurricular(data:any){
     return this._htpp.post<any>(base_url+'extracurricular/CrearExtracurricular',data)
     .pipe(map((res:any)=>{
@@ -39,7 +46,7 @@ export class ExtracurricularService {
     fd.append('imagen',data.imagen);
     fd.append('startDate',data.startDate);
     fd.append('finalDate',data.finalDate);
-    fd.append('teacher',data.teacher);
+    fd.append('idTeacher',data.idTeacher);
     fd.append('activity',data.activity);
     fd.append('price',data.price);
     fd.append('isActive',data.isActive);
@@ -49,12 +56,28 @@ export class ExtracurricularService {
     return this._htpp.post(base_url+'extracurricular/CrearExtracurricular',fd);
   }
 
-  updateExtracurricular(id:any, data:any){
+  updateExtracurricular(data:any,id:any){
+    // const fd = new FormData();
+    // fd.append('imagen',data.imagen);
+    // fd.append('startDate',data.startDate);
+    // fd.append('finalDate',data.finalDate);
+    // fd.append('idTeacher',data.idTeacher);
+    // fd.append('activity',data.activity);
+    // fd.append('price',data.price);
+    // fd.append('information',data.information);
+    // fd.append('schedule',data.schedule);
+    // return this._htpp.put(base_url+'extracurricular/actualizarExtracurricular/'+data.id,fd);
     return this._htpp.put<any>(base_url+'extracurricular/actualizarExtracurricular/'+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
+  deshabilitar(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'extracurricular/deshabilitar/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
 }

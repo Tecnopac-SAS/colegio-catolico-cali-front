@@ -74,6 +74,10 @@ import { StatisticsComponent } from './component/studentDatabase/statistics/stat
 import { LevelingIndexComponent } from './component/leveling/leveling-index/leveling-index.component';
 import { LevelingCreateComponent } from './component/leveling/leveling-create/leveling-create.component';
 import { LevelingUpdateComponent } from './component/leveling/leveling-update/leveling-update.component';
+import { TuitionUpdateComponent } from './component/tuition/tuition-update/tuition-update.component';
+import { PensionUpdateComponent } from './component/pension/pension-update/pension-update.component';
+import { ExtracurricularUpdateComponent } from './component/extracurricular/extracurricular-update/extracurricular-update.component';
+import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
 
 
 @NgModule({
@@ -148,6 +152,10 @@ import { LevelingUpdateComponent } from './component/leveling/leveling-update/le
     LevelingIndexComponent,
     LevelingCreateComponent,
     LevelingUpdateComponent,
+    TuitionUpdateComponent,
+    PensionUpdateComponent,
+    ExtracurricularUpdateComponent,
+    BackupIndexComponent,
   ],
   imports: [
     BrowserModule,

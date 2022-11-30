@@ -13,7 +13,7 @@ import Swal from'sweetalert2';
 })
 export class TuitionIndexComponent implements OnInit {
   grade !: any;
-  navTitle="Matricula index"
+  navTitle="Matriculas"
   formValue !:FormGroup
   public dataTuition:any
   public filter:any;
@@ -75,7 +75,7 @@ export class TuitionIndexComponent implements OnInit {
   editTuition(tuition:any){
     this.gradeList()
     this.tuitionModel.id = tuition.id
-    this.formValue.controls['grade'].setValue(tuition.idGrade)
+    this.formValue.controls['grade'].setValue(tuition.grade)
     this.formValue.controls['price'].setValue(tuition.price)
     this.formValue.controls['description'].setValue(tuition.description)
 
@@ -90,14 +90,14 @@ export class TuitionIndexComponent implements OnInit {
 
   updateTuition(){
 
-    this.tuitionModel.idGrade= this.formValue.value.grade;
+    this.tuitionModel.grade= this.formValue.value.grade;
     this.tuitionModel.price= this.formValue.value.price;
     this.tuitionModel.description= this.formValue.value.description;
     this.tuitionModel.isActive= this.formValue.value.isActive;
     this.tuitionModel.surcharge=10;
 
 
-    if (this.tuitionModel.idGrade==0) {
+    if (this.tuitionModel.grade=="") {
 
       Swal.fire(
         'El campo grado no puede estar vacio!',
@@ -137,5 +137,38 @@ export class TuitionIndexComponent implements OnInit {
     })
 
   }
+
+  deshabilitar(data:any){
+    this.tuitionModel.isActive = data.isActive
+      if (data.isActive=1) {
+       this.tuitionModel.isActive= 0;
+       Swal.fire(
+         '¡Matricula deshabilitada!',
+         '',
+         'warning'
+        )
+     }
+     this.tuitionService.deshabilitar(this.tuitionModel,data.id)
+     .subscribe(res=>{
+     this.listTuitions()
+     })
+   }
+ 
+   activar(data:any){
+     this.tuitionModel.isActive = data.isActive
+      if (data.isActive==0) {
+        this.tuitionModel.isActive= 1;
+        Swal.fire(
+          '¡Matricula habilitada!',
+          '',
+          'success'
+         )
+      }
+  
+      this.tuitionService.deshabilitar(this.tuitionModel,data.id)
+      .subscribe(res=>{
+      this.listTuitions()
+      })
+    }
 
 }

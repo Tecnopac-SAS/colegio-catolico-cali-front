@@ -24,7 +24,8 @@ export class ExtracurricularIndexComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private extracurricularService:ExtracurricularService,
-    private router:Router
+    private router:Router,
+ 
   ) { }
 
   ngOnInit(): void {
@@ -82,46 +83,81 @@ export class ExtracurricularIndexComponent implements OnInit {
 
   }
 
-  updateExtracurricular(){
+  // updateExtracurricular(){
 
-    this.extracurricularModel.activity= this.formValue.value.activity;
-    this.extracurricularModel.startDate= this.formValue.value.startDate;
-    this.extracurricularModel.finalDate= this.formValue.value.finalDate;
-    this.extracurricularModel.teacher= this.formValue.value.teacher;
-    this.extracurricularModel.isActive= this.formValue.value.isActive;
+  //   this.extracurricularModel.activity= this.formValue.value.activity;
+  //   this.extracurricularModel.startDate= this.formValue.value.startDate;
+  //   this.extracurricularModel.finalDate= this.formValue.value.finalDate;
+  //   this.extracurricularModel.idTeacher= this.formValue.value.idTeacher;
+  //   this.extracurricularModel.isActive= this.formValue.value.isActive;
 
 
-     if (this.extracurricularModel.isActive==2) {
+  //    if (this.extracurricularModel.isActive==2) {
 
-      Swal.fire(
-        'El campo estado no puede estar vacio!',
-        '',
-        'warning'
-       )
-    }
+  //     Swal.fire(
+  //       'El campo estado no puede estar vacio!',
+  //       '',
+  //       'warning'
+  //      )
+  //   }
 
-    else {
-      console.log(this.extracurricularModel)
-      this.extracurricularService.updateExtracurricular(this.extracurricularModel.id,this.extracurricularModel)
-      .subscribe(res=>{
+  //   else {
+  //     console.log(this.extracurricularModel)
+  //     this.extracurricularService.updateExtracurricular(this.extracurricularModel.id,this.extracurricularModel)
+  //     .subscribe(res=>{
 
+  //       Swal.fire(
+  //         'Extracurricular actualizada!',
+  //         '',
+  //         'success'
+  //        )
+  //       this.listExtracurriculares()
+  //     })
+  //   }
+
+  //   this.formValue = this.formBuilder.group({
+  //     activity:[''],
+  //     startDate: [''],
+  //     finalDate: [''],
+  //     isActive:[''],
+  //     teacher:[''],
+  //   })
+
+  // }
+
+  deshabilitar(data:any){
+    this.extracurricularModel.isActive = data.isActive
+      if (data.isActive=1) {
+       this.extracurricularModel.isActive= 0;
+       Swal.fire(
+         'Descuento deshabilitado!',
+         '',
+         'warning'
+        )
+     }
+     this.extracurricularService.deshabilitar(this.extracurricularModel,data.id)
+     .subscribe(res=>{
+      this.listExtracurriculares()
+     })
+   }
+ 
+   activar(data:any){
+     this.extracurricularModel.isActive = data.isActive
+      if (data.isActive==0) {
+        this.extracurricularModel.isActive= 1;
         Swal.fire(
-          'Extracurricular actualizada!',
+          'Descuento habilitado!',
           '',
           'success'
          )
+      }
+  
+      this.extracurricularService.deshabilitar(this.extracurricularModel,data.id)
+      .subscribe(res=>{
         this.listExtracurriculares()
       })
     }
 
-    this.formValue = this.formBuilder.group({
-      activity:[''],
-      startDate: [''],
-      finalDate: [''],
-      isActive:[''],
-      teacher:[''],
-    })
 
-  }
 
 }

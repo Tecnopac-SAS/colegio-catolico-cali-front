@@ -1,0 +1,93 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">   
+        <div class="card"> 
+           <div class="card-body"> 
+            <div class="content container my-xl-2">
+              <div class="row">
+                <div class="content-section col-md-12 mx-auto">
+          
+                   <div class="card-body">
+                    <form [formGroup]="formValue">
+                      <div class="row">
+          
+                        <div *ngIf="mensaje_ok">
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{mensaje_ok}}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                        </div>
+          
+          
+                        <div *ngIf="mensaje_error">
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{mensaje_error}}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                              (click)="cerrarAlerta()"></button>
+                          </div>
+                        </div>
+                        <h4 class="text-primary">Editar pensión:</h4>
+                        <div class="col-md-1 my-3">
+                          <label class="">Grado</label>
+                        </div>
+          
+                        <div class="col-md-5 my-3">
+                          <!-- <select class="form-control" formControlName="idGrade">
+                            <option value="" selected>SELECCIONAR</option>
+                            <option *ngFor="let item of grade" value="{{item.id}}">{{item.description}}</option>
+                          </select> -->
+                          <input type="text" class="form-control" formControlName="idGrade" readonly>
+                        </div>
+          
+                        <div class="col-md-1 my-3">
+                          <label class="">Valor</label>
+                        </div>
+          
+                        <div class="col-md-5 my-3">
+                          <input type="number" class="form-control" formControlName="price">
+                        </div>
+          
+                        <div class="col-md-5">
+                        </div>
+          
+                        <div class="col-md-12 my-4">
+          
+                        </div>
+          
+                        <div class="col-md-3">
+                          <label class="">Porcentaje de descuento</label>
+                        </div>
+          
+                        <div class="col-md-5">
+                          <input type="number" class="form-control" formControlName="discount">
+                        </div>
+          
+          
+          
+                      </div>
+          
+                      <div class="col-md-6 my-4">
+                        <button type="submit" class="btn btn-outline-primary m-3" routerLink="/pension"> Cancelar</button>
+          
+                        <button type="submit" class="btn btn-primary m-3" (click)="actualizarPension()"> Actualizar</button>
+          
+                      </div>
+          
+                    </form>
+                  </div>
+          
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+       </div>
+    </div>
+    
+  </app-dashboard>
+  
+  
+  
+  
+  

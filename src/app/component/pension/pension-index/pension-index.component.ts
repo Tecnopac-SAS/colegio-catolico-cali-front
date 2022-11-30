@@ -13,7 +13,7 @@ import Swal from'sweetalert2';
 })
 export class PensionIndexComponent implements OnInit {
   grade !: any;
-  navTitle="Pension index"
+  navTitle="Pension"
   formValue !:FormGroup
   public dataPension:any
   public filter:any;
@@ -139,4 +139,37 @@ export class PensionIndexComponent implements OnInit {
     })
 
   }
+
+  deshabilitar(data:any){
+    this.pensionModel.isActive = data.isActive
+      if (data.isActive=1) {
+       this.pensionModel.isActive= 0;
+       Swal.fire(
+         '¡Pensión deshabilitada!',
+         '',
+         'warning'
+        )
+     }
+     this.pensionService.deshabilitar(this.pensionModel,data.id)
+     .subscribe(res=>{
+     this.listPensions()
+     })
+   }
+ 
+   activar(data:any){
+     this.pensionModel.isActive = data.isActive
+      if (data.isActive==0) {
+        this.pensionModel.isActive= 1;
+        Swal.fire(
+          '¡Pensión habilitada!',
+          '',
+          'success'
+         )
+      }
+  
+      this.pensionService.deshabilitar(this.pensionModel,data.id)
+      .subscribe(res=>{
+      this.listPensions()
+      })
+    }
 }

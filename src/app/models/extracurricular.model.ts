@@ -3,7 +3,7 @@ export class Extracurricular{
   public imagen:any;
   public startDate="";
   public finalDate="";
-  public teacher="";
+  public idTeacher=0;
   public activity="";
   public price=0;
   public isActive=0
@@ -18,7 +18,7 @@ export class ExtracurricularFile{
       public activity: string,
       public startDate: string,
       public finalDate: string,
-      public teacher: string,
+      public idTeacher: number,
       public price:number,
       public information: string,
       public schedule: string,

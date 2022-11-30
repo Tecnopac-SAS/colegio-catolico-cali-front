@@ -14,14 +14,21 @@ export class TuitionService {
   constructor(private _htpp:HttpClient) { }
 
   listTuitions(){
-    return this._htpp.get<any>(base_url+'tuition/listarTuitions')
+    return this._htpp.get<any>(base_url+'tuitionType/listarTuitionTypes')
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
   listTuition(params:any){
-    return this._htpp.get<any>(base_url+'tuition/listarTuition/'+params)
+    return this._htpp.get<any>(base_url+'tuitionType/listarTuition/'+params)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  obtenerTuition(id:number){
+    return this._htpp.get<any>(base_url+'tuitionType/listarTuitionId/'+id)
     .pipe(map((res:any)=>{
       return res;
     }))
@@ -43,6 +50,12 @@ export class TuitionService {
 
   updateTuition(id:any, data:any){
     return this._htpp.put<any>(base_url+'tuitionType/actualizarTuition/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+  deshabilitar(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'tuitionType/deshabilitar/'+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))

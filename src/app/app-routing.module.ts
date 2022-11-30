@@ -13,10 +13,13 @@ import { InscriptionIndexComponent } from './component/incription/inscription-in
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
 import { TuitionIndexComponent } from './component/tuition/tuition-index/tuition-index.component';
 import { TuitionCreateComponent } from './component/tuition/tuition-create/tuition-create.component';
+import { TuitionUpdateComponent } from './component/tuition/tuition-update/tuition-update.component';
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
+import { ExtracurricularUpdateComponent } from './component/extracurricular/extracurricular-update/extracurricular-update.component';
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
+import { PensionUpdateComponent } from './component/pension/pension-update/pension-update.component';
 import { ServicesIndexComponent } from './component/services-index/services-index.component';
 import { CoursesExtraordinarioComponent } from './component/curses/courses-extraordinario/courses-extraordinario.component';
 import { CoursesCreateComponent } from './component/curses/courses-create/courses-create.component';
@@ -65,6 +68,7 @@ import { StatisticsComponent } from './component/studentDatabase/statistics/stat
 import { LevelingIndexComponent } from './component/leveling/leveling-index/leveling-index.component';
 import { LevelingCreateComponent } from './component/leveling/leveling-create/leveling-create.component';
 import { LevelingUpdateComponent } from './component/leveling/leveling-update/leveling-update.component';
+import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -80,10 +84,13 @@ const routes: Routes = [
   {path: 'inscripcion-crear', component: InscriptionCreateComponent },
   {path: 'matriculas-crear', component: TuitionCreateComponent },
   {path: 'matriculas', component: TuitionIndexComponent },
+  {path: 'matriculas-editar/:id',component: TuitionUpdateComponent},
   {path: 'extracurriculares', component: ExtracurricularIndexComponent },
   {path: 'extracurriculares-crear', component: ExtracurricularCreateComponent },
+  {path: 'extracurriculares-editar/:id', component: ExtracurricularUpdateComponent },
   {path: 'pension', component: PensionIndexComponent },
   {path: 'pension-crear', component: PensionCreateComponent },
+  {path: 'pension-editar/:id', component: PensionUpdateComponent },
   {path: 'servicios', component: ServicesIndexComponent },
   {path: 'cursos-extraordinaria', component: CoursesExtraordinarioComponent },
   {path: 'cursos-crear-verano', component: CoursesCreateComponent },
@@ -132,6 +139,7 @@ const routes: Routes = [
   {path: 'nivelaciones',component: LevelingIndexComponent},
   {path: 'nivelaciones-crear',component: LevelingCreateComponent},
   {path: 'nivelaciones-editar/:id',component: LevelingUpdateComponent},
+  {path: 'copias-seguridad',component: BackupIndexComponent},
   
 ];
 

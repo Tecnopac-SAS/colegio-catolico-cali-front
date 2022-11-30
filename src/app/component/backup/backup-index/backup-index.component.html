@@ -1,0 +1,81 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+        <div class="card"> 
+            <div class="card-body"> 
+                <div class="container row ">
+                  <div class="col-md-5 col-12 ml-4">
+                    <h5 class="text-primary fw-bold">Copias de seguridad</h5>
+                  </div>
+                 </div>
+                <div class="row justify-content-end">
+                      <div class="col-md-3 col-12 my-2">
+                        <form #searchForm="ngForm">
+                            <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                              <div class="input-group-append">
+                                <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                            </div>
+                                <input type="text" class="form-control datetimepicker-input">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-1 col-4 my-2">
+                      <button  class="btn btn-primary" ><i class="bi bi-funnel"></i> Filtro</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="text-primary btn fs-5 fw-bold">¿Quieres descargar la data de estudiantes?</h1>
+                    </div>
+                    <div class="col-12">
+                        <button  class="btn btn-primary ml-3" (click)="exportToExcel()"> Descargar</button>
+                    </div>
+                    <div class="col-12 my-4">
+
+                    </div>
+                    <div class="col-12">
+                        <h1 class="text-primary btn fs-5 fw-bold" >¿Quieres descargar la data de estudiantes con datos del padre?</h1>
+                    </div>
+                    <div class="col-12">
+                        <button  class="btn btn-primary ml-3" (click)="exportToExcel()" > Descargar</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive-sm table-responsive-md  table-responsive-lg" style="display: none">
+                    <table class="table table-hover table-bordered" id="season-tble">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Código del estudiante<noscript></noscript></th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Apellidos del estudiante</th>
+                          <th scope="col">Doc. Identidad</th>
+                          <th scope="col">Correro electrónico</th>
+                          <th scope="col">Estado</th>
+                        </tr>
+                      </thead>
+                      <tbody  *ngFor="let data of dataStudentDatabase; let index = index ">
+                        <tr class="align-bottom">
+                          <th scope="row">{{index+1}}</th>
+                          <td >{{data.codigo}}</td>
+                          <td>{{data.nombres}}</td>
+                          <td>{{data.apellidos}}</td>
+                          <td>{{data.identificacion}}</td>
+                          <td>{{data.correo}}</td>
+                          <td *ngIf="data.isActive==0">Inactivo</td>
+                          <td *ngIf="data.isActive==1">Activo</td>
+            
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+    </div>
+    
+  </app-dashboard>
+  
+  
+
+
