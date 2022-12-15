@@ -1,0 +1,1017 @@
+<section class="hero">
+
+  <div class="background-image" style="background-image: url();"></div>
+  <div class="container-fluid">
+
+    <div class="section-title p-3 my-4">
+      <img src="assets/img/col.png" class="logo img-fluid" alt="...">
+    </div>
+    <div class="card bg-card my-5">
+      <div *ngIf="mensaje_error">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong class="text-primary">{{'¡Advetencia! '+mensaje_error}}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            (click)="cerrarAlerta()"></button>
+        </div>
+      </div>
+      <mat-stepper linear #stepper class="bg-card">
+        <mat-step [stepControl]="formValueEstudiantes">
+          <form [formGroup]="formValueEstudiantes" class="example-form">
+            <ng-template matStepLabel>Datos personales del estudiante</ng-template>
+            <div class="container">
+              <h6 class="text-primary">Datos personales del estudiante:</h6>
+              <div class="row align-items-end">
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Nombres completos</label>
+                  <input type="text" class="form-control" formControlName="nombres">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Apellidos completos</label>
+                  <input type="text" class="form-control" formControlName="apellidos">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Tipo de documento</label>
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option value="CEDULA">CC</option>
+                    <option value="CE">CE</option>
+                  </select>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Identificación</label>
+                  <input type="text" class="form-control" formControlName="identificacion">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Expedida en</label>
+                  <input type="text" class="form-control" formControlName="expedicion">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Lugar de nacimiento</label>
+                  <input type="text" class="form-control" formControlName="lugarNacimiento">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Fecha de nacimiento</label>
+                  <input type="date" class="form-control" formControlName="fechaNacimiento">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Edad</label>
+                  <input type="number" class="form-control" formControlName="edad">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Dirección</label>
+                  <input type="text" class="form-control" formControlName="direccion">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Unidad/Casa/Apto No.</label>
+                  <input type="text" class="form-control" formControlName="tipoDireccion">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Barrio</label>
+                  <input type="text" class="form-control" formControlName="barrio">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Estrato</label>
+                  <input type="number" class="form-control" formControlName="estrato">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Teléfono</label>
+                  <input type="text" class="form-control" formControlName="telefono">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Correo electrónico</label>
+                  <input type="email" class="form-control" formControlName="correo">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Solicito cupo para</label>
+                  <input type="text" class="form-control" formControlName="tipoCupo">
+                </div>
+  
+                <div class="col-9">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-3 my-3">
+                  <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                  <button  class="btn btn-primary m-3" matStepperNext (click)="CrearEstudiante()"> Guardar y seguir</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-step> 
+  
+        <!-- historial academico -->
+  
+        <mat-step [stepControl]="formValueHistorialAcademico" [optional]="isOptional">
+          <form [formGroup]="formValueHistorialAcademico">
+          <ng-template matStepLabel>Historial académico</ng-template>
+          <div class="container">
+            <h6 class="text-primary">Historial académico:</h6>
+            <div class="row align-items-end">
+              
+               <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Cursó pre-escolar en</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="preescolar">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Grados cursados</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+              
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Jardin" formControlName="gradoCursadoPreescolar">
+                    <label class="form-check-label" for="inlineCheckbox1">Preescolar</label>
+                  </div>
+                  
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Jardin" formControlName="gradoCursadoJardin">
+                    <label class="form-check-label" for="inlineCheckbox2">Jardin</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Transicion" formControlName="gradoCursadoTransicion">
+                    <label class="form-check-label" for="inlineCheckbox3">Transición</label>
+                  </div>
+  
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Cursó primaria en</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="primaria">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Grados cursados</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckboxP1" value="option1"  formControlName="gradoCursadoPrimaria1">
+                    <label class="form-check-label" for="inlineCheckboxP1">1</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckboxP2" value="option2" formControlName="gradoCursadoPrimaria2">
+                    <label class="form-check-label" for="inlineCheckboxP2">2</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckboxP3" value="option3" formControlName="gradoCursadoPrimaria3">
+                    <label class="form-check-label" for="inlineCheckboxP3">3</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckboxP4" value="option4" formControlName="gradoCursadoPrimaria4">
+                    <label class="form-check-label" for="inlineCheckboxP4">4</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckboxP5" value="option5" formControlName="gradoCursadoPrimaria5">
+                    <label class="form-check-label" for="inlineCheckboxP5">5</label>
+                  </div>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Cursó bachillerato en</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="bachillerato">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Grados cursados</label>
+                </div>
+                
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckboxB1" value="option1"  formControlName="gradoCursadoBachillerato6">
+                    <label class="form-check-label" for="inlineCheckboxB1">6</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckboxB2" value="option2" formControlName="gradoCursadoBachillerato7">
+                    <label class="form-check-label" for="inlineCheckboxB2">7</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckboxB3" value="option3" formControlName="gradoCursadoBachillerato8">
+                    <label class="form-check-label" for="inlineCheckboxB3">8</label>
+                  </div>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Cursó año anterior en</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="anioAnterior">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">¿Se retiro por?</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="motivoRetiro">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">¿Ha repetido algún año?</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="repeticionAnio">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">¿Alguna distinción academica?</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="distincionAcademica">
+                </div>
+  
+              <div class="col-9">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-3 my-3">
+                <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                <button  class="btn btn-primary m-3" matStepperNext (click)="CrearHistorialAcademico()"> Guardar y seguir</button>
+              </div>
+            </div>
+          </div>
+         
+          </form>
+        </mat-step> -->
+  
+        <!-- Aptitudes y estado físico -->
+        <mat-step [stepControl]="formValueAptitudes" [optional]="isOptional">
+          <form [formGroup]="formValueAptitudes">
+          <ng-template matStepLabel>Aptitudes y estado físico</ng-template>
+          <div class="container">
+            <h6 class="text-primary">Aptitudes y estado físico:</h6>
+            <div class="row align-items-end">
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">Deportes que le gustan</label>
+                <input type="text" class="form-control" formControlName="deporteGusto">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">Artes que más le gustan</label>
+                <input type="text" class="form-control" formControlName="arteGusto">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Ha tenido alguna distinción en deporte?</label>
+                <input type="text" class="form-control" formControlName="distincionDeporte">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Ha tenido alguna distinción en artística?</label>
+                <input type="text" class="form-control" formControlName="distincionArtistica">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Qué pasatiempos tiene?</label>
+                <input type="text" class="form-control" formControlName="pasatiempos">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Posee alguna colección?</label>
+                <input type="text" class="form-control" formControlName="coleccion">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">Estado de salud</label>
+                <input type="text" class="form-control" formControlName="estadoSalud">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Qué enfermedades ha sufrido?</label>
+                <input type="text" class="form-control" formControlName="enfermedades">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Toma algún medicamento?</label>
+                <input type="text" class="form-control" formControlName="medicamentos">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Puede hacer educación física?</label>
+                <input type="text" class="form-control" formControlName="limitacionEducacionFisica">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">Tipo de sangre y RH</label>
+                <input type="text" class="form-control" formControlName="tipoSangre">
+              </div>
+  
+              <div class="col-9">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-3 my-3">
+                <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                <button  class="btn btn-primary m-3" matStepperNext (click)="CrearAptitudes()"> Guardar y seguir</button>
+              </div>
+            </div>
+          </div>
+         
+          </form>
+        </mat-step> 
+  
+        <!-- Datos de los padres -->
+  
+        <mat-step [stepControl]="formValuePadre" [optional]="isOptional">
+          <form [formGroup]="formValuePadre">
+          <ng-template matStepLabel>Datos de los padres</ng-template>
+          <div class="container">
+            <h6 class="text-primary">Datos de los padres:</h6>
+            <div class="row align-items-end">
+              
+               <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Estado</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="estado">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">¿Vive?</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="vive">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option value="1">SI</option>
+                    <option value="0">NO</option>
+                  </select>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Tipo de documento</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option value="CEDULA">CC</option>
+                    <option value="CE">CE</option>
+                  </select>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Identificación</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="identificacion">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Nombres completos</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="nombres">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Apellidos completos</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="apellidos">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Profesión</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="profesion">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Empresa donde trabaja</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="dondeTrabaja">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Cargo</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="cargo">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Ingreso mensual</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="number" class="form-control" formControlName="ingresoMensual">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Correo electrónico</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="email" class="form-control" formControlName="correoElectronico">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Dirección</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="direccion">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Telefono</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="number" class="form-control" formControlName="telefono">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Celular</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="number" class="form-control" formControlName="celular">
+                </div>
+                <hr>
+            </div>
+          </div>
+          </form>
+       
+          <form [formGroup]="formValueMadre">
+            <ng-template matStepLabel>Datos de los padres</ng-template>
+            <div class="container">
+              <h6 class="text-primary">Datos de los padres:</h6>
+              <div class="row align-items-end">
+                
+                 <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Estado</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="estado">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">¿Vive?</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <select class="form-select form-control" aria-label="Default select example" formControlName="vive">
+                      <option value="" selected>Seleccione una opción</option>
+                      <option value="1">SI</option>
+                      <option value="0">NO</option>
+                    </select>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Tipo de documento</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento">
+                      <option value="" selected>Seleccione una opción</option>
+                      <option value="CEDULA">CC</option>
+                      <option value="CE">CE</option>
+                    </select>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Identificación</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="identificacion">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Nombres completos</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="nombres">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Apellidos completos</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="apellidos">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Profesión</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="profesion">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Empresa donde trabaja</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="dondeTrabaja">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Cargo</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="cargo">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Ingreso mensual</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="number" class="form-control" formControlName="ingresoMensual">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Correo electrónico</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="email" class="form-control" formControlName="correoElectronico">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Dirección</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="direccion">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Telefono</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="number" class="form-control" formControlName="telefono">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Celular</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="number" class="form-control" formControlName="celular">
+                  </div>
+  
+                <div class="col-9">
+                </div>
+    
+                <div class="col-12 col-xs-12  col-md-3 my-3">
+                  <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                  <button  class="btn btn-primary m-3" matStepperNext (click)="CrearPadre()"> Guardar y seguir</button>
+                </div>
+              </div>
+            </div>
+            </form>
+        </mat-step>
+  
+        <!-- Datos adicionales -->
+        <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+          <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Datos adicionales</ng-template>
+          <div class="container">
+            <h6 class="text-primary">Datos adicionales:</h6>
+            <div class="row align-items-end">
+              
+              <div class="col-12 col-xs-12  col-md-2 my-4">
+                <label class="">¿Tiene hermanos?</label>
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+            
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                  <label class="form-check-label" for="inlineCheckbox1">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                  <label class="form-check-label" for="inlineCheckbox2">No</label>
+                </div>
+              </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+             
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                 
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Nombres completos</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Apellidos completos</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Nivel de estudios</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Institución educativa</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+                <div class="col-12">
+                  <button  class="btn btn-primary" matStepperPrevious> Agregar más hermanos</button>
+                </div>
+
+                <div class="col-12">
+                  <hr class="txt-danger">
+                </div>
+
+                <h6 class="text-primary">Persona responsable ante el colegio:</h6>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Responsable</label>
+                </div>
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="secondCtrl">
+                    <option value="" selected>Seleccione una opción</option>
+                    <!-- <option value="CEDULA">CC</option>
+                    <option value="CE">CE</option> -->
+                  </select>
+                </div>
+
+                <div class="col-12">
+                  <hr class="txt-danger">
+                </div>
+             
+                <label class="">Datos del acudiente</label>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Parentesco</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Dirección</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Tipo de documento</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Identificación</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Nombres completos</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Apellidos completos</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">¿Vive?</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Correo electrónico</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Profesión</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Empresa donde trabaja</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Cargo</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Ingreso mensual</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Teléfono</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Celular</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+                <div class="col-12">
+                  <hr class="txt-danger">
+                </div>
+
+                <h6 class="text-primary">Persona responsable para facturación electrónica:</h6>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Responsable</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="secondCtrl">
+                    <option value="" selected>Seleccione una opción</option>
+                    <!-- <option value="CEDULA">CC</option>
+                    <option value="CE">CE</option> -->
+                  </select>
+                </div>
+
+                <div class="col-12">
+                  <hr class="txt-danger">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Tipo de persona</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Razón social</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Tipo de documento</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Identificación</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Correo electrónico</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Celular</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">País</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Ciudad</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Departamento</label>
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Dirección</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+                <div class="col-9">
+         
+                </div>
+  
+              <div class="col-12 col-xs-12  col-md-3 my-3">
+                <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                <button  class="btn btn-primary m-3" matStepperNext> Guardar y seguir</button>
+              </div>
+            </div>
+          </div>
+          </form>
+        </mat-step>
+  
+        <!-- Canal de referencia -->
+        <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+          <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Canal de referencia</ng-template>
+          <div class="container">
+            <h6 class="text-primary">Canal de referencia:</h6>
+            <div class="row align-items-end">
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Cómo se entero del colegio?</label>
+                <input type="text" class="form-control" formControlName="secondCtrl">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Qué sabe del colegio católico?</label>
+                <input type="text" class="form-control" formControlName="secondCtrl">
+              </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-4">
+                <label class="">¿Por qué desea ingresar al colegio católico?</label>
+                <input type="text" class="form-control" formControlName="secondCtrl">
+              </div>
+
+              <h6 class="text-primary">Compromiso de los padres:</h6>
+
+              <p>Señores Padres de Familia y/ó acudiente:
+                Si su hijo (a) es admitido como estudiante del COLEGIO CATÓLICO usted se
+                compromete a:</p>
+
+              <p>Leer la agenda y utilizarla.
+                Leer y cumplir el Manual de Convivencia.
+                Asistir puntualmente a las reuniones de Padres de Familia y citaciones que realice el Colegio.
+                Recibir el boletín de calificación de su hijo (a) al finalizar cada periodo.
+                Participar y apoyar las actividades de integración: culturales, académicas, deportivas y religiosas que organiza el Colegio, para Bien de sus estudiantes.
+                Consignar el valor de los costos educativos cumplidamente en los cinco (5) primeros días de cada mes, en la Corporación Indicada.
+                Suministrar el vestuario y transporte de su hijo (a) si es seleccionado o quiere tomar parte en las actividades de danza, teatro, coros, deporte, etc.
+                Aceptar los planes, programas y normas que contribuyen para la educación académica, cultural y formativa de sus hijos (as).</p>
+
+                <p>Si no cumplo estos compromisos, me acerco a dialogar y buscar soluciones.  Si el compromiso es financiero cancelo inmediatamente</p>
+                <p>Este formulario es una solicitud de ingreso, no es una matrícula</p>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Nombre del padre o acudiente</label>
+                  <input type="text" class="form-control" formControlName="secondCtrl">
+                </div>
+
+      
+                <div class="col-12 col-xs-12  col-md-9 my-3">
+                  <label class="m-2">¿Acepta el compromiso?  </label>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">Si</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">No</label>
+                  </div>
+    
+                </div>
+  
+              <div class="col-12 col-xs-12  col-md-4 my-3">
+                <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                <button  class="btn btn-primary m-3" matStepperNext> Guardar y seguir</button>
+              </div>
+              <h6 class="text-primary">Seleccione el método de pago</h6>
+              <p>Valor de matrícula $30.000</p>
+              <p>Seleccione el método de pago digital</p>
+
+              <div class=" col-12 col-xs-12  col-md-2 my-1">
+                <img src="../../../../../assets/acudiente/pse.png" class="btn" alt="..." style="width:150px ; height:150px">
+              </div>
+
+              <div class=" col-12 col-xs-12  col-md-2 my-1">
+                <img src="../../../../../assets/acudiente/tarjeta.png" class="btn" alt="..." style="width:150px ; height:150px">
+              </div>
+
+              <div class=" col-12 col-xs-12  col-md-2 my-1">
+                <img src="../../../../../assets/acudiente/paypal.png" class="btn" alt="..." style="width:150px ; height:150px">
+              </div>
+
+            </div>
+          </div>
+          </form>
+        </mat-step>
+      </mat-stepper>
+    </div>
+ 
+  </div>
+
+
+</section>

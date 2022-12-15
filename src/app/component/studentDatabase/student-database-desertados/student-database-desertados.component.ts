@@ -89,7 +89,7 @@ export class StudentDatabaseDesertadosComponent implements OnInit {
   }
 
   actualizarEstado(data:any, estado:any){
-     this.studentDatabaseModel.tipo = estado
+     this.studentDatabaseModel.estadoEstudiante = estado
      this.StudentDatabaseService.updateStudentDatabaseEstado(this.studentDatabaseModel,data.id)
      .subscribe(res=>{
       this.listarCriterio()

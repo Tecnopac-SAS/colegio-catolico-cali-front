@@ -1,5 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -78,6 +88,8 @@ import { TuitionUpdateComponent } from './component/tuition/tuition-update/tuiti
 import { PensionUpdateComponent } from './component/pension/pension-update/pension-update.component';
 import { ExtracurricularUpdateComponent } from './component/extracurricular/extracurricular-update/extracurricular-update.component';
 import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
+import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
+
 
 
 @NgModule({
@@ -156,15 +168,40 @@ import { BackupIndexComponent } from './component/backup/backup-index/backup-ind
     PensionUpdateComponent,
     ExtracurricularUpdateComponent,
     BackupIndexComponent,
+    SolicitudEstudiantesComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDividerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule
+  
+
+  
+   
+
+   
+  
+
+    
+
+  
+   
+
+   
+  
   ],
   providers: [],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

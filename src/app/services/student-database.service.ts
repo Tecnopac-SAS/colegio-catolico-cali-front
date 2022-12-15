@@ -74,4 +74,33 @@ export class StudentDatabaseService {
       return res;
     }))
   }
+
+  createHistorialAcademico(data:any){
+    return this._htpp.post<any>(base_url+'historialAcademico/CrearHistorialAcademico',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  createAptitudes(data:any){
+    return this._htpp.post<any>(base_url+'aptitudes/crearAptitudes',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  createPadre(data:any){
+    return this._htpp.post<any>(base_url+'padres-familia/crearPadreFamilia',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  createMadre(data:any){
+    return this._htpp.post<any>(base_url+'padres-familia/crearMadreFamilia',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
 }

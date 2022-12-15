@@ -70,6 +70,9 @@ import { LevelingCreateComponent } from './component/leveling/leveling-create/le
 import { LevelingUpdateComponent } from './component/leveling/leveling-update/leveling-update.component';
 import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
 
+//gestion acudiente
+import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
+
 const routes: Routes = [
   {path: '', component: LoginComponent },
   {path: 'dashboard', component: DashboardComponent },
@@ -140,6 +143,10 @@ const routes: Routes = [
   {path: 'nivelaciones-crear',component: LevelingCreateComponent},
   {path: 'nivelaciones-editar/:id',component: LevelingUpdateComponent},
   {path: 'copias-seguridad',component: BackupIndexComponent},
+
+  //gestion acudientes
+  {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
+
   
 ];
 

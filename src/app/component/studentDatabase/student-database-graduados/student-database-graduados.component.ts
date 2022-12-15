@@ -22,6 +22,8 @@ export class StudentDatabaseGraduadosComponent implements OnInit {
   public filterText:any;
   studentDatabaseModel:StudentDatabase = new StudentDatabase();
   id !: any;
+  public mensaje_ok:any;
+  public mensaje_error:any;
   constructor(
     private formBuilder:FormBuilder,
     private StudentDatabaseService:StudentDatabaseService,
@@ -88,7 +90,7 @@ export class StudentDatabaseGraduadosComponent implements OnInit {
   }
 
   actualizarEstado(data:any, estado:any){
-     this.studentDatabaseModel.tipo = estado
+     this.studentDatabaseModel.estadoEstudiante = estado
      this.StudentDatabaseService.updateStudentDatabaseEstado(this.studentDatabaseModel,data.id)
      .subscribe(res=>{
       this.listarCriterio()
