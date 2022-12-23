@@ -1,8 +1,6 @@
 <section class="hero">
-
   <div class="background-image" style="background-image: url();"></div>
   <div class="container-fluid">
-
     <div class="section-title p-3 my-4">
       <img src="assets/img/col.png" class="logo img-fluid" alt="...">
     </div>
@@ -14,7 +12,8 @@
             (click)="cerrarAlerta()"></button>
         </div>
       </div>
-      <mat-stepper linear #stepper class="bg-card">
+   
+      <mat-stepper linear #stepper class="bg-card" >
         <mat-step [stepControl]="formValueEstudiantes">
           <form [formGroup]="formValueEstudiantes" class="example-form">
             <ng-template matStepLabel>Datos personales del estudiante</ng-template>
@@ -106,17 +105,17 @@
   
                 <div class="col-12 col-xs-12  col-md-3 my-3">
                   <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                  <button  class="btn btn-primary m-3" matStepperNext (click)="CrearEstudiante()"> Guardar y seguir</button>
+                  <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposEstudiante()" > Guardar y seguir</button>
                 </div>
               </div>
             </div>
           </form>
-        </mat-step> 
+        </mat-step>
   
         <!-- historial academico -->
   
         <mat-step [stepControl]="formValueHistorialAcademico" [optional]="isOptional">
-          <form [formGroup]="formValueHistorialAcademico">
+       <form [formGroup]="formValueHistorialAcademico">
           <ng-template matStepLabel>Historial académico</ng-template>
           <div class="container">
             <h6 class="text-primary">Historial académico:</h6>
@@ -251,16 +250,16 @@
   
               <div class="col-12 col-xs-12  col-md-3 my-3">
                 <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                <button  class="btn btn-primary m-3" matStepperNext (click)="CrearHistorialAcademico()"> Guardar y seguir</button>
+                <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposHistorialAcademico()"> Guardar y seguir</button>
               </div>
             </div>
           </div>
          
           </form>
-        </mat-step> -->
+        </mat-step>
   
         <!-- Aptitudes y estado físico -->
-        <mat-step [stepControl]="formValueAptitudes" [optional]="isOptional">
+       <mat-step [stepControl]="formValueAptitudes" [optional]="isOptional">
           <form [formGroup]="formValueAptitudes">
           <ng-template matStepLabel>Aptitudes y estado físico</ng-template>
           <div class="container">
@@ -327,21 +326,21 @@
   
               <div class="col-12 col-xs-12  col-md-3 my-3">
                 <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                <button  class="btn btn-primary m-3" matStepperNext (click)="CrearAptitudes()"> Guardar y seguir</button>
+                <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposHistorialEstadoFisico()"> Guardar y seguir</button>
               </div>
             </div>
           </div>
          
-          </form>
-        </mat-step> 
+          </form> 
+        </mat-step>  -->
   
         <!-- Datos de los padres -->
-  
-        <mat-step [stepControl]="formValuePadre" [optional]="isOptional">
+          <mat-step [stepControl]="formValuePadre" [optional]="isOptional">
           <form [formGroup]="formValuePadre">
           <ng-template matStepLabel>Datos de los padres</ng-template>
           <div class="container">
-            <h6 class="text-primary">Datos de los padres:</h6>
+         
+            <h6 class="text-primary">Datos del Padre:</h6>
             <div class="row align-items-end">
               
                <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -349,7 +348,11 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="estado">
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="estado" (change)="bloquedarCamposPadre()" >
+                    <option value="" selected>Seleccione una opción</option>
+                    <option value="0">SIN DATOS</option>
+                    <option value="1">CON DATOS</option>
+                  </select>
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -357,7 +360,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="vive">
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="vive" [disabled]="habilitarCampoPadre">
                     <option value="" selected>Seleccione una opción</option>
                     <option value="1">SI</option>
                     <option value="0">NO</option>
@@ -369,7 +372,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento">
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento" [disabled]="habilitarCampoPadre">
                     <option value="" selected>Seleccione una opción</option>
                     <option value="CEDULA">CC</option>
                     <option value="CE">CE</option>
@@ -381,7 +384,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="identificacion">
+                  <input type="text" class="form-control" formControlName="identificacion"[readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -389,7 +392,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="nombres">
+                  <input type="text" class="form-control" formControlName="nombres" [readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -397,7 +400,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="apellidos">
+                  <input type="text" class="form-control" formControlName="apellidos" [readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -405,7 +408,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="profesion">
+                  <input type="text" class="form-control" formControlName="profesion" [readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -413,7 +416,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="dondeTrabaja">
+                  <input type="text" class="form-control" formControlName="dondeTrabaja" [readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -421,7 +424,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="cargo">
+                  <input type="text" class="form-control" formControlName="cargo" [readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -429,7 +432,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="number" class="form-control" formControlName="ingresoMensual">
+                  <input type="number" class="form-control" formControlName="ingresoMensual" [readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -437,7 +440,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="email" class="form-control" formControlName="correoElectronico">
+                  <input type="email" class="form-control" formControlName="correoElectronico"[readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -445,7 +448,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="direccion">
+                  <input type="text" class="form-control" formControlName="direccion" [readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -453,25 +456,30 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="number" class="form-control" formControlName="telefono">
+                  <input type="number" class="form-control" formControlName="telefono" [readonly]="habilitarCampoPadre">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Celular</label>
                 </div>
-  
+
+        
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="number" class="form-control" formControlName="celular">
+                  <input type="number" class="form-control" formControlName="celular" [readonly]="habilitarCampoPadre">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" formControlName="continuar" style="display: none;">
                 </div>
                 <hr>
             </div>
           </div>
           </form>
        
-          <form [formGroup]="formValueMadre">
+           <form [formGroup]="formValueMadre">
             <ng-template matStepLabel>Datos de los padres</ng-template>
             <div class="container">
-              <h6 class="text-primary">Datos de los padres:</h6>
+              <h6 class="text-primary">Datos de la madre:</h6>
               <div class="row align-items-end">
                 
                  <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -479,7 +487,11 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="estado">
+                    <select class="form-select form-control" aria-label="Default select example" formControlName="estado" (change)="bloquedarCamposMadre()">
+                      <option value="" selected>Seleccione una opción</option>
+                      <option value="0">SIN DATOS</option>
+                      <option value="1">CON DATOS</option>
+                    </select>
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -487,8 +499,8 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <select class="form-select form-control" aria-label="Default select example" formControlName="vive">
-                      <option value="" selected>Seleccione una opción</option>
+                    <select class="form-select form-control" aria-label="Default select example" formControlName="vive" [disabled]="habilitarCampoMadre">
+                      <option value="" selected>Seleccione una opción</option  >
                       <option value="1">SI</option>
                       <option value="0">NO</option>
                     </select>
@@ -499,7 +511,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento">
+                    <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento" [disabled]="habilitarCampoMadre">
                       <option value="" selected>Seleccione una opción</option>
                       <option value="CEDULA">CC</option>
                       <option value="CE">CE</option>
@@ -511,7 +523,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="identificacion">
+                    <input type="text" class="form-control" formControlName="identificacion" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -519,7 +531,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="nombres">
+                    <input type="text" class="form-control" formControlName="nombres" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -527,7 +539,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="apellidos">
+                    <input type="text" class="form-control" formControlName="apellidos" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -535,7 +547,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="profesion">
+                    <input type="text" class="form-control" formControlName="profesion" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -543,7 +555,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="dondeTrabaja">
+                    <input type="text" class="form-control" formControlName="dondeTrabaja" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -551,7 +563,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="cargo">
+                    <input type="text" class="form-control" formControlName="cargo" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -559,7 +571,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="number" class="form-control" formControlName="ingresoMensual">
+                    <input type="number" class="form-control" formControlName="ingresoMensual" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -567,7 +579,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="email" class="form-control" formControlName="correoElectronico">
+                    <input type="email" class="form-control" formControlName="correoElectronico" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -575,7 +587,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="direccion">
+                    <input type="text" class="form-control" formControlName="direccion" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -583,7 +595,7 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="number" class="form-control" formControlName="telefono">
+                    <input type="number" class="form-control" formControlName="telefono" [readonly]="habilitarCampoMadre">
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -591,24 +603,27 @@
                   </div>
     
                   <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="number" class="form-control" formControlName="celular">
+                    <input type="number" class="form-control" formControlName="celular" [readonly]="habilitarCampoMadre">
                   </div>
+
+                 
   
                 <div class="col-9">
                 </div>
     
                 <div class="col-12 col-xs-12  col-md-3 my-3">
                   <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                  <button  class="btn btn-primary m-3" matStepperNext (click)="CrearPadre()"> Guardar y seguir</button>
+                  <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposPadres()"> Guardar y seguir</button>
                 </div>
               </div>
             </div>
             </form>
-        </mat-step>
+        </mat-step> 
   
         <!-- Datos adicionales -->
-        <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
-          <form [formGroup]="secondFormGroup">
+        
+        <mat-step [stepControl]="formValueDatosAdicionales" [optional]="isOptional">
+        <form [formGroup]="formValueDatosAdicionales">
           <ng-template matStepLabel>Datos adicionales</ng-template>
           <div class="container">
             <h6 class="text-primary">Datos adicionales:</h6>
@@ -620,14 +635,15 @@
   
               <div class="col-12 col-xs-12  col-md-4 my-4">
             
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <div class="form-check form-check-inline" (change)="validarCheckSi()">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" formArrayName="checkSi" [checked]="validadorCheckSi">
                   <label class="form-check-label" for="inlineCheckbox1">Si</label>
                 </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <div class="form-check form-check-inline" (change)="validarCheckNo()">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" formArrayName="checkNo" [checked]="validadorCheckNo">
                   <label class="form-check-label" for="inlineCheckbox2">No</label>
                 </div>
+
               </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -637,46 +653,112 @@
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                  
                 </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Nombres completos</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Apellidos completos</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Nivel de estudios</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Institución educativa</label>
-                </div>
+                
+                <!-- <form #newFormHermano="ngForm">
 
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Crear otro hermano</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <app-hermanos   [validadorCheck]="checkSi"
+                              *ngFor="let item of datosFormArray.controls;let i=index;"
+                              [miFormulario]="item"
+                              [id]="i"
+                            >
+                            </app-hermanos>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </form> -->
+              <form [formGroup]="formValueDatosAdicionalesHermanos">
+                <div class="row">
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Nombres completos</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="nombres" [readonly]="validadorCheckHermano">
+                  </div> 
+    
+                   <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Apellidos completos</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="apellidos" [readonly]="validadorCheckHermano">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Nivel de estudios</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="nivelEstudio" [readonly]="validadorCheckHermano">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Institución educativa</label>
+                  </div>
+  
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="institucion" [readonly]="validadorCheckHermano">
+                  </div>  
                 </div>
-
                 <div class="col-12">
-                  <button  class="btn btn-primary" matStepperPrevious> Agregar más hermanos</button>
+                  <button  class="btn btn-primary m-1"  [disabled]="validadorBotonHermano" (click)="AgregarOtroHermano()"> Agregar más hermanos</button>
                 </div>
+              </form>
+
+              <form [formGroup]="formValueDatosAdicionalesHermanos2" *ngIf="validadorAgregarOtroHermano==true">
+                <div class="row">
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Nombres completos</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="nombres" [readonly]="validadorCheckHermano">
+                  </div> 
+    
+                   <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Apellidos completos</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="apellidos" [readonly]="validadorCheckHermano">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Nivel de estudios</label>
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="nivelEstudio" [readonly]="validadorCheckHermano">
+                  </div>
+    
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Institución educativa</label>
+                  </div>
+  
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="institucion" [readonly]="validadorCheckHermano">
+                  </div>  
+                </div>
+              
+              </form>
 
                 <div class="col-12">
                   <hr class="txt-danger">
                 </div>
+
+               
 
                 <h6 class="text-primary">Persona responsable ante el colegio:</h6>
 
@@ -684,10 +766,11 @@
                   <label class="">Responsable</label>
                 </div>
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="secondCtrl">
-                    <option value="" selected>Seleccione una opción</option>
-                    <!-- <option value="CEDULA">CC</option>
-                    <option value="CE">CE</option> -->
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="responsable" (change)="responsable()" >
+                    <option value="" selected>Seleccione una opción</option >
+                    <option value="1">Padre</option>
+                    <option value="2">Madre</option>
+                    <option value="3">Otro/acudiente</option>
                   </select>
                 </div>
 
@@ -702,7 +785,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="parentesco" [readonly]="validadorResponsable" formControlName="parentesco">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -710,7 +793,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="direccion">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -718,7 +801,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="tipoDocumento">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -726,7 +809,7 @@
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="identificacion">
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -734,7 +817,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="nombres">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -742,7 +825,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control"[readonly]="validadorResponsable" formControlName="apellidos">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -750,7 +833,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="vive">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -758,7 +841,7 @@
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="correoElectronico">
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -766,7 +849,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="profesion">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -774,7 +857,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="dondeTrabaja">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -782,7 +865,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable"formControlName="cargo">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -790,7 +873,7 @@
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="number" class="form-control" [readonly]="validadorResponsable" formControlName="ingresoMensual">
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -798,7 +881,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="telefono">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -806,24 +889,27 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="celular">
                 </div>
 
                 <div class="col-12">
                   <hr class="txt-danger">
                 </div>
 
-                <h6 class="text-primary">Persona responsable para facturación electrónica:</h6>
+                <form [formGroup]="formValueDatosAdicionalesResponsable" >
+                  <div class="row">
+                    <h6 class="text-primary">Persona responsable para facturación electrónica:</h6>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Responsable</label>
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="secondCtrl">
-                    <option value="" selected>Seleccione una opción</option>
-                    <!-- <option value="CEDULA">CC</option>
-                    <option value="CE">CE</option> -->
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="responsable" (change)="responsableFacturacion()" >
+                    <option value="" selected>Seleccione una opción</option >
+                    <option value="1">Padre</option>
+                    <option value="2">Madre</option>
+                    <option value="3">Otro/acudiente</option>
                   </select>
                 </div>
 
@@ -836,7 +922,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="tipoPersona" >
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -844,7 +930,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="razonSocial" >
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -852,7 +938,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="tipoDocumento" [readonly]="validadorResponsableFacturacion">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -860,7 +946,7 @@
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="identificacion" [readonly]="validadorResponsableFacturacion">
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -868,7 +954,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="correoElectronico" [readonly]="validadorResponsableFacturacion">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -876,7 +962,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="celular" [readonly]="validadorResponsableFacturacion">
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -884,7 +970,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="pais">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -892,7 +978,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="ciudad" >
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -900,7 +986,7 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control"  formControlName="departamento" >
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -908,13 +994,16 @@
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="direccion">
                 </div>
 
                 <div class="col-9">
          
                 </div>
-  
+
+                  </div>
+                
+              </form>
               <div class="col-12 col-xs-12  col-md-3 my-3">
                 <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
                 <button  class="btn btn-primary m-3" matStepperNext> Guardar y seguir</button>
@@ -925,8 +1014,8 @@
         </mat-step>
   
         <!-- Canal de referencia -->
-        <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
-          <form [formGroup]="secondFormGroup">
+        <mat-step [stepControl]="formValueCanalReferencia" [optional]="isOptional">
+          <form [formGroup]="formValueCanalReferencia">
           <ng-template matStepLabel>Canal de referencia</ng-template>
           <div class="container">
             <h6 class="text-primary">Canal de referencia:</h6>
@@ -934,17 +1023,17 @@
   
               <div class="col-12 col-xs-12  col-md-4 my-4">
                 <label class="">¿Cómo se entero del colegio?</label>
-                <input type="text" class="form-control" formControlName="secondCtrl">
+                <input type="text" class="form-control" formControlName="comoSeEntero">
               </div>
   
               <div class="col-12 col-xs-12  col-md-4 my-4">
                 <label class="">¿Qué sabe del colegio católico?</label>
-                <input type="text" class="form-control" formControlName="secondCtrl">
+                <input type="text" class="form-control" formControlName="comoSabe">
               </div>
   
               <div class="col-12 col-xs-12  col-md-4 my-4">
                 <label class="">¿Por qué desea ingresar al colegio católico?</label>
-                <input type="text" class="form-control" formControlName="secondCtrl">
+                <input type="text" class="form-control" formControlName="porqueIngresar">
               </div>
 
               <h6 class="text-primary">Compromiso de los padres:</h6>
@@ -967,26 +1056,26 @@
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Nombre del padre o acudiente</label>
-                  <input type="text" class="form-control" formControlName="secondCtrl">
+                  <input type="text" class="form-control" formControlName="nombreAcudiente">
                 </div>
 
       
                 <div class="col-12 col-xs-12  col-md-9 my-3">
                   <label class="m-2">¿Acepta el compromiso?  </label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" formControlName="aceptaCompromisos" (change)="validarCanalReferencia()">
                     <label class="form-check-label" for="inlineCheckbox1">Si</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="0" formControlName="aceptaCompromisos">
                     <label class="form-check-label" for="inlineCheckbox2">No</label>
                   </div>
     
                 </div>
   
-              <div class="col-12 col-xs-12  col-md-4 my-3">
-                <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                <button  class="btn btn-primary m-3" matStepperNext> Guardar y seguir</button>
+              <div class="col-12 col-xs-12  col-md-4 my-3" >
+                <button  class="btn btn-outline-primary m-3" matStepperPrevious > Volver</button>
+                <button  class="btn btn-primary m-3" matStepperNext (click)="CrearEstudiante()" [disabled]="validadorTerminos"> Guardar y seguir</button>
               </div>
               <h6 class="text-primary">Seleccione el método de pago</h6>
               <p>Valor de matrícula $30.000</p>

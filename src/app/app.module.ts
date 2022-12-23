@@ -89,6 +89,7 @@ import { PensionUpdateComponent } from './component/pension/pension-update/pensi
 import { ExtracurricularUpdateComponent } from './component/extracurricular/extracurricular-update/extracurricular-update.component';
 import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
+import { HermanosComponent } from './component/acudiente/hermanos/hermanos.component';
 
 
 
@@ -169,6 +170,7 @@ import { SolicitudEstudiantesComponent } from './component/acudiente/questionari
     ExtracurricularUpdateComponent,
     BackupIndexComponent,
     SolicitudEstudiantesComponent,
+    HermanosComponent,
   ],
   imports: [
     BrowserAnimationsModule,

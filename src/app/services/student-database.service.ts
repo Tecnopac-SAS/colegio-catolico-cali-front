@@ -103,4 +103,25 @@ export class StudentDatabaseService {
     }))
   }
 
+  createAcudiente(data:any){
+    return this._htpp.post<any>(base_url+'padres-familia/crearAcudiente',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  createResponsable(data:any){
+    return this._htpp.post<any>(base_url+'padres-familia/crearResponsable',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  createHermanos(data:any){
+    return this._htpp.post<any>(base_url+'hermanos/crearHermano',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
 }

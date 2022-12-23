@@ -41,6 +41,7 @@ export class StudentDatabase{
     public motivoRetiro=""
     public repeticionAnio=""
     public distincionAcademica=""
+    public idEstudiante=0
   }
 
   export class Aptitudes{
@@ -55,6 +56,7 @@ export class StudentDatabase{
     public medicamentos= ""
     public limitacionEducacionFisica= ""
     public tipoSangre= ""
+    public idEstudiante=0
   }
 
   export class Padres{
@@ -67,12 +69,70 @@ export class StudentDatabase{
     public profesion=""
     public dondeTrabaja=""
     public cargo=""
-    public ingresoMensual=""
+    public ingresoMensual=0
     public correoElectronico=""
     public direccion=""
     public telefono=""
     public celular=""
+    public idEstudiante=0
   }
+
+  export class Acudiente{
+    public responsable=""
+    public parentesco=""
+    //public estado=""
+    public vive=""
+    public tipoDocumento=""
+    public identificacion=""
+    public nombres=""
+    public apellidos=""
+    public profesion=""
+    public dondeTrabaja=""
+    public cargo=""
+    public ingresoMensual=0
+    public correoElectronico=""
+    public direccion=""
+    public telefono=""
+    public celular=""
+    public idEstudiante=0
+  }
+
+
+  export class Responsable{
+    public responsable=""
+    public tipoPersona=""
+    public razonSocial=""
+    public tipoDocumento=""
+    public identificacion=""
+    public pais=""
+    public ciudad=""
+    public departamento=""
+    public correoElectronico=""
+    public direccion=""
+    public celular=""
+    public idEstudiante=0
+  }
+
+ 
+
+  export class Hermano{
+    public nombres=""
+    public apellidos=""
+    public nivelEstudio=""
+    public institucion=""
+    public idEstudiante=0
+ 
+  }
+
+  export class Hermano2{
+    public nombres=""
+    public apellidos=""
+    public nivelEstudio=""
+    public institucion=""
+    public idEstudiante=0
+ 
+  }
+
 
 
 
