@@ -69,11 +69,14 @@ import { LevelingIndexComponent } from './component/leveling/leveling-index/leve
 import { LevelingCreateComponent } from './component/leveling/leveling-create/leveling-create.component';
 import { LevelingUpdateComponent } from './component/leveling/leveling-update/leveling-update.component';
 import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
+import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
+import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
 
 //gestion acudiente
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
 
 const routes: Routes = [
+  {path: 'login-acudiente', component: LoginAcudienteComponent },
   {path: '', component: LoginComponent },
   {path: 'dashboard', component: DashboardComponent },
   {path: 'home', component: HomepageComponent },
@@ -143,7 +146,7 @@ const routes: Routes = [
   {path: 'nivelaciones-crear',component: LevelingCreateComponent},
   {path: 'nivelaciones-editar/:id',component: LevelingUpdateComponent},
   {path: 'copias-seguridad',component: BackupIndexComponent},
-
+  {path: 'admision',component: AdmisionIndexComponent},
   //gestion acudientes
   {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
 

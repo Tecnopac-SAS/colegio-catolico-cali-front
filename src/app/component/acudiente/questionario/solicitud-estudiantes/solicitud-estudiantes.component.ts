@@ -30,6 +30,7 @@ import Swal from'sweetalert2';
 export class SolicitudEstudiantesComponent implements OnInit {
   isEditable = false;
   idEstudiante !: any;
+  parentesco !: any;
   validadorCheckSi !: false;
   validadorCheckNo !: false;
   validadorCheckHermano!: boolean;
@@ -324,13 +325,11 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.studentDatabaseModel.correo = this.formValueEstudiantes.value.correo;
     this.studentDatabaseModel.tipoCupo = this.formValueEstudiantes.value.tipoCupo;
 
-    if(this.studentDatabaseModel.nombres =="" ){
-      this.mensaje_error="El campo nombres no puede estar vacio"
+    if(this.formValueCanalReferencia.value.aceptaCompromisos =="" ){
+      this.mensaje_error="El campo acepta los compromisos no puede estar vacio"
     }
 
-    else if(this.studentDatabaseModel.apellidos =="" ){
-      this.mensaje_error="El campo apellidos no puede estar vacio"
-    }
+    
     else{
       this.studentDatabaseService.createStudentDatabase(this.studentDatabaseModel)
       .subscribe(res=>{
@@ -578,7 +577,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.acudienteModel.idEstudiante=this.idEstudiante
     this.acudienteModel.responsable = this.formValueDatosAdicionalesResponsable.value.responsable;
     this.acudienteModel.parentesco = this.formValueDatosAdicionales.value.parentesco;
-    //this.acudienteModel.estado = this.formValueDatosAdicionales.value.estado;
+    this.acudienteModel.parentesco = this.parentesco;
     this.acudienteModel.nombres = this.formValueDatosAdicionales.value.nombres;
     this.acudienteModel.apellidos = this.formValueDatosAdicionales.value.apellidos;
     //this.acudienteModel.estado = this.formValueDatosAdicionales.value.estado;
@@ -594,6 +593,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.acudienteModel.telefono = this.formValueDatosAdicionales.value.telefono;
     this.acudienteModel.celular = this.formValueDatosAdicionales.value.celular;
 
+    this.responsableModel.idEstudiante=this.idEstudiante
     this.responsableModel.responsable = this.formValueDatosAdicionalesResponsable.value.responsable;
     this.responsableModel.tipoPersona = this.formValueDatosAdicionalesResponsable.value.tipoPersona;
     this.responsableModel.razonSocial = this.formValueDatosAdicionalesResponsable.value.razonSocial;
@@ -639,22 +639,6 @@ export class SolicitudEstudiantesComponent implements OnInit {
         }
         else{
           this.mensaje_ok="Se registro correctamente"
-          /*this.formValueMadre= this.formBuilder.group({
-            estado: ['', Validators.required],
-            vive: ['', Validators.required],
-            tipoDocumento: ['', Validators.required],
-            identificacion: ['', Validators.required],
-            nombres: ['', Validators.required],
-            apellidos: ['', Validators.required],
-            profesion: ['', Validators.required],
-            dondeTrabaja: ['', Validators.required],
-            cargo: ['', Validators.required],
-            ingresoMensual: ['', Validators.required],
-            correoElectronico: ['', Validators.required],
-            direccion: ['', Validators.required],
-            telefono: ['', Validators.required],
-            celular: ['', Validators.required],
-         })*/
         }
       },
       err=>{
@@ -737,8 +721,8 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.canalReferenciaModel.porqueIngresar = this.formValueCanalReferencia.value.porqueIngresar;
     console.log(this.canalReferenciaModel)
 
-    if(  this.canalReferenciaModel.comoSabe=="" ){
-      this.mensaje_error="El campo como sabe no puede estar vacio"
+    if(this.formValueCanalReferencia.value.aceptaCompromisos =="" ){
+      this.mensaje_error="El campo acepta los compromisos no puede estar vacio"
     }
 
     else{
@@ -1100,8 +1084,8 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
     if(this.formValuePadre.value.estado==0) {
       this.habilitarCampoPadre=true;
-      this.formValuePadre.controls['vive'].setValue("")
-      this.formValuePadre.controls['tipoDocumento'].setValue("")
+      this.formValuePadre.controls['vive'].setValue("2")
+      this.formValuePadre.controls['tipoDocumento'].setValue("NO")
       this.formValuePadre.controls['identificacion'].setValue("N/A")
       this.formValuePadre.controls['nombres'].setValue("N/A")
       this.formValuePadre.controls['apellidos'].setValue("N/A")
@@ -1138,8 +1122,8 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
      if(this.formValueMadre.value.estado==0) {
       this.habilitarCampoMadre=true;
-      this.formValueMadre.controls['vive'].setValue("")
-      this.formValueMadre.controls['tipoDocumento'].setValue("")
+      this.formValueMadre.controls['vive'].setValue("2")
+      this.formValueMadre.controls['tipoDocumento'].setValue("NO")
       this.formValueMadre.controls['identificacion'].setValue("N/A")
       this.formValueMadre.controls['nombres'].setValue("N/A")
       this.formValueMadre.controls['apellidos'].setValue("N/A")
@@ -1176,6 +1160,39 @@ export class SolicitudEstudiantesComponent implements OnInit {
     console.log(this.formValueMadre.value.estado)
   }
 
+  guardarFormularios(){
+    if(this.formValueCanalReferencia.value.aceptaCompromisos =="" ){
+      this.mensaje_error="El campo acepta los compromisos no puede estar vacio"
+    }
+
+    else if(this.formValueCanalReferencia.value.comoSabe =="" ){
+      this.mensaje_error="El campo como sabe del colegio no puede estar vacio"
+    }
+
+    else if(this.formValueCanalReferencia.value.comoSeEntero =="" ){
+      this.mensaje_error="El campo como se entero del colegio puede estar vacio"
+    }
+
+    else if(this.formValueCanalReferencia.value.porqueIngresar =="" ){
+      this.mensaje_error="El campo por que desa ingresar no puede estar vacio"
+    }
+
+    else if(this.formValueCanalReferencia.value.nombreAcudiente =="" ){
+      this.mensaje_error="El campo nombre de acudiente no puede estar vacio"
+    }
+
+    else{
+      this.CrearEstudiante()
+      Swal.fire(
+        'Información enviada',
+        '',
+        'success'
+       )
+       setTimeout(() => {
+          this.router.navigate(['/login-acudiente']);
+        }, 1000);
+    }
+  }
   validarCanalReferencia(){
     if(this.formValueCanalReferencia.value.aceptaCompromisos==true){
       this.validadorTerminos=false
@@ -1187,6 +1204,8 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
     console.log(this.formValueCanalReferencia.value.aceptaCompromisos)
   }
+
+
 
   validarCheckSi(){
   this.formValueDatosAdicionales.value.checkSi=false
@@ -1278,6 +1297,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
     if(this.formValueDatosAdicionalesResponsable.value.responsable==1) {
       this.validadorResponsableFacturacion= true
+      this.parentesco= "Padre"
       this.formValueDatosAdicionalesResponsable.controls['responsable'].setValue(1)
       this.formValueDatosAdicionalesResponsable.controls['tipoDocumento'].setValue(this.formValuePadre.value.tipoDocumento)
       this.formValueDatosAdicionalesResponsable.controls['identificacion'].setValue(this.formValuePadre.value.identificacion)
@@ -1290,6 +1310,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
     if (this.formValueDatosAdicionalesResponsable.value.responsable==2) {
       this.validadorResponsableFacturacion= true
+      this.parentesco= "Madre"
       this.formValueDatosAdicionalesResponsable.controls['responsable'].setValue(2)
       this.formValueDatosAdicionalesResponsable.controls['tipoDocumento'].setValue(this.formValueMadre.value.tipoDocumento)
       this.formValueDatosAdicionalesResponsable.controls['identificacion'].setValue(this.formValueMadre.value.identificacion)
@@ -1302,6 +1323,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
     if (this.formValueDatosAdicionalesResponsable.value.responsable==3) {
       this.validadorResponsableFacturacion= false
+      this.parentesco= "Acudiente"
       this.formValueDatosAdicionalesResponsable.controls['responsable'].setValue(3)
       this.formValueDatosAdicionalesResponsable.controls['tipoDocumento'].setValue("")
       this.formValueDatosAdicionalesResponsable.controls['identificacion'].setValue("")

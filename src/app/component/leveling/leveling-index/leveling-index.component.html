@@ -43,10 +43,10 @@
                     <tbody  *ngFor="let data of dataLeveling; let index = index ">
                       <tr class="align-bottom">
                         <th scope="row">{{index+1}}</th>
-                        <td >{{data.codigo}}</td>
-                        <td>{{data.nombres}}</td>
-                        <td>{{data.apellidos}}</td>
-                        <td>{{data.ModalidadCurso}}</td>
+                        <td >{{data.levelingAsEstudiante.codigo}}</td>
+                        <td>{{data.levelingAsEstudiante.nombres}}</td>
+                        <td>{{data.levelingAsEstudiante.apellidos}}</td>
+                        <td>{{data.modalidadCurso}}</td>
                         <td>{{data.asignatura}}</td>
                         <td *ngIf="data.estadoAprobado==0">Pendiente</td>
                         <td *ngIf="data.estadoAprobado==1">Cursado</td>

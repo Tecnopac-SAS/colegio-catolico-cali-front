@@ -32,6 +32,12 @@ export class StudentDatabaseService {
       return res;
     }))
   }
+  listAdmision(){
+    return this._htpp.get<any>(base_url+'studentDatabase/listarStudentDatabases')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   listStudentDatabaseTipoCount(params:any){
     return this._htpp.get<any>(base_url+'studentDatabase/contarEstado/'+params)

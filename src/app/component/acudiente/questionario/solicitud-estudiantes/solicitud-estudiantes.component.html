@@ -364,6 +364,7 @@
                     <option value="" selected>Seleccione una opción</option>
                     <option value="1">SI</option>
                     <option value="0">NO</option>
+                    <option value="2">NO APLICA</option>
                   </select>
                 </div>
   
@@ -376,6 +377,7 @@
                     <option value="" selected>Seleccione una opción</option>
                     <option value="CEDULA">CC</option>
                     <option value="CE">CE</option>
+                    <option value="NO">NO APLICA</option>
                   </select>
                 </div>
   
@@ -503,6 +505,7 @@
                       <option value="" selected>Seleccione una opción</option  >
                       <option value="1">SI</option>
                       <option value="0">NO</option>
+                      <option value="2">NO APLICA</option>
                     </select>
                   </div>
     
@@ -515,6 +518,7 @@
                       <option value="" selected>Seleccione una opción</option>
                       <option value="CEDULA">CC</option>
                       <option value="CE">CE</option>
+                      <option value="NO">NO APLICA</option>
                     </select>
                   </div>
     
@@ -1023,17 +1027,17 @@
   
               <div class="col-12 col-xs-12  col-md-4 my-4">
                 <label class="">¿Cómo se entero del colegio?</label>
-                <input type="text" class="form-control" formControlName="comoSeEntero">
+                <input type="textarea" class="form-control" formControlName="comoSeEntero">
               </div>
   
               <div class="col-12 col-xs-12  col-md-4 my-4">
                 <label class="">¿Qué sabe del colegio católico?</label>
-                <input type="text" class="form-control" formControlName="comoSabe">
+                <input type="textarea" class="form-control" formControlName="comoSabe">
               </div>
   
               <div class="col-12 col-xs-12  col-md-4 my-4">
                 <label class="">¿Por qué desea ingresar al colegio católico?</label>
-                <input type="text" class="form-control" formControlName="porqueIngresar">
+                <input type="textarea" class="form-control" formControlName="porqueIngresar">
               </div>
 
               <h6 class="text-primary">Compromiso de los padres:</h6>
@@ -1075,7 +1079,7 @@
   
               <div class="col-12 col-xs-12  col-md-4 my-3" >
                 <button  class="btn btn-outline-primary m-3" matStepperPrevious > Volver</button>
-                <button  class="btn btn-primary m-3" matStepperNext (click)="CrearEstudiante()" [disabled]="validadorTerminos"> Guardar y seguir</button>
+                <button  class="btn btn-primary m-3" matStepperNext (click)="guardarFormularios()" [disabled]="validadorTerminos"> Guardar y seguir</button>
               </div>
               <h6 class="text-primary">Seleccione el método de pago</h6>
               <p>Valor de matrícula $30.000</p>

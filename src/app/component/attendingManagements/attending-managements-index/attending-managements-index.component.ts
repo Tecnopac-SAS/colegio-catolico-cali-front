@@ -85,6 +85,7 @@ export class AttendingManagementsIndexComponent implements OnInit {
     .subscribe(res=>{
     this.listAttendingManagementss()
     })
+
   }
 
 
@@ -103,10 +104,11 @@ export class AttendingManagementsIndexComponent implements OnInit {
      .subscribe(res=>{
      this.listAttendingManagementss()
      })
+
    }
 
   restablecerContrasena(data:any){
-      this.loginService.recuperarContrasena(data.email).subscribe(
+      this.loginService.recuperarContrasena(data.correoElectronico).subscribe(
         response=>{
           console.log(response)
           if(response.mensaje=="El correo no se encuentra registrado en la bd"){

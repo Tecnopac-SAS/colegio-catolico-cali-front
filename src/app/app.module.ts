@@ -90,6 +90,8 @@ import { ExtracurricularUpdateComponent } from './component/extracurricular/extr
 import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
 import { HermanosComponent } from './component/acudiente/hermanos/hermanos.component';
+import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
+import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
 
 
 
@@ -171,6 +173,8 @@ import { HermanosComponent } from './component/acudiente/hermanos/hermanos.compo
     BackupIndexComponent,
     SolicitudEstudiantesComponent,
     HermanosComponent,
+    AdmisionIndexComponent,
+    LoginAcudienteComponent,
   ],
   imports: [
     BrowserAnimationsModule,

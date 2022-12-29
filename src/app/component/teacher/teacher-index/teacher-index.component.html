@@ -51,11 +51,11 @@
                         <td>
                             <button  class="text-info btn" routerLink="/docente-editar/{{data.id}}">Editar</button>|
                             <button  class="text-info btn" (click)="activar(data)">Activar</button>|
-                            <button  class="text-danger btn" data-bs-target="#deshabilitarModalToggle" data-bs-toggle="modal">Desactivar</button>
+                            <button  class="text-danger btn" [attr.data-target]="'#deshabilitarModalToggle' + data.id"  data-toggle="modal">Desactivar</button>
                         </td>
                       </tr>
                       <!-- modal deshabilitar -->
-                      <div class="modal fade" id="deshabilitarModalToggle" aria-hidden="true" aria-labelledby="deshabilitarModalToggleLabel" tabindex="-1">
+                      <div class="modal fade" id="deshabilitarModalToggle{{data.id}}" aria-hidden="true" aria-labelledby="deshabilitarModalToggleLabel" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                           <div class="modal-content">
                             <div class="modal-body">
@@ -67,8 +67,8 @@
                               
                               <br>
                               <div class="text-center">
-                                <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary m-2" data-bs-target="#deshabilitarModalToggle" data-bs-toggle="modal" (click)="deshabilitar(data)">Deshabilitar</button>
+                                <button type="button" class="btn btn-outline-primary m-2" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary m-2" data-bs-target="#deshabilitarModalToggle" data-dismiss="modal" data-toggle="modal" (click)="deshabilitar(data)">Deshabilitar</button>
                                 <br>
                                 <br>
                                 <br>

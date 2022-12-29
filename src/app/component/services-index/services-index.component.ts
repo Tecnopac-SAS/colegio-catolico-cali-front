@@ -127,6 +127,11 @@ export class ServicesIndexComponent implements OnInit {
      else {
      this.inscriptionService.actualizarPrecio(this.inscriptionModel)
      .subscribe(res=>{
+      Swal.fire(
+        '¡Valor actualizado correctamente!',
+        '',
+        'success'
+       )
       
      })
     }

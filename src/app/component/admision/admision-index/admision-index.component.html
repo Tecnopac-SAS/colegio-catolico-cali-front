@@ -1,0 +1,130 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+            <div class="card"> 
+              <div *ngIf="mensaje_ok">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_ok}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+
+              <div class="card-body"> 
+                <div class="container row ">
+                  <div class="col-md-5 col-12 ml-4">
+                    <h5 class="text-info btn">Admisión</h5>
+                  </div>
+                 </div>
+                <div class="row justify-content-end">
+                      <div class="col-md-3 col-12 my-2">
+                        <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                            <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                              <div class="input-group-append">
+                                <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                            </div>
+                                <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-1 col-4 my-2">
+                      <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+                    </div>
+                </div>
+                <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre del estudiante</th>
+                        <th scope="col">Apellidos del estudiante</th>
+                        <th scope="col">Correro electrónico</th>
+                        <th scope="col">Grado</th>
+                        <th scope="col">Fecha de solicitud</th>
+                        <th scope="col">¿Pago inscripción?</th>
+                        <th scope="col">Tipo de pago</th>
+                        <th scope="col"  class = "text-center">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody  *ngFor="let data of dataStudentDatabase; let index = index ">
+                      <tr class="align-bottom">
+                        <th scope="row">{{index+1}}</th>
+                        <td>{{data.nombres}}</td>
+                        <td>{{data.apellidos}}</td>
+                        <td>{{data.correo}}</td>
+                        <td>Grado</td>
+                        <td>{{data.createdAt | date:'dd/MM/yy'}}</td>
+                        <td>Pago</td>
+                        <td>Tpo Pago</td>
+                        <td>
+                            <button  class="text-dark btn">Ver</button>|
+                            <button  class="text-info btn" [attr.data-target]="'#aprobarModalToggle' + data.id" data-toggle="modal" >Aprobar</button>|
+                            <button  class="text-danger btn" [attr.data-target]="'#rechazarModalToggle' + data.id" data-toggle="modal" >Rechazar</button>
+                        </td>
+                      </tr>
+                      <!-- modal cambiar estado -->
+                      <div class="modal fade" id="aprobarModalToggle{{data.id}}" aria-hidden="true" aria-labelledby="editarModalToggleLabel" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-body">
+                              <br>
+                              <h4 class="text-center text-primary">¿Estas seguro de que quieres 
+                                aceptar el ingreso este estudiante?</h4>
+                              <br>
+                            
+                              <div class="row justify-content-center">
+
+                                <div class="col-4 my-4 ml-5">
+                                  <button type="button" class="btn btn-outline-danger m-2" data-dismiss="modal">Cancelar</button>
+                                </div>
+                                <div class="col-4 my-4">
+                                  <button type="button" class="btn btn-primary m-2" data-dismiss="modal" data-dismiss="modal" (click)="actualizarEstado(data,'Inscrito')">Aceptar</button>
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                          <!-- modal rechazar -->
+                          <div class="modal fade" id="rechazarModalToggle{{data.id}}" aria-hidden="true" aria-labelledby="editarModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                      <br>
+                                      <h4 class="text-center text-primary">¿Estas seguro de que quieres 
+                                        rechazar el ingreso este estudiante?</h4>
+                                      <br>
+                                    
+                                      <div class="row justify-content-center">
+        
+                                        <div class="col-4 my-4 ml-5">
+                                          <button type="button" class="btn btn-outline-danger m-2" data-dismiss="modal">Cancelar</button>
+                                        </div>
+                                        <div class="col-4 my-4">
+                                          <button type="button" class="btn btn-danger m-2" data-dismiss="modal" data-dismiss="modal" (click)="actualizarEstado(data,'Rechazado')">Rechazar</button>
+                                        </div>
+                                        
+                                        <br>
+                                        <br>
+                                        <br>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                          </div>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+    </div>
+  </app-dashboard>
+  
+  
+
+
+

@@ -48,7 +48,7 @@ export class StudentDatabaseSinInscribirComponent implements OnInit {
   }
 
   listarCriterio(){
-      this.StudentDatabaseService.listStudentDatabaseTipo("Graduado")
+      this.StudentDatabaseService.listStudentDatabaseTipo("Aspirante")
       .subscribe(res=>{
         this.dataStudentDatabase=res.result
         console.log(res.result)
@@ -62,7 +62,7 @@ export class StudentDatabaseSinInscribirComponent implements OnInit {
     }
 
     else {
-      this.StudentDatabaseService.listStudentDatabase(searchForm.value.filtro,"Matriculado")
+      this.StudentDatabaseService.listStudentDatabase(searchForm.value.filtro,"Aspirante")
       .subscribe(res=>{
         this.dataStudentDatabase=res.result
         console.log(res.result)

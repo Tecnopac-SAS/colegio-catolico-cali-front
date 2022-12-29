@@ -99,6 +99,8 @@ export class StudentDatabase{
 
 
   export class Responsable{
+    public parentesco=""
+    public estado=""
     public responsable=""
     public tipoPersona=""
     public razonSocial=""

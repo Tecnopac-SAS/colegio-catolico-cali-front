@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Leveling } from 'src/app/models/leveling.model';
-import { LevelingService } from 'src/app/services/leveling.service';
+import { StudentDatabase } from 'src/app/models/studentDatabase.model';
+import { StudentDatabaseService } from 'src/app/services/student-database.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -8,90 +8,93 @@ import { LoginService } from 'src/app/services/login.service';
 import Swal from'sweetalert2';
 
 @Component({
-  selector: 'app-leveling-index',
-  templateUrl: './leveling-index.component.html',
-  styleUrls: ['./leveling-index.component.css']
+  selector: 'app-admision-index',
+  templateUrl: './admision-index.component.html',
+  styleUrls: ['./admision-index.component.css']
 })
-export class LevelingIndexComponent implements OnInit {
+export class AdmisionIndexComponent implements OnInit {
+
 
   grade !: any;
-  navTitle="Estudiantes con asignaturas sin aprobar"
+  navTitle="Admisión"
   formValue !:FormGroup
-  public dataLeveling:any
+  public dataStudentDatabase:any
   public filter:any;
   public filterText:any;
-  levelingModel:Leveling = new Leveling();
+  studentDatabaseModel:StudentDatabase = new StudentDatabase();
   id !: any;
+  public mensaje_ok:any;
+  public mensaje_error:any;
   constructor(
     private formBuilder:FormBuilder,
-    private LevelingService:LevelingService,
+    private StudentDatabaseService:StudentDatabaseService,
     private loginService:LoginService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
-    this.listLevelings()
+    this.listarCriterio()
     this.fieldCapture()
   }
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      codigo: [''],
-      nombres: [''],
-      apellidos: [''],
-      ModalidadCurso:[''],
-      asignatura:[''],
-      grado:[''],
+      code: [''],
+      name: [''],
+      surname: [''],
+      email:[''],
+      pension:[''],
+      balance:[''],
       isActive:['']
 
     })
   }
 
-  listLevelings(){
-    this.LevelingService.listLevelings()
-    .subscribe(res=>{
-      this.dataLeveling=res.result
-      console.log(this.dataLeveling)
-    })
+  listarCriterio(){
+      this.StudentDatabaseService.listStudentDatabaseTipo("Aspirante")
+      .subscribe(res=>{
+        this.dataStudentDatabase=res.result
+        console.log(res.result)
+      })
   }
 
   search(searchForm:any){
 
     if(this.filterText==""){
-      this.listLevelings();
+      this.listarCriterio()
     }
 
     else {
-      this.LevelingService.listLeveling(searchForm.value.filtro)
+      this.StudentDatabaseService.listStudentDatabase(searchForm.value.filtro,"Aspirante")
       .subscribe(res=>{
-        this.dataLeveling=res.result
-        console.log(this.dataLeveling)
+        this.dataStudentDatabase=res.result
+        console.log(res.result)
       })
     }
 
   }
 
   deshabilitar(data:any){
-   this.levelingModel.isActive = data.isActive
+   this.studentDatabaseModel.isActive = data.isActive
      if (data.isActive=1) {
-      this.levelingModel.isActive= 0;
+      this.studentDatabaseModel.isActive= 0;
       Swal.fire(
         'Acudiente deshabilitado!',
         '',
         'warning'
        )
     }
-    this.LevelingService.deshabilitar(this.levelingModel,data.id)
+    this.StudentDatabaseService.deshabilitar(this.studentDatabaseModel,data.id)
     .subscribe(res=>{
-    //this.listLevelings()
+    //this.listStudentDatabases()
     })
   }
 
   actualizarEstado(data:any, estado:any){
-     this.levelingModel.estadoAprobado = estado
-     this.LevelingService.updateLevelingEstado(this.levelingModel,data.id)
+     this.studentDatabaseModel.estadoEstudiante = estado
+     this.StudentDatabaseService.updateStudentDatabaseEstado(this.studentDatabaseModel,data.id)
      .subscribe(res=>{
-      //this.listarCriterio()
+      this.listarCriterio()
      if (res) {
       Swal.fire(
         '¡Cambio de estado exitoso!',
@@ -113,35 +116,20 @@ export class LevelingIndexComponent implements OnInit {
    }
 
   activar(data:any){
-    this.levelingModel.estadoAprobado = data.estadoAprobado
-     if (data.estadoAprobado==0) {
-       this.levelingModel.estadoAprobado= 1;
+    this.studentDatabaseModel.isActive = data.isActive
+     if (data.isActive==0) {
+       this.studentDatabaseModel.isActive= 1;
        Swal.fire(
-         '¡Estado cursado!',
+         'Acudiente habilitado!',
          '',
          'success'
         )
-        this.LevelingService.updateLevelingEstado(this.levelingModel,data.id)
-        .subscribe(res=>{
-        this.listLevelings()
-        })
      }
-   }
-
-   inactivar(data:any){
-    this.levelingModel.estadoAprobado = data.estadoAprobado
-     if (data.estadoAprobado==1) {
-       this.levelingModel.estadoAprobado= 0;
-       Swal.fire(
-         '¡Estado pendiente!',
-         '',
-         'warning'
-        )
-        this.LevelingService.updateLevelingEstado(this.levelingModel,data.id)
-        .subscribe(res=>{
-        this.listLevelings()
-        })
-     }
+ 
+     this.StudentDatabaseService.deshabilitar(this.studentDatabaseModel,data.id)
+     .subscribe(res=>{
+     //this.listStudentDatabases()
+     })
    }
 
   restablecerContrasena(data:any){
@@ -170,4 +158,5 @@ export class LevelingIndexComponent implements OnInit {
         }
       )
   }
+
 }

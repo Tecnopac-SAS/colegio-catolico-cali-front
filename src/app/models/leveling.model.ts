@@ -1,8 +1,6 @@
 export class Leveling{
     public id=0;
-    public codigo="";
-    public nombres="";
-    public apellidos="";
+    public idEstudiante=0;
     public modalidadCurso="";
     public asignatura="";
     public grado="";

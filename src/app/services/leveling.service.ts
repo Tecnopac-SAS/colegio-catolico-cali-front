@@ -26,6 +26,14 @@ export class LevelingService {
     }))
   }
 
+  listEstudiante(params:any){
+    return this._htpp.get<any>(base_url+'leveling/listarEstudiante/'+params)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+
   
   listLevelingTipo(params:any){
     return this._htpp.get<any>(base_url+'leveling/listarLevelingEstado/'+params)

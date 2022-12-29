@@ -17,6 +17,7 @@ export class LevelingCreateComponent implements OnInit {
   public filterText:any;
   public dataLeveling:any
   id !: any;
+  idEstudiante !: any;
   codigo !: any;
   Leveling !: any;
   navTitle="Nueva nivelación"
@@ -51,23 +52,33 @@ export class LevelingCreateComponent implements OnInit {
   search(searchForm:any){
 
     if(this.filterText==""){
-      
+      this.mensaje_error="No existe el código de estudiante";
     }
 
     else {
-      this.LevelingService.listLeveling(searchForm.value.filtro)
+      this.LevelingService.listEstudiante(searchForm.value.filtro)
       .subscribe(res=>{
-        this.dataLeveling=res.result
-        this.formValue = this.formBuilder.group({
+        console.log(res.result)
+        if (res.result.length ==0) {
+          this.mensaje_error="No existe el código de estudiante";
+        }
+        else{
+          this.dataLeveling=res.result
+          this.formValue = this.formBuilder.group({
           nombres: [this.dataLeveling[0].nombres],
           apellidos: [this.dataLeveling[0].apellidos],
-          modalidadCurso:[this.dataLeveling[0].modalidadCurso],
-          asignatura:[this.dataLeveling[0].asignatura],
+          modalidadCurso:[''],
+          asignatura:[''],
           grado:[this.dataLeveling[0].grado],
-       
-    
-        })
-        console.log(this.dataLeveling[0])
+          })
+          this.idEstudiante=this.dataLeveling[0].id
+          console.log(this.dataLeveling[0])
+        }
+      
+     
+        
+     
+        
       })
     }
 
@@ -75,30 +86,28 @@ export class LevelingCreateComponent implements OnInit {
 
 
   CrearNivelacion(){
-    this.LevelingModel.nombres = this.formValue.value.nombres;
-    this.LevelingModel.apellidos = this.formValue.value.apellidos;
-    this.LevelingModel.codigo = this.filterText;
+
+    this.LevelingModel.idEstudiante = this.idEstudiante;
     this.LevelingModel.modalidadCurso = this.formValue.value.modalidadCurso;
     this.LevelingModel.asignatura = this.formValue.value.asignatura;
     this.LevelingModel.grado = this.formValue.value.grado;
 
-    if(this.LevelingModel.nombres =="" ){
-      this.mensaje_error="El campo nombre  no puede estar vacio"
+    if(this.LevelingModel.modalidadCurso =="" ){
+      this.mensaje_error="El campo modaliad del curso  no puede estar vacio"
     }
 
-    else if(this.LevelingModel.apellidos  =="" ){
-      this.mensaje_error="El campo apellido no puede estar vacio"
+    else if(this.LevelingModel.asignatura  =="" ){
+      this.mensaje_error="El campo asignatura no puede estar vacio"
     }
 
-    else if(this.LevelingModel.codigo  =="" ){
-      this.mensaje_error="El campo código no puede estar vacio"
+    else if(this.LevelingModel.grado  =="" ){
+      this.mensaje_error="El campo grado no puede estar vacio"
     }
 
    
     else{
       this.LevelingService.createLeveling(this.LevelingModel)
       .subscribe(res=>{
-      console.log(res);
       console.log(this.LevelingModel);
         if (res.mensaje=="la nivelación ya existe") {
           this.mensaje_error=res.mensaje;
@@ -113,6 +122,7 @@ export class LevelingCreateComponent implements OnInit {
             asignatura:[''],
             grado:[''],
           })
+          this.filterText="";
         }
       },
       err=>{
