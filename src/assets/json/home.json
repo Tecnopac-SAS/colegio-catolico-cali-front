@@ -4,7 +4,8 @@
       "id": 1,
       "name": "Pagos",
       "img": "assets/img-home/pagos.png",
-      "url": "/"
+      "url": "/",
+      "role": "admin"
 
 
   },
@@ -12,7 +13,8 @@
     "id": 2,
     "name": "Admisión",
     "img": "assets/img-home/admision.png",
-    "url": "/"
+    "url": "/",
+    "role": "admin"
 
   }
   ,
@@ -20,21 +22,24 @@
     "id": 3,
     "name": "Base de datos estudiantes",
     "img": "assets/img-home/baseEstudiantes.png",
-    "url": "/"
+    "url": "/",
+    "role": "admin"
 
   },
   {
     "id": 4,
     "name": "Certificados",
     "img": "assets/img-home/certificados.png",
-    "url": "/"
+    "url": "/",
+    "role": "admin"
 
   },
   {
     "id": 5,
     "name": "Estado de cartera",
     "img": "assets/img-home/estadoCartera.png",
-    "url": "/"
+    "url": "/",
+    "role": "admin"
 
   },
 
@@ -42,14 +47,75 @@
     "id": 6,
     "name": "Paz y salvo 4 sellos",
     "img": "assets/img-home/pazYsalvo.png",
-    "url": "/"
+    "url": "/",
+    "role": "admin"
 
   },
   {
     "id": 7,
     "name": "Medias tecnicas",
     "img": "assets/img-home/medias.png",
-    "url": "/"
+    "url": "/",
+    "role": "admin"
+
+  },
+  {
+      "id": 1,
+      "name": "¡Matrículas abiertas! Periodo 2022-2023",
+      "img": "assets/img-home/pagos.png",
+      "url": "/",
+      "role": "acudiente"
+
+
+  },
+  {
+    "id": 2,
+    "name": "Inscripciones a Extracurriculares",
+    "img": "assets/img-home/admision.png",
+    "url": "/",
+    "role": "acudiente"
+
+  }
+  ,
+  {
+    "id": 3,
+    "name": "Cursos",
+    "img": "assets/img-home/baseEstudiantes.png",
+    "url": "/",
+    "role": "acudiente"
+
+  },
+  {
+    "id": 4,
+    "name": "¡Pago a pensiones! Periodo 2022-2023",
+    "img": "assets/img-home/certificados.png",
+    "url": "/",
+    "role": "acudiente"
+
+  },
+  {
+    "id": 5,
+    "name": "Solicitud de certificados",
+    "img": "assets/img-home/estadoCartera.png",
+    "url": "/",
+    "role": "acudiente"
+
+  },
+
+  {
+    "id": 6,
+    "name": "Configuración del perfil",
+    "img": "assets/img-home/pazYsalvo.png",
+    "url": "/",
+    "role": "acudiente"
+
+  },
+  {
+    "id": 7,
+    "name": "Medias técnicas",
+    "img": "assets/img-home/medias.png",
+    "url": "/",
+    "role": "acudiente"
 
   }
 

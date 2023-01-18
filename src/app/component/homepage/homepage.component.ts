@@ -10,7 +10,11 @@ export class HomepageComponent implements OnInit {
   data: any = Data;
   public navTitle:any
   public name: any;
-  constructor(private userService:UserService,) {this.name= this.userService.getName(); }
+  public role: any;
+
+  constructor(private userService:UserService,) {
+    this.name= this.userService.getName(); 
+    this.role= this.userService.getRol();}
 
   ngOnInit(): void {
     this.navTitle="Estoy en inicio"
