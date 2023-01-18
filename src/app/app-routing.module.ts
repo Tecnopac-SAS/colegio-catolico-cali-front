@@ -76,8 +76,8 @@ import { LoginAcudienteComponent } from './component/login/login-acudiente/login
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
 
 const routes: Routes = [
-  {path: 'login-acudiente', component: LoginAcudienteComponent },
-  {path: '', component: LoginComponent },
+  {path: '', component: LoginAcudienteComponent },
+  {path: 'admin', component: LoginComponent },
   {path: 'dashboard', component: DashboardComponent },
   {path: 'home', component: HomepageComponent },
   {path: 'crear-usuario', component: CreateUserComponent },

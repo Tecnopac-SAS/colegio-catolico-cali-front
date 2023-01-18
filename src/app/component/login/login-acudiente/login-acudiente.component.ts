@@ -131,7 +131,7 @@ sessionValidation(){
    this.router.navigate(['home'])
  }
  else{
-   this.router.navigate(['login-acudiente'])
+   this.router.navigate([''])
  }
 }
 

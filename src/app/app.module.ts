@@ -99,6 +99,7 @@ import { LoginAcudienteComponent } from './component/login/login-acudiente/login
   declarations: [
     AppComponent,
     LoginComponent,
+    LoginAcudienteComponent,
     DashboardComponent,
     CreateUserComponent,
     IndexUserComponent,
@@ -174,7 +175,6 @@ import { LoginAcudienteComponent } from './component/login/login-acudiente/login
     SolicitudEstudiantesComponent,
     HermanosComponent,
     AdmisionIndexComponent,
-    LoginAcudienteComponent,
   ],
   imports: [
     BrowserAnimationsModule,
