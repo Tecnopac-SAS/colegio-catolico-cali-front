@@ -14,6 +14,7 @@ export class UserService {
   public name: any;
   public role: any;
   public id: any;
+  public bolsillo: any;
 
   constructor( private _htpp:HttpClient,) { }
 
@@ -70,6 +71,16 @@ export class UserService {
     return this.role;
   }
 
+  getBolsillo():Observable<any>{
+    let bolsillo = localStorage.getItem('bolsillo');
+    if(bolsillo){
+      this.bolsillo = bolsillo
+    }
+    else {
+      this.bolsillo= null;
+    }
+    return this.bolsillo;
+  }
   getName():Observable<any>{
     let name = localStorage.getItem('usuario');
     if(name){

@@ -17,6 +17,7 @@ export class LoginAcudienteComponent implements OnInit {
  public id:any;
  public nombre: any;
  public role: any;
+ public bolsillo: any;
  public mensaje_ok:any;
  public mensaje_error:any;
 
@@ -66,10 +67,12 @@ login(){
         this.nombre=response.nombres
         this.role=response.idRole
         this.id=response.id
+        this.bolsillo=response.bolsillo
         localStorage.setItem('token',this.token);
         localStorage.setItem('usuario',this.nombre);
         localStorage.setItem('idRole',this.role);
         localStorage.setItem('id',this.id);
+        localStorage.setItem('bolsillo',this.bolsillo);
         this.router.navigate(['home'])
       }else{
         Swal.fire(

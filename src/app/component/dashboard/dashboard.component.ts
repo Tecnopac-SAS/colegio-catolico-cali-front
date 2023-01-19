@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   public token:any
   public name: any;
   public role: any;
+  public bolsillo: any;
 
   constructor(
     private loginService:LoginService,
@@ -26,6 +27,7 @@ export class DashboardComponent implements OnInit {
     this.token= this.loginService.getToken();
     this.name= this.userService.getName();
     this.role= this.userService.getRol();
+    this.bolsillo= this.userService.getBolsillo();
    }
 
   ngOnInit(): void {
@@ -49,6 +51,7 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem('idRole');
     localStorage.removeItem('usuario');
     localStorage.removeItem('id');
+    localStorage.removeItem('bolsillo');
 
     Swal.fire(
       'Has cerrado sesión correctamente!',
