@@ -71,6 +71,7 @@ import { LevelingUpdateComponent } from './component/leveling/leveling-update/le
 import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
 import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
 import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
+import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
 
 //gestion acudiente
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
@@ -149,6 +150,7 @@ const routes: Routes = [
   {path: 'admision',component: AdmisionIndexComponent},
   //gestion acudientes
   {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
+  {path: 'bolsillo',component: BolsilloComponent},
 
   
 ];

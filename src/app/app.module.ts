@@ -92,6 +92,7 @@ import { SolicitudEstudiantesComponent } from './component/acudiente/questionari
 import { HermanosComponent } from './component/acudiente/hermanos/hermanos.component';
 import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
 import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
+import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
 
 
 
@@ -175,6 +176,7 @@ import { LoginAcudienteComponent } from './component/login/login-acudiente/login
     SolicitudEstudiantesComponent,
     HermanosComponent,
     AdmisionIndexComponent,
+    BolsilloComponent,
   ],
   imports: [
     BrowserAnimationsModule,
