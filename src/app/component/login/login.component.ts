@@ -62,48 +62,25 @@ export class LoginComponent implements OnInit {
        )
     }
     else{
-      this.loginService.login(this.formValue.value).subscribe(
+      this.loginService.login(this.formValue.value,'1').subscribe(
         response=>{
-          console.log(response)
-          if(response.mensaje=="correo invalido"){
+          if (response.token) {
+            this.token=response.token
+            this.nombre=response.nombres
+            this.role=response.idRole
+            this.id=response.id
+            localStorage.setItem('token',this.token);
+            localStorage.setItem('usuario',this.nombre);
+            localStorage.setItem('idRole',this.role);
+            localStorage.setItem('id',this.id);
+            this.router.navigate(['home'])
+          }else{
             Swal.fire(
-              'El correo no existe!',
+              'Correo o contraseña incorrectas',
               '',
               'error'
              )
-          }
-          else if(response.mensaje=="Contraseña incorrecta"){
-            Swal.fire(
-              'Contraseña incorrecta!',
-              '',
-              'error'
-             )
-          }
-          else{
-            Swal.fire(
-              'Inicio de sesión correcto!',
-              '',
-              'success'
-             )
-                //estas variables auxiliares contiene los datos de la bd
-                this.token=response.token
-                this.nombre=response.nombres
-                this.role=response.idRole
-                this.id=response.id
-                localStorage.setItem('token',this.token);
-                localStorage.setItem('usuario',this.nombre);
-                localStorage.setItem('idRole',this.role);
-                localStorage.setItem('id',this.id);
-            this.loginService.login(this.formValue.value).subscribe(
-              response=>{
-                console.log(response)
-                this.router.navigate(['home'])
-              },
-              error=>{
-                console.log(error)
-                alert(error)
-              }
-            )
+
           }
         },
         error=>{
