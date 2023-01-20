@@ -12,9 +12,9 @@
                 <p class="text-primary"> Saldo total del bolsillo: <span class="text-black">${{ bolsillo }}</span></p>
                 <div class="mt-5 d-flex justify-content-between w-50 align-items-center">
                     Bolsillo 
-                    <form action="" class="d-flex ">
-                        <input class="form-control" placeholder="$0" type="number" name="" id="">
-                        <button class="ml-5 btn btn-primary form-control" type="submit">Recargar tu bolsillo</button>
+                    <form [formGroup]="formValue" class="d-flex ">
+                        <input class="form-control" placeholder="$0" type="number" formControlName="cant">
+                        <button class="ml-5 btn btn-primary form-control" type="button" (click)="recargarBolsillo()">Recargar tu bolsillo</button>
                     </form>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import Swal from'sweetalert2';
 import * as $ from 'jquery'
+import { BolsilloService } from 'src/app/services/bolsillo.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,18 +23,21 @@ export class DashboardComponent implements OnInit {
   constructor(
     private loginService:LoginService,
     private userService:UserService,
+    private bolsilloService:BolsilloService,
     private router:Router)
    {
     this.token= this.loginService.getToken();
     this.name= this.userService.getName();
     this.role= this.userService.getRol();
-    this.bolsillo= this.userService.getBolsillo();
+    this.bolsillo = setInterval(()=>{this.checkBolsillo()},5000);
+    
    }
-
+   
   ngOnInit(): void {
     this.jquery();
     this.sessionValidation();
     this.navTitle="Estoy en dash " + this.name
+    this.bolsillo = localStorage.getItem('bolsillo')
   }
 
   sessionValidation(){
@@ -44,7 +48,14 @@ export class DashboardComponent implements OnInit {
       this.router.navigate([''])
     }
   }
+  checkBolsillo(){
+     this.bolsilloService.getCant(localStorage.getItem('idAcudiente')).subscribe(response=>{
+      this.bolsillo = response.resp
+      localStorage.setItem('bolsillo',this.bolsillo)
+    },error=>{
 
+    });
+  }
   SignOff(){
 
     localStorage.removeItem('token');
