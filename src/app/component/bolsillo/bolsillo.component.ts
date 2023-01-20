@@ -20,7 +20,7 @@ export class BolsilloComponent implements OnInit {
     private userService:UserService,
     private bolsilloService:BolsilloService
     ) { 
-    this.bolsillo = setInterval(()=>{this.checkBolsillo()},5000);
+    this.bolsillo = setInterval(()=>{localStorage.getItem('bolsillo')},5000);
   }
 
   ngOnInit(): void {
@@ -33,12 +33,18 @@ export class BolsilloComponent implements OnInit {
     })
   }
   checkBolsillo(){
-     this.bolsillo = localStorage.getItem('bolsillo')
- }
+    this.bolsilloService.getCant(localStorage.getItem('idAcudiente')).subscribe(response=>{
+      this.bolsillo = response.resp
+      localStorage.setItem('bolsillo',this.bolsillo)
+    },error=>{
+
+    });
+  }
   recargarBolsillo(){
     this.bolsilloService.recarga(this.formValue.value,localStorage.getItem('idAcudiente')).subscribe(
       response=>{
         if (response.mensaje=='ok') {
+          this.checkBolsillo()
           Swal.fire(
             'Bolsillo actualizado',
             '',
