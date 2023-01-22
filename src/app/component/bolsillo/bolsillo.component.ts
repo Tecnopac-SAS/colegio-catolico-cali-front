@@ -17,10 +17,9 @@ export class BolsilloComponent implements OnInit {
 
   constructor(
     private formBuilder:FormBuilder,
-    private userService:UserService,
     private bolsilloService:BolsilloService
     ) { 
-    this.bolsillo = setInterval(()=>{localStorage.getItem('bolsillo')},5000);
+      this.bolsillo =  localStorage.getItem('bolsillo')
   }
 
   ngOnInit(): void {
@@ -35,6 +34,7 @@ export class BolsilloComponent implements OnInit {
   checkBolsillo(){
     this.bolsilloService.getCant(localStorage.getItem('idAcudiente')).subscribe(response=>{
       this.bolsillo = response.resp
+      
       localStorage.setItem('bolsillo',this.bolsillo)
     },error=>{
 

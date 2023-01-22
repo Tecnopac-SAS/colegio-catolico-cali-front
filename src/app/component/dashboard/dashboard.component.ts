@@ -28,16 +28,18 @@ export class DashboardComponent implements OnInit {
    {
     this.token= this.loginService.getToken();
     this.name= this.userService.getName();
-    this.role= this.userService.getRol();
-    this.bolsillo = setInterval(()=>{this.checkBolsillo()},5000);
-    
+    this.role= this.userService.getRol();  
+    this.bolsillo= localStorage.getItem('bolsillo');
    }
    
   ngOnInit(): void {
     this.jquery();
     this.sessionValidation();
     this.navTitle="Estoy en dash " + this.name
-    this.bolsillo = localStorage.getItem('bolsillo')
+    this.bolsillo= localStorage.getItem('bolsillo');
+    
+    setInterval(()=>{let val= this.checkBolsillo();this.bolsillo = ((val!=undefined)?val:localStorage.getItem('bolsillo'))},500);
+
   }
 
   sessionValidation(){
