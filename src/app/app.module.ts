@@ -93,6 +93,8 @@ import { HermanosComponent } from './component/acudiente/hermanos/hermanos.compo
 import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
 import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
 import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
+import { MatriculaComponent } from './component/matricula/matricula.component';
+import { PagoMatriculaComponent } from './component/pago-matricula/pago-matricula.component';
 
 
 
@@ -177,6 +179,8 @@ import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
     HermanosComponent,
     AdmisionIndexComponent,
     BolsilloComponent,
+    MatriculaComponent,
+    PagoMatriculaComponent,
   ],
   imports: [
     BrowserAnimationsModule,

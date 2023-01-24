@@ -75,6 +75,8 @@ import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
 
 //gestion acudiente
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
+import { MatriculaComponent } from './component/matricula/matricula.component';
+import { PagoMatriculaComponent } from './component/pago-matricula/pago-matricula.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -151,6 +153,8 @@ const routes: Routes = [
   //gestion acudientes
   {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
   {path: 'bolsillo',component: BolsilloComponent},
+  {path: 'matricula',component: MatriculaComponent},
+  {path: 'pago-matricula',component: PagoMatriculaComponent},
 
   
 ];

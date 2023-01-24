@@ -130,4 +130,19 @@ export class StudentDatabaseService {
     }))
   }
 
+  getPension(){
+    let data = {'id':localStorage.getItem('id')}
+    return this._htpp.post<any>(base_url+'studentDatabase/get-pension',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+  getMatricula(){
+    let data = {'id':localStorage.getItem('id')}
+    return this._htpp.post<any>(base_url+'studentDatabase/get-matricula',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
 }
