@@ -12,8 +12,6 @@ import { BolsilloService } from 'src/app/services/bolsillo.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-
   public navTitle:any
   public token:any
   public name: any;
