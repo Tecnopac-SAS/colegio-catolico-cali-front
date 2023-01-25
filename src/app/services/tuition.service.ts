@@ -66,4 +66,10 @@ export class TuitionService {
       return res;
     }))
   }
+  getPagoMatricula(data:any){
+    return this._htpp.post<any>(base_url+'pagoMatricula/GetPago',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }

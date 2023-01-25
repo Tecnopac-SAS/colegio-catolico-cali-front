@@ -1,6 +1,6 @@
 <app-dashboard>
     <app-nav-title [navTitle]="navTitle"></app-nav-title>
-    <div class="container my-xl-2">
+    <div class="container my-xl-2" *ngIf="matriculaPagada">
       <div class="row">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a href="/matricula">Pago de matrícula</a> / Página actual</li>
@@ -63,6 +63,20 @@
                 </ul>
                 
                 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container my-xl-2" *ngIf="matriculaPagada==false">
+      <div class="row">
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+              <p class="text-primary">
+                Esta sección está inhabilitada hasta que se pague la matrícula
+              </p>
+              <a href="/pago-matricula" class="btn btn-primary">Continuar</a>
             </div>
           </div>
         </div>

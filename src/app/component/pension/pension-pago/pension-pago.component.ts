@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PensionPagoService } from 'src/app/services/pension-pago.service';
+import { TuitionService } from 'src/app/services/tuition.service';
 
 @Component({
   selector: 'app-pension-pago',
@@ -11,12 +12,15 @@ export class PensionPagoComponent implements OnInit {
   public pensionTotal:any
   public pensionesList:any
   public mesesArr = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+  public matriculaPagada:any
 
-  constructor(private pensionService:PensionPagoService) { 
-    
+  constructor(private pensionService:PensionPagoService,private matriculaService:TuitionService) { 
   }
-
+  
+  
   ngOnInit(): void {
+    this.getMatriculaPagada()
+
     this.getListPensiones()
   }
 
@@ -24,6 +28,12 @@ export class PensionPagoComponent implements OnInit {
     let data = {idAcudiente:localStorage.getItem('idAcudiente')}
     this.pensionService.listPension(data).subscribe(res=>{
       this.pensionesList=res.result
+    })
+  }
+  getMatriculaPagada(){
+    let data = {idAcudiente:localStorage.getItem('idAcudiente')}
+    this.matriculaService.getPagoMatricula(data).subscribe(res=>{
+      this.matriculaPagada=res.resp
     })
   }
   parseMes(fecha:any){
