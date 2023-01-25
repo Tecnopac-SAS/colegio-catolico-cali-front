@@ -9,7 +9,7 @@ import { BolsilloService } from './services/bolsillo.service';
 export class AppComponent {
   public bolsillo: any;
   constructor(private bolsilloService:BolsilloService){
-    this.bolsillo = setInterval(()=>{this.checkBolsillo()},5000);
+    // this.bolsillo = setInterval(()=>{this.checkBolsillo()},5000);
   }
   title = 'front-colegio-catolico';
   checkBolsillo(){

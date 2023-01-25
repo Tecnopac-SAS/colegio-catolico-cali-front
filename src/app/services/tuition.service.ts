@@ -60,4 +60,10 @@ export class TuitionService {
       return res;
     }))
   }
+  pagoMatricula(data:any){
+    return this._htpp.post<any>(base_url+'pagoMatricula/CrearPago',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }

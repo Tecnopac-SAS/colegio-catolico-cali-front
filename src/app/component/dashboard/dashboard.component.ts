@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
     this.navTitle="Estoy en dash " + this.name
     this.bolsillo= localStorage.getItem('bolsillo');
     
-    setInterval(()=>{let val= this.checkBolsillo();this.bolsillo = ((val!=undefined)?val:localStorage.getItem('bolsillo'))},500);
+    // setInterval(()=>{let val= this.checkBolsillo();this.bolsillo = ((val!=undefined)?val:localStorage.getItem('bolsillo'))},500);
 
   }
 
