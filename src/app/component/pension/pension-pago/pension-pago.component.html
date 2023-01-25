@@ -1,0 +1,71 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a href="/matricula">Pago de matrícula</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <ul class="numbered-list">
+                    <li class="text-primary">
+                        <p>Seleccione cómo desea pagar las pensiones</p>
+                        <p class="text-black"><span class="text-primary">Importante: </span>Solo puedes pagar una pensión por transacción o pagar mínimo 3 y aplicar a un descuento del 3%  (Descuento solo aplica para pagos por plataforma)</p>
+
+                        <table class="table table-hover table-bordered table-responsive-sm">
+                            <thead>
+                              <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Mes</th>
+                                <th scope="col">Fecha de pago</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col">Mora</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id=""></td>
+                                <td>a</td>
+                                <td>a</td>
+                                <td>a</td>
+                                <td>a</td>
+                                <td class="text-primary">pendiente</td>
+                              </tr>
+                      
+                            </tbody>
+                          </table>
+
+                    </li>
+                    <hr class="sidebar-divider bg-primary" style="height: 1px;">
+                    <li class="text-primary">
+                        <p>Seleccione el método de pago</p>
+                        <p class="text-black">Valor de pensión ${{ pension }}</p>
+                    </li>
+                    <div class="row ml-3 cardPago">
+                        <p class="text-black">Seleccione el método de pago digital</p>
+                      <div class="col-md-3 d-flex justify-content-center">
+                        <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
+                      </div>
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-wallet-fill text-white" style="font-size: 60px"></i>
+                        <span>Bolsillo</span>
+                      </div>
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-credit-card-2-back-fill text-white" style="font-size: 60px"></i>
+                        <span>Tarjeta de crédito</span>
+                      </div>
+                      <div class="col-md-3 d-flex justify-content-center">
+                        <img class="p-4" src="assets/img-pagomatricula/image2.png" alt="">
+                      </div>
+                    </div>
+                </ul>
+                
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>

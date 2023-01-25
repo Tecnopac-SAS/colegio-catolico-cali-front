@@ -95,6 +95,7 @@ import { LoginAcudienteComponent } from './component/login/login-acudiente/login
 import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
 import { MatriculaComponent } from './component/matricula/matricula.component';
 import { PagoMatriculaComponent } from './component/pago-matricula/pago-matricula.component';
+import { PensionPagoComponent } from './component/pension/pension-pago/pension-pago.component';
 
 
 
@@ -181,6 +182,7 @@ import { PagoMatriculaComponent } from './component/pago-matricula/pago-matricul
     BolsilloComponent,
     MatriculaComponent,
     PagoMatriculaComponent,
+    PensionPagoComponent,
   ],
   imports: [
     BrowserAnimationsModule,
