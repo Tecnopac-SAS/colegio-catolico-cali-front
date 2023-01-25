@@ -54,7 +54,6 @@ export class PensionService {
       return res;
     }))
   }
-
   updatePension(id:any, data:any){
     return this._htpp.put<any>(base_url+'pension/actualizarPension/'+id,data)
     .pipe(map((res:any)=>{

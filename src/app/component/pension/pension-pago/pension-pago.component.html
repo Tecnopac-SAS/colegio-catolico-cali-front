@@ -25,15 +25,15 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id=""></td>
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td>
-                                <td class="text-primary">pendiente</td>
+                              <tr *ngFor="let pension of pensionesList; let index = index ">
+                                <td *ngIf="pension.estatus=='Pagado'" class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id="" checked disabled></td>
+                                <td *ngIf="pension.estatus=='Pendiente'" class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id=""></td>
+                                <td>{{ parseMes(pension.fechaPago) }}</td>
+                                <td>{{ pension.fechaPago.substring(0,10) }}</td>
+                                <td>{{ pension.valor }}</td>
+                                <td>{{ pension.mora }}</td>
+                                <td class="text-primary">{{ pension.estatus }}</td>
                               </tr>
-                      
                             </tbody>
                           </table>
 
@@ -41,7 +41,7 @@
                     <hr class="sidebar-divider bg-primary" style="height: 1px;">
                     <li class="text-primary">
                         <p>Seleccione el método de pago</p>
-                        <p class="text-black">Valor de pensión ${{ pension }}</p>
+                        <p class="text-black">Valor de pensión ${{ pensionTotal }}</p>
                     </li>
                     <div class="row ml-3 cardPago">
                         <p class="text-black">Seleccione el método de pago digital</p>
