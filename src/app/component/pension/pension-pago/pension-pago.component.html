@@ -26,7 +26,7 @@
                             </thead>
                             <tbody>
                               <tr *ngFor="let pension of pensionesList; let index = index ">
-                                <td *ngIf="pension.estatus=='Pagado'" class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id="" checked disabled></td>
+                                <td *ngIf="pension.estatus=='Pagado'" class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id="check{{ pension.id }}" checked disabled></td>
                                 <td *ngIf="pension.estatus=='Pendiente'" class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id="check{{ pension.id }}" (click)="checkPendientes(pension.fechaPago,$event)"></td>
                                 <td>{{ parseMes(pension.fechaPago) }}</td>
                                 <td>{{ pension.fechaPago.substring(0,10) }}</td>
@@ -48,16 +48,9 @@
                       <div class="col-md-3 d-flex justify-content-center">
                         <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
                       </div>
-                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" (click)="pagarPension()">
                         <i class="bi bi-wallet-fill text-white" style="font-size: 60px"></i>
                         <span>Bolsillo</span>
-                      </div>
-                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
-                        <i class="bi bi-credit-card-2-back-fill text-white" style="font-size: 60px"></i>
-                        <span>Tarjeta de crédito</span>
-                      </div>
-                      <div class="col-md-3 d-flex justify-content-center">
-                        <img class="p-4" src="assets/img-pagomatricula/image2.png" alt="">
                       </div>
                     </div>
                 </ul>

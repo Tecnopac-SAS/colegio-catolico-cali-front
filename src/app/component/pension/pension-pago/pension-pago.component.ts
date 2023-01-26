@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 export class PensionPagoComponent implements OnInit {
   navTitle="Pago de pension"
   public pensionTotal=0
+  private descuento=3
   public pensionesList:any
   public pensionesListSelect:any
   public mesesArr = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
@@ -57,16 +58,27 @@ export class PensionPagoComponent implements OnInit {
             text+=', '+this.parseMes(this.pensionesList[key].fechaPago)
           }
         }else{
-          this.pensionTotal+=this.pensionesList[key].valor
-          this.pensionesListSelect.push({id:this.pensionesList[key].id,valor:this.pensionesList[key].valor})
+          if (this.pensionesList[key].estatus!='Pagado') {
+            this.pensionTotal+=this.pensionesList[key].valor
+            this.pensionesListSelect.push({id:this.pensionesList[key].id,valor:this.pensionesList[key].valor})
+          }
         }
       }else{
         if (checkBox.checked) {
-          this.pensionTotal+=this.pensionesList[key].valor
-          this.pensionesListSelect.push({id:this.pensionesList[key].id,valor:this.pensionesList[key].valor})
+          if (this.pensionesList[key].estatus!='Pagado') {
+            this.pensionTotal+=this.pensionesList[key].valor
+            this.pensionesListSelect.push({id:this.pensionesList[key].id,valor:this.pensionesList[key].valor})
+          }
         }
       }
     });
+    if (this.pensionesListSelect.length>=3) {
+      this.pensionTotal = this.pensionTotal - (Math.floor(this.pensionTotal*this.descuento)/100)
+      let valorNew = this.pensionTotal/this.pensionesListSelect.length
+      Object.keys(this.pensionesListSelect).forEach(key => {
+        this.pensionesListSelect[key].valor = valorNew
+      });
+    }
     if (text!='') {
       $event.currentTarget.checked=false
       text+=' antes de seleccionar esta pensión'
@@ -76,5 +88,32 @@ export class PensionPagoComponent implements OnInit {
         'info'
       )
     }
+  }
+  pagarPension(){
+    Swal.fire({
+      title: '¿Estas seguro que deseas pagar la matricula con la opcion bolsillo?',
+      showDenyButton: true,
+      confirmButtonText: 'Si',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        if (this.pensionesListSelect.length==0) {
+          Swal.fire('Parece que aun no seleccionas alguna pensión', 'Favor de ingresar al menos una pensión', 'info')
+        } else {
+          if (Number(localStorage.getItem('bolsillo')) >= Number(this.pensionTotal)) {
+            let datos = {pensiones:this.pensionesListSelect}
+            this.pensionService.pagoPension(datos).subscribe(response=>{
+              // this.matricula = JSON.stringify(response.result)
+            },error=>{
+  
+            });
+            Swal.fire('Saved!', '', 'success')
+          }else{
+            Swal.fire('Parece que no tienes fondos suficientes', 'Favor de ingresar fondos en el bolsillo', 'info')
+          }
+        }
+      }
+    })
   }
 }
