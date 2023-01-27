@@ -5,6 +5,7 @@ import { DocumentosMatricula } from 'src/app/models/documentos-matricula.model';
 import { DocumentosMatriculaService } from 'src/app/services/documentos-matricula.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from'sweetalert2'
+import { PensionService } from 'src/app/services/pension.service';
 
 @Component({
   selector: 'app-documentos-matricula-update',
@@ -16,6 +17,8 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
   DocumentosMatricula !: any;
   navTitle="documentos matricula editar"
   public dataDocumentosMatricula:any
+  public listGrades:any
+
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
   documentosMatriculaModel:DocumentosMatricula= new DocumentosMatricula();
@@ -27,7 +30,14 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
     private DocumentosMatriculaService:DocumentosMatriculaService,
     private router:Router,
     private route : ActivatedRoute,
-  ) { }
+    private pensionService:PensionService,
+  ) { 
+    this.pensionService.listGrades().subscribe(response=>{
+      this.listGrades = response.result
+    },error=>{
+
+    });
+  }
 
   ngOnInit(): void {
     this.fieldCapture()
