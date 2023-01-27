@@ -28,7 +28,7 @@ export class DocumentosMatriculaService {
 
 
   obtenerDocumentosMatricula(id:number){
-    return this._htpp.get<any>(base_url+'documentosMatricula/listarDocumentosMatriculaId/'+id)
+    return this._htpp.get<any>(base_url+'documentosMatricula/'+id)
     .pipe(map((res:any)=>{
       return res;
     }))
