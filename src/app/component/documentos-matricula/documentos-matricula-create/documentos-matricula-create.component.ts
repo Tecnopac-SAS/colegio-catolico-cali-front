@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { DocumentosMatricula } from 'src/app/models/documentos-matricula.model';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./documentos-matricula-create.component.css']
 })
 export class DocumentosMatriculaCreateComponent implements OnInit {
-
+  @ViewChild("fileInput") fileInput:any;
   DocumentosMatricula !: any;
   navTitle="Documentos matricula crear"
   public dataTransporte:any
@@ -55,7 +55,7 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
     this.documentosMatriculaModel.title = this.formValue.value.title;
     this.documentosMatriculaModel.canViewType = this.formValue.value.canViewType;
     this.documentosMatriculaModel.canViewValue = this.formValue.value.canViewValue;
-    this.documentosMatriculaModel.file = this.formValue.value.file;
+    // this.documentosMatriculaModel.file = this.formValue.value.file;
     this.documentosMatriculaModel.isActive = this.formValue.value.isActive;
 
     if(this.documentosMatriculaModel.title =="" ){
@@ -70,13 +70,15 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
       this.mensaje_error="El campo grado no puede estar vacio"
     }else if(this.documentosMatriculaModel.canViewValue == "" && this.documentosMatriculaModel.canViewType == "student"){
       this.mensaje_error="El codigo del estudiante no puede estar vacio"
-    }else if(this.documentosMatriculaModel.file  == "" ){
+    }else if(this.formValue.value.file  == "" ){
       this.mensaje_error="Debes tener al menos un documento"
-    }
-
-
-    else{
-      this.DocumentosMatriculaService.createDocumentosMatricula(this.documentosMatriculaModel)
+    }else{
+      const formData = new FormData();
+      formData.append('title',this.formValue.value.title)
+      formData.append('canViewType',this.formValue.value.canViewType)
+      formData.append('canViewValue',this.formValue.value.canViewValue)
+      formData.append('file',this.fileInput.nativeElement.files[0])
+      this.DocumentosMatriculaService.createDocumentosMatricula(formData)
       .subscribe(res=>{
       console.log(res);
         if (res.mensaje=="el dato ya existe") {
