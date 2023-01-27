@@ -34,7 +34,7 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      name: [''],
+      title: [''],
       apply: [''],
       grade:[''],
       file:[''],
@@ -43,13 +43,13 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
   }
 
   CrearDocumentosMatricula(){
-    this.documentosMatriculaModel.name = this.formValue.value.name;
+    this.documentosMatriculaModel.title = this.formValue.value.title;
     this.documentosMatriculaModel.apply = this.formValue.value.apply;
     this.documentosMatriculaModel.grade = this.formValue.value.grade;
     this.documentosMatriculaModel.file = this.formValue.value.file;
     this.documentosMatriculaModel.isActive = this.formValue.value.isActive;
 
-    if(this.documentosMatriculaModel.name =="" ){
+    if(this.documentosMatriculaModel.title =="" ){
       this.mensaje_error="El campo nombre no puede estar vacio"
     }
 
