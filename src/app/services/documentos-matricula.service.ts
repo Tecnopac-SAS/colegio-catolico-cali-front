@@ -12,7 +12,7 @@ export class DocumentosMatriculaService {
   constructor(private _htpp:HttpClient) { }
 
   listDocumentosMatriculas(){
-    return this._htpp.get<any>(base_url+'documentosMatricula/listarDocumentosMatriculas')
+    return this._htpp.get<any>(base_url+'documentosMatricula')
     .pipe(map((res:any)=>{
       return res;
     }))
@@ -49,7 +49,7 @@ export class DocumentosMatriculaService {
   }
 
   deshabilitar(data:any, id:number,){
-    return this._htpp.put<any>(base_url+'documentosMatricula/deshabilitar/'+id,data)
+    return this._htpp.put<any>(base_url+'documentosMatricula/'+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))
