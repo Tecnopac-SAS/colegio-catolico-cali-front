@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { DocumentosMatricula } from 'src/app/models/documentos-matricula.model';
 import { DocumentosMatriculaService } from 'src/app/services/documentos-matricula.service';
+import { PensionService } from 'src/app/services/pension.service';
 
 import { Router } from '@angular/router';
 
@@ -16,6 +17,7 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
   DocumentosMatricula !: any;
   navTitle="Documentos matricula crear"
   public dataTransporte:any
+  public listGrades:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
   documentosMatriculaModel:DocumentosMatricula= new DocumentosMatricula();
@@ -24,8 +26,15 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private DocumentosMatriculaService:DocumentosMatriculaService,
+    private pensionService:PensionService,
     private router:Router
-  ) { }
+  ) { 
+    this.pensionService.listGrades().subscribe(response=>{
+      this.listGrades = response.result
+    },error=>{
+
+    });
+  }
 
   ngOnInit(): void {
     this.fieldCapture()
@@ -76,9 +85,9 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
         else{
           this.mensaje_ok="Se registro correctamente"
           this.formValue = this.formBuilder.group({
-          name: [''],
-          apply: [''],
-          grade:[''],
+          title: [''],
+          canViewType: [''],
+          canViewValue:[''],
           file:[''],
           isActive:['']
           })
