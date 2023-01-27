@@ -35,7 +35,7 @@ export class DocumentosMatriculaService {
   }
 
   createDocumentosMatricula(data:any){
-    return this._htpp.post<any>(base_url+'documentosMatricula/crearDocumentosMatricula',data)
+    return this._htpp.post<any>(base_url+'documentosMatricula',data)
     .pipe(map((res:any)=>{
       return res;
     }))
