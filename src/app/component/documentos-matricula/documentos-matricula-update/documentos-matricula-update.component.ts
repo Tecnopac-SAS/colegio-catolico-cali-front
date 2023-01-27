@@ -36,9 +36,9 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      name: [''],
-      apply: [''],
-      grade:[''],
+      title: [''],
+      canViewType: [''],
+      canViewValue:[''],
       file:[''],
       isActive:['']
     })
@@ -52,9 +52,9 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
         response=>{
           this.DocumentosMatricula= response
           console.log(this.DocumentosMatricula)
-          this.formValue.controls['name'].setValue(this.DocumentosMatricula.result.name)
-          this.formValue.controls['apply'].setValue(this.DocumentosMatricula.result.apply)
-          this.formValue.controls['grade'].setValue(this.DocumentosMatricula.result.grade)
+          this.formValue.controls['title'].setValue(this.DocumentosMatricula.result.title)
+          this.formValue.controls['canViewType'].setValue(this.DocumentosMatricula.result.canViewType)
+          this.formValue.controls['canViewValue'].setValue(this.DocumentosMatricula.result.canViewValue)
           this.formValue.controls['file'].setValue(this.DocumentosMatricula.result.file)
           this.formValue.controls['isActive'].setValue(this.DocumentosMatricula.result.isActive)
           this.documentosMatriculaModel.id = this.DocumentosMatricula.result.id
@@ -65,22 +65,22 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
 
   actualizarDocumentosMatricula(){
     console.log(this.formValue.value)
-    this.documentosMatriculaModel.name= this.formValue.value.name;
-    this.documentosMatriculaModel.apply= this.formValue.value.apply;
-    this.documentosMatriculaModel.grade= this.formValue.value.grade;
+    this.documentosMatriculaModel.title= this.formValue.value.title;
+    this.documentosMatriculaModel.canViewType= this.formValue.value.canViewType;
+    this.documentosMatriculaModel.canViewValue= this.formValue.value.canViewValue;
     this.documentosMatriculaModel.file= this.formValue.value.file;
     this.documentosMatriculaModel.isActive= this.formValue.value.isActive;
     console.log(this.documentosMatriculaModel)
 
-    if(this.documentosMatriculaModel.name =="" ){
+    if(this.documentosMatriculaModel.title =="" ){
       this.mensaje_error="El campo nombre no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.apply  == "" ){
+    else if(this.documentosMatriculaModel.canViewType  == "" ){
       this.mensaje_error="El campo a quien aplica no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.grade  == "" ){
+    else if(this.documentosMatriculaModel.canViewValue  == "" ){
       this.mensaje_error="El campo grado no puede estar vacio"
     }
 

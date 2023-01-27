@@ -35,8 +35,8 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
   fieldCapture(){
     this.formValue = this.formBuilder.group({
       title: [''],
-      apply: [''],
-      grade:[''],
+      canViewType: [''],
+      canViewValue:[''],
       file:[''],
       isActive:['']
     })
@@ -44,8 +44,8 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
 
   CrearDocumentosMatricula(){
     this.documentosMatriculaModel.title = this.formValue.value.title;
-    this.documentosMatriculaModel.apply = this.formValue.value.apply;
-    this.documentosMatriculaModel.grade = this.formValue.value.grade;
+    this.documentosMatriculaModel.canViewType = this.formValue.value.canViewType;
+    this.documentosMatriculaModel.canViewValue = this.formValue.value.canViewValue;
     this.documentosMatriculaModel.file = this.formValue.value.file;
     this.documentosMatriculaModel.isActive = this.formValue.value.isActive;
 
@@ -53,16 +53,16 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
       this.mensaje_error="El campo nombre no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.apply  == "" ){
+    else if(this.documentosMatriculaModel.canViewType  == "" ){
       this.mensaje_error="El campo a quien aplica no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.grade  == "" ){
+    else if(this.documentosMatriculaModel.canViewValue  == "" && this.documentosMatriculaModel.canViewType == "grade" ){
       this.mensaje_error="El campo grado no puede estar vacio"
-    }
-
-    else if(this.documentosMatriculaModel.file  == "" ){
-      this.mensaje_error="El campo fila no puede estar vacio"
+    }else if(this.documentosMatriculaModel.canViewValue == "" && this.documentosMatriculaModel.canViewType == "student"){
+      this.mensaje_error="El codigo del estudiante no puede estar vacio"
+    }else if(this.documentosMatriculaModel.file  == "" ){
+      this.mensaje_error="Debes tener al menos un documento"
     }
 
 
