@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { DocumentosMatricula } from 'src/app/models/documentos-matricula.model';
@@ -13,7 +13,7 @@ import { PensionService } from 'src/app/services/pension.service';
   styleUrls: ['./documentos-matricula-update.component.css']
 })
 export class DocumentosMatriculaUpdateComponent implements OnInit {
-
+  @ViewChild("fileInput") fileInput:any;
   DocumentosMatricula !: any;
   navTitle="documentos matricula editar"
   public dataDocumentosMatricula:any
@@ -90,27 +90,31 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
       this.mensaje_error="El campo a quien aplica no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.canViewValue  == "" ){
+    else if(this.documentosMatriculaModel.canViewValue  == "" && this.documentosMatriculaModel.canViewType == "grade" ){
       this.mensaje_error="El campo grado no puede estar vacio"
-    }
-
-    else if(this.documentosMatriculaModel.file  == "" ){
-      this.mensaje_error="El campo fila no puede estar vacio"
-    }
-
-    else {
-
-    this.DocumentosMatriculaService.updateDocumentosMatricula(this.documentosMatriculaModel,this.id)
+    }else if(this.documentosMatriculaModel.canViewValue == "" && this.documentosMatriculaModel.canViewType == "student"){
+      this.mensaje_error="El codigo del estudiante no puede estar vacio"
+    }else if(this.formValue.value.file  == "" ){
+      this.mensaje_error="Debes tener al menos un documento"
+    }else{
+      const formData = new FormData();
+      formData.append('title',this.formValue.value.title)
+      formData.append('canViewType',this.formValue.value.canViewType)
+      formData.append('canViewValue',this.formValue.value.canViewValue)
+      formData.append('file',this.fileInput.nativeElement.files[0])
+    this.DocumentosMatriculaService.updateDocumentosMatricula(formData,this.id)
     .subscribe(res=>{
-
+      
       Swal.fire(
-        'documento actualizado!',
-        'You clicked the button!',
-        'success'
+        res.mensaje,
+        '',
+        (res.success)?'success':'error'
        )
-       setTimeout(() => {
-          this.router.navigate(['documentos-matricula']);
-        }, 2000);
+       if (res.success) {
+         setTimeout(() => {
+            this.router.navigate(['documentos-matricula']);
+          }, 2000);
+       }
     })
    }
   }

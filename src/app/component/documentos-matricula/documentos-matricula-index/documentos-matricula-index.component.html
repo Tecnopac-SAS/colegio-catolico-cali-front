@@ -46,7 +46,7 @@
         
                   <td>
                     <button  class="text-info btn"  routerLink="/documentos-matricula-editar/{{data.id}}">Editar</button>|
-                    <button  class="text-danger btn" (click)="deshabilitar(data)">Desactivar</button>
+                    <button  class="text-{{ (data.isActive)?'danger':'success' }} btn" (click)="deshabilitar(data)">{{ (data.isActive)?'Desactivar':'Activar' }}</button>
                   </td>
                 </tr>
               </tbody>
