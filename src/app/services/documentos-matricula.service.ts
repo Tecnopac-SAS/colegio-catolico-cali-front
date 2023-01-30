@@ -54,4 +54,10 @@ export class DocumentosMatriculaService {
       return res;
     }))
   }
+  listDocumentosMatriculaByStudent(id:number,){
+    return this._htpp.get<any>(base_url+'documentosMatricula/student/'+id)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }
