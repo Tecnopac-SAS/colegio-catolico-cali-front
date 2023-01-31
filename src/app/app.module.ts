@@ -92,6 +92,11 @@ import { SolicitudEstudiantesComponent } from './component/acudiente/questionari
 import { HermanosComponent } from './component/acudiente/hermanos/hermanos.component';
 import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
 import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
+import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
+import { MatriculaComponent } from './component/matricula/matricula.component';
+import { PagoMatriculaComponent } from './component/pago-matricula/pago-matricula.component';
+import { PensionPagoComponent } from './component/pension/pension-pago/pension-pago.component';
+import { DescargaDocumentoMatriculaComponent } from './component/documentos-matricula/documentos-matricula-descarga/descarga-documento-matricula.component';
 
 
 
@@ -99,6 +104,7 @@ import { LoginAcudienteComponent } from './component/login/login-acudiente/login
   declarations: [
     AppComponent,
     LoginComponent,
+    LoginAcudienteComponent,
     DashboardComponent,
     CreateUserComponent,
     IndexUserComponent,
@@ -174,7 +180,11 @@ import { LoginAcudienteComponent } from './component/login/login-acudiente/login
     SolicitudEstudiantesComponent,
     HermanosComponent,
     AdmisionIndexComponent,
-    LoginAcudienteComponent,
+    BolsilloComponent,
+    MatriculaComponent,
+    PagoMatriculaComponent,
+    PensionPagoComponent,
+    DescargaDocumentoMatriculaComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -1,0 +1,63 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a href="/matricula">Pago de matrícula</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <ul class="numbered-list">
+                    <li class="text-primary">
+                        <p>Seleccione cómo desea pagar las pensiones</p>
+                        <p>Valor de pensión anual: <span class="text-black">${{ pension }}</span> <span class="ml-4">Valor de pensión mensual: <span class="text-black">${{ pensionMensual }}</span></span> </p>
+                        <div class="mt-3 d-flex align-items-center text-black">
+                          Elige a cuántos meses pagar la pensión <span class="text-danger">*</span>
+                            
+                          <select class="form-control ml-3" style="width: fit-content;" [(ngModel)]="pensionMeses">
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                          </select>
+                          <button class="ml-4 btn btn-primary form-control" style="width: fit-content;" (click)="configurarMatricula()">Configurar pago de pensión</button>
+                          
+                            
+                            <!-- <form [formGroup]="formValue" class="d-flex ">
+                                <input class="form-control ml-5" placeholder="0" type="number" formControlName="cant">
+                                <button class="ml-5 btn btn-primary form-control" type="button" (click)="pagarMatricula()">Configurar pago de pensión</button>
+                            </form> -->
+                        </div>
+                        <p class="text-muted mt-3">Si escoge la pensión de 12 meses tendrá un costo adicional por intereses de financiación</p>
+                    </li>
+                    <hr class="sidebar-divider bg-primary" style="height: 1px;">
+                    <li class="text-primary">
+                        <p>Seleccione el método de pago</p>
+                        <p class="text-black"><span class="text-primary">Importante:</span> Para renovar la matrícula debe estar a paz y salvo con el colegio. En caso de que se tenga deuda, por favor cancelarla, de lo contrario debe solicitar un acuerdo de pago sujeto a verificación y aprobación por parte del consejo directivo.</p>
+                        <p>Valor de matrícula: <span class="text-black">${{ matricula }}</span></p>
+                    </li>
+                    <div class="row ml-3 cardPago">
+                      <div class="col-md-3 d-flex justify-content-center">
+                        <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
+                      </div>
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" (click)="pagarBolsillo()">
+                        <i class="bi bi-wallet-fill text-white" style="font-size: 60px"></i>
+                        <span>Bolsillo</span>
+                      </div>
+                      <!-- <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-credit-card-2-back-fill text-white" style="font-size: 60px"></i>
+                        <span>Tarjeta de crédito</span>
+                      </div>
+                      <div class="col-md-3 d-flex justify-content-center">
+                        <img class="p-4" src="assets/img-pagomatricula/image2.png" alt="">
+                      </div> -->
+                    </div>
+                </ul>
+                
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>

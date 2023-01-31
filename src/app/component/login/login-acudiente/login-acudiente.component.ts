@@ -17,6 +17,9 @@ export class LoginAcudienteComponent implements OnInit {
  public id:any;
  public nombre: any;
  public role: any;
+ public bolsillo: any;
+ public idAcudiente: any;
+ public idEstudiante: any;
  public mensaje_ok:any;
  public mensaje_error:any;
 
@@ -59,49 +62,31 @@ login(){
     )
  }
  else{
-   this.loginService.login(this.formValue.value).subscribe(
+   this.loginService.login(this.formValue.value,'2').subscribe(
      response=>{
-       console.log(response)
-       if(response.mensaje=="correo invalido"){
-         Swal.fire(
-           'El correo no existe!',
-           '',
-           'error'
-          )
-       }
-       else if(response.mensaje=="Contraseña incorrecta"){
-         Swal.fire(
-           'Contraseña incorrecta!',
-           '',
-           'error'
-          )
-       }
-       else{
-         Swal.fire(
-           'Inicio de sesión correcto!',
-           '',
-           'success'
-          )
-             //estas variables auxiliares contiene los datos de la bd
-             this.token=response.token
-             this.nombre=response.nombres
-             this.role=response.idRole
-             this.id=response.id
-             localStorage.setItem('token',this.token);
-             localStorage.setItem('usuario',this.nombre);
-             localStorage.setItem('idRole',this.role);
-             localStorage.setItem('id',this.id);
-         this.loginService.login(this.formValue.value).subscribe(
-           response=>{
-             console.log(response)
-             this.router.navigate(['home'])
-           },
-           error=>{
-             console.log(error)
-             alert(error)
-           }
-         )
-       }
+      if (response.token) {
+        this.token=response.token
+        this.nombre=response.nombres
+        this.role=response.idRole
+        this.id=response.id
+        this.bolsillo=response.bolsillo
+        this.idAcudiente=response.idAcudiente
+        this.idEstudiante=response.idEstudiante
+        localStorage.setItem('token',this.token);
+        localStorage.setItem('usuario',this.nombre);
+        localStorage.setItem('idRole',this.role);
+        localStorage.setItem('id',this.id);
+        localStorage.setItem('bolsillo',this.bolsillo);
+        localStorage.setItem('idAcudiente',this.idAcudiente);
+        localStorage.setItem('idEstudiante',this.idEstudiante);
+        this.router.navigate(['home'])
+      }else{
+        Swal.fire(
+          'Correo o contraseña incorrectas',
+          '',
+          'error'
+        )
+      }
      },
      error=>{
        console.log(error)
@@ -131,7 +116,7 @@ sessionValidation(){
    this.router.navigate(['home'])
  }
  else{
-   this.router.navigate(['login-acudiente'])
+   this.router.navigate([''])
  }
 }
 

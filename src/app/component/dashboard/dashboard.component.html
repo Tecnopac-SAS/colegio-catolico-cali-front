@@ -1,5 +1,7 @@
 
-
+<style>
+  
+</style>
 <div id="page-top">
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -14,19 +16,21 @@
           </a>
           <!-- Divider -->
           <hr class="sidebar-divider bg-dark">
-          <!-- Nav Item - Dashboard -->
-          <li class="nav-item active">
+          <div *ngIf=" role == 'admin' ">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
               <a class="nav-link" routerLink="/servicios">
-                  <i class="fas fa-fw fa-tachometer-alt"></i>
-                  <span class="text-secondary">Configuración</span></a>
-          </li>
-          <!-- Heading -->
-          <div class="sidebar-heading">
-          </div>
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span class="text-secondary">Configuración</span></a>
+            </li>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
               <div class="ho dropright dropdown-submenu">
-                <a  class="nav-link dropdown-toggle text-dark dropdown-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-dark dropdown-item" type="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
                   <i class="bi bi-bag-check text-dark"></i><span routerLink="/servicios"> Servicios</span>
                 </a>
                 <div class="dropdown-menu">
@@ -45,212 +49,325 @@
                   <a class="dropdown-item" routerLink="/transporte">transporte</a>
                 </div>
               </div>
-          </li>
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
               <div class="ho dropright dropdown-submenu">
-                <a  class=" nav-link dropdown-toggle text-dark dropdown-item " routerLink="/gestion-acudiente"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class=" nav-link dropdown-toggle text-dark dropdown-item " routerLink="/gestion-acudiente"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="bi bi-person-square text-dark"></i><span> Gestión acudientes</span>
                 </a>
               </div>
-          </li>
-          <li class="nav-item">
-            <div class="dropright dropdown-submenu">
-              <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/docente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-book text-dark"></i><span> Gestión docentes</span>
-              </a>
-              <div class="dropdown-menu">
-                <h6 class="dropdown-item collapse-header">Gestión docentes:</h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" routerLink="/docente">Ver docentes</a>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/docente" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-book text-dark"></i><span> Gestión docentes</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Gestión docentes:</h6>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" routerLink="/docente">Ver docentes</a>
+                </div>
               </div>
-            </div>
-        </li>
-          <li class="nav-item">
-            <div class="dropright dropdown-submenu">
-              <a class="nav-link dropdown-toggle text-dark dropdown-item " href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-house text-dark"></i><span> Gestión administradores</span>
-              </a>
-              <div class="dropdown-menu">
-                <h6 class="dropdown-item collapse-header">Gestión administradores:</h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" routerLink="/listar-usuarios">Usuarios</a>
-                <a class="dropdown-item" routerLink="/crear-usuario">Crear Usuaurio</a>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark dropdown-item " href="#" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-house text-dark"></i><span> Gestión administradores</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Gestión administradores:</h6>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" routerLink="/listar-usuarios">Usuarios</a>
+                  <a class="dropdown-item" routerLink="/crear-usuario">Crear Usuaurio</a>
+                </div>
               </div>
+            </li>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Divider -->
+            <!-- Heading -->
+            <div class="sidebar-heading">
             </div>
-        </li>
-          <!-- Nav Item - Utilities Collapse Menu -->
-          <!-- Divider -->
-          <!-- Heading -->
-          <div class="sidebar-heading">
-          </div>
-          <li class="nav-item active">
-            <a class="nav-link" href="">
+            <li class="nav-item active">
+              <a class="nav-link" href="">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span class="text-secondary ">Documentación</span></a>
-          </li>
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
               <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/admision" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/admision" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
                   <i class="bi bi-file-check text-dark"></i><span> Admisión</span>
                 </a>
               </div>
-          </li>
-          <li class="nav-item">
-                  <div class="dropright dropdown-submenu">
-                    <a class="nav-link dropdown-toggle text-dark" routerLink="/base-estudiantes"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="bi bi-file-earmark-text text-dark"></i><span> Base de datos estudiantes</span>
-                    </a>
-                    <div class="dropdown-menu">
-                      <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                      <a class="dropdown-item" routerLink="/a">Ver pensiones</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Separated link</a>
-                    </div>
-                  </div>
-          </li>
-
-          <li class="nav-item">
-                <div class="dropright dropdown-submenu">
-                  <a class="nav-link dropdown-toggle text-dark" routerLink="/nivelaciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-arrow-down-up text-dark"></i><span> Nivelación</span>
-                  </a>
-                </div>
-          </li>
-
-          <li class="nav-item">
-            <div class="dropright dropdown-submenu">
-              <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-file-earmark-pdf text-dark"></i><span> Certificados</span>
-              </a>
-            </div>
-      </li>
-
-          <!-- Divider -->
-          <hr class="sidebar-divider d-none d-md-block">
-
-          <li class="nav-item active">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary">Cartera</span></a>
-          </li>
-
-          <li class="nav-item">
-            <div class="dropright dropdown-submenu">
-              <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-folder text-dark"></i><span> Estado de cartera</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu">
-                <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                <a class="dropdown-item" href="#">Matricula</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </div>
-          </li>
-
-          <li class="nav-item">
-            <div class="dropright dropdown-submenu">
-              <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-journal-text text-dark"></i><span> Paz y salvo 4 sellos</span>
-              </a>
-              <div class="dropdown-menu">
-                <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                <a class="dropdown-item" href="#">Matricula</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </div>
-          </li>
-          
-
-          <li class="nav-item active">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary">Tesoreria</span></a>
-          </li>
-
-          <li class="nav-item">
-            <div class="dropright dropdown-submenu">
-              <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-cash-coin text-dark"></i><span> Pagos presenciales</span>
-              </a>
-              <div class="dropdown-menu">
-                <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                <a class="dropdown-item" href="#">Matricula</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </div>
-          </li>
-             
-          <li class="nav-item">
-                <div class="dropright dropdown-submenu">
-                  <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-file-earmark-text text-dark"></i><span> Informe de pago</span>
-                  </a>
-                  <div class="dropdown-menu">
-                    <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                    <a class="dropdown-item" href="#">Matricula</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                  </div>
-                </div>
             </li>
             <li class="nav-item">
-                <div class="dropright dropdown-submenu">
-                  <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-coin text-dark"></i><span> Creación deuda</span>
-                  </a>
-                  <div class="dropdown-menu">
-                    <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                    <a class="dropdown-item" href="#">Matricula</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                  </div>
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" routerLink="/base-estudiantes" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-file-earmark-text text-dark"></i><span> Base de datos estudiantes</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" routerLink="/a">Ver pensiones</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
                 </div>
-              </li>
+              </div>
+            </li>
 
-              <li class="nav-item"> 
-                <div class="dropright dropdown-submenu">
-                  <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-card-text text-dark"></i><span> Acuerdo de pago</span>
-                  </a>
-                  <div class="dropdown-menu">
-                    <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                    <a class="dropdown-item" href="#">Matricula</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                  </div>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" routerLink="/nivelaciones" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-arrow-down-up text-dark"></i><span> Nivelación</span>
+                </a>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-file-earmark-pdf text-dark"></i><span> Certificados</span>
+                </a>
+              </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item active">
+              <a class="nav-link" href="">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span class="text-secondary">Cartera</span></a>
+            </li>
+
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-folder text-dark"></i><span> Estado de cartera</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" href="#">Matricula</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
                 </div>
-              </li>
-              <li class="nav-item"> 
-                <div class="dropright dropdown-submenu">
-                  <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-bar-chart-line text-dark"></i><span> Gestión de descuentos</span>
-                  </a>
-                  <div class="dropdown-menu">
-                    <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                    <a class="dropdown-item" href="#">Matricula</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                  </div>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-journal-text text-dark"></i><span> Paz y salvo 4 sellos</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" href="#">Matricula</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
                 </div>
-              </li>
-              <li class="nav-item"> 
-                <div class="dropright dropdown-submenu">
-                  <a class="nav-link dropdown-toggle text-dark" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-truck-front text-dark"></i><span> Gestión de transporte</span>
-                  </a>
-                  <div class="dropdown-menu">
-                    <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                    <a class="dropdown-item" href="#">Matricula</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                  </div>
+              </div>
+            </li>
+
+
+            <li class="nav-item active">
+              <a class="nav-link" href="">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span class="text-secondary">Tesoreria</span></a>
+            </li>
+
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-cash-coin text-dark"></i><span> Pagos presenciales</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" href="#">Matricula</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
                 </div>
-              </li>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-file-earmark-text text-dark"></i><span> Informe de pago</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" href="#">Matricula</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-coin text-dark"></i><span> Creación deuda</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" href="#">Matricula</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-card-text text-dark"></i><span> Acuerdo de pago</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" href="#">Matricula</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-bar-chart-line text-dark"></i><span> Gestión de descuentos</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" href="#">Matricula</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-truck-front text-dark"></i><span> Gestión de transporte</span>
+                </a>
+                <div class="dropdown-menu">
+                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
+                  <a class="dropdown-item" href="#">Matricula</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div *ngIf=" role == 'acudiente' ">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+              <a class="nav-link" routerLink="/servicios">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span class="text-secondary">Inicio</span></a>
+            </li>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+              <div class="ho dropright dropdown-submenu">
+                <a class=" nav-link dropdown-toggle text-dark dropdown-item " routerLink="/gestion-acudiente"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-person-square text-dark"></i><span> Ajustes de perfil</span>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="ho dropright dropdown-submenu">
+                <a class=" nav-link dropdown-toggle text-dark dropdown-item " routerLink="/bolsillo"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-wallet text-dark"></i><span> Bolsillo</span>
+                </a>
+              </div>
+            </li>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Divider -->
+            <!-- Heading -->
+            <div class="sidebar-heading">
+            </div>
+            <li class="nav-item active">
+              <a class="nav-link" href="">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span class="text-secondary ">Servicios</span></a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/matricula" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-mortarboard text-dark"></i><span> Matrícula</span>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/pago-pension" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-credit-card-2-back text-dark"></i><span> Pensiones</span>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-file-earmark-pdf text-dark"></i><span> Certificados</span>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-plus-circle text-dark"></i><span> Otros servicios</span>
+                </a>
+              </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item active">
+              <a class="nav-link" href="">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span class="text-secondary">Información</span></a>
+            </li>
+
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-wallet2 text-dark"></i><span> Histórico de cartera</span>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="dropright dropdown-submenu">
+                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-file-earmark-check text-dark"></i><span> Soportes de pago</span>
+                </a>
+              </div>
+            </li>
+          </div>
 
           <br>
 
@@ -304,6 +421,16 @@
                           </div>
                       </li>
                       <!-- Nav Item - User Information -->
+                      <div class="sidebar-brand d-flex align-items-center justify-content-center mr-5">
+                        <div class="sidebar-brand-text text-secondary headerText" type="button"><h5>¿Tiene asignaturas reprobadas?<span class="text-primary">(Sí)</span></h5></div>
+                      </div>
+                      <div class="sidebar-brand d-flex align-items-center justify-content-center mr-5">
+                        <div class="sidebar-brand-text text-primary headerText" type="button"><h5>Bolsillo $<span>{{ bolsillo }}</span></h5></div>
+                      </div>
+                      <!-- Nav Item - User Information -->
+                      <div class="sidebar-brand d-flex align-items-center justify-content-center mr-5">
+                        <div class="sidebar-brand-text text-secondary headerText" type="button"><h5>Saldo pendiente $<span>0</span></h5></div>
+                      </div>
                       <li class="nav-item dropdown no-arrow">
                           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <div class="top-text">

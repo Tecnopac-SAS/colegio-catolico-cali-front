@@ -1,0 +1,25 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <p class="text-primary">Ahora una forma de administrar los pagos de la educación de tu hijo</p>
+                <p class="text-primary"> Saldo total del bolsillo: <span class="text-black">${{ bolsillo }}</span></p>
+                <div class="mt-5 d-flex justify-content-between w-50 align-items-center">
+                    Bolsillo 
+                    <form [formGroup]="formValue" class="d-flex ">
+                        <input class="form-control" placeholder="$0" type="number" formControlName="cant">
+                        <button class="ml-5 btn btn-primary form-control" type="button" (click)="recargarBolsillo()">Recargar tu bolsillo</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>

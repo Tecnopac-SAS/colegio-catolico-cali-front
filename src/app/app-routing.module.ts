@@ -71,13 +71,18 @@ import { LevelingUpdateComponent } from './component/leveling/leveling-update/le
 import { BackupIndexComponent } from './component/backup/backup-index/backup-index.component';
 import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
 import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
+import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
 
 //gestion acudiente
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
+import { MatriculaComponent } from './component/matricula/matricula.component';
+import { PagoMatriculaComponent } from './component/pago-matricula/pago-matricula.component';
+import { PensionPagoComponent } from './component/pension/pension-pago/pension-pago.component';
+import { DescargaDocumentoMatriculaComponent } from './component/documentos-matricula/documentos-matricula-descarga/descarga-documento-matricula.component';
 
 const routes: Routes = [
-  {path: 'login-acudiente', component: LoginAcudienteComponent },
-  {path: '', component: LoginComponent },
+  {path: '', component: LoginAcudienteComponent },
+  {path: 'admin', component: LoginComponent },
   {path: 'dashboard', component: DashboardComponent },
   {path: 'home', component: HomepageComponent },
   {path: 'crear-usuario', component: CreateUserComponent },
@@ -149,6 +154,11 @@ const routes: Routes = [
   {path: 'admision',component: AdmisionIndexComponent},
   //gestion acudientes
   {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
+  {path: 'bolsillo',component: BolsilloComponent},
+  {path: 'matricula',component: MatriculaComponent},
+  {path: 'pago-matricula',component: PagoMatriculaComponent},
+  {path: 'pago-pension',component: PensionPagoComponent},
+  {path: 'descarga-documento-matricula',component: DescargaDocumentoMatriculaComponent},
 
   
 ];

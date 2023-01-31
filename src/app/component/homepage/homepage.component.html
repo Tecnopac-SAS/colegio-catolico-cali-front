@@ -2,11 +2,13 @@
   <app-nav-title [navTitle]="'Hola  ' + name"></app-nav-title>
   <div class="container">
     <div class="my-3 row">
-      <div class="col-sm-4" *ngFor="let item of data">
-        <div type="button" routerLink="{{item.url}}" class="card m-0 bg-dark text-white" style="height: auto;">
-          <img class="card-img-top" src="{{item.img}}" alt="Card image">
-          <div class="card-img-overlay"><h1></h1>
-            <h5  class="text-center p-sm-1 p-md-3 p-lg-4 my-sm-1 my-md-3 my-lg-4 my-xl-4 card-text" >{{item.name}}</h5>
+      <div *ngFor="let item of data" style="display: contents;">
+        <div class="col-sm-4" *ngIf="item.role == role">
+          <div type="button" routerLink="{{item.url}}" class="card m-0 bg-dark text-white" style="height: auto;">
+            <img class="card-img-top" src="{{item.img}}" alt="Card image">
+            <div class="card-img-overlay"><h1></h1>
+              <h5  class="text-center p-sm-1 p-md-3 p-lg-4 my-sm-1 my-md-3 my-lg-4 my-xl-4 card-text" >{{item.name}}</h5>
+            </div>
           </div>
         </div>
       </div>

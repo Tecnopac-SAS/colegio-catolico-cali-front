@@ -1,8 +1,8 @@
 export class DocumentosMatricula{
   public id=0;
-  public name="";
-  public apply="";
-  public grade=""
+  public title="";
+  public canViewType="";
+  public canViewValue=""
   public file=""
   public isActive=0;
 

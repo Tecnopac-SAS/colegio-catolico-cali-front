@@ -47,7 +47,7 @@ export class DocumentosMatriculaIndexComponent implements OnInit {
   listDocumentosMatriculas(){
     this.DocumentosMatriculaService.listDocumentosMatriculas()
     .subscribe(res=>{
-      this.dataDocumentosMatricula=res.result
+      this.dataDocumentosMatricula=res
       console.log(this.dataDocumentosMatricula)
     })
   }
@@ -61,7 +61,7 @@ export class DocumentosMatriculaIndexComponent implements OnInit {
     else {
       this.DocumentosMatriculaService.listDocumentosMatricula(searchForm.value.filtro)
       .subscribe(res=>{
-        this.dataDocumentosMatricula=res.result
+        this.dataDocumentosMatricula=res
         console.log(res.result)
       })
     }

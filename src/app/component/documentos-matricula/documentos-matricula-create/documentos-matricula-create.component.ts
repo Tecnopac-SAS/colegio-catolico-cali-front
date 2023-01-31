@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { DocumentosMatricula } from 'src/app/models/documentos-matricula.model';
 import { DocumentosMatriculaService } from 'src/app/services/documentos-matricula.service';
+import { PensionService } from 'src/app/services/pension.service';
 
 import { Router } from '@angular/router';
 
@@ -12,10 +13,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./documentos-matricula-create.component.css']
 })
 export class DocumentosMatriculaCreateComponent implements OnInit {
-
+  @ViewChild("fileInput") fileInput:any;
   DocumentosMatricula !: any;
   navTitle="Documentos matricula crear"
   public dataTransporte:any
+  public listGrades:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
   documentosMatriculaModel:DocumentosMatricula= new DocumentosMatricula();
@@ -24,8 +26,15 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private DocumentosMatriculaService:DocumentosMatriculaService,
+    private pensionService:PensionService,
     private router:Router
-  ) { }
+  ) { 
+    this.pensionService.listGrades().subscribe(response=>{
+      this.listGrades = response.result
+    },error=>{
+
+    });
+  }
 
   ngOnInit(): void {
     this.fieldCapture()
@@ -34,40 +43,42 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      name: [''],
-      apply: [''],
-      grade:[''],
+      title: [''],
+      canViewType: [''],
+      canViewValue:[''],
       file:[''],
       isActive:['']
     })
   }
 
   CrearDocumentosMatricula(){
-    this.documentosMatriculaModel.name = this.formValue.value.name;
-    this.documentosMatriculaModel.apply = this.formValue.value.apply;
-    this.documentosMatriculaModel.grade = this.formValue.value.grade;
-    this.documentosMatriculaModel.file = this.formValue.value.file;
+    this.documentosMatriculaModel.title = this.formValue.value.title;
+    this.documentosMatriculaModel.canViewType = this.formValue.value.canViewType;
+    this.documentosMatriculaModel.canViewValue = this.formValue.value.canViewValue;
+    // this.documentosMatriculaModel.file = this.formValue.value.file;
     this.documentosMatriculaModel.isActive = this.formValue.value.isActive;
 
-    if(this.documentosMatriculaModel.name =="" ){
+    if(this.documentosMatriculaModel.title =="" ){
       this.mensaje_error="El campo nombre no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.apply  == "" ){
+    else if(this.documentosMatriculaModel.canViewType  == "" ){
       this.mensaje_error="El campo a quien aplica no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.grade  == "" ){
+    else if(this.documentosMatriculaModel.canViewValue  == "" && this.documentosMatriculaModel.canViewType == "grade" ){
       this.mensaje_error="El campo grado no puede estar vacio"
-    }
-
-    else if(this.documentosMatriculaModel.file  == "" ){
-      this.mensaje_error="El campo fila no puede estar vacio"
-    }
-
-
-    else{
-      this.DocumentosMatriculaService.createDocumentosMatricula(this.documentosMatriculaModel)
+    }else if(this.documentosMatriculaModel.canViewValue == "" && this.documentosMatriculaModel.canViewType == "student"){
+      this.mensaje_error="El codigo del estudiante no puede estar vacio"
+    }else if(this.formValue.value.file  == "" ){
+      this.mensaje_error="Debes tener al menos un documento"
+    }else{
+      const formData = new FormData();
+      formData.append('title',this.formValue.value.title)
+      formData.append('canViewType',this.formValue.value.canViewType)
+      formData.append('canViewValue',this.formValue.value.canViewValue)
+      formData.append('file',this.fileInput.nativeElement.files[0])
+      this.DocumentosMatriculaService.createDocumentosMatricula(formData)
       .subscribe(res=>{
       console.log(res);
         if (res.mensaje=="el dato ya existe") {
@@ -76,9 +87,9 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
         else{
           this.mensaje_ok="Se registro correctamente"
           this.formValue = this.formBuilder.group({
-          name: [''],
-          apply: [''],
-          grade:[''],
+          title: [''],
+          canViewType: [''],
+          canViewValue:[''],
           file:[''],
           isActive:['']
           })

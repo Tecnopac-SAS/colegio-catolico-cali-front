@@ -1,0 +1,12 @@
+.card{
+    --bs-card-border-width: -1px;
+  }
+  
+  .bg-dark{
+    --bs-bg-opacity: 0
+  }
+  
+  .row{
+    --bs-gutter-x: 0.5rem
+  }
+  

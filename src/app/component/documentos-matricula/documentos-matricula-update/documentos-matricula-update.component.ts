@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { DocumentosMatricula } from 'src/app/models/documentos-matricula.model';
 import { DocumentosMatriculaService } from 'src/app/services/documentos-matricula.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from'sweetalert2'
+import { PensionService } from 'src/app/services/pension.service';
 
 @Component({
   selector: 'app-documentos-matricula-update',
@@ -12,10 +13,12 @@ import Swal from'sweetalert2'
   styleUrls: ['./documentos-matricula-update.component.css']
 })
 export class DocumentosMatriculaUpdateComponent implements OnInit {
-
+  @ViewChild("fileInput") fileInput:any;
   DocumentosMatricula !: any;
   navTitle="documentos matricula editar"
   public dataDocumentosMatricula:any
+  public listGrades:any
+
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
   documentosMatriculaModel:DocumentosMatricula= new DocumentosMatricula();
@@ -27,7 +30,14 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
     private DocumentosMatriculaService:DocumentosMatriculaService,
     private router:Router,
     private route : ActivatedRoute,
-  ) { }
+    private pensionService:PensionService,
+  ) { 
+    this.pensionService.listGrades().subscribe(response=>{
+      this.listGrades = response.result
+    },error=>{
+
+    });
+  }
 
   ngOnInit(): void {
     this.fieldCapture()
@@ -36,9 +46,9 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      name: [''],
-      apply: [''],
-      grade:[''],
+      title: [''],
+      canViewType: [''],
+      canViewValue:[''],
       file:[''],
       isActive:['']
     })
@@ -52,9 +62,9 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
         response=>{
           this.DocumentosMatricula= response
           console.log(this.DocumentosMatricula)
-          this.formValue.controls['name'].setValue(this.DocumentosMatricula.result.name)
-          this.formValue.controls['apply'].setValue(this.DocumentosMatricula.result.apply)
-          this.formValue.controls['grade'].setValue(this.DocumentosMatricula.result.grade)
+          this.formValue.controls['title'].setValue(this.DocumentosMatricula.result.title)
+          this.formValue.controls['canViewType'].setValue(this.DocumentosMatricula.result.canViewType)
+          this.formValue.controls['canViewValue'].setValue(this.DocumentosMatricula.result.canViewValue)
           this.formValue.controls['file'].setValue(this.DocumentosMatricula.result.file)
           this.formValue.controls['isActive'].setValue(this.DocumentosMatricula.result.isActive)
           this.documentosMatriculaModel.id = this.DocumentosMatricula.result.id
@@ -65,42 +75,46 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
 
   actualizarDocumentosMatricula(){
     console.log(this.formValue.value)
-    this.documentosMatriculaModel.name= this.formValue.value.name;
-    this.documentosMatriculaModel.apply= this.formValue.value.apply;
-    this.documentosMatriculaModel.grade= this.formValue.value.grade;
+    this.documentosMatriculaModel.title= this.formValue.value.title;
+    this.documentosMatriculaModel.canViewType= this.formValue.value.canViewType;
+    this.documentosMatriculaModel.canViewValue= this.formValue.value.canViewValue;
     this.documentosMatriculaModel.file= this.formValue.value.file;
     this.documentosMatriculaModel.isActive= this.formValue.value.isActive;
     console.log(this.documentosMatriculaModel)
 
-    if(this.documentosMatriculaModel.name =="" ){
+    if(this.documentosMatriculaModel.title =="" ){
       this.mensaje_error="El campo nombre no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.apply  == "" ){
+    else if(this.documentosMatriculaModel.canViewType  == "" ){
       this.mensaje_error="El campo a quien aplica no puede estar vacio"
     }
 
-    else if(this.documentosMatriculaModel.grade  == "" ){
+    else if(this.documentosMatriculaModel.canViewValue  == "" && this.documentosMatriculaModel.canViewType == "grade" ){
       this.mensaje_error="El campo grado no puede estar vacio"
-    }
-
-    else if(this.documentosMatriculaModel.file  == "" ){
-      this.mensaje_error="El campo fila no puede estar vacio"
-    }
-
-    else {
-
-    this.DocumentosMatriculaService.updateDocumentosMatricula(this.documentosMatriculaModel,this.id)
+    }else if(this.documentosMatriculaModel.canViewValue == "" && this.documentosMatriculaModel.canViewType == "student"){
+      this.mensaje_error="El codigo del estudiante no puede estar vacio"
+    }else if(this.formValue.value.file  == "" ){
+      this.mensaje_error="Debes tener al menos un documento"
+    }else{
+      const formData = new FormData();
+      formData.append('title',this.formValue.value.title)
+      formData.append('canViewType',this.formValue.value.canViewType)
+      formData.append('canViewValue',this.formValue.value.canViewValue)
+      formData.append('file',this.fileInput.nativeElement.files[0])
+    this.DocumentosMatriculaService.updateDocumentosMatricula(formData,this.id)
     .subscribe(res=>{
-
+      
       Swal.fire(
-        'documento actualizado!',
-        'You clicked the button!',
-        'success'
+        res.mensaje,
+        '',
+        (res.success)?'success':'error'
        )
-       setTimeout(() => {
-          this.router.navigate(['documentos-matricula']);
-        }, 2000);
+       if (res.success) {
+         setTimeout(() => {
+            this.router.navigate(['documentos-matricula']);
+          }, 2000);
+       }
     })
    }
   }

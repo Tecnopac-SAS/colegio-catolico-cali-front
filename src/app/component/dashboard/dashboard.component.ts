@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import Swal from'sweetalert2';
 import * as $ from 'jquery'
+import { BolsilloService } from 'src/app/services/bolsillo.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,27 +12,32 @@ import * as $ from 'jquery'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-
   public navTitle:any
   public token:any
   public name: any;
   public role: any;
+  public bolsillo: any;
 
   constructor(
     private loginService:LoginService,
     private userService:UserService,
+    private bolsilloService:BolsilloService,
     private router:Router)
    {
     this.token= this.loginService.getToken();
     this.name= this.userService.getName();
-    this.role= this.userService.getRol();
+    this.role= this.userService.getRol();  
+    this.bolsillo= localStorage.getItem('bolsillo');
    }
-
+   
   ngOnInit(): void {
     this.jquery();
     this.sessionValidation();
     this.navTitle="Estoy en dash " + this.name
+    this.bolsillo= localStorage.getItem('bolsillo');
+    
+    // setInterval(()=>{let val= this.checkBolsillo();this.bolsillo = ((val!=undefined)?val:localStorage.getItem('bolsillo'))},500);
+
   }
 
   sessionValidation(){
@@ -42,13 +48,21 @@ export class DashboardComponent implements OnInit {
       this.router.navigate([''])
     }
   }
+  checkBolsillo(){
+     this.bolsilloService.getCant(localStorage.getItem('idAcudiente')).subscribe(response=>{
+      this.bolsillo = response.resp
+      localStorage.setItem('bolsillo',this.bolsillo)
+    },error=>{
 
+    });
+  }
   SignOff(){
 
     localStorage.removeItem('token');
     localStorage.removeItem('idRole');
     localStorage.removeItem('usuario');
     localStorage.removeItem('id');
+    localStorage.removeItem('bolsillo');
 
     Swal.fire(
       'Has cerrado sesión correctamente!',

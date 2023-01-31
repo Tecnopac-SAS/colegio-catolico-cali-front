@@ -797,9 +797,13 @@ export class SolicitudEstudiantesComponent implements OnInit {
     }
     else if(this.formValueEstudiantes.value.telefono =="" ){
       this.mensaje_error="El campo telefono no puede estar vacio"
+    }else if(!this.validateCelPhoneNumber(this.formValueEstudiantes.value.telefono)){
+      this.mensaje_error="El campo telefono no es un numero de 10 digitos"
     }
     else if(this.formValueEstudiantes.value.correo =="" ){
       this.mensaje_error="El campo correo no puede estar vacio"
+    }else if(!this.isEmailValid(this.formValueEstudiantes.value.correo)){
+      this.mensaje_error="El campo correo no es valido"
     }
 
     else if(this.formValueEstudiantes.value.tipoCupo =="" ){
@@ -937,6 +941,8 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
   else if(this.formValuePadre.value.correoElectronico =="" ){
     this.mensaje_error="El campo correo electronico no puede estar vacio"
+  }else if(!this.isEmailValid(this.formValuePadre.value.correoElectronico)){
+    this.mensaje_error="El campo correo no es valido"
   }
 
   else if(this.formValuePadre.value.direccion =="" ){
@@ -945,10 +951,14 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
   else if(this.formValuePadre.value.telefono ==""){
     this.mensaje_error="El campo telefono no puede estar vacio"
+  }else if(!this.validateCelPhoneNumber(this.formValuePadre.value.telefono)){
+    this.mensaje_error="El campo telefono no es un numero de 10 digitos"
   }
 
   else if(this.formValuePadre.value.celular =="" ){
     this.mensaje_error="El campo celular no puede estar vacio"
+  }else if(!this.validateCelPhoneNumber(this.formValuePadre.value.celular)){
+    this.mensaje_error="El campo celular no es un numero de 10 digitos"
   }
   else if(this.formValueMadre.value.estado =="" ){
     this.mensaje_error="El campo estado no puede estar vacio"
@@ -992,7 +1002,9 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
  else if(this.formValueMadre.value.correoElectronico =="" ){
    this.mensaje_error="El campo correo electronico no puede estar vacio"
- }
+ }else if(!this.isEmailValid(this.formValueMadre.value.correoElectronico)){
+  this.mensaje_error="El campo correo no es valido"
+}
 
  else if(this.formValueMadre.value.direccion =="" ){
    this.mensaje_error="El campo dirección no puede estar vacio"
@@ -1000,11 +1012,15 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
  else if(this.formValueMadre.value.telefono ==""){
    this.mensaje_error="El campo telefono no puede estar vacio"
- }
+ }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.telefono)){
+  this.mensaje_error="El campo telefono no es un numero de 10 digitos"
+}
 
  else if(this.formValueMadre.value.celular =="" ){
    this.mensaje_error="El campo celular no puede estar vacio"
- }
+ }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.celular)){
+  this.mensaje_error="El campo celular no es un numero de 10 digitos"
+}
 
  else{
   this.formValuePadre.value.continuar="ok"
@@ -1058,7 +1074,9 @@ export class SolicitudEstudiantesComponent implements OnInit {
   
    else if(this.formValueMadre.value.correoElectronico =="" ){
      this.mensaje_error="El campo correo electronico no puede estar vacio"
-   }
+   }else if(!this.isEmailValid(this.formValueMadre.value.correoElectronico)){
+    this.mensaje_error="El campo correo no es valido"
+  }
   
    else if(this.formValueMadre.value.direccion =="" ){
      this.mensaje_error="El campo dirección no puede estar vacio"
@@ -1066,11 +1084,15 @@ export class SolicitudEstudiantesComponent implements OnInit {
   
    else if(this.formValueMadre.value.telefono ==""){
      this.mensaje_error="El campo telefono no puede estar vacio"
-   }
+   }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.telefono)){
+    this.mensaje_error="El campo telefono no es un numero de 10 digitos"
+  }
   
    else if(this.formValueMadre.value.celular =="" ){
      this.mensaje_error="El campo celular no puede estar vacio"
-   }
+   }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.celular)){
+    this.mensaje_error="El campo celular no es un numero de 10 digitos"
+  }
   
    else{
     this.formValueMadre.value.continuar="ok"
@@ -1205,7 +1227,14 @@ export class SolicitudEstudiantesComponent implements OnInit {
     console.log(this.formValueCanalReferencia.value.aceptaCompromisos)
   }
 
-
+  isEmailValid = (email:string) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+  };
+  validateCelPhoneNumber(input_str:string) {
+    var re = /^[0-9]{10}$/;
+    return re.test(input_str);
+  }
 
   validarCheckSi(){
   this.formValueDatosAdicionales.value.checkSi=false

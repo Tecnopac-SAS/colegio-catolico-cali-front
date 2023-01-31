@@ -18,8 +18,9 @@ export class LoginService {
     private _htpp:HttpClient,
   ) { }
 
-  login(user: any,getToken=null):Observable<any>{
-    let json = user;
+  login(user: any,tipo:string,getToken=null):Observable<any>{
+    let json = {...user,tipo};
+    
     if(getToken!=null){
       user.token= true
 
