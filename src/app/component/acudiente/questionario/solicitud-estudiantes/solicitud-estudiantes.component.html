@@ -5,6 +5,11 @@
       <img src="assets/img/col.png" class="logo img-fluid" alt="...">
     </div>
     <div class="card bg-card my-5">
+      <div>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong class="text-danger">{{'¡Advetencia! Todos los datos deben ser diligenciados'}}</strong>
+        </div>
+      </div>
       <div *ngIf="mensaje_error">
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong class="text-primary">{{'¡Advetencia! '+mensaje_error}}</strong>
