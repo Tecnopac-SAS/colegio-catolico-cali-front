@@ -463,7 +463,8 @@
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="number" class="form-control" formControlName="telefono" [readonly]="habilitarCampoPadre">
+                  <input maxlength="7" type="number" class="form-control" formControlName="telefono" [readonly]="habilitarCampoPadre">
+                  <small></small>
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-2 my-4">
@@ -472,7 +473,8 @@
 
         
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="number" class="form-control" formControlName="celular" [readonly]="habilitarCampoPadre">
+                  <input maxlength="10" type="number" class="form-control" formControlName="celular" [readonly]="habilitarCampoPadre">
+                  <small></small>
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
