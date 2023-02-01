@@ -123,26 +123,58 @@ export class SolicitudEstudiantesComponent implements OnInit {
       // estadoEstudiante: ['', Validators.required],
     })
   }
-
+  addPrescolar(){
+    this.formValueHistorialAcademico.value.preescolar.push({nombre:'',gradoCursadoPreescolar:'',gradoCursadoJardin:'',gradoCursadoTransicion:''})
+  }
+  removePrescolar(id:any){
+    if (this.formValueHistorialAcademico.value.preescolar.length>1) {
+      let newArray = this.formValueHistorialAcademico.value.preescolar.filter((o:any,i:any) => i !== id)
+      this.formValueHistorialAcademico.value.preescolar=newArray
+    }
+  }
+  addPrimaria(){
+    this.formValueHistorialAcademico.value.primaria.push({nombre:'',gradoCursadoPrimaria1:'',gradoCursadoPrimaria2:'',gradoCursadoPrimaria3:'',gradoCursadoPrimaria4:'',gradoCursadoPrimaria5:''})
+  }
+  removePrimaria(id:any){
+    if (this.formValueHistorialAcademico.value.primaria.length>1) {
+      let newArray = this.formValueHistorialAcademico.value.primaria.filter((o:any,i:any) => i !== id)
+      this.formValueHistorialAcademico.value.primaria=newArray
+    }
+  }
+  addBachillerato(){
+    this.formValueHistorialAcademico.value.bachillerato.push({nombre:'',gradoCursadoBachillerato6:'',gradoCursadoBachillerato7:'',gradoCursadoBachillerato8:''})
+  }
+  removeBachillerato(id:any){
+    if (this.formValueHistorialAcademico.value.bachillerato.length>1) {
+      let newArray = this.formValueHistorialAcademico.value.bachillerato.filter((o:any,i:any) => i !== id)
+      this.formValueHistorialAcademico.value.bachillerato=newArray
+    }
+  }
   fieldCaptureHistorialAcademico(){
     this.formValueHistorialAcademico = this.formBuilder.group({
-    preescolar: ['', Validators.required],
-    gradoCursadoPreescolar: [false],
-    gradoCursadoJardin: [false],
-    gradoCursadoTransicion: [false],
+    preescolar: this.formBuilder.array([
+      {nombre:'',gradoCursadoPreescolar:'',gradoCursadoJardin:'',gradoCursadoTransicion:''},
+  ]),
+    // gradoCursadoPreescolar: [false],
+    // gradoCursadoJardin: [false],
+    // gradoCursadoTransicion: [false],
     checkPreescolar: [''],
     checkJardin: [''],
     checkTransicion: [''],
-    primaria: ['', Validators.required],
-    gradoCursadoPrimaria1: [false],
-    gradoCursadoPrimaria2: [false],
-    gradoCursadoPrimaria3: [false ],
-    gradoCursadoPrimaria4: [false],
-    gradoCursadoPrimaria5: [false],
-    bachillerato: ['', Validators.required],
-    gradoCursadoBachillerato6: [false],
-    gradoCursadoBachillerato7: [false],
-    gradoCursadoBachillerato8: [false,],
+    primaria: this.formBuilder.array([
+      {nombre:'',gradoCursadoPrimaria1:'',gradoCursadoPrimaria2:'',gradoCursadoPrimaria3:'',gradoCursadoPrimaria4:'',gradoCursadoPrimaria5:''},
+  ]),
+    // gradoCursadoPrimaria1: [false],
+    // gradoCursadoPrimaria2: [false],
+    // gradoCursadoPrimaria3: [false ],
+    // gradoCursadoPrimaria4: [false],
+    // gradoCursadoPrimaria5: [false],
+    bachillerato: this.formBuilder.array([
+      {nombre:'',gradoCursadoBachillerato6:'',gradoCursadoBachillerato7:'',gradoCursadoBachillerato8:''},
+  ]),
+    // gradoCursadoBachillerato6: [false],
+    // gradoCursadoBachillerato7: [false],
+    // gradoCursadoBachillerato8: [false,],
     anioAnterior: ['', Validators.required],
     motivoRetiro: [''],
     repeticionAnio: ['', Validators.required],
@@ -360,19 +392,19 @@ export class SolicitudEstudiantesComponent implements OnInit {
   CrearHistorialAcademico(){
     this.historialAcademicoModel.idEstudiante=this.idEstudiante
     this.historialAcademicoModel.preescolar = this.formValueHistorialAcademico.value.preescolar;
-    this.historialAcademicoModel.gradoCursadoPreescolar= this.formValueHistorialAcademico.value.gradoCursadoPreescolar
-    this.historialAcademicoModel.gradoCursadoJardin= this.formValueHistorialAcademico.value.gradoCursadoJardin
-    this.historialAcademicoModel.gradoCursadoTransicion= this.formValueHistorialAcademico.value.gradoCursadoTransicion
+    // this.historialAcademicoModel.gradoCursadoPreescolar= this.formValueHistorialAcademico.value.gradoCursadoPreescolar
+    // this.historialAcademicoModel.gradoCursadoJardin= this.formValueHistorialAcademico.value.gradoCursadoJardin
+    // this.historialAcademicoModel.gradoCursadoTransicion= this.formValueHistorialAcademico.value.gradoCursadoTransicion
     this.historialAcademicoModel.primaria = this.formValueHistorialAcademico.value.primaria;
-    this.historialAcademicoModel.gradoCursadoPrimaria1 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria1
-    this.historialAcademicoModel.gradoCursadoPrimaria2 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria2
-    this.historialAcademicoModel.gradoCursadoPrimaria3 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria3
-    this.historialAcademicoModel.gradoCursadoPrimaria4 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria4
-    this.historialAcademicoModel.gradoCursadoPrimaria5 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria5
+    // this.historialAcademicoModel.gradoCursadoPrimaria1 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria1
+    // this.historialAcademicoModel.gradoCursadoPrimaria2 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria2
+    // this.historialAcademicoModel.gradoCursadoPrimaria3 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria3
+    // this.historialAcademicoModel.gradoCursadoPrimaria4 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria4
+    // this.historialAcademicoModel.gradoCursadoPrimaria5 =this.formValueHistorialAcademico.value.gradoCursadoPrimaria5
     this.historialAcademicoModel.bachillerato = this.formValueHistorialAcademico.value.bachillerato
-    this.historialAcademicoModel.gradoCursadoBachillerato6 =this.formValueHistorialAcademico.value.gradoCursadoBachillerato6
-    this.historialAcademicoModel.gradoCursadoBachillerato7 =this.formValueHistorialAcademico.value.gradoCursadoBachillerato7
-    this.historialAcademicoModel.gradoCursadoBachillerato8 =this.formValueHistorialAcademico.value.gradoCursadoBachillerato8
+    // this.historialAcademicoModel.gradoCursadoBachillerato6 =this.formValueHistorialAcademico.value.gradoCursadoBachillerato6
+    // this.historialAcademicoModel.gradoCursadoBachillerato7 =this.formValueHistorialAcademico.value.gradoCursadoBachillerato7
+    // this.historialAcademicoModel.gradoCursadoBachillerato8 =this.formValueHistorialAcademico.value.gradoCursadoBachillerato8
     this.historialAcademicoModel.anioAnterior = this.formValueHistorialAcademico.value.anioAnterior;
     this.historialAcademicoModel.motivoRetiro = this.formValueHistorialAcademico.value.motivoRetiro;
     this.historialAcademicoModel.repeticionAnio = this.formValueHistorialAcademico.value.repeticionAnio;
@@ -941,7 +973,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
   else if(this.formValuePadre.value.correoElectronico =="" ){
     this.mensaje_error="El campo correo electronico no puede estar vacio"
-  }else if(!this.isEmailValid(this.formValuePadre.value.correoElectronico)){
+  }else if(!this.isEmailValid(this.formValuePadre.value.correoElectronico) && this.formValuePadre.value.correoElectronico != 'N/A'){
     this.mensaje_error="El campo correo no es valido"
   }
 
@@ -951,13 +983,13 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
   else if(this.formValuePadre.value.telefono ==""){
     this.mensaje_error="El campo telefono no puede estar vacio"
-  }else if(!this.validateCelPhoneNumber(this.formValuePadre.value.telefono)){
+  }else if(!this.validateCelPhoneNumber(this.formValuePadre.value.telefono) && this.formValuePadre.value.telefono != '1'){
     this.mensaje_error="El campo telefono no es un numero de 10 digitos"
   }
 
   else if(this.formValuePadre.value.celular =="" ){
     this.mensaje_error="El campo celular no puede estar vacio"
-  }else if(!this.validateCelPhoneNumber(this.formValuePadre.value.celular)){
+  }else if(!this.validateCelPhoneNumber(this.formValuePadre.value.celular) && this.formValuePadre.value.celular != '1'){
     this.mensaje_error="El campo celular no es un numero de 10 digitos"
   }
   else if(this.formValueMadre.value.estado =="" ){
@@ -1002,7 +1034,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
  else if(this.formValueMadre.value.correoElectronico =="" ){
    this.mensaje_error="El campo correo electronico no puede estar vacio"
- }else if(!this.isEmailValid(this.formValueMadre.value.correoElectronico)){
+ }else if(!this.isEmailValid(this.formValueMadre.value.correoElectronico) && this.formValueMadre.value.correoElectronico != 'N/A'){
   this.mensaje_error="El campo correo no es valido"
 }
 
@@ -1012,13 +1044,13 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
  else if(this.formValueMadre.value.telefono ==""){
    this.mensaje_error="El campo telefono no puede estar vacio"
- }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.telefono)){
+ }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.telefono) && this.formValueMadre.value.telefono != '1'){
   this.mensaje_error="El campo telefono no es un numero de 10 digitos"
 }
 
  else if(this.formValueMadre.value.celular =="" ){
    this.mensaje_error="El campo celular no puede estar vacio"
- }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.celular)){
+ }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.celular) && this.formValueMadre.value.telefono != '1'){
   this.mensaje_error="El campo celular no es un numero de 10 digitos"
 }
 
@@ -1074,7 +1106,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
   
    else if(this.formValueMadre.value.correoElectronico =="" ){
      this.mensaje_error="El campo correo electronico no puede estar vacio"
-   }else if(!this.isEmailValid(this.formValueMadre.value.correoElectronico)){
+   }else if(!this.isEmailValid(this.formValueMadre.value.correoElectronico) && this.formValueMadre.value.correoElectronico != 'N/A'){
     this.mensaje_error="El campo correo no es valido"
   }
   
@@ -1084,13 +1116,13 @@ export class SolicitudEstudiantesComponent implements OnInit {
   
    else if(this.formValueMadre.value.telefono ==""){
      this.mensaje_error="El campo telefono no puede estar vacio"
-   }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.telefono)){
+   }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.telefono) && this.formValueMadre.value.telefono != '1'){
     this.mensaje_error="El campo telefono no es un numero de 10 digitos"
   }
   
    else if(this.formValueMadre.value.celular =="" ){
      this.mensaje_error="El campo celular no puede estar vacio"
-   }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.celular)){
+   }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.celular) && this.formValueMadre.value.celular != '1'){
     this.mensaje_error="El campo celular no es un numero de 10 digitos"
   }
   
