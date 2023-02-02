@@ -81,6 +81,7 @@ import { PensionPagoComponent } from './component/pension/pension-pago/pension-p
 import { DescargaDocumentoMatriculaComponent } from './component/documentos-matricula/documentos-matricula-descarga/descarga-documento-matricula.component';
 import { OtrosServiciosComponent } from './component/otros-servicios/otros-servicios.component';
 import { CoursesInscripcionComponent } from './component/curses/courses-inscripcion/courses-inscripcion.component';
+import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecnicas.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -163,6 +164,7 @@ const routes: Routes = [
   {path: 'descarga-documento-matricula',component: DescargaDocumentoMatriculaComponent},
   {path: 'otros-servicios',component: OtrosServiciosComponent},
   {path: 'inscripcion-cursos',component: CoursesInscripcionComponent},
+  {path: 'medias-tecnicas',component: MediasTecnicasComponent},
 
   
 ];

@@ -28,7 +28,7 @@ export class CoursesInscripcionComponent implements OnInit {
     
         
   }
-  prueba(){
+  changeSelect(){
     this.curso = this.listCourses.find((obj:any) => obj.id == this.cursoSelect)
 
   }
