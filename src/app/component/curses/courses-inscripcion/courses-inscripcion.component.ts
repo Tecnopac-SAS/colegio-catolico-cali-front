@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CoursesService } from 'src/app/services/courses.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-courses-inscripcion',
@@ -31,6 +32,9 @@ export class CoursesInscripcionComponent implements OnInit {
   changeSelect(){
     this.curso = this.listCourses.find((obj:any) => obj.id == this.cursoSelect)
 
+  }
+  formatFecha(fecha:any){
+    return (moment(fecha).format('DD/MM/YYYY')==='Invalid date')?'':moment(fecha).format('DD/MM/YYYY')
   }
   pagarCurso(){
     if (this.cursoSelect) {
