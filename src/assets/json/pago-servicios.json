@@ -1,0 +1,43 @@
+
+[
+  {
+      "id": 1,
+      "name": "Cursos",
+      "img": "assets/img-home/pagos.png",
+      "url": "/inscripcion-cursos"
+
+  },
+  {
+    "id": 2,
+    "name": "Inscripciones a extracurriculares",
+    "img": "assets/img-home/admision.png",
+    "url": "/"
+  }
+  ,
+  {
+    "id": 3,
+    "name": "Mis Extracurriculares",
+    "img": "assets/img-home/baseEstudiantes.png",
+    "url": "/"
+  },
+  {
+    "id": 4,
+    "name": "Medias técnicas",
+    "img": "assets/img-home/certificados.png",
+    "url": "/"
+  },
+  {
+    "id": 5,
+    "name": "Cafeteria",
+    "img": "assets/img-home/estadoCartera.png",
+    "url": "/"
+  },
+
+  {
+    "id": 6,
+    "name": "Transporte",
+    "img": "assets/img-home/pazYsalvo.png",
+    "url": "/"
+  }
+
+]

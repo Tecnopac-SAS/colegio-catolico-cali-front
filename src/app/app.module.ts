@@ -97,6 +97,8 @@ import { MatriculaComponent } from './component/matricula/matricula.component';
 import { PagoMatriculaComponent } from './component/pago-matricula/pago-matricula.component';
 import { PensionPagoComponent } from './component/pension/pension-pago/pension-pago.component';
 import { DescargaDocumentoMatriculaComponent } from './component/documentos-matricula/documentos-matricula-descarga/descarga-documento-matricula.component';
+import { CoursesInscripcionComponent } from './component/curses/courses-inscripcion/courses-inscripcion.component';
+import { OtrosServiciosComponent } from './component/otros-servicios/otros-servicios.component';
 
 
 
@@ -185,6 +187,8 @@ import { DescargaDocumentoMatriculaComponent } from './component/documentos-matr
     PagoMatriculaComponent,
     PensionPagoComponent,
     DescargaDocumentoMatriculaComponent,
+    CoursesInscripcionComponent,
+    OtrosServiciosComponent,
   ],
   imports: [
     BrowserAnimationsModule,

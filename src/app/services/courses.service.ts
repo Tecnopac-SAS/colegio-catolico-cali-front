@@ -60,4 +60,11 @@ export class CoursesService {
       return res;
     }))
   }
+
+  pagoInscripcion(data:any){
+    return this._htpp.post<any>(base_url+'course/pago',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }
