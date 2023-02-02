@@ -33,30 +33,30 @@ export class MediasTecnicasComponent implements OnInit {
     return (moment(fecha).format('DD/MM/YYYY')==='Invalid date')?'':moment(fecha).format('DD/MM/YYYY')
   }
   pagar(){
-    // if (this.cursoSelect) {
-    //   Swal.fire({
-    //     title: '¿Estas seguro que deseas pagar la matricula con la opcion bolsillo?',
-    //     showDenyButton: true,
-    //     confirmButtonText: 'Si',
-    //     denyButtonText: `No`,
-    //   }).then((result) => {
-    //     /* Read more about isConfirmed, isDenied below */
-    //     if (result.isConfirmed) {
-    //       if (Number(localStorage.getItem('bolsillo')) >= Number(this.curso.price)) {
-    //         let datos = {monto:this.curso.price,idCourse:this.curso.id,metodoPago:'bolsillo',idEstudiante:localStorage.getItem('idEstudiante')}
-    //         this.coursesService.pagoInscripcion(datos).subscribe(response=>{
-    //           // this.matricula = JSON.stringify(response.result)
-    //           Swal.fire(response.mensaje, '', (response.status)?'success':'error')
-    //         },error=>{
+    if (this.mediaSelect) {
+      Swal.fire({
+        title: '¿Estas seguro que deseas pagar la media técnica con la opcion bolsillo?',
+        showDenyButton: true,
+        confirmButtonText: 'Si',
+        denyButtonText: `No`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          if (Number(localStorage.getItem('bolsillo')) >= Number(this.media.price)) {
+            let datos = {monto:this.media.price,idTechnical:this.media.id,metodoPago:'bolsillo',idEstudiante:localStorage.getItem('idEstudiante')}
+            this.technicalService.pagoMedia(datos).subscribe(response=>{
+              // this.matricula = JSON.stringify(response.result)
+              Swal.fire(response.mensaje, '', (response.status)?'success':'error')
+            },error=>{
   
-    //         });
-    //       }else{
-    //         Swal.fire('Parece que no tienes fondos suficientes', 'Favor de ingresar fondos en el bolsillo', 'info')
-    //       }
-    //     }
-    //   })
-    // }else{
-    //   Swal.fire('Favor de seleccionar un curso', '', 'info')
-    // }
+            });
+          }else{
+            Swal.fire('Parece que no tienes fondos suficientes', 'Favor de ingresar fondos en el bolsillo', 'info')
+          }
+        }
+      })
+    }else{
+      Swal.fire('Favor de seleccionar un curso', '', 'info')
+    }
   }
 }

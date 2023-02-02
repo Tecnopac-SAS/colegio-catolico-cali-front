@@ -55,4 +55,11 @@ export class TechnicalService {
       return res;
     }))
   }
+
+  pagoMedia(data:any){
+    return this._htpp.post<any>(base_url+'technical/pago',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }
