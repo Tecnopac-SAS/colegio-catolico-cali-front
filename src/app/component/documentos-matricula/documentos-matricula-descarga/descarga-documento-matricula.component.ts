@@ -24,10 +24,11 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
   }
   descargarDocumento(){
     if (this.docId!=undefined) {
-      this.DocumentosMatriculaService.obtenerDocumentosMatricula(Number(this.docId))
-      .subscribe(res=>{
-        window.open(res.result.documentUrl, '_blank');
-      })
+      //`${process.env.HOST}/documentosMatricula/${documentoMatriculaId}/download`
+      window.open(this.docId, '_self');
+      /* this.DocumentosMatriculaService.download(Number(this.docId)) */
+      /* .subscribe(res=>{
+      }) */
     }else{
       Swal.fire(
         'Favor de seleccionar un documento',
