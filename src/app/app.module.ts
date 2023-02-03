@@ -101,6 +101,7 @@ import { CoursesInscripcionComponent } from './component/curses/courses-inscripc
 import { OtrosServiciosComponent } from './component/otros-servicios/otros-servicios.component';
 import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecnicas.component';
 import { ExtracurricularInscripcionComponent } from './component/extracurricular/extracurricular-inscripcion/extracurricular-inscripcion.component';
+import { ExtracurricularListComponent } from './component/extracurricular/extracurricular-list/extracurricular-list.component';
 
 
 
@@ -193,6 +194,7 @@ import { ExtracurricularInscripcionComponent } from './component/extracurricular
     OtrosServiciosComponent,
     MediasTecnicasComponent,
     ExtracurricularInscripcionComponent,
+    ExtracurricularListComponent,
   ],
   imports: [
     BrowserAnimationsModule,

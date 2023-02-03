@@ -1,0 +1,40 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <table class="table table-hover table-bordered table-responsive-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Imágenes</th>
+                        <th scope="col">Actividad</th>
+                        <th scope="col">Inicio</th>
+                        <th scope="col">Termina</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Docente</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let extracurricular of listExtracurriculares; let index = index ">
+                        <td class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id=""></td>
+                        <td>{{ extracurricular.extracurricularInscriptionAsExtracurricular.imagen }}</td>
+                        <td>{{ extracurricular.extracurricularInscriptionAsExtracurricular.activity }}</td>
+                        <td>{{ formatFecha(extracurricular.extracurricularInscriptionAsExtracurricular.startDate) }}</td>
+                        <td>{{ formatFecha(extracurricular.extracurricularInscriptionAsExtracurricular.finalDate) }}</td>
+                        <td>{{ (extracurricular.extracurricularInscriptionAsExtracurricular.isActive)?'Activado':'Desactivado' }}</td>
+                        <td>{{ extracurricular.extracurricularInscriptionAsExtracurricular.extracurricularAsTeacher.name }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>

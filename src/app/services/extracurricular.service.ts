@@ -40,6 +40,12 @@ export class ExtracurricularService {
       return res;
     }))
   }
+  misExtracurriculares(data:any){
+    return this._htpp.post<any>(base_url+'extracurricular/misExtracurriculares',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
   pagoExtracurricular(data:any){
     return this._htpp.post<any>(base_url+'extracurricular/pago',data)
     .pipe(map((res:any)=>{
