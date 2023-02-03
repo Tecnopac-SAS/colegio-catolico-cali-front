@@ -102,6 +102,7 @@ import { OtrosServiciosComponent } from './component/otros-servicios/otros-servi
 import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecnicas.component';
 import { ExtracurricularInscripcionComponent } from './component/extracurricular/extracurricular-inscripcion/extracurricular-inscripcion.component';
 import { ExtracurricularListComponent } from './component/extracurricular/extracurricular-list/extracurricular-list.component';
+import { CafeteriaPagoComponent } from './component/cafeteria/cafeteria-pago/cafeteria-pago.component';
 
 
 
@@ -195,6 +196,7 @@ import { ExtracurricularListComponent } from './component/extracurricular/extrac
     MediasTecnicasComponent,
     ExtracurricularInscripcionComponent,
     ExtracurricularListComponent,
+    CafeteriaPagoComponent,
   ],
   imports: [
     BrowserAnimationsModule,

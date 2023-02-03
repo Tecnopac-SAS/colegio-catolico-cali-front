@@ -84,6 +84,7 @@ import { CoursesInscripcionComponent } from './component/curses/courses-inscripc
 import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecnicas.component';
 import { ExtracurricularInscripcionComponent } from './component/extracurricular/extracurricular-inscripcion/extracurricular-inscripcion.component';
 import { ExtracurricularListComponent } from './component/extracurricular/extracurricular-list/extracurricular-list.component';
+import { CafeteriaPagoComponent } from './component/cafeteria/cafeteria-pago/cafeteria-pago.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -169,6 +170,7 @@ const routes: Routes = [
   {path: 'medias-tecnicas',component: MediasTecnicasComponent},
   {path: 'extracurricular-inscripcion',component: ExtracurricularInscripcionComponent},
   {path: 'mis-extracurriculares',component: ExtracurricularListComponent},
+  {path: 'cafeteria-pago',component: CafeteriaPagoComponent},
 
   
 ];
