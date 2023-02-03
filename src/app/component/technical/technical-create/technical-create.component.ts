@@ -41,6 +41,9 @@ export class TechnicalCreateComponent implements OnInit {
       finalDate:[''],
       price:[''],
       idTeacher:[''],
+      starHour:[''],
+      finalHour:[''],
+      description:[''],
       isActive:['']
     })
   }
@@ -52,6 +55,9 @@ export class TechnicalCreateComponent implements OnInit {
     this.technicalModel.price = this.formValue.value.price;
     this.technicalModel.idTeacher = this.formValue.value.idTeacher;
     this.technicalModel.isActive = this.formValue.value.isActive;
+    this.technicalModel.starHour = this.formValue.value.starHour;
+    this.technicalModel.finalHour = this.formValue.value.finalHour;
+    this.technicalModel.description = this.formValue.value.description;
 
     if(this.technicalModel.course =="" ){
       this.mensaje_error="El campo curso no puede estar vacio"
@@ -72,6 +78,15 @@ export class TechnicalCreateComponent implements OnInit {
     else if(this.technicalModel.idTeacher  == 0 ){
       this.mensaje_error="El campo profesor no puede estar vacio"
     }
+    else if(this.technicalModel.starHour  == '' ){
+      this.mensaje_error="El campo hora inicio no puede estar vacio"
+    }
+    else if(this.technicalModel.finalHour  == '' ){
+      this.mensaje_error="El campo hora fin no puede estar vacio"
+    }
+    else if(this.technicalModel.description  == '' ){
+      this.mensaje_error="El campo descripcion no puede estar vacio"
+    }
 
 
     else{
@@ -89,6 +104,9 @@ export class TechnicalCreateComponent implements OnInit {
             finalDate:[''],
             price:[''],
             idTeacher:[''],
+            starHour:[''],
+            finalHour:[''],
+            description:[''],
             isActive:['']
           })
         }

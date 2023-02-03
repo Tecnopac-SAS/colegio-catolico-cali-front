@@ -6,6 +6,9 @@ export class Technical{
   public price=""
   public idTeacher=0
   public isActive=0;
+  public starHour='';
+  public finalHour='';
+  public description='';
 
 }
 
