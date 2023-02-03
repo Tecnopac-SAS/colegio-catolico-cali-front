@@ -45,6 +45,9 @@ export class TechnicalUpdateComponent implements OnInit {
       finalDate:[''],
       price:[''],
       idTeacher:[''],
+      starHour:[''],
+      finalHour:[''],
+      description:[''],
       isActive:['']
     })
     this.fieldCaptureIndex()
@@ -63,6 +66,9 @@ export class TechnicalUpdateComponent implements OnInit {
           this.formValue.controls['price'].setValue(this.Technical.result.price)
           this.formValue.controls['idTeacher'].setValue(this.Technical.result.idTeacher)
           this.formValue.controls['isActive'].setValue(this.Technical.result.isActive)
+          this.formValue.controls['starHour'].setValue(this.Technical.result.starHour)
+          this.formValue.controls['finalHour'].setValue(this.Technical.result.finalHour)
+          this.formValue.controls['description'].setValue(this.Technical.result.description)
           this.technicalModel.id = this.Technical.result.id
         }
       )
@@ -77,6 +83,9 @@ export class TechnicalUpdateComponent implements OnInit {
     this.technicalModel.price= this.formValue.value.price;
     this.technicalModel.idTeacher= this.formValue.value.idTeacher;
     this.technicalModel.isActive= this.formValue.value.isActive;
+    this.technicalModel.starHour= this.formValue.value.starHour;
+    this.technicalModel.finalHour= this.formValue.value.finalHour;
+    this.technicalModel.description= this.formValue.value.description;
     console.log(this.technicalModel)
 
     if(this.technicalModel.course =="" ){
@@ -97,6 +106,15 @@ export class TechnicalUpdateComponent implements OnInit {
 
     else if(this.technicalModel.idTeacher  == 0 ){
       this.mensaje_error="El campo profesor no puede estar vacio"
+    }
+    else if(this.technicalModel.starHour  == '' ){
+      this.mensaje_error="El campo inicio hora no puede estar vacio"
+    }
+    else if(this.technicalModel.finalHour  == '' ){
+      this.mensaje_error="El campo fin hora no puede estar vacio"
+    }
+    else if(this.technicalModel.description  == '' ){
+      this.mensaje_error="El campo descripción no puede estar vacio"
     }
     else {
 
