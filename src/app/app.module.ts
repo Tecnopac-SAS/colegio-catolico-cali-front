@@ -100,6 +100,7 @@ import { DescargaDocumentoMatriculaComponent } from './component/documentos-matr
 import { CoursesInscripcionComponent } from './component/curses/courses-inscripcion/courses-inscripcion.component';
 import { OtrosServiciosComponent } from './component/otros-servicios/otros-servicios.component';
 import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecnicas.component';
+import { ExtracurricularInscripcionComponent } from './component/extracurricular/extracurricular-inscripcion/extracurricular-inscripcion.component';
 
 
 
@@ -191,6 +192,7 @@ import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecn
     CoursesInscripcionComponent,
     OtrosServiciosComponent,
     MediasTecnicasComponent,
+    ExtracurricularInscripcionComponent,
   ],
   imports: [
     BrowserAnimationsModule,

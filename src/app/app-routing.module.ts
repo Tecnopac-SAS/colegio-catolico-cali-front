@@ -82,6 +82,7 @@ import { DescargaDocumentoMatriculaComponent } from './component/documentos-matr
 import { OtrosServiciosComponent } from './component/otros-servicios/otros-servicios.component';
 import { CoursesInscripcionComponent } from './component/curses/courses-inscripcion/courses-inscripcion.component';
 import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecnicas.component';
+import { ExtracurricularInscripcionComponent } from './component/extracurricular/extracurricular-inscripcion/extracurricular-inscripcion.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -165,6 +166,7 @@ const routes: Routes = [
   {path: 'otros-servicios',component: OtrosServiciosComponent},
   {path: 'inscripcion-cursos',component: CoursesInscripcionComponent},
   {path: 'medias-tecnicas',component: MediasTecnicasComponent},
+  {path: 'extracurricular-inscripcion',component: ExtracurricularInscripcionComponent},
 
   
 ];
