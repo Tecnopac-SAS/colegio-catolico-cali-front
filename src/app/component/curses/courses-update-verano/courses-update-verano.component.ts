@@ -44,6 +44,9 @@ export class CoursesUpdateVeranoComponent implements OnInit {
       finalDate: [''],
       price: [''],
       idTeacher: [''],
+      starHour: [''],
+      finalHour: [''],
+      description: [''],
       typeCourse: [''],
       isActive: [''],
     })
@@ -67,6 +70,9 @@ export class CoursesUpdateVeranoComponent implements OnInit {
           this.formValue.controls['price'].setValue(this.course.result.price)
           this.formValue.controls['idTeacher'].setValue(this.course.result.idTeacher)
           this.formValue.controls['typeCourse'].setValue(this.course.result.typeCourse)
+          this.formValue.controls['starHour'].setValue(this.course.result.starHour)
+          this.formValue.controls['finalHour'].setValue(this.course.result.finalHour)
+          this.formValue.controls['description'].setValue(this.course.result.description)
           this.formValue.controls['isActive'].setValue(this.course.result.isActive)
 
           this.courseModel.id = this.course.result.id
@@ -91,7 +97,10 @@ export class CoursesUpdateVeranoComponent implements OnInit {
     this.courseModel.finalDate= this.formValue.value.finalDate;
     this.courseModel.price= this.formValue.value.price;
     this.courseModel.idTeacher= this.formValue.value.teacher;
-    this.courseModel.typeCourse= "extraordinaria";
+    this.courseModel.starHour= this.formValue.value.starHour;
+    this.courseModel.finalHour= this.formValue.value.finalHour;
+    this.courseModel.description= this.formValue.value.description;
+    this.courseModel.typeCourse= "verano";
     this.courseModel.isActive= this.formValue.value.isActive;
     console.log(this.courseModel)
     this.coursesService.updateCourse(this.courseModel,this.id)

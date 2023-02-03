@@ -6,6 +6,9 @@ export class Course{
   public price=0;
   public idTeacher=0;
   public typeCourse=""
+  public starHour=""
+  public finalHour=""
+  public description=""
   public isActive=0;
 
 }

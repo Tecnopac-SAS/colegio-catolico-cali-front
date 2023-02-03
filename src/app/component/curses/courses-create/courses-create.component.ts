@@ -43,6 +43,9 @@ export class CoursesCreateComponent implements OnInit {
       price: [''],
       idTeacher: [''],
       typeCourse: [''],
+      starHour: [''],
+      finalHour: [''],
+      description: [''],
       isActive: [''],
     })
   }
@@ -54,6 +57,9 @@ export class CoursesCreateComponent implements OnInit {
     this.courseModel.price = this.formValueExtra.value.price;
     this.courseModel.idTeacher = this.formValueExtra.value.idTeacher;
     this.courseModel.typeCourse = "verano";;
+    this.courseModel.starHour = this.formValueExtra.value.starHour;
+    this.courseModel.finalHour = this.formValueExtra.value.finalHour;
+    this.courseModel.description = this.formValueExtra.value.description;
     this.courseModel.isActive = this.formValueExtra.value.isActive;
 
     if(this.courseModel.asignature =="" ){
@@ -83,6 +89,9 @@ export class CoursesCreateComponent implements OnInit {
             price: [''],
             idTeacher: [''],
             typeCourse: [''],
+            starHour: [''],
+            finalHour: [''],
+            description: [''],
             isActive: [''],
           })
         }
