@@ -103,7 +103,7 @@ export class PensionPagoComponent implements OnInit {
         } else {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.pensionTotal)) {
             let datos = {pensiones:this.pensionesListSelect}
-            this.pensionService.pagoPension(datos).subscribe(response=>{
+            this.pensionService.pagoPension(datos,'bolsillo').subscribe(response=>{
               // this.matricula = JSON.stringify(response.result)
             },error=>{
   

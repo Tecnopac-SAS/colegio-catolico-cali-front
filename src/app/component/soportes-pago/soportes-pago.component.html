@@ -40,12 +40,13 @@
                   <th scope="col">Vía de pago</th>
                 </tr>
               </thead>
-              <tbody  *ngFor="let data of listExtracurriculares; let index = index ">
+              <tbody  *ngFor="let data of listPagos; let index = index ">
                 <tr class="align-bottom">
                   <th scope="row">{{index+1}}</th>
-                  <td >{{data.acudienteAsEstudiante.codigo}}</td>
-                  <td>{{data.nombres}}</td>
-                  <td>{{data.apellidos}}</td>
+                  <td >{{data.codigo}}</td>
+                  <td>{{data.tipo}}</td>
+                  <td>{{data.fecha}}</td>
+                  <td>{{data.viaPago}}</td>
                 </tr>
               </tbody>
             </table>

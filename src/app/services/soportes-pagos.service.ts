@@ -18,8 +18,8 @@ export class SoportesPagosService {
     }))
   }
 
-  misSoportesPagosSearch(params:any){
-    return this._htpp.get<any>(base_url+'soportePagos/listarMisSoportesPagosSearch/'+params)
+  misSoportesPagosSearch(params:any,idEstudiante:any){
+    return this._htpp.get<any>(base_url+`soportePagos/listarMisSoportesPagosSearch/${encodeURIComponent(params)}/${idEstudiante}`)
     .pipe(map((res:any)=>{
       return res;
     }))

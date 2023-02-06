@@ -9,17 +9,17 @@ import * as moment from 'moment';
 })
 export class SoportesPagoComponent implements OnInit {
   navTitle="Soportes de pago"
-  listExtracurriculares: any;
+  listPagos: any;
   public filterText:any;
   constructor(private soportesPagosService:SoportesPagosService) { 
-    this.listExtracurricularesInit()
+    this.listPagosInit()
   }
 
   ngOnInit(): void {
   }
-  listExtracurricularesInit(){
+  listPagosInit(){
     this.soportesPagosService.misSoportesPagos({idEstudiante:localStorage.getItem('idEstudiante')}).subscribe(response=>{
-      this.listExtracurriculares = response.result
+      this.listPagos = response.result
     },error=>{
 
     });
@@ -27,11 +27,11 @@ export class SoportesPagoComponent implements OnInit {
   search(searchForm:any){
 
     if(this.filterText==""){
-      this.listExtracurricularesInit();
+      this.listPagosInit();
     }else {
-      this.soportesPagosService.misSoportesPagosSearch(searchForm.value.filtro)
+      this.soportesPagosService.misSoportesPagosSearch(searchForm.value.filtro,localStorage.getItem('idEstudiante'))
       .subscribe(res=>{
-        this.listExtracurriculares=res.result
+        this.listPagos=res.result
       })
     }
 

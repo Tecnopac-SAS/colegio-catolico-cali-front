@@ -17,8 +17,8 @@ export class PensionPagoService {
       return res;
     }))
   }
-  pagoPension(data:any){
-    return this._htpp.post<any>(base_url+'pago-pension/pagar',data)
+  pagoPension(data:any,tipo:any){
+    return this._htpp.post<any>(base_url+'pago-pension/pagar/'+tipo,data)
     .pipe(map((res:any)=>{
       return res;
     }))
