@@ -55,4 +55,10 @@ export class CertificateService {
       return res;
     }))
   }
+  pagoInscripcion(data:any){
+    return this._htpp.post<any>(base_url+'certificate/pago',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }

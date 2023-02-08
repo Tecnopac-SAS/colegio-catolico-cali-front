@@ -1,0 +1,70 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a href="/certificados">Certificados</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <ul class="numbered-list">
+                    <li class="text-primary">
+                        <p>Seleccione certificado</p>
+                        <!-- <p>Valor de pensión anual: <span class="text-black">$</span> <span class="ml-4">Valor de pensión mensual: <span class="text-black">$</span></span> </p> -->
+                        <div class="mt-3 d-flex align-items-center text-black">
+                            Certificado  <span class="text-danger">*</span>
+                            
+                            <select class="form-control ml-3" style="width: fit-content;" [(ngModel)]="certificateSelect" (ngModelChange)="changeSelect()">
+                                <option value="{{ item.id }}" *ngFor="let item of listCertificate">{{ item.concept }}</option>
+                            </select>
+
+                            <span class="ml-5">Grado del certificado  <span class="text-danger">*</span></span>
+                            <select class="form-control ml-3" style="width: fit-content;" [(ngModel)]="gradeSelect">
+                                <option value="{{ item.id }}" *ngFor="let item of listGrades">{{ item.description }}</option>
+                            </select>
+                        </div>
+                        <div class="mt-3 d-flex align-items-center text-black">
+                          Canal de entrega  <span class="text-danger">*</span>
+                            
+                            <select class="form-control ml-3" style="width: fit-content;" [(ngModel)]="canalSelect">
+                                <option value="online">Online</option>
+                                <option value="fisico">Fisico</option>
+                            </select>
+                            <span class="ml-5">Detalle del certificado y motivo de solicitud.  <span class="text-danger">*</span></span>
+                            
+                            <textarea class="form-control ml-3" cols="2" rows="3" [(ngModel)]="detalle"></textarea>
+                        </div>
+                    </li>
+                    <hr class="sidebar-divider bg-primary" style="height: 1px;">
+                    <li class="text-primary">
+                        <p>Seleccione el método de pago</p>
+                        <p class="text-black">Valor del certificado:  ${{ certificate.price }}</p>
+                        <p class="text-black">Seleccione el metodo de pago digital</p>
+
+                    </li>
+                    <div class="row ml-3 cardPago">
+                      <div class="col-md-3 d-flex justify-content-center">
+                        <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
+                      </div>
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" (click)="pagar()">
+                        <i class="bi bi-wallet-fill text-white" style="font-size: 60px"></i>
+                        <span>Bolsillo</span>
+                      </div>
+                      <!-- <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-credit-card-2-back-fill text-white" style="font-size: 60px"></i>
+                        <span>Tarjeta de crédito</span>
+                      </div>
+                      <div class="col-md-3 d-flex justify-content-center">
+                        <img class="p-4" src="assets/img-pagomatricula/image2.png" alt="">
+                      </div> -->
+                    </div>
+                </ul>
+                
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>

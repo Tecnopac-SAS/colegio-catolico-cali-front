@@ -86,6 +86,9 @@ import { ExtracurricularInscripcionComponent } from './component/extracurricular
 import { ExtracurricularListComponent } from './component/extracurricular/extracurricular-list/extracurricular-list.component';
 import { CafeteriaPagoComponent } from './component/cafeteria/cafeteria-pago/cafeteria-pago.component';
 import { SoportesPagoComponent } from './component/soportes-pago/soportes-pago.component';
+import { CertificadosComponent } from './component/certificados/certificados.component';
+import { SolicitudCertificadoComponent } from './component/solicitud-certificado/solicitud-certificado.component';
+import { EstadoCertificadoComponent } from './component/estado-certificado/estado-certificado.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -173,6 +176,9 @@ const routes: Routes = [
   {path: 'mis-extracurriculares',component: ExtracurricularListComponent},
   {path: 'cafeteria-pago',component: CafeteriaPagoComponent},
   {path: 'soportes-pago',component: SoportesPagoComponent},
+  {path: 'certificados',component: CertificadosComponent},
+  {path: 'solicitud-certificado',component: SolicitudCertificadoComponent},
+  {path: 'estado-certificado',component: EstadoCertificadoComponent},
 
   
 ];
