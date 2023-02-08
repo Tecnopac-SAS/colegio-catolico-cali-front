@@ -1,1 +1,40 @@
-<p>estado-certificado works!</p>
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a href="/certificados">Certificados</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <table class="table table-hover table-bordered table-responsive-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Tipo de documento</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Tiempo de entrega</th>
+                        <th scope="col">Estado de documento</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Entrega</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let certificado of listCertificate; let index = index ">
+                        <td class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id=""></td>
+                        <td>{{ certificado.certificateInscriptionAsCertificate.concept }}</td>
+                        <td>{{ formatFecha(certificado.createAt) }}</td>
+                        <td>{{ certificado.certificateInscriptionAsCertificate.time }}</td>
+                        <td>{{ (certificado.entregado)?'Listo':'Pendiente' }}</td>
+                        <td>{{ certificado.monto }}</td>
+                        <td>{{ certificado.canalEntrega }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>

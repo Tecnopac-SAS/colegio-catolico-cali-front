@@ -19,7 +19,7 @@ export class SolicitudCertificadoComponent implements OnInit {
   certificate:any
   detalle:any
   constructor(private certificateService:CertificateService,private pensionService:PensionService,) { 
-    this.certificateService.listCertificates().subscribe(response=>{
+    this.certificateService.listCertificatesAcu().subscribe(response=>{
       this.listCertificate = response.result
     },error=>{
 

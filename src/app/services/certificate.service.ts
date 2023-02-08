@@ -18,6 +18,18 @@ export class CertificateService {
       return res;
     }))
   }
+  listCertificatesAcu(){
+    return this._htpp.get<any>(base_url+'certificate/listarCertificatesAcu')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+  listCertificatesInscription(id:any){
+    return this._htpp.get<any>(base_url+`certificate/listCertificatesInscription/${id}`)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   listCertificate(params:any){
     return this._htpp.get<any>(base_url+'certificate/listarCertificate/'+params)
