@@ -1,0 +1,87 @@
+<app-dashboard>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <ul class="numbered-list">
+                    <li class="text-primary">
+                        <p>Ceretificado</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Nombres completos</label>
+                                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nombres completos" [(ngModel)]="certificate.certificateInscriptionAsEstudiante.nombres" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Apellidos completos</label>
+                                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Apellidos completos" [(ngModel)]="certificate.certificateInscriptionAsEstudiante.apellidos" disabled>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Código del estudiante</label>
+                                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Código del estudiante" [(ngModel)]="certificate.certificateInscriptionAsEstudiante.codigo" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Grado</label>
+                                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Grado" [(ngModel)]="certificate.certificateInscriptionAsGrade.description" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Concepto</label>
+                                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Concepto" [(ngModel)]="certificate.certificateInscriptionAsCertificate.concept" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Tiempo de entrega (dias)</label>
+                                    <input type="number" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Tiempo de entrega (dias)" [(ngModel)]="certificate.certificateInscriptionAsCertificate.time" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Canal de envio</label>
+                                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Canal de envio" [(ngModel)]="certificate.certificateInscriptionAsCertificate.channel" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Solicitante</label>
+                                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Solicitante" [(ngModel)]="solicitante" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Valor cancelado</label>
+                                  <input type="number" class="form-control" name="" id="" aria-describedby="helpId" placeholder="$" [(ngModel)]="certificate.certificateInscriptionAsCertificate.price" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger" routerLink="/certificados-solicitud">Cancelar</button>
+                        <button type="button" class="btn btn-primary ml-3"><i class="bi bi-upload mr-2"></i>Cargar certificado</button>
+                    </li>
+                </ul>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>

@@ -108,6 +108,7 @@ import { CertificadosComponent } from './component/certificados/certificados.com
 import { SolicitudCertificadoComponent } from './component/solicitud-certificado/solicitud-certificado.component';
 import { EstadoCertificadoComponent } from './component/estado-certificado/estado-certificado.component';
 import { CertificateIndexInscriptionComponent } from './component/certificate/certificate-index-inscription/certificate-index-inscription.component';
+import { CertificateAddDocumentComponent } from './component/certificate/certificate-add-document/certificate-add-document.component';
 
 
 
@@ -207,6 +208,7 @@ import { CertificateIndexInscriptionComponent } from './component/certificate/ce
     SolicitudCertificadoComponent,
     EstadoCertificadoComponent,
     CertificateIndexInscriptionComponent,
+    CertificateAddDocumentComponent,
   ],
   imports: [
     BrowserAnimationsModule,

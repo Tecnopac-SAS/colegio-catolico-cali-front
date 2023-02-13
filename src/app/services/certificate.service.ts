@@ -91,4 +91,10 @@ export class CertificateService {
       return res;
     }))
   }
+  obtenerCertificateInscription(id:number){
+    return this._htpp.get<any>(base_url+'certificate/certificateInscriptionId/'+id)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }
