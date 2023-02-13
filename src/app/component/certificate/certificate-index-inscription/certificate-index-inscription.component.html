@@ -1,0 +1,62 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <ul class="numbered-list">
+                    <li class="text-primary">
+                        <p>Certificados</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-md-3 col-12 my-2">
+                  <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                      <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                        <div class="input-group-append">
+                          <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                      </div>
+                          <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                      </div>
+                  </form>
+              </div>
+              <div class="col-md-1 col-4 my-2">
+                <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+              </div>
+          </div>
+          <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Concepto</th>
+                  <th scope="col">Tiempo de entrega</th>
+                  <th scope="col">Canal de envio</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Solicitante</th>
+                  <th scope="col">¿Pago?</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody  *ngFor="let data of listCertificados; let index = index ">
+                <tr class="align-bottom">
+                  <td >{{data.certificateInscriptionAsCertificate.concept}}</td>
+                  <td>{{data.certificateInscriptionAsCertificate.time}} dias</td>
+                  <td>{{data.certificateInscriptionAsCertificate.channel}}</td>
+                  <td>{{data.certificateInscriptionAsCertificate.price}}</td>
+                  <td>{{ data.certificateInscriptionAsCertificate.applicant }}</td>
+                  <td>Si</td>
+                  <td><a href="">Ver</a> | <span class="text-success">Aprobar</span> | <span class="text-danger">Rechazar</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>

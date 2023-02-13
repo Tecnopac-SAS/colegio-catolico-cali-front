@@ -107,6 +107,7 @@ import { SoportesPagoComponent } from './component/soportes-pago/soportes-pago.c
 import { CertificadosComponent } from './component/certificados/certificados.component';
 import { SolicitudCertificadoComponent } from './component/solicitud-certificado/solicitud-certificado.component';
 import { EstadoCertificadoComponent } from './component/estado-certificado/estado-certificado.component';
+import { CertificateIndexInscriptionComponent } from './component/certificate/certificate-index-inscription/certificate-index-inscription.component';
 
 
 
@@ -205,6 +206,7 @@ import { EstadoCertificadoComponent } from './component/estado-certificado/estad
     CertificadosComponent,
     SolicitudCertificadoComponent,
     EstadoCertificadoComponent,
+    CertificateIndexInscriptionComponent,
   ],
   imports: [
     BrowserAnimationsModule,

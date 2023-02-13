@@ -89,6 +89,7 @@ import { SoportesPagoComponent } from './component/soportes-pago/soportes-pago.c
 import { CertificadosComponent } from './component/certificados/certificados.component';
 import { SolicitudCertificadoComponent } from './component/solicitud-certificado/solicitud-certificado.component';
 import { EstadoCertificadoComponent } from './component/estado-certificado/estado-certificado.component';
+import { CertificateIndexInscriptionComponent } from './component/certificate/certificate-index-inscription/certificate-index-inscription.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -179,6 +180,7 @@ const routes: Routes = [
   {path: 'certificados',component: CertificadosComponent},
   {path: 'solicitud-certificado',component: SolicitudCertificadoComponent},
   {path: 'estado-certificado',component: EstadoCertificadoComponent},
+  {path: 'certificados-solicitud',component: CertificateIndexInscriptionComponent},
 
   
 ];

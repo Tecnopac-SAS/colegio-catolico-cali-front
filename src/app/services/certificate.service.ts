@@ -30,6 +30,12 @@ export class CertificateService {
       return res;
     }))
   }
+  listCertificatesInscriptionAll(){
+    return this._htpp.get<any>(base_url+`certificate/listCertificatesInscription`)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   listCertificate(params:any){
     return this._htpp.get<any>(base_url+'certificate/listarCertificate/'+params)
@@ -69,6 +75,12 @@ export class CertificateService {
   }
   pagoInscripcion(data:any){
     return this._htpp.post<any>(base_url+'certificate/pago',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+  listCertificatesInscriptionAllSearch(data:any,id:any){
+    return this._htpp.get<any>(base_url+`certificate/inscriptionAllSearch/${encodeURIComponent(data)}/${id}`)
     .pipe(map((res:any)=>{
       return res;
     }))
