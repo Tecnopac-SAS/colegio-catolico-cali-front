@@ -85,4 +85,10 @@ export class CertificateService {
       return res;
     }))
   }
+  statusChange(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'certificate/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }

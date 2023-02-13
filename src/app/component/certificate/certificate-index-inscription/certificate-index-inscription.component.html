@@ -50,7 +50,7 @@
                   <td>{{data.certificateInscriptionAsCertificate.price}}</td>
                   <td>{{ data.certificateInscriptionAsCertificate.applicant }}</td>
                   <td>Si</td>
-                  <td><a href="">Ver</a> | <span class="text-success">Aprobar</span> | <span class="text-danger">Rechazar</span></td>
+                  <td><a href="">Ver</a> | <button  class="text-{{ (data.status)?'danger':'success' }} btn" (click)="statusChange(data)">{{ (data.status)?'Rechazar':'Aprobar' }}</button></td>
                 </tr>
               </tbody>
             </table>
