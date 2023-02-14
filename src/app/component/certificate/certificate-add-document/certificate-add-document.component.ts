@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CertificateService } from 'src/app/services/certificate.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-certificate-add-document',
@@ -11,6 +12,7 @@ export class CertificateAddDocumentComponent implements OnInit {
   @ViewChild("fileInput") fileInput:any;
   private id: number;
   public certificate: any;
+  public documentUrl: any;
   public solicitante: any;
   public archivo: any;
   navTitle="Certificados"
@@ -30,7 +32,8 @@ export class CertificateAddDocumentComponent implements OnInit {
       this.id = params['id'];
       this.certificateService.obtenerCertificateInscription(this.id).subscribe(
         response=>{
-          this.certificate= response.result;
+          this.certificate= response.result.result;
+          this.documentUrl= response.result.documentUrl;
           this.solicitante = response.result.dataValues.nombres + ' ' + response.result.dataValues.apellidos;
         }
       )
@@ -55,5 +58,16 @@ export class CertificateAddDocumentComponent implements OnInit {
       }
       )
 
+  }
+  downloadFile(){
+    if (this.certificate.documentUrl!=undefined) {
+      window.open(this.documentUrl, '_self');
+    }else{
+      Swal.fire(
+        'Sin documento',
+        '',
+        'warning'
+       )
+    }
   }
 }

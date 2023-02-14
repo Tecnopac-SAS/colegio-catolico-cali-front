@@ -75,7 +75,9 @@
                             </div>
                         </div>
                         <button type="button" class="btn btn-danger" routerLink="/certificados-solicitud">Cancelar</button>
-                        <button type="button" class="btn btn-primary ml-3" (click)="fileInput.click()" ><i class="bi bi-upload mr-2"></i>Cargar certificado</button>
+                        <button type="button" class="btn btn-primary ml-3" (click)="fileInput.click()" *ngIf="!certificate.documentUrl"><i class="bi bi-upload mr-2"></i>Cargar certificado</button>
+                        <button type="button" class="btn btn-primary ml-3" *ngIf="certificate.documentUrl" disabled>Certificado listo</button>
+                        <button type="button" class="btn btn-info ml-3" (click)="downloadFile()" *ngIf="certificate.documentUrl">Descargar documento</button>
                         <button type="button" class="btn btn-success ml-3" (click)="sendFile()" *ngIf="showSend"><i class="bi bi-upload mr-2"></i>Enviar archivo</button>
                         <input type="file" #fileInput class="form-control" formControlName="file" (change)="cambio()" hidden>
                         
