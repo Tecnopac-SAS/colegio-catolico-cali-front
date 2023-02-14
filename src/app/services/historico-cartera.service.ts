@@ -8,18 +8,18 @@ const base_url = environment.url;
 @Injectable({
   providedIn: 'root'
 })
-export class SoportesPagosService {
+export class HistoricoCarteraService {
   constructor(private _htpp:HttpClient) { }
 
-  misSoportesPagos(params:any){
-    return this._htpp.get<any>(base_url+'soportePagos/listarMisSoportesPagos/'+params.idAcudiente)
+  historicoCarteraIndex(params:any){
+    return this._htpp.get<any>(base_url+'historicoCartera/listarHistoricoCartera/'+params.idAcudiente)
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
-  misSoportesPagosSearch(params:any,idAcudiente:any){
-    return this._htpp.get<any>(base_url+`soportePagos/listarMisSoportesPagosSearch/${encodeURIComponent(params)}/${idAcudiente}`)
+  historicoCarteraSearch(params:any,idAcudiente:any){
+    return this._htpp.get<any>(base_url+`historicoCartera/listarHistoricoCarteraSearch/${encodeURIComponent(params)}/${idAcudiente}`)
     .pipe(map((res:any)=>{
       return res;
     }))

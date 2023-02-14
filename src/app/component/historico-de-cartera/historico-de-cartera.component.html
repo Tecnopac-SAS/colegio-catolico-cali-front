@@ -1,0 +1,60 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <ul class="numbered-list">
+                    <li class="text-primary">
+                        <p>Saldo actual</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-md-3 col-12 my-2">
+                  <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                      <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                        <div class="input-group-append">
+                          <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                      </div>
+                          <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                      </div>
+                  </form>
+              </div>
+              <div class="col-md-1 col-4 my-2">
+                <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+              </div>
+          </div>
+          <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Servicio</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Deuda total</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody  *ngFor="let data of listPagos; let index = index ">
+                <tr class="align-bottom">
+                  <th scope="row">{{index+1}}</th>
+                  <td >{{data.servicio}}</td>
+                  <td>{{data.tipo}}</td>
+                  <td>{{formatFecha(data.fecha)}}</td>
+                  <td>${{data.total}}</td>
+                  <td><a routerLink="/{{ data.link }}">Pagar</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>
