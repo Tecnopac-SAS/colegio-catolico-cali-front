@@ -59,6 +59,12 @@ export class CertificateService {
       return res;
     }))
   }
+  createDocumentoCertificate(data:any){
+    return this._htpp.post<any>(base_url+'certificate/createDocumentoCertificate',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   updateCertificate(data:any, id:number,){
     return this._htpp.put<any>(base_url+'certificate/actualizarcertificate/'+id,data)
