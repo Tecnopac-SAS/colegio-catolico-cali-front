@@ -110,6 +110,7 @@ import { EstadoCertificadoComponent } from './component/estado-certificado/estad
 import { CertificateIndexInscriptionComponent } from './component/certificate/certificate-index-inscription/certificate-index-inscription.component';
 import { CertificateAddDocumentComponent } from './component/certificate/certificate-add-document/certificate-add-document.component';
 import { HistoricoDeCarteraComponent } from './component/historico-de-cartera/historico-de-cartera.component';
+import { AjustesPerfilIndexComponent } from './component/perfil/ajustes-perfil-index/ajustes-perfil-index.component';
 
 
 
@@ -211,6 +212,7 @@ import { HistoricoDeCarteraComponent } from './component/historico-de-cartera/hi
     CertificateIndexInscriptionComponent,
     CertificateAddDocumentComponent,
     HistoricoDeCarteraComponent,
+    AjustesPerfilIndexComponent,
   ],
   imports: [
     BrowserAnimationsModule,

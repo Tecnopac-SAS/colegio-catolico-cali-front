@@ -92,6 +92,7 @@ import { EstadoCertificadoComponent } from './component/estado-certificado/estad
 import { CertificateIndexInscriptionComponent } from './component/certificate/certificate-index-inscription/certificate-index-inscription.component';
 import { CertificateAddDocumentComponent } from './component/certificate/certificate-add-document/certificate-add-document.component';
 import { HistoricoDeCarteraComponent } from './component/historico-de-cartera/historico-de-cartera.component';
+import { AjustesPerfilIndexComponent } from './component/perfil/ajustes-perfil-index/ajustes-perfil-index.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -185,6 +186,7 @@ const routes: Routes = [
   {path: 'certificados-solicitud',component: CertificateIndexInscriptionComponent},
   {path: 'certificate/:id',component: CertificateAddDocumentComponent},
   {path: 'historico-cartera',component: HistoricoDeCarteraComponent},
+  {path: 'ajuste-perfil',component: AjustesPerfilIndexComponent},
 
   
 ];
