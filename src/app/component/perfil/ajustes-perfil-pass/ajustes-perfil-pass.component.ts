@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ajustes-perfil-pass.component.css']
 })
 export class AjustesPerfilPassComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {

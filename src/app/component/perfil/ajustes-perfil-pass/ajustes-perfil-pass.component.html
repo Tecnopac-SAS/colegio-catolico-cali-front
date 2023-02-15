@@ -1,1 +1,39 @@
-<p>ajustes-perfil-pass works!</p>
+<app-dashboard>
+    <div class="container my-xl-2">
+      <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a href="ajuste-perfil">Ajustes del perfil</a> / Página actual</li>
+        </ol>
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+                <p class="text-primary">Cambiar contraseña</p>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        Contraseña actual <span class="text-danger">*</span>
+                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        Nueva contraseña <span class="text-danger">*</span>
+                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                    </div>
+                    <div class="col-md-6">
+                        Repita contraseña <span class="text-danger">*</span>
+                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-secondary mt-3" routerLink="/ajuste-perfil">Cancelar</button>
+                        <button type="button" class="btn btn-primary mt-3 ml-3">Guardar</button>
+                    </div>
+                </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</app-dashboard>
