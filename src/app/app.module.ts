@@ -113,6 +113,7 @@ import { HistoricoDeCarteraComponent } from './component/historico-de-cartera/hi
 import { AjustesPerfilIndexComponent } from './component/perfil/ajustes-perfil-index/ajustes-perfil-index.component';
 import { AjustesPerfilPassComponent } from './component/perfil/ajustes-perfil-pass/ajustes-perfil-pass.component';
 import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-perfil-estudiante/ajustes-perfil-estudiante.component';
+import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perfil-acudiente/ajustes-perfil-acudiente.component';
 
 
 
@@ -217,6 +218,7 @@ import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-per
     AjustesPerfilIndexComponent,
     AjustesPerfilPassComponent,
     AjustesPerfilEstudianteComponent,
+    AjustesPerfilAcudienteComponent,
   ],
   imports: [
     BrowserAnimationsModule,
