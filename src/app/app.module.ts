@@ -112,6 +112,7 @@ import { CertificateAddDocumentComponent } from './component/certificate/certifi
 import { HistoricoDeCarteraComponent } from './component/historico-de-cartera/historico-de-cartera.component';
 import { AjustesPerfilIndexComponent } from './component/perfil/ajustes-perfil-index/ajustes-perfil-index.component';
 import { AjustesPerfilPassComponent } from './component/perfil/ajustes-perfil-pass/ajustes-perfil-pass.component';
+import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-perfil-estudiante/ajustes-perfil-estudiante.component';
 
 
 
@@ -215,6 +216,7 @@ import { AjustesPerfilPassComponent } from './component/perfil/ajustes-perfil-pa
     HistoricoDeCarteraComponent,
     AjustesPerfilIndexComponent,
     AjustesPerfilPassComponent,
+    AjustesPerfilEstudianteComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -94,6 +94,7 @@ import { CertificateAddDocumentComponent } from './component/certificate/certifi
 import { HistoricoDeCarteraComponent } from './component/historico-de-cartera/historico-de-cartera.component';
 import { AjustesPerfilIndexComponent } from './component/perfil/ajustes-perfil-index/ajustes-perfil-index.component';
 import { AjustesPerfilPassComponent } from './component/perfil/ajustes-perfil-pass/ajustes-perfil-pass.component';
+import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-perfil-estudiante/ajustes-perfil-estudiante.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -189,6 +190,7 @@ const routes: Routes = [
   {path: 'historico-cartera',component: HistoricoDeCarteraComponent},
   {path: 'ajuste-perfil',component: AjustesPerfilIndexComponent},
   {path: 'cambio-pass',component: AjustesPerfilPassComponent},
+  {path: 'datos-estudiante',component: AjustesPerfilEstudianteComponent},
 
   
 ];
