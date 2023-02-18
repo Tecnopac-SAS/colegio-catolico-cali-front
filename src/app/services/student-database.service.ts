@@ -73,6 +73,12 @@ export class StudentDatabaseService {
       return res;
     }))
   }
+  actualizarAcudiente(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'padres-familia/actualizarAcudiente/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   deshabilitar(data:any, id:number,){
     return this._htpp.put<any>(base_url+'studentDatabase/deshabilitar/'+id,data)
@@ -111,6 +117,12 @@ export class StudentDatabaseService {
 
   createAcudiente(data:any){
     return this._htpp.post<any>(base_url+'padres-familia/crearAcudiente',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+  getAllAcudiente(id:any){
+    return this._htpp.get<any>(base_url+`padres-familia/getAllAcudiente/${id}`)
     .pipe(map((res:any)=>{
       return res;
     }))

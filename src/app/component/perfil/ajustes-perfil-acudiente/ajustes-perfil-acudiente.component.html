@@ -11,80 +11,79 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Estado
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="madre.estado">
+                            <option value="0">SIN DATOS</option>
+                            <option value="1">CON DATOS</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         ¿Vive?
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="madre.vive">
+                            <option value="1">SI</option>
+                            <option value="0">NO</option>
+                            <option value="2">NO APLICA</option>
                         </select>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Tipo de documento
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="madre.tipoDocumento">
+                            <option value="CEDULA">CC</option>
+                            <option value="CE">CE</option>
+                            <option value="NO">NO APLICA</option>
                         </select>
                         
                     </div>
                     <div class="col-md-6">
                         Identificación
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.identificacion">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Nombres completos
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.nombres">
                     </div>
                     <div class="col-md-6">
                         Apellidos completos
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.apellidos">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Profesión
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.profesion">
                     </div>
                     <div class="col-md-6">
                         Empresa donde trabaja
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.dondeTrabaja">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Cargo
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.cargo">
                     </div>
                     <div class="col-md-6">
                         Correo electrónico
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.correoElectronico">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Dirección
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.direccion">
                     </div>
                     <div class="col-md-6">
                         Teléfono
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.telefono">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Celular
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="madre.celular">
                     </div>
                 </div>
                 <hr class="sidebar-divider bg-primary" style="height: 1px;">
@@ -94,80 +93,79 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Estado
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="padre.estado">
+                            <option value="0">SIN DATOS</option>
+                            <option value="1">CON DATOS</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         ¿Vive?
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="padre.vive">
+                            <option value="1">SI</option>
+                            <option value="0">NO</option>
+                            <option value="2">NO APLICA</option>
                         </select>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Tipo de documento
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="padre.tipoDocumento">
+                            <option value="CEDULA">CC</option>
+                            <option value="CE">CE</option>
+                            <option value="NO">NO APLICA</option>
                         </select>
                         
                     </div>
                     <div class="col-md-6">
                         Identificación
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.identificacion">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Nombres completos
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.nombres">
                     </div>
                     <div class="col-md-6">
                         Apellidos completos
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.apellidos">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Profesión
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.profesion">
                     </div>
                     <div class="col-md-6">
                         Empresa donde trabaja
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.dondeTrabaja">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Cargo
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.cargo">
                     </div>
                     <div class="col-md-6">
                         Correo electrónico
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.correoElectronico">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Dirección
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.direccion">
                     </div>
                     <div class="col-md-6">
                         Teléfono
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.telefono">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Celular
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="padre.celular">
                     </div>
                 </div>
                 <hr class="sidebar-divider bg-primary" style="height: 1px;">
@@ -177,87 +175,83 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Parentesco
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                        </select>
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.parentesco">
                     </div>
                     <div class="col-md-6">
                         ¿Vive?
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="acudiente.vive">
+                            <option value="1">SI</option>
+                            <option value="0">NO</option>
+                            <option value="2">NO APLICA</option>
                         </select>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Tipo de documento
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="acudiente.tipoDocumento">
+                            <option value="CEDULA">CC</option>
+                            <option value="CE">CE</option>
+                            <option value="NO">NO APLICA</option>
                         </select>
                         
                     </div>
                     <div class="col-md-6">
                         Identificación
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.identificacion">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Nombres completos
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.nombres">
                     </div>
                     <div class="col-md-6">
                         Apellidos completos
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.apellidos">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Profesión
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.profesion">
                     </div>
                     <div class="col-md-6">
                         Empresa donde trabaja
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.dondeTrabaja">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Cargo
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.cargo">
                     </div>
                     <div class="col-md-6">
                         Correo electrónico
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.correoElectronico">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Dirección
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.direccion">
                     </div>
                     <div class="col-md-6">
                         Teléfono
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.telefono">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Celular
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="acudiente.celular">
                     </div>
                 </div>
                 <hr class="sidebar-divider bg-primary" style="height: 1px;">
                 <div class="row mb-3">
                     <div class="col-md-6">
                         ¿Con quien vive?<span class="text-danger">*</span>
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="estudiante.viveCon">
                     </div>
                 </div>
 
@@ -267,10 +261,10 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Responsable
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="responsable.responsable">
+                            <option value="1">Padre</option>
+                            <option value="2">Madre</option>
+                            <option value="3">Otro/acudiente</option>
                         </select>
                     </div>
                 </div>
@@ -279,62 +273,52 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Tipo de persona
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                        </select>
-                        
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.tipoPersona">
                     </div>
                     <div class="col-md-6">
                         Razón social
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.razonSocial">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Tipo de documento
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                        </select>
-                        
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.tipoDocumento">
                     </div>
                     <div class="col-md-6">
                         Identificación
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.identificacion">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         País
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.pais">
                     </div>
                     <div class="col-md-6">
                         Correo electrónico
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.correoElectronico">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Departamento
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.departamento">
                     </div>
                     <div class="col-md-6">
                         Ciudad
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.ciudad">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Dirección
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="responsable.direccion">
                     </div>
                 </div>
 
                 <hr class="sidebar-divider bg-primary" style="height: 1px;">
-
+<!-- 
                 <p class="text-primary" style="font-size: larger;">Tratamiento de data</p>
                 <div class="row">
                     <div class="col-md-6">
@@ -343,9 +327,9 @@
                     <div class="col-md-6">
                         <input type="checkbox" name="" id=""> <a class="ml-2" href="">Acepto Ley de protección de datos.</a>
                     </div>
-                </div>
+                </div> -->
                 <div class="row d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary mt-3 ml-3" style="width: fit-content;">Gurdar información</button>
+                    <button type="button" class="btn btn-primary mt-3 ml-3" style="width: fit-content;" (click)="actualizar()">Gurdar información</button>
                 </div>
                 
             </div>

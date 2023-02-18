@@ -11,95 +11,94 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Nombres completos
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.nombres" disabled>
                     </div>
                     <div class="col-md-6">
                         Apellidos completos
-                        <input type="password" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.apellidos" disabled>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Tipo de documento
-                        <select name="" id="" class="form-control">
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
-                            <option value="">example 1</option>
+                        <select name="" id="" class="form-control" [(ngModel)]="student.tipoDocumento" disabled>
+                            <option value="ui">example 1</option>
+                            <option value="a">example 2</option>
+                            <option value="qw">example 1</option>
                         </select>
                         
                     </div>
                     <div class="col-md-6">
                         Identificación
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.identificacion" disabled>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Expedida en
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.expedicion" disabled>
                     </div>
                     <div class="col-md-6">
                         Lugar de nacimiento
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.lugarNacimiento" disabled>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Fecha de nacimiento
-                        <input type="date" class="form-control" name="" id="" placeholder="">
+                        <input type="date" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.fechaNacimiento" disabled>
                     </div>
                     <div class="col-md-6">
                         Edad
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.edad" disabled>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Dirección
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.direccion">
                     </div>
                     <div class="col-md-6">
                         Unidad/Casa/Apto No.
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.tipoDireccion">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Barrio
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.barrio">
                     </div>
                     <div class="col-md-6">
                         Estrato
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.estrato">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Teléfono
-                        <input type="number" class="form-control" name="" id="" placeholder="">
+                        <input type="number" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.telefono">
                     </div>
                     <div class="col-md-6">
                         Correo electrónico
-                        <input type="text" class="form-control" name="" id="" placeholder="">
+                        <input type="text" class="form-control" name="" id="" placeholder="" [(ngModel)]="student.correo">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Solicitud cupo para
-                        <select class="form-control" name="" id="">
-                            <option>a</option>
-                            <option>b</option>
-                            <option>c</option>
+                        <select class="form-control" name="" id="" [(ngModel)]="student.tipoCupo" disabled>
+                            <option value="s">opcion 1</option>
+                            <option value="a">opcion 2</option>
+                            <option value="t">opcion 3</option>
                         </select>
                     </div>
                 </div>
-                <p class="text-primary" style="font-size: larger;">Tratamiento de data</p>
+                <!-- <p class="text-primary" style="font-size: larger;">Tratamiento de data</p>
                 <input type="checkbox" name="" id=""> <a class="ml-2" href="">Acepto Ley de protección de datos.</a><br>
-                <input type="checkbox" name="" id=""> <a class="ml-2" href="">Acepto que todos mis datos personales se encuentran actualizados.
-                </a>
+                <input type="checkbox" name="" id=""> <a class="ml-2" href="">Acepto que todos mis datos personales se encuentran actualizados.</a> -->
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-primary mt-3 ml-3">Gurdar información</button>
+                        <button type="button" class="btn btn-primary mt-3 ml-3" (click)="actualizarDatos()">Gurdar información</button>
                     </div>
                 </div>
                 
