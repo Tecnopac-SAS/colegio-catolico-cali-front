@@ -11,23 +11,23 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Contraseña actual <span class="text-danger">*</span>
-                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="" [(ngModel)]="passActual">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         Nueva contraseña <span class="text-danger">*</span>
-                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="" [(ngModel)]="newPass">
                     </div>
                     <div class="col-md-6">
                         Repita contraseña <span class="text-danger">*</span>
-                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="" [(ngModel)]="newPassConfirm">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <button type="button" class="btn btn-secondary mt-3" routerLink="/ajuste-perfil">Cancelar</button>
-                        <button type="button" class="btn btn-primary mt-3 ml-3">Guardar</button>
+                        <button type="button" class="btn btn-primary mt-3 ml-3" (click)="sendPass()">Guardar</button>
                     </div>
                 </div>
                 

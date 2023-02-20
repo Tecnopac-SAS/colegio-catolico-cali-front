@@ -52,6 +52,12 @@ export class UserService {
       return res;
     }))
   }
+  updatePasswordConfirm(id:any, data:any){
+    return this._htpp.put<any>(base_url+'user/nuevaContrasenaConfirm/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   getRoles(){
     return this._htpp.get<any>(base_url+'role/listarRoles')
