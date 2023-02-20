@@ -62,7 +62,7 @@
   {
       "id": 1,
       "name": "¡Matrículas abiertas! Periodo 2022-2023",
-      "img": "assets/img-home/pagos.png",
+      "img": "assets/acudiente/home/matricula.png",
       "url": "/",
       "role": "acudiente"
 
@@ -71,7 +71,7 @@
   {
     "id": 2,
     "name": "Inscripciones a Extracurriculares",
-    "img": "assets/img-home/admision.png",
+    "img": "assets/acudiente/home/inscripcion.png",
     "url": "/",
     "role": "acudiente"
 
@@ -80,7 +80,7 @@
   {
     "id": 3,
     "name": "Cursos",
-    "img": "assets/img-home/baseEstudiantes.png",
+    "img": "assets/acudiente/home/cursos.png",
     "url": "/",
     "role": "acudiente"
 
@@ -88,7 +88,7 @@
   {
     "id": 4,
     "name": "¡Pago a pensiones! Periodo 2022-2023",
-    "img": "assets/img-home/certificados.png",
+    "img": "assets/acudiente/home/pension.png",
     "url": "/",
     "role": "acudiente"
 
@@ -96,7 +96,7 @@
   {
     "id": 5,
     "name": "Solicitud de certificados",
-    "img": "assets/img-home/estadoCartera.png",
+    "img": "assets/acudiente/home/certificado.png",
     "url": "/",
     "role": "acudiente"
 
@@ -105,7 +105,7 @@
   {
     "id": 6,
     "name": "Configuración del perfil",
-    "img": "assets/img-home/pazYsalvo.png",
+    "img": "assets/acudiente/home/configuracion.png",
     "url": "/",
     "role": "acudiente"
 
@@ -113,7 +113,7 @@
   {
     "id": 7,
     "name": "Medias técnicas",
-    "img": "assets/img-home/medias.png",
+    "img": "assets/acudiente/home/medias.png",
     "url": "/",
     "role": "acudiente"
 
