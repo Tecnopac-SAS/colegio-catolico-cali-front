@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from'sweetalert2';
 import * as $ from 'jquery'
 import { BolsilloService } from 'src/app/services/bolsillo.service';
+import { HistoricoCarteraService } from 'src/app/services/historico-cartera.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,11 +18,13 @@ export class DashboardComponent implements OnInit {
   public name: any;
   public role: any;
   public bolsillo: any;
+  public saldoPendiente: any;
 
   constructor(
     private loginService:LoginService,
     private userService:UserService,
     private bolsilloService:BolsilloService,
+    private historicoCarteraService:HistoricoCarteraService,
     private router:Router)
    {
     this.token= this.loginService.getToken();
@@ -35,7 +38,11 @@ export class DashboardComponent implements OnInit {
     this.sessionValidation();
     this.navTitle="Estoy en dash " + this.name
     this.bolsillo= localStorage.getItem('bolsillo');
-    
+    this.historicoCarteraService.totalDeuda({idAcudiente:localStorage.getItem('idAcudiente')}).subscribe(response=>{
+      this.saldoPendiente = response.result
+    },error=>{
+
+    });
     // setInterval(()=>{let val= this.checkBolsillo();this.bolsillo = ((val!=undefined)?val:localStorage.getItem('bolsillo'))},500);
 
   }

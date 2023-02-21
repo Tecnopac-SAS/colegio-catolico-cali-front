@@ -310,7 +310,7 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-              <div class="dropright dropdown-submenu">
+              <div class="ho dropright dropdown-submenu">
                 <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/matricula" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
                   <i class="bi bi-mortarboard text-dark"></i><span> Matrícula</span>
@@ -318,7 +318,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <div class="dropright dropdown-submenu">
+              <div class="ho dropright dropdown-submenu">
                 <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/pago-pension" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
                   <i class="bi bi-credit-card-2-back text-dark"></i><span> Pensiones</span>
@@ -326,7 +326,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <div class="dropright dropdown-submenu">
+              <div class="ho dropright dropdown-submenu">
                 <a class="nav-link dropdown-toggle text-dark" routerLink="/certificados" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
                   <i class="bi bi-file-earmark-pdf text-dark"></i><span> Certificados</span>
@@ -334,7 +334,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <div class="dropright dropdown-submenu">
+              <div class="ho dropright dropdown-submenu">
                 <a class="nav-link dropdown-toggle text-dark" routerLink="/otros-servicios" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
                   <i class="bi bi-plus-circle text-dark"></i><span> Otros servicios</span>
@@ -352,7 +352,7 @@
             </li>
 
             <li class="nav-item">
-              <div class="dropright dropdown-submenu">
+              <div class="ho dropright dropdown-submenu">
                 <a class="nav-link dropdown-toggle text-dark" routerLink="/historico-cartera" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
                   <i class="bi bi-wallet2 text-dark"></i><span> Histórico de cartera</span>
@@ -360,7 +360,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <div class="dropright dropdown-submenu">
+              <div class="ho dropright dropdown-submenu">
                 <a class="nav-link dropdown-toggle text-dark" routerLink="/soportes-pago" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
                   <i class="bi bi-file-earmark-check text-dark"></i><span> Soportes de pago</span>
@@ -429,7 +429,7 @@
                       </div>
                       <!-- Nav Item - User Information -->
                       <div class="sidebar-brand d-flex align-items-center justify-content-center mr-5">
-                        <div class="sidebar-brand-text text-secondary headerText" type="button"><h5>Saldo pendiente $<span>0</span></h5></div>
+                        <div class="sidebar-brand-text text-secondary headerText" type="button" routerLink="/historico-cartera"><h5>Saldo pendiente $<span>{{ saldoPendiente }}</span></h5></div>
                       </div>
                       <li class="nav-item dropdown no-arrow">
                           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
