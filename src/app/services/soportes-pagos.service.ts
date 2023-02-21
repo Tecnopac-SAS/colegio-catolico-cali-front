@@ -12,7 +12,7 @@ export class SoportesPagosService {
   constructor(private _htpp:HttpClient) { }
 
   misSoportesPagos(params:any){
-    return this._htpp.get<any>(base_url+'soportePagos/listarMisSoportesPagos/'+params.idAcudiente)
+    return this._htpp.get<any>(base_url+'soportePagos/listarMisSoportesPagos/'+params)
     .pipe(map((res:any)=>{
       return res;
     }))

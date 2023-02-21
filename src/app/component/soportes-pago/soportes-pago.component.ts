@@ -18,7 +18,7 @@ export class SoportesPagoComponent implements OnInit {
   ngOnInit(): void {
   }
   listPagosInit(){
-    this.soportesPagosService.misSoportesPagos({idEstudiante:localStorage.getItem('idEstudiante')}).subscribe(response=>{
+    this.soportesPagosService.misSoportesPagos(localStorage.getItem('idEstudiante')).subscribe(response=>{
       this.listPagos = response.result
     },error=>{
 
@@ -26,7 +26,7 @@ export class SoportesPagoComponent implements OnInit {
   }
   search(searchForm:any){
 
-    if(this.filterText==""){
+    if(!this.filterText){
       this.listPagosInit();
     }else {
       this.soportesPagosService.misSoportesPagosSearch(searchForm.value.filtro,localStorage.getItem('idEstudiante'))
