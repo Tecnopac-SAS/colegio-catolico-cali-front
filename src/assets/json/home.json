@@ -72,7 +72,7 @@
     "id": 2,
     "name": "Inscripciones a Extracurriculares",
     "img": "assets/acudiente/home/inscripcion.png",
-    "url": "/",
+    "url": "/extracurricular-inscripcion",
     "role": "acudiente"
 
   }
@@ -81,7 +81,7 @@
     "id": 3,
     "name": "Cursos",
     "img": "assets/acudiente/home/cursos.png",
-    "url": "/",
+    "url": "/inscripcion-cursos",
     "role": "acudiente"
 
   },
@@ -89,7 +89,7 @@
     "id": 4,
     "name": "¡Pago a pensiones! Periodo 2022-2023",
     "img": "assets/acudiente/home/pension.png",
-    "url": "/",
+    "url": "/pago-pension",
     "role": "acudiente"
 
   },
@@ -97,7 +97,7 @@
     "id": 5,
     "name": "Solicitud de certificados",
     "img": "assets/acudiente/home/certificado.png",
-    "url": "/",
+    "url": "/solicitud-certificado",
     "role": "acudiente"
 
   },
@@ -106,7 +106,7 @@
     "id": 6,
     "name": "Configuración del perfil",
     "img": "assets/acudiente/home/configuracion.png",
-    "url": "/",
+    "url": "/ajuste-perfil",
     "role": "acudiente"
 
   },
@@ -114,7 +114,7 @@
     "id": 7,
     "name": "Medias técnicas",
     "img": "assets/acudiente/home/medias.png",
-    "url": "/",
+    "url": "/medias-tecnicas",
     "role": "acudiente"
 
   }
