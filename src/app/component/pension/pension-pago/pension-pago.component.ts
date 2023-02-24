@@ -105,10 +105,14 @@ export class PensionPagoComponent implements OnInit {
             let datos = {pensiones:this.pensionesListSelect}
             this.pensionService.pagoPension(datos,'bolsillo').subscribe(response=>{
               // this.matricula = JSON.stringify(response.result)
+              Swal.fire(response.mensaje, '', (response.status)?'success':'error').then((result) => {
+                if (result.isConfirmed) {
+                  location.reload()
+                }
+              } )
             },error=>{
   
             });
-            Swal.fire('Saved!', '', 'success')
           }else{
             Swal.fire('Parece que no tienes fondos suficientes', 'Favor de ingresar fondos en el bolsillo', 'info')
           }

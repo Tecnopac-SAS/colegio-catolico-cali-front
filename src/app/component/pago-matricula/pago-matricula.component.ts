@@ -75,11 +75,10 @@ export class PagoMatriculaComponent implements OnInit {
         if (Number(localStorage.getItem('bolsillo')) >= Number(this.matricula)) {
           let datos = {monto:this.matricula,metodoPago:'bolsillo',idAcudiente:localStorage.getItem('idAcudiente'),valMes:this.pensionMensual,meses:this.pensionMeses}
           this.MatriculaService.pagoMatricula(datos).subscribe(response=>{
-            this.matricula = JSON.stringify(response.result)
+            Swal.fire(response.mensaje, '', (response.status)?'success':'error')
           },error=>{
 
           });
-          Swal.fire('Saved!', '', 'success')
         }else{
           Swal.fire('Parece que no tienes fondos suficientes', 'Favor de ingresar fondos en el bolsillo', 'info')
         }
