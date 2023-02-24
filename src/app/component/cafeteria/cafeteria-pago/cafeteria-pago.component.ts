@@ -13,6 +13,8 @@ export class CafeteriaPagoComponent implements OnInit {
   menuSelect: any;
   listMenu: any;
   menu:any
+  productMenu:any
+  cantMenu:any
   cant:Number
   lonchera:any
   constructor(private cafeteriaService:CafeteriaService,private loncheraService:LoncheraService) {
@@ -26,19 +28,22 @@ export class CafeteriaPagoComponent implements OnInit {
 
   ngOnInit(): void {
     this.navTitle = "Cafeteria";
-    this.checkBolsillo()
+    // this.checkBolsillo()
   }
-  checkBolsillo(){
-    this.loncheraService.getCant(localStorage.getItem('idAcudiente')).subscribe(response=>{
-      this.lonchera = (response.resp)?response.resp:0
+  // checkBolsillo(){
+  //   this.loncheraService.getCant(localStorage.getItem('idAcudiente')).subscribe(response=>{
+  //     this.lonchera = (response.resp)?response.resp:0
       
-    },error=>{
+  //   },error=>{
 
-    });
-  }
+  //   });
+  // }
   changeSelect(){
-    let menu = this.listMenu.find((obj:any) => obj.id == this.menuSelect)
-    this.cant = Number(menu.pay)
+    if (this.menuSelect && this.cantMenu) {
+      let menu = this.listMenu.find((obj:any) => obj.id == this.menuSelect)
+      this.cant = Number(menu.pay)*Number(this.cantMenu)
+      this.productMenu = menu.description
+    }
   }
   pagar(){
     if (this.cant) {
@@ -52,13 +57,15 @@ export class CafeteriaPagoComponent implements OnInit {
         if (result.isConfirmed) {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.cant)) {
             // let datos = {cant:this.menu.pay,metodoPago:'bolsillo',idEstudiante:localStorage.getItem('idEstudiante')}
-            this.loncheraService.recarga(this.cant, localStorage.getItem('idAcudiente')).subscribe(response=>{
+            let datos = {cant:this.cant, cantMenu:this.cantMenu, productMenu:this.productMenu ,metodoPago:'bolsillo'}
+            this.loncheraService.pagar(datos, localStorage.getItem('idAcudiente')).subscribe(response=>{
               // this.matricula = JSON.stringify(response.result)
-              Swal.fire(response.mensaje, '', (response.status)?'success':'error')
+              Swal.fire(response.message, '', (response.status)?'success':'error')
               if (response.status) {
-                this.checkBolsillo()
+                // this.checkBolsillo()
                 this.cant = 0
                 this.menuSelect = ''
+                this.cantMenu = ''
               }
             },error=>{
   
