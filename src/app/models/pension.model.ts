@@ -4,6 +4,7 @@ export class Pension{
   public discount=0;
   public isActive=0;
   public idGrade=0;
+  public interes=5;
   public use=""
 
 }

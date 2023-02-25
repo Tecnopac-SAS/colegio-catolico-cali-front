@@ -39,6 +39,7 @@ export class PensionCreateComponent implements OnInit {
       discount: [''],
       isActive: [''],
       idGrade: [''],
+      interes: [5],
     })
   }
 
@@ -47,6 +48,7 @@ export class PensionCreateComponent implements OnInit {
     this.pensionModel.price = this.formValueExtra.value.price;
     this.pensionModel.discount = this.formValueExtra.value.discount;
     this.pensionModel.idGrade = this.formValueExtra.value.idGrade;
+    this.pensionModel.interes = this.formValueExtra.value.interes;
 
 
     if(this.pensionModel.idGrade ==0 ){
@@ -59,6 +61,9 @@ export class PensionCreateComponent implements OnInit {
 
     else if(this.pensionModel.discount==0){
       this.mensaje_error="El campo descuento no puede estar vacio"
+    }
+    else if(this.pensionModel.interes==null){
+      this.mensaje_error="El campo interes no puede estar vacio"
     }
 
 
