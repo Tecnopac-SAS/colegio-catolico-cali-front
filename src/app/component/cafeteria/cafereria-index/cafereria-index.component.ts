@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import Swal from'sweetalert2';
+import { LoncheraService } from 'src/app/services/lonchera.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-cafereria-index',
@@ -17,19 +19,23 @@ export class CafereriaIndexComponent implements OnInit {
   navTitle="Cafeteria"
   formValue !:FormGroup
   public dataCafeteria:any
+  public estudiantes:any
   public filter:any;
   public filterText:any;
+  public filterTextEstudiante:any;
   cafeteriaModel:Cafeteria = new Cafeteria();
   id !: any;
   constructor(
     private formBuilder:FormBuilder,
     private CafeteriaService:CafeteriaService,
+    private loncheraService:LoncheraService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
     this.listCafeterias()
     this.fieldCapture()
+    this.listEstudiantes()
   }
 
   fieldCapture(){
@@ -50,6 +56,11 @@ export class CafereriaIndexComponent implements OnInit {
       console.log(this.dataCafeteria)
     })
   }
+  listEstudiantes(){
+    this.loncheraService.getPagos().subscribe(res=>{
+      this.estudiantes=res.data
+    })
+  }
 
   search(searchForm:any){
 
@@ -62,6 +73,18 @@ export class CafereriaIndexComponent implements OnInit {
       .subscribe(res=>{
         this.dataCafeteria=res.result
         console.log(res.result)
+      })
+    }
+
+  }
+  searchEstudiante(searchFormEstudiante:any){
+
+    if(this.filterTextEstudiante==""){
+      this.listEstudiantes();
+    }else {
+      this.loncheraService.listPagoSearch(searchFormEstudiante.value.filtro)
+      .subscribe(res=>{
+        this.estudiantes=res.data
       })
     }
 
@@ -93,5 +116,18 @@ export class CafereriaIndexComponent implements OnInit {
 
 
   }
-
+  entregarTarjeta(id:number){
+    this.loncheraService.entregarTarjeta(id).subscribe(res=>{
+      if(res.status){
+        Swal.fire(res.message,'',(res.status)?'success':'error').then((resp)=>{
+          if(resp.isConfirmed){
+            location.reload()
+          }
+        })
+      }
+    })
+  }
+  formatFecha(fecha:any){
+    return (moment(fecha).format('DD/MM/YYYY')==='Invalid date')?'':moment(fecha).format('DD/MM/YYYY')
+  }
 }

@@ -58,7 +58,7 @@ export class CafeteriaPagoComponent implements OnInit {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.cant)) {
             // let datos = {cant:this.menu.pay,metodoPago:'bolsillo',idEstudiante:localStorage.getItem('idEstudiante')}
             let datos = {cant:this.cant, cantMenu:this.cantMenu, productMenu:this.productMenu ,metodoPago:'bolsillo'}
-            this.loncheraService.pagar(datos, localStorage.getItem('idAcudiente')).subscribe(response=>{
+            this.loncheraService.pagar(datos, localStorage.getItem('idAcudiente'), localStorage.getItem('idEstudiante')).subscribe(response=>{
               // this.matricula = JSON.stringify(response.result)
               Swal.fire(response.message, '', (response.status)?'success':'error')
               if (response.status) {

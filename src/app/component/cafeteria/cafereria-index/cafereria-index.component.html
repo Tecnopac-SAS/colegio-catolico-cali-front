@@ -2,62 +2,113 @@
   <app-nav-title [navTitle]="navTitle"></app-nav-title>
   <div class="container my-xl-2">
     <div class="row">
-    <div class="card">
-      <div class="card-body">
-        <div class="col-md-5 col-12 ml-4">
-          <h5 class="text-primary">Cafeteria</h5>
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-5 col-12 ml-4">
+            <h5 class="text-primary">Cafeteria</h5>
+          </div>
         </div>
-       </div>
-      <div class="row justify-content-end">
-            <div class="col-md-3 col-12 my-2">
-              <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+        <div class="row justify-content-end">
+              <div class="col-md-3 col-12 my-2">
+                <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                    <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                      <div class="input-group-append">
+                        <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                    </div>
+                        <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1 col-4 my-2">
+              <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+            </div>
+            <div class="col-md-3 col-8 my-2">
+              <button type="button" class="btn btn-primary" routerLink="/cafeteria-crear">Agregar cafeteria</button>
+            </div>
+        </div>
+        <div class="view">
+          <table class="table table-hover table-bordered table-responsive-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Descripción<noscript></noscript></th>
+                <th scope="col">Forma de pago</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let data of dataCafeteria; let index = index ">
+              <tr>
+                <td>{{index+1}}</td>
+                <td>{{data.description}}</td>
+                <td>{{data.pay}}</td>
+                <td *ngIf="data.isActive==0">Inactivo</td>
+                <td *ngIf="data.isActive==1">Activo</td>
+
+                <td>
+                  <button class="text-info btn" routerLink="/cafeteria-editar/{{data.id}}">Editar</button>|
+                  <button class="text-danger btn" (click)="deshabilitar(data)">Desactivar</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+        </div>
+        <div class="card mt-3">
+          <img class="card-img-top" src="holder.js/100x180/" alt="">
+          <div class="card-body">
+            <h5 class="text-primary">Listado del mes</h5>
+            <div class="row justify-content-end">
+              <div class="col-md-3 col-12 my-2">
+                <form #searchFormEstudiante="ngForm" (ngSubmit)="searchEstudiante(searchFormEstudiante)">
                   <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
                     <div class="input-group-append">
                       <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                    </div>
+                    <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro"
+                      [(ngModel)]="filterTextEstudiante">
                   </div>
-                      <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
-                  </div>
-              </form>
-          </div>
-          <div class="col-md-1 col-4 my-2">
-            <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
-          </div>
-          <div class="col-md-3 col-8 my-2">
-            <button type="button" class="btn btn-primary" routerLink="/cafeteria-crear">Agregar cafeteria</button>
-          </div>
-      </div>
-      <div class="view">
-        <table class="table table-hover table-bordered table-responsive-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Descripción<noscript></noscript></th>
-              <th scope="col">Forma de pago</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let data of dataCafeteria; let index = index ">
-            <tr>
-              <td>{{index+1}}</td>
-              <td>{{data.description}}</td>
-              <td>{{data.pay}}</td>
-              <td *ngIf="data.isActive==0">Inactivo</td>
-              <td *ngIf="data.isActive==1">Activo</td>
+                </form>
+              </div>
+              <div class="col-md-1 col-4 my-2">
+                <button class="btn btn-primary" (click)="searchEstudiante(searchFormEstudiante)"><i class="bi bi-funnel"></i>
+                  Filtro</button>
+              </div>
+            </div>
+            <div class="view">
+              <table class="table table-hover table-bordered table-responsive-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre Estudiante</th>
+                    <th scope="col">Fecha de pago</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let data of estudiantes; let index = index ">
+                  <tr>
+                    <td>{{data.cafeteriaPagosAsEstudiante.codigo}}</td>
+                    <td>{{data.cafeteriaPagosAsEstudiante.nombres}} {{ data.cafeteriaPagosAsEstudiante.apellidos }}</td>
+                    <td>{{formatFecha(data.createAt)}}</td>
+                    <td>{{data.productMenu}}</td>
+                    <td>{{data.cantMenu}}</td>
+                    <td>
+                      <a *ngIf="data.isActive" class="text-danger btn" (click)="entregarTarjeta(data.id)">Entregar tarjeta</a>
+                      <button *ngIf="!data.isActive" class="text-success btn" disabled>Tarjeta entregada</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-              <td>
-                <button  class="text-info btn"  routerLink="/cafeteria-editar/{{data.id}}">Editar</button>|
-                <button  class="text-danger btn" (click)="deshabilitar(data)">Desactivar</button>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-
+            </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </app-dashboard>
 
 
