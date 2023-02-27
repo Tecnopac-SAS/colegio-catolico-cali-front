@@ -31,7 +31,7 @@
                                 <td>{{ parseMes(pension.fechaPago) }}</td>
                                 <td>{{ pension.fechaPago.substring(0,10) }}</td>
                                 <td>{{ pension.valor }}</td>
-                                <td>{{ pension.mora }}</td>
+                                <td>{{ (pension.mora)?'Si':'No' }}</td>
                                 <td class="text-primary">{{ pension.estatus }}</td>
                               </tr>
                             </tbody>

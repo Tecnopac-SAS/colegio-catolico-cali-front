@@ -14,6 +14,7 @@ export class PagoMatriculaComponent implements OnInit {
   public pension: any
   public pensionMensual: any
   public pensionMeses:any
+  public idPension:any
   public recargo: any
   private porcentajePenali = 60
   private porcentajeDesc: any
@@ -27,6 +28,7 @@ export class PagoMatriculaComponent implements OnInit {
       this.StudentService.getPension().subscribe(response=>{
         this.pension = JSON.stringify(response.result.price)
         this.porcentajeDesc = JSON.stringify(response.result.discount)
+        this.idPension = JSON.stringify(response.result.id)
         this.configurarMatricula()
 
       },error=>{
@@ -73,7 +75,7 @@ export class PagoMatriculaComponent implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         if (Number(localStorage.getItem('bolsillo')) >= Number(this.matricula)) {
-          let datos = {monto:this.matricula,metodoPago:'bolsillo',idAcudiente:localStorage.getItem('idAcudiente'),valMes:this.pensionMensual,meses:this.pensionMeses}
+          let datos = {monto:this.matricula,metodoPago:'bolsillo',idAcudiente:localStorage.getItem('idAcudiente'),valMes:this.pensionMensual,meses:this.pensionMeses,idPension:this.idPension}
           this.MatriculaService.pagoMatricula(datos).subscribe(response=>{
             Swal.fire(response.mensaje, '', (response.status)?'success':'error')
           },error=>{

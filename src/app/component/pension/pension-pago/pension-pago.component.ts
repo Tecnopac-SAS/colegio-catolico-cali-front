@@ -60,24 +60,28 @@ export class PensionPagoComponent implements OnInit {
         }else{
           if (this.pensionesList[key].estatus!='Pagado') {
             this.pensionTotal+=this.pensionesList[key].valor
-            this.pensionesListSelect.push({id:this.pensionesList[key].id,valor:this.pensionesList[key].valor})
+            this.pensionesListSelect.push({id:this.pensionesList[key].id,valor:this.pensionesList[key].valor,mora:this.pensionesList[key].mora})
           }
         }
       }else{
         if (checkBox.checked) {
           if (this.pensionesList[key].estatus!='Pagado') {
             this.pensionTotal+=this.pensionesList[key].valor
-            this.pensionesListSelect.push({id:this.pensionesList[key].id,valor:this.pensionesList[key].valor})
+            this.pensionesListSelect.push({id:this.pensionesList[key].id,valor:this.pensionesList[key].valor,mora:this.pensionesList[key].mora})
           }
         }
       }
     });
     if (this.pensionesListSelect.length>=3) {
-      this.pensionTotal = this.pensionTotal - (Math.floor(this.pensionTotal*this.descuento)/100)
-      let valorNew = this.pensionTotal/this.pensionesListSelect.length
+      // this.pensionTotal = this.pensionTotal - (Math.floor(this.pensionTotal*this.descuento)/100)
+      // let valorNew = this.pensionTotal/this.pensionesListSelect.length
+      let sum = 0
       Object.keys(this.pensionesListSelect).forEach(key => {
-        this.pensionesListSelect[key].valor = valorNew
+        let descuento = this.pensionesListSelect[key].valor - (Math.floor(this.pensionesListSelect[key].valor*this.descuento)/100)
+        this.pensionesListSelect[key].valor = descuento
+        sum += descuento
       });
+      this.pensionTotal = sum
     }
     if (text!='') {
       $event.currentTarget.checked=false
