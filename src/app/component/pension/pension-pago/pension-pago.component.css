@@ -34,3 +34,12 @@ ul.numbered-list {
     box-shadow: 0 0 30px gray;
     cursor: pointer;
   }
+  .fade-opacity {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  
+  .fade-opacity.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }

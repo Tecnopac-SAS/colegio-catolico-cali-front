@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PensionPagoService } from 'src/app/services/pension-pago.service';
+import { AvalPayService } from 'src/app/services/avalpay.service';
 import { TuitionService } from 'src/app/services/tuition.service';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import Swal from 'sweetalert2';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-pension-pago',
@@ -16,17 +19,29 @@ export class PensionPagoComponent implements OnInit {
   public pensionesListSelect:any
   public mesesArr = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
   public matriculaPagada:any
+  pensionesListSelectNames: any;
+  descMeses: string;
 
-  constructor(private pensionService:PensionPagoService,private matriculaService:TuitionService) { 
-    this.pensionesListSelect=[]
+  constructor(
+    private pensionService:PensionPagoService,
+    private matriculaService:TuitionService,
+    private currencyUtils: CurrencyUtils,
+    private AvalPayService:AvalPayService) { 
+    this.pensionesListSelect=[];
+    this.pensionesListSelectNames=[];
+    this.descMeses = '';
   }
   
   
   ngOnInit(): void {
     this.getMatriculaPagada()
-
     this.getListPensiones()
   }
+
+  formatCurrency(amount: number): string {
+    return this.currencyUtils.formatCurrency(amount);
+  }
+
 
   getListPensiones(){
     let data = {idAcudiente:localStorage.getItem('idAcudiente')}
@@ -48,12 +63,28 @@ export class PensionPagoComponent implements OnInit {
     this.pensionTotal=0
     this.pensionesListSelect=[]
     let text=''
+    // Dentro del manejador de evento
+    const isChecked = ($event.target as HTMLInputElement).checked;
+
+
+    //Validacion lista de meses para armar la descripcion del mensaje del pago
+    if (isChecked) {
+      if (!this.pensionesListSelectNames.includes(this.parseMes(fecha))) {
+        this.pensionesListSelectNames.push(this.parseMes(fecha));
+        this.descMeses = `PAGO PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
+      }
+    } else {
+        this.pensionesListSelectNames.pop(this.parseMes(fecha));
+        this.descMeses = `PAGO PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
+    }
+
     Object.keys(this.pensionesList).forEach(key => {
       let checkBox= document.getElementById('check'+this.pensionesList[key].id) as HTMLInputElement
       if((new Date(fecha) > new Date(this.pensionesList[key].fechaPago))){
         if (!checkBox.checked) {
           if (text=='') {
             text='Favor de seleccionar '+this.parseMes(this.pensionesList[key].fechaPago)
+            this.pensionesListSelectNames = [];
           }else{
             text+=', '+this.parseMes(this.pensionesList[key].fechaPago)
           }
@@ -123,5 +154,23 @@ export class PensionPagoComponent implements OnInit {
         }
       }
     })
+  }
+
+  pagarPensionAvalPay(amount: any, invoiceType = 1, desc = 'PENSIÓN') {
+    let urilocation = '';
+    Swal.fire({
+      title: 'Serás redireccionado a la pagina correspondiente...',
+      html: 'Espera un momento...',
+      timer: 4000,
+      didOpen: () => {
+        Swal.showLoading();
+        this.AvalPayService.makePayment(amount,invoiceType,desc).subscribe(response =>{
+          urilocation = response.message.RefInfo[0].RefType;
+        });
+      },
+      willClose: () => {
+        window.location.href = urilocation;
+      }
+    });
   }
 }
