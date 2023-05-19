@@ -31,4 +31,17 @@ export class AvalPayService {
         })
       );
   }
+  makePaymentStatus(pmtId:any): Observable<any> {
+    const url = `${base_url}avalpay/paymentStatus/${pmtId}`; // Reemplaza '/payment' con la URL real de destino
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this._http.get<any>(url, httpOptions)
+      .pipe(map((res: any) => {
+          return res;
+        })
+      );
+  }
 }

@@ -3,6 +3,8 @@ import { PensionPagoService } from 'src/app/services/pension-pago.service';
 import { AvalPayService } from 'src/app/services/avalpay.service';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { event } from 'jquery';
 
@@ -17,24 +19,31 @@ export class PensionPagoComponent implements OnInit {
   private descuento=3
   public pensionesList:any
   public pensionesListSelect:any
-  public mesesArr = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+  public mesesArr = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   public matriculaPagada:any
+  pmtId: string;
   pensionesListSelectNames: any;
   descMeses: string;
+  lsPensionesListSelect: any;
 
   constructor(
     private pensionService:PensionPagoService,
     private matriculaService:TuitionService,
     private currencyUtils: CurrencyUtils,
+    private route: ActivatedRoute,
+    private router:Router,
     private AvalPayService:AvalPayService) { 
     this.pensionesListSelect=[];
     this.pensionesListSelectNames=[];
+    this.pmtId = '';
     this.descMeses = '';
+    this.lsPensionesListSelect = {};
   }
   
   
   ngOnInit(): void {
     this.getMatriculaPagada()
+    this.validateTransactions()
     this.getListPensiones()
   }
 
@@ -55,6 +64,42 @@ export class PensionPagoComponent implements OnInit {
       this.matriculaPagada=res.resp
     })
   }
+
+  validateTransactions(){
+    //Obtenemos el id de la transaccion
+    this.route.queryParams.subscribe(params => {
+      if(params['pmtId']){
+        this.pmtId = params['pmtId'];
+        this.AvalPayService.makePaymentStatus(this.pmtId).subscribe(response =>{
+
+          let trnStatus = response.message.InvoicePmtInfo.PmtStatus.StatusDesc;
+          let lstransactionStatus:any = localStorage.getItem('transaction-status');
+          this.lsPensionesListSelect = JSON.parse(lstransactionStatus);
+          
+          if(trnStatus == 'Aprobada' && this.lsPensionesListSelect.trnStatus != true ){
+            let datos = {pensiones:this.lsPensionesListSelect.months}
+            this.pensionService.pagoPension(datos,'AvalPay').subscribe(response=>{},error=>{});
+            Swal.fire(
+              'Transaccion Exitosa!',
+              `#${this.pmtId} El pago de tu pensión fue ${trnStatus}`,
+              'success'
+            ).then((result) => {
+                let trnNewStatus = this.lsPensionesListSelect.trnStatus = true;
+                localStorage.setItem('transaction-status', JSON.stringify(this.lsPensionesListSelect));
+                setTimeout(() => {
+                  this.router.navigate(['/pago-pension']);
+                  this.getListPensiones()
+                }, 1000);
+            })
+          }else{
+            this.router.navigate(['/pago-pension']);
+          }
+
+        });
+      }
+    });
+  }
+
   parseMes(fecha:any){
     const subFecha = Number(fecha.substring(5,7))
     return this.mesesArr[subFecha-1]
@@ -65,8 +110,6 @@ export class PensionPagoComponent implements OnInit {
     let text=''
     // Dentro del manejador de evento
     const isChecked = ($event.target as HTMLInputElement).checked;
-
-
     //Validacion lista de meses para armar la descripcion del mensaje del pago
     if (isChecked) {
       if (!this.pensionesListSelectNames.includes(this.parseMes(fecha))) {
@@ -137,6 +180,7 @@ export class PensionPagoComponent implements OnInit {
           Swal.fire('Parece que aun no seleccionas alguna pensión', 'Favor de ingresar al menos una pensión', 'info')
         } else {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.pensionTotal)) {
+            console.log(this.pensionesListSelect);
             let datos = {pensiones:this.pensionesListSelect}
             this.pensionService.pagoPension(datos,'bolsillo').subscribe(response=>{
               // this.matricula = JSON.stringify(response.result)
@@ -157,7 +201,14 @@ export class PensionPagoComponent implements OnInit {
   }
 
   pagarPensionAvalPay(amount: any, invoiceType = 1, desc = 'PENSIÓN') {
+
     let urilocation = '';
+    localStorage.removeItem('transaction-status');
+    //Creamos la transaccion en el localStorage
+    const localStorageTrsnData:any = { months: this.pensionesListSelect, trnStatus: false }
+    localStorage.setItem('transaction-status', JSON.stringify(localStorageTrsnData))
+    
+    //Propagamos la alerta
     Swal.fire({
       title: 'Serás redireccionado a la pagina correspondiente...',
       html: 'Espera un momento...',
