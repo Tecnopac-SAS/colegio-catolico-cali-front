@@ -69,7 +69,9 @@ export class BolsilloComponent implements OnInit {
             'Bolsillo actualizado',
             '',
             'success'
-          )
+          ).then((result) => {
+            window.location.reload();
+        })
           this.formValue= this.formBuilder.group({
             cant:['']
           })
