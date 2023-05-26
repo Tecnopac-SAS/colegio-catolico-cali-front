@@ -11,6 +11,7 @@ export class AjustesPerfilPassComponent implements OnInit {
 public passActual: string
 public newPass: string
 public newPassConfirm: string
+  showPassword: any;
   constructor(private userService:UserService) {
     this.passActual = ''
     this.newPass = ''
@@ -18,6 +19,9 @@ public newPassConfirm: string
   }
 
   ngOnInit(): void {
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
   sendPass(){
     if (this.passActual == '' || this.newPass == '' || this.newPassConfirm == '') {

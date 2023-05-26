@@ -5,23 +5,38 @@
             <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a href="ajuste-perfil">Ajustes del perfil</a> / Página actual</li>
         </ol>
         <div class="card">
-          <div class="card-body">
+          <div class="card-body mb-3">
             <div class="container">
                 <p class="text-primary">Cambiar contraseña</p>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         Contraseña actual <span class="text-danger">*</span>
-                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="" [(ngModel)]="passActual">
+                        <div class="input-group">
+                            <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Contraseña" [(ngModel)]="passActual">
+                            <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                            <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         Nueva contraseña <span class="text-danger">*</span>
-                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="" [(ngModel)]="newPass">
+                        <div class="input-group">
+                            <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nueva Contraseña" [(ngModel)]="newPass">
+                            <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                            <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         Repita contraseña <span class="text-danger">*</span>
-                        <input type="password" class="form-control" name="" id="" aria-describedby="helpId" placeholder="" [(ngModel)]="newPassConfirm">
+                        <div class="input-group">
+                            <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Repita Contraseña" [(ngModel)]="newPassConfirm">
+                            <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                            <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
