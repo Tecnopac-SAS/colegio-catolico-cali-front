@@ -8,6 +8,9 @@
         <div class="card">
           <div class="card-body">
             <div class="container">
+              <div *ngIf="allPensionsPaid" class="alert alert-success mt-3" role="alert">
+                ¡Excelente! No tienes pensiones por pagar
+              </div>
                 <ul class="numbered-list">
                     <li class="text-primary">
                         <p>Seleccione cómo desea pagar las pensiones</p>
@@ -47,7 +50,7 @@
                         <div class="col-md-3 d-flex justify-content-center" [class.disabled]="pensionTotal === 0" [ngClass]="{'fade-opacity': true}" (click)="pagarPensionAvalPay(pensionTotal, 1, descMeses)">
                           <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
                         </div>
-                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" (click)="pagarPension()">
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" [class.disabled]="pensionTotal === 0" [ngClass]="{'fade-opacity': true}" (click)="pagarPension()">
                         <i class="bi bi-wallet-fill text-white" style="font-size: 60px"></i>
                         <span>Bolsillo</span>
                       </div>
