@@ -10,13 +10,21 @@
             <div class="container">
                 <p class="text-primary">Ahora una forma de administrar los pagos de la educación de tu hijo</p>
                 <p class="text-primary"> Saldo total del bolsillo: <span class="text-black">${{ bolsillo }}</span></p>
-                <div class="mt-5 d-flex justify-content-between w-50 align-items-center">
+                <div class="mt-5 d-flex align-items-center">
                     Bolsillo 
-                    <form [formGroup]="formValue" class="d-flex ">
+                    <form [formGroup]="formValue" class="d-flex ml-3">
                         <input class="form-control" placeholder="$0" type="number" formControlName="cant" (input)="validateNumber($event)">
-                        <button class="ml-5 btn btn-primary form-control" type="button" (click)="recargarBolsillo()" [disabled]="disableButton">Recargar tu bolsillo</button>
                     </form>
-                </div>
+                  </div>
+                  <hr class="sidebar-divider bg-primary" style="height: 1px;">
+                  <p>Seleccione el método de pago</p>
+                  <p class="text-black">Valor a recargar:<span class="text-black font-weight-bold"> ${{numberInput}}</span>
+                  </p>
+                  <div class="row mt-4 mb-3 cardPago">
+                    <div class="col-md-3 d-flex justify-content-center" [class.disabled]="disableButton" [ngClass]="{'fade-opacity': true}" (click)="recargarBolsilloAvalPay(bolsillo, 1, descPagoAvalPay)">
+                      <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
+                    </div>
+                  </div>
             </div>
           </div>
         </div>

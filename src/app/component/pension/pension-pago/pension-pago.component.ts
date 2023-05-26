@@ -22,7 +22,7 @@ export class PensionPagoComponent implements OnInit {
   public allPensionsPaid: boolean | undefined;
   public mesesArr = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   public matriculaPagada:any
-  pmtId: string;
+  pmtId: any;
   pensionesListSelectNames: any;
   descMeses: string;
   lsPensionesListSelect: any;
@@ -133,12 +133,12 @@ export class PensionPagoComponent implements OnInit {
       if (!this.pensionesListSelectNames.includes(this.parseMes(fecha))) {
         this.pensionesListSelectNames.push(this.parseMes(fecha));
         //Descripcion para enviar a avalpay
-        this.descMeses = `PAGO PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
+        this.descMeses = `PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
       }
     } else {
         this.pensionesListSelectNames.pop(this.parseMes(fecha));
         //Descripcion para enviar a avalpay
-        this.descMeses = `PAGO PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
+        this.descMeses = `PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
     }
 
     Object.keys(this.pensionesList).forEach(key => {
