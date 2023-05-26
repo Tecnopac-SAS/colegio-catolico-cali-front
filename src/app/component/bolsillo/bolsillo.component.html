@@ -13,8 +13,8 @@
                 <div class="mt-5 d-flex justify-content-between w-50 align-items-center">
                     Bolsillo 
                     <form [formGroup]="formValue" class="d-flex ">
-                        <input class="form-control" placeholder="$0" type="number" formControlName="cant">
-                        <button class="ml-5 btn btn-primary form-control" type="button" (click)="recargarBolsillo()">Recargar tu bolsillo</button>
+                        <input class="form-control" placeholder="$0" type="number" formControlName="cant" (input)="validateNumber($event)">
+                        <button class="ml-5 btn btn-primary form-control" type="button" (click)="recargarBolsillo()" [disabled]="disableButton">Recargar tu bolsillo</button>
                     </form>
                 </div>
             </div>

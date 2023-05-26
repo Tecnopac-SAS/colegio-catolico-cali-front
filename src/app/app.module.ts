@@ -115,7 +115,7 @@ import { AjustesPerfilPassComponent } from './component/perfil/ajustes-perfil-pa
 import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-perfil-estudiante/ajustes-perfil-estudiante.component';
 import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perfil-acudiente/ajustes-perfil-acudiente.component';
 
-
+import { CurrencyUtils } from '../utils/currencyUtils';
 
 @NgModule({
   declarations: [
@@ -234,23 +234,10 @@ import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perf
     MatFormFieldModule,
     MatInputModule,
     MatGridListModule
-  
-
-  
-   
-
-   
-  
-
-    
-
-  
-   
-
-   
-  
   ],
-  providers: [],
+  providers: [
+    CurrencyUtils,
+  ],
   bootstrap: [AppComponent]
   
 })

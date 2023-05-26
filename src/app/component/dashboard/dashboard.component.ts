@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
     },error=>{
 
     });
-    setInterval(()=>{let val= this.checkBolsillo();this.bolsillo = ((val!=undefined)?val:localStorage.getItem('bolsillo'))},500);
+    // setInterval(()=>{let val= this.checkBolsillo();this.bolsillo = ((val!=undefined)?val:localStorage.getItem('bolsillo'))},500);
 
   }
 

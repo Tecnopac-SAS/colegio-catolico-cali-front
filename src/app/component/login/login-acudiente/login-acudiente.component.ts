@@ -24,6 +24,7 @@ export class LoginAcudienteComponent implements OnInit {
  public mensaje_error:any;
 
  formValue !: FormGroup;
+ showPassword = false;
 
 constructor(
  private formBuilder:FormBuilder,
@@ -111,6 +112,9 @@ clearForm(e:any){
 
 }
 
+togglePasswordVisibility() {
+  this.showPassword = !this.showPassword;
+}
 sessionValidation(){
  if(this.token){
    this.router.navigate(['home'])

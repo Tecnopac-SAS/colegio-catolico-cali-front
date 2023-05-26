@@ -15,6 +15,7 @@ import Swal from'sweetalert2';
 export class LoginComponent implements OnInit {
 
     //son variables auxiliares
+    
     public user: any;
     public token: any;
     public id:any;
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     public mensaje_error:any;
 
     formValue !: FormGroup;
+    showPassword = false;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.fieldCapture();
     this.sessionValidation();
+    
   }
 
   fieldCapture(){
@@ -106,6 +109,10 @@ export class LoginComponent implements OnInit {
 
   }
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   sessionValidation(){
     if(this.token){
       this.router.navigate(['home'])
@@ -114,6 +121,4 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['admin'])
     }
   }
-
-
 }
