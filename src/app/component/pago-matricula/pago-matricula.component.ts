@@ -67,7 +67,13 @@ export class PagoMatriculaComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if(params['pmtId']){
         this.pmtId = params['pmtId'];
-        this.Avalpay.validateTransactions(this.pmtId, () => this.MatriculaService.pagoMatricula(this.paymentData.datos).subscribe(response=>{},error=>{}),'pago-matricula', this.moduleName);
+        this.Avalpay.validateTransactions(this.pmtId, () => {
+          
+          let lsMatricula:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
+          let paymentAvalPay = JSON.parse(lsMatricula).data;
+          this.MatriculaService.pagoMatricula(paymentAvalPay).subscribe(response=>{},error=>{})
+          
+        },() => {},'pago-matricula', this.moduleName);
       }
     });
 
