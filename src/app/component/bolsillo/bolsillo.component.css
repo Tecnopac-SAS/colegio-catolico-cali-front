@@ -1,0 +1,19 @@
+.btn-amount:nth-child(1){
+  background-color: #0099ff7e !important;
+  border-color: transparent;
+}
+.btn-amount:nth-child(2){
+  background-color: #0088ffb3 !important;
+  border-color: transparent;
+}
+.btn-amount:nth-child(3){
+  background-color: #0062ff7e !important;
+  border-color: transparent;
+}
+.btn-amount:nth-child(4){
+  background-color: #0059ffb3 !important;
+  border-color: transparent;
+}
+
+
+
