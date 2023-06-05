@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BolsilloService } from 'src/app/services/bolsillo.service';
-import { AvalPayService } from 'src/app/services/avalpay.service';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { ActivatedRoute } from '@angular/router';
 //Avalpay
@@ -20,32 +19,32 @@ export class BolsilloComponent implements OnInit {
   public bolsillo: any
   formValue!: FormGroup 
   public disableButton: boolean = true;
-  descPagoAvalPay: string;
-  pmtId: any;
   lsBolsillo: any;
   numberInput: any;
   //Avalpay
   paymentData: object;
   moduleName: string;
+  pmtId: any;
+  descPagoAvalPay: string;
+  
   amount: number;
 
   constructor(
     private formBuilder:FormBuilder,
     private bolsilloService:BolsilloService,
-    private AvalPayService:AvalPayService,
-    private route: ActivatedRoute,
     private router:Router,
     public currencyUtils: CurrencyUtils,
     //Avalpay
     public Avalpay: Avalpay,
+    private route: ActivatedRoute,
     ) { 
       this.bolsillo =  localStorage.getItem('bolsillo')
-      this.descPagoAvalPay = '';
       this.amount = 0;
-
+      
       //Avalpay
       this.paymentData = {};
       this.moduleName = 'bolsillo';
+      this.descPagoAvalPay = 'RECARGA BOLSILLO';
 
       this.formValue = this.formBuilder.group({
         cant: ['', [Validators.required, Validators.min(0), Validators.max(5000)]]
@@ -78,6 +77,7 @@ export class BolsilloComponent implements OnInit {
     this.fieldCapture()
     this.bolsillo = localStorage.getItem('bolsillo')
   }
+  //AvalPay
   paymentAvalPayComponent(){
     this.paymentData = {
       monto:this.amount
