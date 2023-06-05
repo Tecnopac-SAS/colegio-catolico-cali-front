@@ -15,20 +15,27 @@
                         <div class="mt-3 d-flex align-items-center text-black">
                           Elige a cuántos meses pagar la pensión <span class="text-danger">*</span>
                             
-                          <select class="form-control ml-3" style="width: fit-content;" [(ngModel)]="pensionMeses">
-                            <option value="10">-</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                          <select class="form-control ml-3 w-25"  (change)="configurarMatricula($event)">
+                            <option value="0">- Selecciona un periodo</option>
+                            <option value="10">10 Meses</option>
+                            <option value="11">11 Meses</option>
+                            <option value="12">12 Meses</option>
                           </select>
-                          <button class="ml-4 btn btn-primary form-control" style="width: fit-content;" (click)="configurarMatricula()" [disabled]="!selectedTerms()">Configurar pago de pensión</button>
-                          
                             
                             <!-- <form [formGroup]="formValue" class="d-flex ">
                                 <input class="form-control ml-5" placeholder="0" type="number" formControlName="cant">
                                 <button class="ml-5 btn btn-primary form-control" type="button" (click)="pagarMatricula()">Configurar pago de pensión</button>
                             </form> -->
                         </div>
+                        <div class="row">
+                        <div class="mt-3 d-flex align-items-center text-black">
+                        Elige el tipo de calendario <span class="text-danger">*</span>
+                          <select class="form-control ml-3 w-25" [(ngModel)]="calendarType">
+                            <option value="">A</option>
+                            <option value="">B</option>
+                          </select>
+                        </div>
+                      </div>
                         <p class="text-muted mt-3">Si escoge la pensión de 12 meses tendrá un costo adicional por intereses de financiación</p>
                     </li>
                     <hr class="sidebar-divider bg-primary" style="height: 1px;">
@@ -38,10 +45,10 @@
                         <p>Valor de matrícula: <span class="text-black font-weight-bold">${{ formatCurrency(matricula) }}</span></p>
                     </li>
                     <div class="row ml-3 cardPago">
-                      <div class="col-md-3 d-flex justify-content-center" [class.disabled]="!selectedTerms()" [ngClass]="{'fade-opacity': true}" (click)="pagarPensionAvalPay(matricula, 1, descPagoAvalPay)">
+                      <div class="col-md-3 d-flex justify-content-center" [class.disabled]="disabledPaymentButton" [ngClass]="{'fade-opacity': true}" (click)="paymentAvalPayComponent()">
                         <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
                       </div>
-                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center"  [class.disabled]="!selectedTerms()" [ngClass]="{'fade-opacity': true}"(click)="pagarBolsillo()">
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" [class.disabled]="disabledPaymentButton" [ngClass]="{'fade-opacity': true}"(click)="pagarBolsillo()">
                         <i class="bi bi-wallet-fill text-white" style="font-size: 60px"></i>
                         <span>Bolsillo</span>
                       </div>

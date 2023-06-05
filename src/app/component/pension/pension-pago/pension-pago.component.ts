@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PensionPagoService } from 'src/app/services/pension-pago.service';
-import { AvalPayService } from 'src/app/services/avalpay.service';
+import { Avalpay } from 'src/utils/avalpay';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { ActivatedRoute } from '@angular/router';
@@ -27,27 +27,58 @@ export class PensionPagoComponent implements OnInit {
   descMeses: string;
   lsPensionesListSelect: any;
 
+  //Avalpay
+  paymentData: object;
+  moduleName: string;
+
   constructor(
     private pensionService:PensionPagoService,
     private matriculaService:TuitionService,
     private currencyUtils: CurrencyUtils,
     private route: ActivatedRoute,
-    private router:Router,
-    private AvalPayService:AvalPayService) { 
+    //Avalpay
+    public Avalpay: Avalpay,
+    private router:Router) { 
     this.pensionesList = false;  
     this.pensionesListSelect=[];
     this.pensionesListSelectNames=[];
     this.pmtId = '';
     this.descMeses = '';
     this.lsPensionesListSelect = {};
+    //Avalpay
+    this.paymentData = {};
+    this.moduleName = 'pensiones';
   }
   
   
   ngOnInit(): void {
     this.getMatriculaPagada()
-    this.validateTransactions()
     this.getListPensiones()
     this.pensionesPagadas()
+
+    //Valida estado de matricula
+    this.route.queryParams.subscribe(params => {
+      if(params['pmtId']){
+        this.pmtId = params['pmtId'];
+        this.Avalpay.validateTransactions(this.pmtId, () => {
+          // Pago de pension
+          let lsPension:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
+          let paymentAvalPay = JSON.parse(lsPension).data.pensiones;
+          this.pensionService.pagoPension({pensiones: paymentAvalPay},'AvalPay').subscribe(response=>{},error=>{});
+          this.getListPensiones();
+        },() => {
+          this.getListPensiones();
+        },'pago-pension', this.moduleName);
+        
+      }
+    });
+  }
+
+  paymentAvalPayComponent(){
+    this.paymentData = {
+      pensiones: this.pensionesListSelect
+    }
+    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.pensionTotal, 1, this.descMeses)
   }
 
   formatCurrency(amount: number): string {
@@ -74,49 +105,6 @@ export class PensionPagoComponent implements OnInit {
     this.matriculaService.getPagoMatricula(data).subscribe(res=>{
       this.matriculaPagada=res.resp
     })
-  }
-
-  validateTransactions(){
-    //Obtenemos el id de la transaccion
-    this.route.queryParams.subscribe(params => {
-      if(params['pmtId']){
-        this.pmtId = params['pmtId'];
-        this.AvalPayService.makePaymentStatus(this.pmtId).subscribe(response =>{
-
-          let trnStatus = response.message.InvoicePmtInfo.PmtStatus.StatusDesc;
-          let lstransactionStatus:any = localStorage.getItem('transaction-status');
-          this.lsPensionesListSelect = JSON.parse(lstransactionStatus);
-          
-          if(trnStatus == 'Aprobada' && this.lsPensionesListSelect.trnStatus != true ){
-            let datos = {pensiones:this.lsPensionesListSelect.months}
-            this.pensionService.pagoPension(datos,'AvalPay').subscribe(response=>{},error=>{});
-            Swal.fire(
-              'Transaccion Exitosa!',
-              `#${this.pmtId} El pago de tu pensión fue ${trnStatus}`,
-              'success'
-            ).then((result) => {
-                let trnNewStatus = this.lsPensionesListSelect.trnStatus = true;
-                localStorage.setItem('transaction-status', JSON.stringify(this.lsPensionesListSelect));
-                setTimeout(() => {
-                  this.router.navigate(['/pago-pension']);
-                  this.getListPensiones()
-                }, 1000);
-            })
-          }else{
-            Swal.fire(
-              'Hubo un error en la transacción!',
-              `#${this.pmtId} El pago de tu pensión fue ${trnStatus}`,
-              'error'
-            ).then((result) => {
-              setTimeout(() => {
-                this.router.navigate(['/pago-pension']);
-              }, 1000);
-          })
-          }
-
-        });
-      }
-    });
   }
 
   parseMes(fecha:any){
@@ -201,7 +189,7 @@ export class PensionPagoComponent implements OnInit {
         } else {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.pensionTotal)) {
             let datos = {pensiones:this.pensionesListSelect}
-            this.pensionService.pagoPension(datos,'bolsillo').subscribe(response=>{
+            this.pensionService.pagoPension(datos, 'bolsillo').subscribe(response=>{
               Swal.fire(response.mensaje, '', (response.status)?'success':'error').then((result) => {
                 if (result.isConfirmed) {
                   location.reload()
@@ -216,30 +204,5 @@ export class PensionPagoComponent implements OnInit {
         }
       }
     })
-  }
-
-  pagarPensionAvalPay(amount: any, invoiceType = 1, desc = 'PENSIÓN') {
-
-    let urilocation = '';
-    localStorage.removeItem('transaction-status');
-    //Creamos la transaccion en el localStorage
-    const localStorageTrsnData:any = { months: this.pensionesListSelect, trnStatus: false }
-    localStorage.setItem('transaction-status', JSON.stringify(localStorageTrsnData))
-    
-    //Propagamos la alerta
-    Swal.fire({
-      title: 'Serás redireccionado a la pagina correspondiente...',
-      html: 'Espera un momento...',
-      timer: 4000,
-      didOpen: () => {
-        Swal.showLoading();
-        this.AvalPayService.makePayment(amount,invoiceType,desc).subscribe(response =>{
-          urilocation = response.message.RefInfo[0].RefType;
-        });
-      },
-      willClose: () => {
-        window.location.href = urilocation;
-      }
-    });
   }
 }

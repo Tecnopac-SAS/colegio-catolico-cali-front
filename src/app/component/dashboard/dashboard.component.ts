@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import Swal from'sweetalert2';
 import * as $ from 'jquery'
 import { BolsilloService } from 'src/app/services/bolsillo.service';
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit {
     private loginService:LoginService,
     private userService:UserService,
     private bolsilloService:BolsilloService,
+    public currencyUtils: CurrencyUtils,
     private historicoCarteraService:HistoricoCarteraService,
     private router:Router)
    {

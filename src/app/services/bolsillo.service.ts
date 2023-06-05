@@ -12,7 +12,8 @@ export class BolsilloService {
   constructor(private _htpp:HttpClient) { }
   
   recarga(cant:any,idAcudiente:any):Observable<any>{
-    let json = {...cant,idAcudiente}
+    console.log(cant, idAcudiente);
+    let json = {cant,idAcudiente}
     let headers = new HttpHeaders().set('Content-Type','application/json')
     return this._htpp.post(base_url +'acudiente/addBolsillo',json,{headers:headers})
   }

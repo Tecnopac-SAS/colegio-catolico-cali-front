@@ -42,12 +42,12 @@
                     <hr class="sidebar-divider bg-primary" style="height: 1px;">
                     <li class="text-primary">
                         <p>Seleccione el método de pago</p>
-                        <p class="text-black" [attr.data-value]="pensionTotal">Valor de pensión ${{ formatCurrency(pensionTotal) }} 
+                        <p class="text-black" [attr.data-value]="pensionTotal">Valor de pensión: <span class="font-weight-bold">${{ formatCurrency(pensionTotal) }}</span>
                         </p>
                     </li>
                     <div class="row ml-3 cardPago">
                         <p class="text-black">Seleccione el método de pago digital</p>
-                        <div class="col-md-3 d-flex justify-content-center" [class.disabled]="pensionTotal === 0" [ngClass]="{'fade-opacity': true}" (click)="pagarPensionAvalPay(pensionTotal, 1, descMeses)">
+                        <div class="col-md-3 d-flex justify-content-center" [class.disabled]="pensionTotal === 0" [ngClass]="{'fade-opacity': true}" (click)="paymentAvalPayComponent()">
                           <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
                         </div>
                       <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" [class.disabled]="pensionTotal === 0" [ngClass]="{'fade-opacity': true}" (click)="pagarPension()">
