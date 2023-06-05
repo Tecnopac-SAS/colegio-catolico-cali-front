@@ -6,7 +6,6 @@ import { TuitionService } from 'src/app/services/tuition.service';
 import { Avalpay } from 'src/utils/avalpay';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import Swal from 'sweetalert2';
-import { defaultFormat } from 'moment';
 
 @Component({
   selector: 'app-pago-matricula',
@@ -31,6 +30,7 @@ export class PagoMatriculaComponent implements OnInit {
   calendarType: any;
   moduleName: string;
   disabledPaymentButton: boolean = true;
+  
   constructor(
     private formBuilder:FormBuilder,
     private currencyUtils: CurrencyUtils,
@@ -68,7 +68,7 @@ export class PagoMatriculaComponent implements OnInit {
       if(params['pmtId']){
         this.pmtId = params['pmtId'];
         this.Avalpay.validateTransactions(this.pmtId, () => {
-          
+
           let lsMatricula:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
           let paymentAvalPay = JSON.parse(lsMatricula).data;
           this.MatriculaService.pagoMatricula(paymentAvalPay).subscribe(response=>{},error=>{})
