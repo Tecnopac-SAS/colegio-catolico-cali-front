@@ -22,7 +22,6 @@ export class PensionPagoComponent implements OnInit {
   public allPensionsPaid: boolean | undefined;
   public mesesArr = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   public matriculaPagada:any
-  pmtId: any;
   pensionesListSelectNames: any;
   descMeses: string;
   lsPensionesListSelect: any;
@@ -30,6 +29,9 @@ export class PensionPagoComponent implements OnInit {
   //Avalpay
   paymentData: object;
   moduleName: string;
+  pmtId: any;
+  navigateTo: string;
+  public disabledPaymentButton: boolean = true;
 
   constructor(
     private pensionService:PensionPagoService,
@@ -48,6 +50,7 @@ export class PensionPagoComponent implements OnInit {
     //Avalpay
     this.paymentData = {};
     this.moduleName = 'pensiones';
+    this.navigateTo = 'pago-pension';
   }
   
   
@@ -65,20 +68,16 @@ export class PensionPagoComponent implements OnInit {
           let lsPension:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
           let paymentAvalPay = JSON.parse(lsPension).data.pensiones;
           this.pensionService.pagoPension({pensiones: paymentAvalPay},'AvalPay').subscribe(response=>{},error=>{});
-          this.getListPensiones();
         },() => {
-          this.getListPensiones();
-        },'pago-pension', this.moduleName);
+          this.getListPensiones()
+        }, this.navigateTo, this.moduleName);
         
       }
     });
   }
 
   paymentAvalPayComponent(){
-    this.paymentData = {
-      pensiones: this.pensionesListSelect
-    }
-    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.pensionTotal, 1, this.descMeses)
+    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.pensionTotal, 1, this.navigateTo, this.descMeses)
   }
 
   formatCurrency(amount: number): string {
@@ -174,6 +173,11 @@ export class PensionPagoComponent implements OnInit {
         'info'
       )
     }
+
+    this.paymentData = {
+      pensiones: this.pensionesListSelect
+    }
+
   }
   pagarPension(){
     Swal.fire({
@@ -188,11 +192,11 @@ export class PensionPagoComponent implements OnInit {
           Swal.fire('Parece que aun no seleccionas alguna pensión', 'Favor de ingresar al menos una pensión', 'info')
         } else {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.pensionTotal)) {
-            let datos = {pensiones:this.pensionesListSelect}
-            this.pensionService.pagoPension(datos, 'bolsillo').subscribe(response=>{
+            this.pensionService.pagoPension(this.paymentData, 'bolsillo').subscribe(response=>{
               Swal.fire(response.mensaje, '', (response.status)?'success':'error').then((result) => {
                 if (result.isConfirmed) {
-                  location.reload()
+                  this.getListPensiones()
+								  this.router.navigate([`${this.navigateTo}`]);
                 }
               } )
             },error=>{

@@ -34,3 +34,17 @@ ul.numbered-list {
     box-shadow: 0 0 30px gray;
     cursor: pointer;
   }
+
+  .heightCourseCard.disabled{
+    height: 190px;
+    border-radius: 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    padding: 1rem;
+    transition: height .3s ease-in;
+    margin-top: 1rem;
+  }
+  .heightCourseCard{
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+  }

@@ -10,7 +10,7 @@
   {
     "id": 2,
     "name": "Inscripciones a extracurriculares",
-    "img": "assets/acudiente/servicios/inscripcion.png",
+    "img": "assets/acudiente/home/cursos.png",
     "url": "/extracurricular-inscripcion"
   }
   ,
@@ -29,14 +29,14 @@
   {
     "id": 5,
     "name": "Cafeteria",
-    "img": "assets/acudiente/servicios/inscripcion.png",
+    "img": "assets/acudiente/home/cursos.png",
     "url": "/cafeteria-pago"
   },
 
   {
     "id": 6,
     "name": "Transporte",
-    "img": "assets/acudiente/servicios/inscripcion.png",
+    "img": "assets/acudiente/home/cursos.png",
     "url": "/"
   }
 

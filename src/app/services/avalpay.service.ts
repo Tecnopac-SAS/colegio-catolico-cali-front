@@ -12,7 +12,7 @@ export class AvalPayService {
 
   constructor(private _http:HttpClient) { }
 
-  makePayment(amount:any,invoiceType:any, desc:any): Observable<any> {
+  makePayment(amount:number,invoiceType:number, portalURL: string ,desc:string): Observable<any> {
     const url = `${base_url}avalpay/payment`; // Reemplaza '/payment' con la URL real de destino
     const httpOptions = {
       headers: new HttpHeaders({
@@ -23,6 +23,7 @@ export class AvalPayService {
     return this._http.post<any>(url, {
       "amount": amount,
       "invoiceType": invoiceType,
+      "portalURL": portalURL,
       "desc": desc,
     }, httpOptions)
       .pipe(

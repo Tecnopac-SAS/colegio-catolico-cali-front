@@ -20,6 +20,7 @@
                                 Certificado <span class="text-danger">*</span>
                               </label>
                               <select class="form-control" [(ngModel)]="certificateSelect" (ngModelChange)="checkFields()">
+                                <option value="" disabled selected hidden>Selecciona un certificado</option>
                                 <option value="{{ item.id }}" *ngFor="let item of listCertificate">{{ item.concept }}</option>
                               </select>
                             </div>
@@ -28,6 +29,7 @@
                                 Grado del certificado  <span class="text-danger">*</span>
                               </label>
                               <select class="form-control" [(ngModel)]="gradeSelect" (ngModelChange)="checkFields()">
+                                <option value="" disabled selected hidden>Selecciona un Grado</option>
                                 <option value="{{ item.id }}" *ngFor="let item of listGrades">{{ item.description }}</option>
                               </select>
                             </div>
@@ -36,6 +38,7 @@
                                 Canal de entrega  <span class="text-danger">*</span>
                               </label>
                               <select class="form-control" [(ngModel)]="canalSelect" (ngModelChange)="checkFields()">
+                                <option value="" disabled selected hidden>Selecciona un canal de entrega</option>
                                 <option value="Online">Online</option>
                                 <option value="R. Caja">R. Caja</option>
                               </select>
