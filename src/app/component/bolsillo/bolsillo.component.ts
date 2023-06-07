@@ -26,6 +26,7 @@ export class BolsilloComponent implements OnInit {
   moduleName: string;
   pmtId: any;
   descPagoAvalPay: string;
+  navigateTo: string;
   
   amount: number;
 
@@ -45,6 +46,7 @@ export class BolsilloComponent implements OnInit {
       this.paymentData = {};
       this.moduleName = 'bolsillo';
       this.descPagoAvalPay = 'RECARGA BOLSILLO';
+      this.navigateTo = 'bolsillo';
 
       this.formValue = this.formBuilder.group({
         cant: ['', [Validators.required, Validators.min(0), Validators.max(5000)]]
@@ -70,7 +72,7 @@ export class BolsilloComponent implements OnInit {
             window.location.reload();
         })
 
-        },'bolsillo', this.moduleName);
+        }, this.navigateTo, this.moduleName);
         
       }
     });
@@ -82,7 +84,7 @@ export class BolsilloComponent implements OnInit {
     this.paymentData = {
       monto:this.amount
     }
-    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.amount, 1, this.descPagoAvalPay)
+    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.amount, 1, this.navigateTo, this.descPagoAvalPay)
   }
   validateNumber(event: Event): void {
     let numberInput: HTMLInputElement = event.target as HTMLInputElement;

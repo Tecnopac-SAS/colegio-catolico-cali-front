@@ -22,14 +22,19 @@ export class PagoMatriculaComponent implements OnInit {
   private porcentajePenali = 60
   private porcentajeDesc: any
   public matricula:any
-  pmtId: any;
   formValue!: FormGroup
-  descPagoAvalPay: any;
-  paymentData: any;
   dataPagoAvalPay: any;
   calendarType: any;
+  
+  //Avalpay
+  paymentData: object;
   moduleName: string;
-  disabledPaymentButton: boolean = true;
+  pmtId: any;
+  descPagoAvalPay: string;
+  navigateTo: string;
+  public disabledPaymentButton: boolean = true;
+
+  jornada: string;
   
   constructor(
     private formBuilder:FormBuilder,
@@ -38,27 +43,30 @@ export class PagoMatriculaComponent implements OnInit {
     private router:Router,
     public Avalpay: Avalpay,
     private StudentService:StudentDatabaseService, private MatriculaService:TuitionService) { 
+
+      //Avalpay
+      this.paymentData = {};
+      this.moduleName = 'matricula';
+      this.descPagoAvalPay = 'MATRÍCULA';
+      this.navigateTo = 'pago-matricula';
+
+      this.jornada = '';
+      
+
       this.pensionMensual=0
       this.pensionMeses=10
-      this.moduleName = 'matricula';
       this.paymentData = {};
       this.StudentService.getPension().subscribe(response=>{
         this.pension = JSON.stringify(response.result.price)
         this.porcentajeDesc = JSON.stringify(response.result.discount)
         this.idPension = JSON.stringify(response.result.id)
-        this.descPagoAvalPay = '';
         this.dataPagoAvalPay = {};
         this.calendarType = '';
-      },error=>{
-  
-      });
+      },error=>{});
+
       this.StudentService.getMatricula().subscribe(response=>{
         this.matricula = JSON.stringify(response.result)
-      },error=>{
-
-
-  
-      });
+      },error=>{});
     }
 
   ngOnInit(): void {
@@ -73,22 +81,13 @@ export class PagoMatriculaComponent implements OnInit {
           let paymentAvalPay = JSON.parse(lsMatricula).data;
           this.MatriculaService.pagoMatricula(paymentAvalPay).subscribe(response=>{},error=>{})
           
-        },() => {},'pago-matricula', this.moduleName);
+        },() => {}, this.navigateTo, this.moduleName);
       }
     });
 
   }
   paymentAvalPayComponent(){
-    this.paymentData = {
-      monto:this.matricula,
-      metodoPago:'AvalPay',
-      idAcudiente:localStorage.getItem('idAcudiente'),
-      valMes:this.pensionMensual,
-      meses:this.pensionMeses,
-      calendartype: this.calendarType,
-      idPension:this.idPension
-    }
-    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.matricula, 1, this.descPagoAvalPay)
+    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.matricula, 1, this.navigateTo, this.descPagoAvalPay)
   }
   formatCurrency(amount: number): string {
     return this.currencyUtils.formatCurrency(amount);
@@ -123,12 +122,21 @@ export class PagoMatriculaComponent implements OnInit {
           break;
         case 12:
           this.pensionMeses = selectedValue;
-          // this.recargo = Math.floor(this.pension*this.porcentajePenali)/100
           this.recargo = 0;
           this.pensionMensual = Number.parseFloat((this.pension/this.pensionMeses) + this.recargo).toFixed(2);
           this.descPagoAvalPay = 'MATRÍCULA A 12 MESES';
           this.disabledPaymentButton = false;
           break;
+      }
+      this.paymentData = {
+        monto:this.matricula,
+        metodoPago:'AvalPay',
+        jornada: this.jornada,
+        idAcudiente:localStorage.getItem('idAcudiente'),
+        valMes:this.pensionMensual,
+        meses:this.pensionMeses,
+        calendartype: this.calendarType,
+        idPension:this.idPension
       }
     }
   }
@@ -142,8 +150,7 @@ export class PagoMatriculaComponent implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         if (Number(localStorage.getItem('bolsillo')) >= Number(this.matricula)) {
-          let datos = {monto:this.matricula,metodoPago:'bolsillo',idAcudiente:localStorage.getItem('idAcudiente'),valMes:this.pensionMensual,meses:this.pensionMeses,calendartype: this.calendarType,idPension:this.idPension}
-          this.MatriculaService.pagoMatricula(datos).subscribe(response=>{
+          this.MatriculaService.pagoMatricula(this.paymentData).subscribe(response=>{
             Swal.fire(response.mensaje, '', (response.status)?'success':'error')
           },error=>{});
         }else{

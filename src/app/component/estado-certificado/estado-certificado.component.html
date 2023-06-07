@@ -11,7 +11,6 @@
                 <table class="table table-hover table-bordered table-responsive-sm">
                     <thead>
                       <tr>
-                        <th scope="col"></th>
                         <th scope="col">Tipo de documento</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Tiempo de entrega</th>
@@ -22,11 +21,10 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let certificado of listCertificate; let index = index ">
-                        <td class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id=""></td>
                         <td>{{ certificado.certificateInscriptionAsCertificate.concept }}</td>
                         <td>{{ formatFecha(certificado.createAt) }}</td>
-                        <td>{{ certificado.certificateInscriptionAsCertificate.time }}</td>
-                        <td>{{ (certificado.entregado)?'Listo':'Pendiente' }}</td>
+                        <td>{{ certificado.certificateInscriptionAsCertificate.time }} Días</td>
+                        <td [ngClass]="certificado.entregado === 'Listo' ? 'text-success' : 'text-warning'">{{ (certificado.entregado)?'Listo':'Pendiente' }}</td>
                         <td>{{ certificado.monto }}</td>
                         <td>{{ certificado.canalEntrega }}</td>
                       </tr>

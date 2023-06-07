@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CafeteriaService } from 'src/app/services/cafeteria.service';
 import { LoncheraService } from 'src/app/services/lonchera.service';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
+
+//Avalpay
+import { Avalpay } from 'src/utils/avalpay';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cafeteria-pago',
@@ -15,9 +20,32 @@ export class CafeteriaPagoComponent implements OnInit {
   menu:any
   productMenu:any
   cantMenu:any
-  cant:Number
+  cant:number
   lonchera:any
-  constructor(private cafeteriaService:CafeteriaService,private loncheraService:LoncheraService) {
+
+  //Avalpay
+  paymentData: object;
+  moduleName: string;
+  pmtId: any;
+  descPagoAvalPay: string;
+  public disableButton: boolean = true;
+  navigateTo: string;
+
+  constructor(private cafeteriaService:CafeteriaService,
+    //Avalpay
+    public Avalpay: Avalpay,
+    private route: ActivatedRoute,
+
+    public currencyUtils: CurrencyUtils,
+    private loncheraService:LoncheraService) {
+
+    //Avalpay
+    this.paymentData = {};
+    this.moduleName = 'cafeteria';
+    this.descPagoAvalPay = 'RECARGA CAFETERIA';
+    this.navigateTo = 'cafeteria-pago'
+    this.disableButton = true;
+
     this.cant = 0
     this.cafeteriaService.listCafeterias().subscribe(response=>{
       this.listMenu = response.result
@@ -28,22 +56,32 @@ export class CafeteriaPagoComponent implements OnInit {
 
   ngOnInit(): void {
     this.navTitle = "Cafeteria";
-    // this.checkBolsillo()
+        //Valida estado de matricula
+        this.route.queryParams.subscribe(params => {
+          if(params['pmtId']){
+            this.pmtId = params['pmtId'];
+            this.Avalpay.validateTransactions(this.pmtId, () => {
+              // Pago de Cafeteria
+              let lsCertificados:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
+              let paymentAvalPay = JSON.parse(lsCertificados).data;
+              this.loncheraService.pagar(paymentAvalPay, localStorage.getItem('idAcudiente'), localStorage.getItem('idEstudiante')).subscribe(response=>{});
+            },() => {}, this.navigateTo, this.moduleName);
+            
+          }
+        });
   }
-  // checkBolsillo(){
-  //   this.loncheraService.getCant(localStorage.getItem('idAcudiente')).subscribe(response=>{
-  //     this.lonchera = (response.resp)?response.resp:0
-      
-  //   },error=>{
-
-  //   });
-  // }
+  //AvalPay
+  paymentAvalPayComponent(){
+    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData,this.cant, 1, this.navigateTo, this.descPagoAvalPay)
+  }
   changeSelect(){
     if (this.menuSelect && this.cantMenu) {
       let menu = this.listMenu.find((obj:any) => obj.id == this.menuSelect)
       this.cant = Number(menu.pay)*Number(this.cantMenu)
       this.productMenu = menu.description
+      this.disableButton = false;
     }
+    this.paymentData = {cant:this.cant, cantMenu:this.cantMenu, productMenu:this.productMenu ,metodoPago:'bolsillo'}
   }
   pagar(){
     if (this.cant) {
@@ -56,10 +94,7 @@ export class CafeteriaPagoComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.cant)) {
-            // let datos = {cant:this.menu.pay,metodoPago:'bolsillo',idEstudiante:localStorage.getItem('idEstudiante')}
-            let datos = {cant:this.cant, cantMenu:this.cantMenu, productMenu:this.productMenu ,metodoPago:'bolsillo'}
-            this.loncheraService.pagar(datos, localStorage.getItem('idAcudiente'), localStorage.getItem('idEstudiante')).subscribe(response=>{
-              // this.matricula = JSON.stringify(response.result)
+            this.loncheraService.pagar(this.paymentData, localStorage.getItem('idAcudiente'), localStorage.getItem('idEstudiante')).subscribe(response=>{
               Swal.fire(response.message, '', (response.status)?'success':'error')
               if (response.status) {
                 // this.checkBolsillo()

@@ -16,7 +16,7 @@ export class Avalpay {
 		private router:Router,
 		private AvalPayService: AvalPayService) { }
 
-	paymentAvalPay = (module: string, paymentData: object, amount: number, invoiceType: number, desc: string) => {
+	paymentAvalPay = (module: string, paymentData: object, amount: number, invoiceType: number, portalURL: string, desc: string) => {
 
 		//Eliminamos el local Storage
 		if (localStorage.getItem(`${module}-transaction-status`)) {
@@ -36,7 +36,7 @@ export class Avalpay {
 			timer: 4000,
 			didOpen: () => {
 				Swal.showLoading();
-				this.AvalPayService.makePayment(amount, invoiceType, desc).subscribe(response => {
+				this.AvalPayService.makePayment(amount, invoiceType, portalURL, desc).subscribe(response => {
 					this.urilocation = response.message.RefInfo[0].RefType;
 				});
 			},
@@ -50,8 +50,8 @@ export class Avalpay {
     //Obtenemos el id de la transaccion
 			this.AvalPayService.makePaymentStatus(pmtId).subscribe(response => {
 
-				let trnStatus = 'Aprobada';//PRUEBAS
-				// let trnStatus = response.message.InvoicePmtInfo.PmtStatus.StatusDesc;
+				// let trnStatus = 'Aprobada';//PRUEBAS
+				let trnStatus = response.message.InvoicePmtInfo.PmtStatus.StatusDesc;
 				let localStorageTransaction:any = localStorage.getItem(`${module}-transaction-status`);
 				this.localStorageTransaction = JSON.parse(localStorageTransaction);
 				

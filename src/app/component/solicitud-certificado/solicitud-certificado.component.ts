@@ -28,22 +28,30 @@ export class SolicitudCertificadoComponent implements OnInit {
   moduleName: string;
   pmtId: any;
   descPagoAvalPay: string;
-
+  navigateTo: string;
   public disableButton: boolean = true;
+
   constructor(
       private certificateService:CertificateService,
       private pensionService:PensionService,
       public currencyUtils: CurrencyUtils,
+      private router:Router,
 
       //Avalpay
       public Avalpay: Avalpay,
-      private route: ActivatedRoute,) { 
+      private route: ActivatedRoute) { 
 
       //Avalpay
       this.paymentData = {};
       this.moduleName = 'certificados';
       this.descPagoAvalPay = 'RECARGA BOLSILLO';
+      this.navigateTo = 'solicitud-certificado';
       this.disableButton = true;
+
+      this.certificateSelect = '';
+      this.gradeSelect = '';
+      this.canalSelect = '';
+      this.detalle = '';
 
       this.certificateService.listCertificatesAcu().subscribe(response=>{
         this.listCertificate = response.result
@@ -60,43 +68,34 @@ export class SolicitudCertificadoComponent implements OnInit {
   ngOnInit(): void {
     this.navTitle = "Solicitud de certificados";
     this.certificate = {price:''}
-        //Valida estado de matricula
-        this.route.queryParams.subscribe(params => {
-          if(params['pmtId']){
-            this.pmtId = params['pmtId'];
-            this.Avalpay.validateTransactions(this.pmtId, () => {
-              // Pago de Certificados
-              let lsCertificados:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
-              let paymentAvalPay = JSON.parse(lsCertificados).data;
-              this.certificateService.pagoInscripcion(paymentAvalPay).subscribe(response=>{});
-              
-            },() => {
+    //Valida estado de matricula
+    this.route.queryParams.subscribe(params => {
+      if(params['pmtId']){
+        this.pmtId = params['pmtId'];
+        this.Avalpay.validateTransactions(this.pmtId, () => {
+          // Pago de Certificados
+          let lsCertificados:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
+          let paymentAvalPay = JSON.parse(lsCertificados).data;
+          this.certificateService.pagoInscripcion(paymentAvalPay).subscribe(response=>{});
+          
+        },() => {
 
-              Swal.fire(
-                'Certificado Solicitado!',
-                'Comprueba el estado de la solicitud desde el modulo de estado de certificados',
-                'success'
-              ).then((result) => {
-                window.location.reload();
-              });
+          Swal.fire(
+            'Certificado Solicitado!',
+            'Comprueba el estado de la solicitud desde el modulo de estado de certificados',
+            'success'
+          ).then((result) => {
+            this.router.navigate([`${this.navigateTo}`]);
+          });
 
-            },'solicitud-certificado', this.moduleName);
-            
-          }
-        });
+        },this.navigateTo, this.moduleName);
+        
+      }
+    });
   }
   //AvalPay
   paymentAvalPayComponent(){
-    this.paymentData = {
-      monto:this.certificate.price,
-      canalEntrega:this.canalSelect,
-      detalle:this.detalle,
-      idCertificate:this.certificateSelect,
-      idGrade:this.gradeSelect,
-      metodoPago:'bolsillo',
-      idEstudiante:localStorage.getItem('idEstudiante')
-    }
-    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.certificate.price, 1, this.descPagoAvalPay)
+    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.certificate.price, 1, this.navigateTo, this.descPagoAvalPay)
   }
 
   checkFields() {
@@ -119,6 +118,16 @@ export class SolicitudCertificadoComponent implements OnInit {
       // Al menos uno de los campos está vacío
       this.disableButton = true;
     }
+    
+    this.paymentData = {
+      monto:this.certificate.price,
+      canalEntrega:this.canalSelect,
+      detalle:this.detalle,
+      idCertificate:this.certificateSelect,
+      idGrade:this.gradeSelect,
+      metodoPago:'bolsillo',
+      idEstudiante:localStorage.getItem('idEstudiante')
+    }
   }
   pagar(){
     if (this.certificateSelect) {
@@ -131,17 +140,7 @@ export class SolicitudCertificadoComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.certificate.price)) {
-            let datos = {
-              monto:this.certificate.price,
-              canalEntrega:this.canalSelect,
-              detalle:this.detalle,
-              idCertificate:this.certificateSelect,
-              idGrade:this.gradeSelect,
-              metodoPago:'bolsillo',
-              idEstudiante:localStorage.getItem('idEstudiante')
-            }
-            this.certificateService.pagoInscripcion(datos).subscribe(response=>{
-              // this.matricula = JSON.stringify(response.result)
+            this.certificateService.pagoInscripcion(this.paymentData).subscribe(response=>{
               Swal.fire(response.mensaje, '', (response.status)?'success':'error')
               if (response.status) {
                 this.canalSelect = ''
