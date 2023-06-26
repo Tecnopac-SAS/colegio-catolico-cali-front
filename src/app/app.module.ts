@@ -8,6 +8,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { DataTablesModule } from "angular-datatables";
 
 
 
@@ -223,6 +224,7 @@ import { CurrencyUtils } from '../utils/currencyUtils';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    DataTablesModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
