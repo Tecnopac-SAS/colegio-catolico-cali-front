@@ -6,8 +6,6 @@
       "img": "assets/img-home/pagos.png",
       "url": "/",
       "role": "admin"
-
-
   },
   {
     "id": 2,
@@ -15,7 +13,6 @@
     "img": "assets/img-home/admision.png",
     "url": "/",
     "role": "admin"
-
   }
   ,
   {

@@ -20,7 +20,7 @@
                             <span class="ml-3">Modalidad del curso:</span>
                             <span class="badge badge-primary ml-3 text-uppercase">{{ curso.typeCourse }}</span>
                         </div>
-                        <div [class.disabled]="showCouseCard" [ngClass]="{'heightCourseCard': true}">
+                        <div [class.disabled]="showCourseCard" [ngClass]="{'heightCourseCard': true}">
                           <p class="mt-3">Profesor encargado: <span class="text-black font-weight-bold">{{ curso.courseAsTeacher.name }}</span></p>
                           <p>Fecha del curso: <span class="text-black font-weight-bold">{{ formatFecha(curso.starDate) }} - {{ formatFecha(curso.finalDate) }}</span></p>
                           <p>Horario del curso: <span class="text-black font-weight-bold">{{ curso.starHour }} - {{ curso.finalHour }}</span></p>

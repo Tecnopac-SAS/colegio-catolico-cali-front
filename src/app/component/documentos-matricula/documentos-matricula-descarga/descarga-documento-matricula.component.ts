@@ -18,6 +18,7 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
       .subscribe(res=>{
         this.listDoc =res
       })
+    this.docId = '';      
   }
 
   ngOnInit(): void {

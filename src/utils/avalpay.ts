@@ -41,7 +41,7 @@ export class Avalpay {
 				});
 			},
 			willClose: () => {
-				// window.location.href = this.urilocation;
+				window.location.href = this.urilocation;
 			}
 		});
 	}

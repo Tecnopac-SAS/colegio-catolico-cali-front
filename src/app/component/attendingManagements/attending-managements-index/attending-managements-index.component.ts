@@ -30,7 +30,7 @@ export class AttendingManagementsIndexComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listAttendingManagementss()
+    this.listAttendingManagements()
     this.fieldCapture()
   }
 
@@ -47,7 +47,7 @@ export class AttendingManagementsIndexComponent implements OnInit {
     })
   }
 
-  listAttendingManagementss(){
+  listAttendingManagements(){
     this.attendingManagementsService.listAttendingManagements()
     .subscribe(res=>{
       this.dataAttendingManagements=res.result
@@ -58,9 +58,8 @@ export class AttendingManagementsIndexComponent implements OnInit {
   search(searchForm:any){
 
     if(this.filterText==""){
-      this.listAttendingManagementss();
+      this.listAttendingManagements();
     }
-
     else {
       this.attendingManagementsService.listAttendingManagement(searchForm.value.filtro)
       .subscribe(res=>{
@@ -83,7 +82,7 @@ export class AttendingManagementsIndexComponent implements OnInit {
     }
     this.attendingManagementsService.deshabilitar(this.attendingManagementsModel,data.id)
     .subscribe(res=>{
-    this.listAttendingManagementss()
+    this.listAttendingManagements()
     })
 
   }
@@ -102,7 +101,7 @@ export class AttendingManagementsIndexComponent implements OnInit {
  
      this.attendingManagementsService.deshabilitar(this.attendingManagementsModel,data.id)
      .subscribe(res=>{
-     this.listAttendingManagementss()
+     this.listAttendingManagements()
      })
 
    }

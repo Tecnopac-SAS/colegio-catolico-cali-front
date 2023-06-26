@@ -1,488 +1,131 @@
-
-<style>
-  
-</style>
-<div id="page-top">
-  <!-- Page Wrapper -->
-  <div id="wrapper">
-      <!-- Sidebar -->
-      <ul class="navbar-nav bg-gradient-white sidebar sidebar-dark accordion" id="accordionSidebar">
-          <!-- Sidebar - Brand -->
-          <a class="sidebar-brand d-flex align-items-center justify-content-center">
-              <div class="sidebar-brand-icon rotate-n-15">
-                  <i class="fas fa-laugh-wink"></i>
-              </div>
-              <div class="sidebar-brand-text text-primary" type="button" routerLink="/home"><sup>Sistema Académico</sup></div>
-          </a>
-          <!-- Divider -->
-          <hr class="sidebar-divider bg-dark">
-          <div *ngIf=" role == 'admin' ">
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-              <a class="nav-link" routerLink="/servicios">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary">Configuración</span></a>
-            </li>
-            <!-- Heading -->
-            <div class="sidebar-heading">
-            </div>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark dropdown-item" type="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-bag-check text-dark"></i><span routerLink="/servicios"> Servicios</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Servicios</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" routerLink="/matriculas">Matriculas</a>
-                  <a class="dropdown-item" routerLink="/pension">Pensión</a>
-                  <a class="dropdown-item" routerLink="/discount">Descuento</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" routerLink="/certificate">Certificados</a>
-                  <a class="dropdown-item" routerLink="/cursos-extraordinaria">Cursos</a>
-                  <a class="dropdown-item" routerLink="/extracurriculares">Extracurriculares</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" routerLink="/medias-tecnica">Medias técnicas</a>
-                  <a class="dropdown-item" routerLink="/cafeteria">Cafeteria</a>
-                  <a class="dropdown-item" routerLink="/transporte">transporte</a>
-                </div>
-              </div>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class=" nav-link dropdown-toggle text-dark dropdown-item " routerLink="/gestion-acudiente"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-person-square text-dark"></i><span> Gestión acudientes</span>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/docente" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-book text-dark"></i><span> Gestión docentes</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Gestión docentes:</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" routerLink="/docente">Ver docentes</a>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark dropdown-item " href="#" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-house text-dark"></i><span> Gestión administradores</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Gestión administradores:</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" routerLink="/listar-usuarios">Usuarios</a>
-                  <a class="dropdown-item" routerLink="/crear-usuario">Crear Usuaurio</a>
-                </div>
-              </div>
-            </li>
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!-- Divider -->
-            <!-- Heading -->
-            <div class="sidebar-heading">
-            </div>
-            <li class="nav-item active">
-              <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary ">Documentación</span></a>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/admision" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-file-check text-dark"></i><span> Admisión</span>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" routerLink="/base-estudiantes" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-file-earmark-text text-dark"></i><span> Base de datos estudiantes</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" routerLink="/a">Ver pensiones</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" routerLink="/nivelaciones" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-arrow-down-up text-dark"></i><span> Nivelación</span>
-                </a>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" routerLink="/certificados-solicitud" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-file-earmark-pdf text-dark"></i><span> Certificados</span>
-                </a>
-              </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <li class="nav-item active">
-              <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary">Cartera</span></a>
-            </li>
-
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-folder text-dark"></i><span> Estado de cartera</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-journal-text text-dark"></i><span> Paz y salvo 4 sellos</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-
-
-            <li class="nav-item active">
-              <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary">Tesoreria</span></a>
-            </li>
-
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-cash-coin text-dark"></i><span> Pagos presenciales</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-file-earmark-text text-dark"></i><span> Informe de pago</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-coin text-dark"></i><span> Creación deuda</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-card-text text-dark"></i><span> Acuerdo de pago</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-bar-chart-line text-dark"></i><span> Gestión de descuentos</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-truck-front text-dark"></i><span> Gestión de transporte</span>
-                </a>
-                <div class="dropdown-menu">
-                  <h6 class="dropdown-item collapse-header">Pensiones:</h6>
-                  <a class="dropdown-item" href="#">Matricula</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </div>
-            </li>
-          </div>
-          <div *ngIf=" role == 'acudiente' ">
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-              <a class="nav-link" routerLink="/home">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary">Inicio</span></a>
-            </li>
-            <!-- Heading -->
-            <div class="sidebar-heading">
-            </div>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class=" nav-link dropdown-toggle text-dark dropdown-item " routerLink="/ajuste-perfil"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-person-square text-dark"></i><span> Ajustes de perfil</span>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class=" nav-link dropdown-toggle text-dark dropdown-item " routerLink="/bolsillo"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-wallet text-dark"></i><span> Bolsillo</span>
-                </a>
-              </div>
-            </li>
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!-- Divider -->
-            <!-- Heading -->
-            <div class="sidebar-heading">
-            </div>
-            <li class="nav-item active">
-              <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary ">Servicios</span></a>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/matricula" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-mortarboard text-dark"></i><span> Matrícula</span>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark dropdown-item " routerLink="/pago-pension" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="bi bi-credit-card-2-back text-dark"></i><span> Pensiones</span>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" routerLink="/certificados" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-file-earmark-pdf text-dark"></i><span> Certificados</span>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" routerLink="/otros-servicios" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-plus-circle text-dark"></i><span> Otros servicios</span>
-                </a>
-              </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <li class="nav-item active">
-              <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span class="text-secondary">Información</span></a>
-            </li>
-
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" routerLink="/historico-cartera" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-wallet2 text-dark"></i><span> Histórico de cartera</span>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="ho dropright dropdown-submenu">
-                <a class="nav-link dropdown-toggle text-dark" routerLink="/soportes-pago" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  <i class="bi bi-file-earmark-check text-dark"></i><span> Soportes de pago</span>
-                </a>
-              </div>
-            </li>
-          </div>
-
-          <br>
-
-          <li class="nav-item active">
-            <div class="ho dropright dropdown-submenu">
-              <a class="nav-link dropdown-toggle text-dark dropdown-item" type="button"data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-box-arrow-in-right text-dark"></i><span> Cerrar sesión</span>
-              </a>
-            </div>
-         </li>
-
-          <!-- Sidebar Toggler (Sidebar) -->
-          <div class="text-center d-none d-md-inline my-4">
-              <button class="rounded-circle border-0" id="sidebarToggle"><i class="bi bi-eject"></i></button>
-          </div>
-          <!-- Sidebar Message -->
-      </ul>
-      <!-- End of Sidebar -->
-      <!-- Content Wrapper -->
-      <div id="content-wrapper" class="d-flex flex-column">
-          <!-- Main Content -->
-          <div id="content">
-              <!-- Topbar -->
-              <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
-                  <!-- Sidebar Toggle (Topbar) -->
-                  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="bi bi-list text-dark"></i>
-                  </button>
-                  <!-- Topbar Search -->
-                  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                  </form>
-                  <!-- Topbar Navbar -->
-                  <ul class="navbar-nav ml-auto">
-                      <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                      <li class="nav-item dropdown no-arrow d-sm-none">
-                          <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fas fa-search fa-fw"></i>
-                          </a>
-                          <!-- Dropdown - Messages -->
-                          <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                              <form class="form-inline mr-auto w-100 navbar-search">
-                                  <div class="input-group">
-                                      <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                      <div class="input-group-append">
-                                          <button class="btn btn-primary" type="button">
-                                              <i class="fas fa-search fa-sm"></i>
-                                          </button>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                      </li>
-                      <!-- Nav Item - User Information -->
-                      <div class="sidebar-brand d-flex align-items-center justify-content-center mr-5">
-                        <div class="sidebar-brand-text text-secondary headerText" type="button"><h5>¿Tiene asignaturas reprobadas?<span class="text-primary">(Sí)</span></h5></div>
-                      </div>
-                      <div class="sidebar-brand d-flex align-items-center justify-content-center mr-5">
-                        <div class="sidebar-brand-text text-primary headerText" type="button"><h5>Bolsillo $<span>{{ currencyUtils.formatCurrency(bolsillo) }}</span></h5></div>
-                      </div>
-                      <!-- Nav Item - User Information -->
-                      <div class="sidebar-brand d-flex align-items-center justify-content-center mr-5">
-                        <div class="sidebar-brand-text text-secondary headerText" type="button" routerLink="/historico-cartera"><h5>Saldo pendiente $<span>{{ currencyUtils.formatCurrency(saldoPendiente) }}</span></h5></div>
-                      </div>
-                      <li class="nav-item dropdown no-arrow">
-                          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <div class="top-text">
-                                <span *ngIf="token" class="top-name mr-2 d-none d-lg-inline text-black small">{{name}}</span>
-                                <span *ngIf="token" class="top-role mr-2 d-none d-lg-inline text-gray-600 small">{{role}}</span>
-                              </div>
-                          </a>
-                          <!-- Dropdown - User Information -->
-                      </li>
-                  </ul>
-                  <!-- Exnd of Topbar  aqui es el final-->
-              </nav>
-              <!-- aqui va la navTitle -->
-              <!-- <app-nav-title [navTitle]="navTitle"></app-nav-title> -->
-              <ng-content> </ng-content>
-              <!-- <app-create-user></app-create-user> -->
-              <!-- <div style="background-color: red">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi veniam laboriosam corporis repudiandae, doloremque unde ipsa rerum, consequuntur cum itaque autem eveniet quos qui nulla dolorum sunt culpa. Nihil, ab?</div> -->
-          </div>
-
-
-          <!-- End of Main Content -->
-          <!-- Footer -->
-          <footer class="sticky-footer bg-white">
-              <div class="container my-auto">
-                  <div class="copyright text-center my-auto">
-                      <span>Colegio Católico 2022</span>
-                  </div>
-              </div>
-          </footer>
-          <!-- End of Footer -->
-      </div>
-      <!-- End of Content Wrapper -->
+<aside [ngClass]="{'toggled': isSidebarOpen}">
+  <button class="sidebar__toggle--button" (click)="toggleSidebar()">
+    <i class="bi bi-list"></i>
+  </button>
+  <div class="sidebar-brand text-primary font-weight-bold" type="button" routerLink="/home">
+    <span>Sistema Académico</span>
   </div>
-  <!-- End of Page Wrapper -->
-  <!-- Scroll to Top Button-->
+  <ul class="mx-2">
+    <li class="mb-2" *ngFor="let module of menuItems">
+      <h1>{{module.moduleTitle}}</h1>
+      <ul>
+        <li class="nav__submenu" *ngFor="let submenu of module.moduleSubMenu" [routerLink]="submenu.url">
+          <a>
+            <i class="{{ submenu.icon }}"></i>
+            {{ submenu.menuName }}
+          </a>
+          <i *ngIf="submenu.toggle" class="bi bi-chevron-right"></i>
+
+          <div class="nav__dropdown" *ngIf="submenu.toggle">
+            <ul *ngIf="submenu.submenu">
+              <li *ngFor="let subitem of submenu.submenu">
+                <a [routerLink]="subitem.url">{{ subitem.menuName }}</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="mx-2 mt-3">
+    <li data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+      <ul>
+        <li class="nav__submenu">
+          <a>
+            <i class="bi bi-box-arrow-left"></i>
+            Cerrar Sesión
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</aside>
+<div [ngClass]="{'sidebar-toggled': isSidebarOpen}" class="sidebar__backdrop" (click)="toggleSidebar()"></div>
+
+<header [ngClass]="{'sidebar-toggled': isSidebarOpen}" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="navbar-collapse flex-row-reverse" id="navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngIf=" role == 'acudiente' ">
+        <a class="nav-link" href="#">
+          <h5>¿Tiene asignaturas reprobadas?<span class="text-primary">(Sí)</span></h5>
+        </a>
+      </li>
+      <li class="nav-item" *ngIf=" role == 'acudiente' ">
+        <a class="nav-link text-primary" href="#" routerLink="/bolsillo">
+          <h5>Bolsillo $<span>{{ currencyUtils.formatCurrency(bolsillo) }}</span></h5>
+        </a>
+      </li>
+      <li class="nav-item" *ngIf=" role == 'acudiente' ">
+        <a class="nav-link" href="#" routerLink="/historico-cartera">
+          <h5>Saldo pendiente $<span>{{ currencyUtils.formatCurrency(saldoPendiente) }}</span></h5>
+        </a>
+      </li>
+      <li class="nav-item">
+        <div class="user">
+          <img class="navbar__user-image" src="assets/img/user.png" alt="" srcset="">
+          <div>
+            <span>
+              {{name}}<p class="navbar__user--role text-secondary">{{role}}</p>
+            </span>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item dropdown" id="menu-user-md">
+        <a class="nav-link" href="#" data-toggle="dropdown">
+          <div class="user">
+            <img class="navbar__user-image" src="assets/img/user.png" alt="" srcset="">
+            <div>
+              <span>
+                {{name}}<p class="navbar__user--role text-secondary">{{role}}</p>
+              </span>
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">
+            <h5 class="text-secondary">¿Tiene asignaturas reprobadas?<span class="text-primary">(Sí)</span></h5>
+          </a>
+          <a class="dropdown-item" href="/bolsillo">
+            <h5 class="text-primary" routerLink="/pago-bolsillo">Bolsillo $<span>{{
+                currencyUtils.formatCurrency(bolsillo) }}</span></h5>
+          </a>
+          <a class="dropdown-item" href="/historico-cartera">
+            <h5 class="text-secondary" routerLink="/historico-cartera">Saldo pendiente $<span>{{
+                currencyUtils.formatCurrency(saldoPendiente) }}</span></h5>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">¿Realmente desea cerrar sesión?</h5>
-                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                  </button>
-              </div>
-              <div class="modal-body">Seleccione "Cerrar sesión" para terminar la sesión activa.</div>
-              <div class="modal-footer">
-                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                  <a class="btn btn-primary" (click)="SignOff()" data-dismiss="modal">Cerrar sesión</a>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Realmente desea cerrar sesión?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Seleccione "Cerrar sesión" para terminar la sesión activa.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" (click)="SignOff()" data-dismiss="modal">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="main-container">
+  <main [ngClass]="{'sidebar-toggled': isSidebarOpen}">
+    <ng-content></ng-content>
+  </main>
+  <!-- <footer class="bg-white" [ngClass]="{'sidebar-toggled': isSidebarOpen}">
+    <div class="copyright text-center my-auto">
+      <span>Colegio Católico 2023 ©</span>
+    </div>
+  </footer> -->
 </div>
