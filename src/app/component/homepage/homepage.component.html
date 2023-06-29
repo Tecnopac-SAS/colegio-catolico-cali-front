@@ -1,15 +1,10 @@
 <app-dashboard>
   <app-nav-title [navTitle]="'Hola  ' + name"></app-nav-title>
-  <div class="container-fluid">
+  <div class="container">
     <div class="my-3 row">
-      <div *ngFor="let item of data" style="display: contents;">
-        <div class="col-sm-4" *ngIf="item.role == role">
-          <div type="button" routerLink="{{item.url}}" class="card m-0 bg-dark text-white" style="height: auto;">
-            <img class="card-img-top" src="{{item.img}}" alt="Card image">
-            <div class="card-img-overlay"><h1></h1>
-              <h5  class="text-center p-sm-1 p-md-3 p-lg-4 my-sm-1 my-md-3 my-lg-4 my-xl-4 card-text" >{{item.name}}</h5>
-            </div>
-          </div>
+      <div *ngFor="let item of data" [ngClass]="{'d-none': item.role != role}" class="col-md-4 col-sm-12 mb-4 px-3" >
+        <div  routerLink="{{item.url}}" class="card-home" style="background: linear-gradient(0deg, #00000073 40%, transparent 70%), url({{item.img}});">
+          <h5>{{item.name}}</h5>
         </div>
       </div>
     </div>

@@ -44,6 +44,7 @@
                         <p>Seleccione el método de pago</p>
                         <p class="text-black" [attr.data-value]="pensionTotal">Valor de pensión: <span class="font-weight-bold">${{ formatCurrency(pensionTotal) }}</span>
                         </p>
+                        <p *ngIf="discount" class="text-success font-weight-bold">Descuento del {{discountPercent}}%</p>  
                     </li>
                     <div class="row ml-3 cardPago">
                         <p class="text-black">Seleccione el método de pago digital</p>

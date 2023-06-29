@@ -32,6 +32,8 @@ export class PensionPagoComponent implements OnInit {
   pmtId: any;
   navigateTo: string;
   public disabledPaymentButton: boolean = true;
+  discount: boolean;
+  discountPercent: number;
 
   constructor(
     private pensionService:PensionPagoService,
@@ -47,6 +49,8 @@ export class PensionPagoComponent implements OnInit {
     this.pmtId = '';
     this.descMeses = '';
     this.lsPensionesListSelect = {};
+    this.discount = false;
+    this.discountPercent = 0;
     //Avalpay
     this.paymentData = {};
     this.moduleName = 'pensiones';
@@ -111,12 +115,24 @@ export class PensionPagoComponent implements OnInit {
     return this.mesesArr[subFecha-1]
   }
   checkPendientes(fecha:any,$event:any){
+
     this.pensionTotal=0
     this.pensionesListSelect=[]
+    console.log(this.pensionesListSelectNames);
+    
+
     let text=''
     const isChecked = ($event.target as HTMLInputElement).checked;
     //Validacion lista de meses para armar la descripcion del mensaje del pago
     if (isChecked) {
+
+      if(this.pensionesListSelectNames.length > 2){
+        this.discount = true;
+        this.discountPercent = 3;
+        let discount = this.pensionTotal * 0.3;
+        this.pensionTotal = this.pensionTotal - discount;
+      }
+
       if (!this.pensionesListSelectNames.includes(this.parseMes(fecha))) {
         this.pensionesListSelectNames.push(this.parseMes(fecha));
         //Descripcion para enviar a avalpay

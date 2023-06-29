@@ -51,15 +51,15 @@
   {
     "id": 7,
     "name": "Medias tecnicas",
-    "img": "assets/img-home/medias.png",
+    "img": "assets/img-home/mediastecnicas.JPG",
     "url": "/",
     "role": "admin"
 
   },
   {
       "id": 1,
-      "name": "¡Matrículas abiertas! Periodo 2022-2023",
-      "img": "assets/acudiente/home/matricula.png",
+      "name": "¡Matrículas abiertas! Periodo 2023-2024",
+      "img": "assets/acudiente/home/matricula.JPG",
       "url": "/",
       "role": "acudiente"
 
@@ -68,7 +68,7 @@
   {
     "id": 2,
     "name": "Inscripciones a Extracurriculares",
-    "img": "assets/acudiente/home/inscripcion.png",
+    "img": "assets/acudiente/home/inscripcion.JPG",
     "url": "/extracurricular-inscripcion",
     "role": "acudiente"
 
@@ -77,7 +77,7 @@
   {
     "id": 3,
     "name": "Cursos",
-    "img": "assets/acudiente/home/cursos.png",
+    "img": "assets/acudiente/home/cursos.JPG",
     "url": "/inscripcion-cursos",
     "role": "acudiente"
 
@@ -110,7 +110,7 @@
   {
     "id": 7,
     "name": "Medias técnicas",
-    "img": "assets/acudiente/home/medias.png",
+    "img": "assets/acudiente/home/mediastecnicas.JPG",
     "url": "/medias-tecnicas",
     "role": "acudiente"
 

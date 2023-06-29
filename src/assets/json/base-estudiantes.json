@@ -3,7 +3,7 @@
   {
       "id": 1,
       "name": "Estudiantes   Activos/Matriculados",
-      "img": "assets/img-base-estudiantes/activos-matriculados.png",
+      "img": "assets/img-base-estudiantes/activos-matriculados.JPG",
       "url": "/estudiantes-matriculados"
 
 
@@ -40,7 +40,7 @@
   {
     "id": 6,
     "name": "Estudiantes graduados",
-    "img": "assets/img-base-estudiantes/graduados.png",
+    "img": "assets/img-base-estudiantes/graduados.jpg",
     "url": "/estudiantes-graduados"
 
   },

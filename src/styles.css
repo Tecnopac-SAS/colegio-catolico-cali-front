@@ -36,6 +36,33 @@
   .section-title{
     margin-bottom: 3rem;
   }
+
+  .card-home{
+      box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);
+      transition: all .5s;
+      height: 12.5rem;
+      width: 100%;
+      /* background-size: cover !important; */
+      background-size: 36rem !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      border-radius: 0.5rem;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+  }
+  .card-home h5{
+    margin-bottom: 2rem;
+  }
+  .card-home:hover{
+    transform: scale(1.03);
+    cursor: pointer;
+    /* background-size: 25.5rem !important; */
+    background-size: 30.5rem !important;
+  }
+
   body{
     background-color: #E9ECEF !important;
     display: flex;
