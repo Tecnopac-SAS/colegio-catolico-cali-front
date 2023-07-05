@@ -116,6 +116,8 @@ import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-per
 import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perfil-acudiente/ajustes-perfil-acudiente.component';
 
 import { CurrencyUtils } from '../utils/currencyUtils';
+import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosellos/pazysalvocuatrosellos.component';
+import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
 
 @NgModule({
   declarations: [
@@ -219,6 +221,8 @@ import { CurrencyUtils } from '../utils/currencyUtils';
     AjustesPerfilPassComponent,
     AjustesPerfilEstudianteComponent,
     AjustesPerfilAcudienteComponent,
+    PazysalvocuatrosellosComponent,
+    EstadoCarteraComponent,
   ],
   imports: [
     BrowserAnimationsModule,

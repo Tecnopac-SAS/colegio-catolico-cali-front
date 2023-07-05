@@ -96,6 +96,8 @@ import { AjustesPerfilIndexComponent } from './component/perfil/ajustes-perfil-i
 import { AjustesPerfilPassComponent } from './component/perfil/ajustes-perfil-pass/ajustes-perfil-pass.component';
 import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-perfil-estudiante/ajustes-perfil-estudiante.component';
 import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perfil-acudiente/ajustes-perfil-acudiente.component';
+import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosellos/pazysalvocuatrosellos.component';
+import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -169,6 +171,8 @@ const routes: Routes = [
   {path: 'nivelaciones-editar/:id',component: LevelingUpdateComponent},
   {path: 'copias-seguridad',component: BackupIndexComponent},
   {path: 'admision',component: AdmisionIndexComponent},
+  {path: 'pazysalvocuatrosellos',component: PazysalvocuatrosellosComponent},
+  {path: 'estado-cartera',component: EstadoCarteraComponent},
   //gestion acudientes
   {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
   {path: 'bolsillo',component: BolsilloComponent},

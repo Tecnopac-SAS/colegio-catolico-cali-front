@@ -117,13 +117,13 @@
           {
             "menuName": "Estado de cartera",
             "icon": "bi bi-file-check",
-            "url": "/",  
+            "url": "/estado-cartera",  
             "toggle": false
           },
           {
             "menuName": "Paz y salvo 4 sellos",
             "icon": "bi bi-journal-text",
-            "url": "/",  
+            "url": "/pazysalvocuatrosellos",  
             "toggle": false
           }
       ]
@@ -158,7 +158,7 @@
           {
             "menuName": "Gestión de descuentos",
             "icon": "bi bi-bar-chart-line",
-            "url": "/",  
+            "url": "/discount",  
             "toggle": false
           },
           {
