@@ -1,0 +1,62 @@
+[
+    {
+        "moduleTitle": "Inicio",
+        "moduleSubMenu": [{
+            "menuName": "Ajustes del Perfil",
+            "icon": "bi bi-person-square",
+            "url": "/ajuste-perfil",
+            "toggle": false
+          },
+          {
+            "menuName": "Bolsillo",
+            "icon": "bi bi-wallet",
+            "url": "/bolsillo",
+            "toggle": false
+          }
+        ]
+    },
+    {
+      "moduleTitle": "Servicios",
+      "moduleSubMenu": [{
+          "menuName": "Matrícula",
+          "icon": "bi bi-mortarboard",
+          "url": "/matricula",
+          "toggle": false
+        },
+        {
+          "menuName": "Pensiones",
+          "icon": "bi bi-credit-card-2-back",
+          "url": "/pago-pension",
+          "toggle": false
+        },
+        {
+          "menuName": "Certificados",
+          "icon": "bi bi-file-earmark-pdf",
+          "url": "/certificados",
+          "toggle": false
+        },
+        {
+          "menuName": "Otros servicios",
+          "icon": "bi bi-plus-circle",
+          "url": "/otros-servicios",
+          "toggle": false
+        }
+      ]
+  },
+  {
+      "moduleTitle": "Información",
+      "moduleSubMenu": [{
+          "menuName": "Histórico de cartera",
+          "icon": "bi bi-wallet2",
+          "url": "/historico-cartera",
+          "toggle": false
+        },
+        {
+          "menuName": "Soportes de pago",
+          "icon": "bi bi-file-earmark-check",
+          "url": "/soportes-pago",
+          "toggle": false
+        }
+      ]
+  }
+]

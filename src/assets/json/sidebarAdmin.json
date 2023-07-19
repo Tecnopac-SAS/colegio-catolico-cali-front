@@ -1,0 +1,172 @@
+[
+    {
+        "moduleTitle": "Configuración",
+        "moduleSubMenu": [
+          {
+            "menuName": "Servicios",
+            "icon": "bi bi-bag-check",
+            "url": "",  
+            "toggle": true,
+            "submenu": [
+              {
+                "menuName": "Matriculas",
+                "url": "/matriculas"
+              },
+              {
+                "menuName": "Pensión",
+                "url": "/pension"
+              },
+              {
+                "menuName": "Descuento",
+                "url": "/discount"
+              },
+              {
+                "menuName": "Certificados",
+                "url": "/certificate"
+              },
+              {
+                "menuName": "Cursos",
+                "url": "/cursos-extraordinaria"
+              },
+              {
+                "menuName": "Extracurriculares",
+                "url": "/extracurriculares"
+              },
+              {
+                "menuName": "Medias técnicas",
+                "url": "/medias-tecnica"
+              },
+              {
+                "menuName": "Cafetería",
+                "url": "/cafeteria"
+              },
+              {
+                "menuName": "Transporte",
+                "url": "/transporte"
+              }
+            ]
+          },
+          {
+            "menuName": "Gestión acudientes",
+            "icon": "bi bi-person-square text-dark",
+            "url": "/gestion-acudiente",  
+            "toggle": false
+          },
+          {
+            "menuName": "Gestión docentes",
+            "icon": "bi bi-book",
+            "url": "",  
+            "toggle": true,
+            "submenu": [
+              {
+                "menuName": "Ver docentes",
+                "url": "/docente"
+              }
+            ]
+          },
+          {
+            "menuName": "Gestión administradores",
+            "icon": "bi bi-house",
+            "url": "",  
+            "toggle": true,
+            "submenu": [
+              {
+                "menuName": "Usuarios",
+                "url": "/listar-usuarios"
+              },
+              {
+                "menuName": "Crear Usuaurio",
+                "url": "/crear-usuario"
+              }
+            ]
+          }
+        ]
+    },
+    {
+      "moduleTitle": "Documentación",
+      "moduleSubMenu": [
+        {
+          "menuName": "Admisión",
+          "icon": "bi bi-file-check",
+          "url": "/admision",  
+          "toggle": false
+        },
+        {
+          "menuName": "Base de datos estudiantes",
+          "icon": "bi bi-file-earmark-text",
+          "url": "/base-estudiantes",  
+          "toggle": false
+        },
+        {
+          "menuName": "Nivelación",
+          "icon": "bi bi-arrow-down-up",
+          "url": "/nivelaciones",  
+          "toggle": false
+        },
+        {
+          "menuName": "Certificados",
+          "icon": "bi-file-earmark-pdf",
+          "url": "/certificados-solicitud",  
+          "toggle": false
+        }
+      ]
+    },
+    {
+      "moduleTitle": "Cartera",
+      "moduleSubMenu": [
+          {
+            "menuName": "Estado de cartera",
+            "icon": "bi bi-file-check",
+            "url": "/estado-cartera",  
+            "toggle": false
+          },
+          {
+            "menuName": "Paz y salvo 4 sellos",
+            "icon": "bi bi-journal-text",
+            "url": "/pazysalvocuatrosellos",  
+            "toggle": false
+          }
+      ]
+    },
+    {
+      "moduleTitle": "Tesorería",
+      "moduleSubMenu": [
+          {
+            "menuName": "Pagos presenciales",
+            "icon": "bi bi-cash-coin",
+            "url": "/",  
+            "toggle": false
+          },
+          {
+            "menuName": "Informe de pago",
+            "icon": "bi bi-file-earmark-text",
+            "url": "/",  
+            "toggle": false
+          },
+          {
+            "menuName": "Creación deuda",
+            "icon": "bi bi-coin text-dark",
+            "url": "/",  
+            "toggle": false
+          },
+          {
+            "menuName": "Acuerdo de pago",
+            "icon": "bi bi-card-text text-dark",
+            "url": "/",  
+            "toggle": false
+          },
+          {
+            "menuName": "Gestión de descuentos",
+            "icon": "bi bi-bar-chart-line",
+            "url": "/discount",  
+            "toggle": false
+          },
+          {
+            "menuName": "Gestión de transporte",
+            "icon": "bi bi-truck-front",
+            "url": "/",  
+            "toggle": false
+          }
+      ]
+    }
+]

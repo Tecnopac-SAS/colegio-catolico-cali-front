@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CertificateService } from 'src/app/services/certificate.service';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
+
 import * as moment from 'moment';
 @Component({
   selector: 'app-estado-certificado',
@@ -9,7 +11,7 @@ import * as moment from 'moment';
 export class EstadoCertificadoComponent implements OnInit {
   navTitle="Estado de certificados"
   listCertificate: any;
-  constructor(private certificateService:CertificateService) { 
+    constructor(private certificateService:CertificateService,public currencyUtils: CurrencyUtils) { 
     this.certificateService.listCertificatesInscription(localStorage.getItem('idEstudiante')).subscribe(response=>{
       this.listCertificate = response.result
     },error=>{

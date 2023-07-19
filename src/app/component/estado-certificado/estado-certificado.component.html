@@ -25,7 +25,7 @@
                         <td>{{ formatFecha(certificado.createAt) }}</td>
                         <td>{{ certificado.certificateInscriptionAsCertificate.time }} Días</td>
                         <td [ngClass]="certificado.entregado === 'Listo' ? 'text-success' : 'text-warning'">{{ (certificado.entregado)?'Listo':'Pendiente' }}</td>
-                        <td>{{ certificado.monto }}</td>
+                        <td>${{ currencyUtils.formatCurrency(certificado.monto)}}</td>
                         <td>{{ certificado.canalEntrega }}</td>
                       </tr>
                     </tbody>

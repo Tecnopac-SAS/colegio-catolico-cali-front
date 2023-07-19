@@ -6,23 +6,20 @@
       "img": "assets/img-home/pagos.png",
       "url": "/",
       "role": "admin"
-
-
   },
   {
     "id": 2,
     "name": "Admisión",
     "img": "assets/img-home/admision.png",
-    "url": "/",
+    "url": "/admision",
     "role": "admin"
-
   }
   ,
   {
     "id": 3,
     "name": "Base de datos estudiantes",
     "img": "assets/img-home/baseEstudiantes.png",
-    "url": "/",
+    "url": "/base-estudiantes",
     "role": "admin"
 
   },
@@ -30,7 +27,7 @@
     "id": 4,
     "name": "Certificados",
     "img": "assets/img-home/certificados.png",
-    "url": "/",
+    "url": "/certificados-solicitud",
     "role": "admin"
 
   },
@@ -38,7 +35,7 @@
     "id": 5,
     "name": "Estado de cartera",
     "img": "assets/img-home/estadoCartera.png",
-    "url": "/",
+    "url": "/estado-cartera",
     "role": "admin"
 
   },
@@ -47,23 +44,23 @@
     "id": 6,
     "name": "Paz y salvo 4 sellos",
     "img": "assets/img-home/pazYsalvo.png",
-    "url": "/",
+    "url": "/pazysalvocuatrosellos",
     "role": "admin"
 
   },
   {
     "id": 7,
     "name": "Medias tecnicas",
-    "img": "assets/img-home/medias.png",
-    "url": "/",
+    "img": "assets/img-home/mediastecnicas.JPG",
+    "url": "/medias-tecnica",
     "role": "admin"
 
   },
   {
       "id": 1,
-      "name": "¡Matrículas abiertas! Periodo 2022-2023",
-      "img": "assets/acudiente/home/matricula.png",
-      "url": "/",
+      "name": "¡Matrículas abiertas! Periodo 2023-2024",
+      "img": "assets/acudiente/home/matricula.JPG",
+      "url": "/pago-matricula",
       "role": "acudiente"
 
 
@@ -71,7 +68,7 @@
   {
     "id": 2,
     "name": "Inscripciones a Extracurriculares",
-    "img": "assets/acudiente/home/inscripcion.png",
+    "img": "assets/acudiente/home/inscripcion.JPG",
     "url": "/extracurricular-inscripcion",
     "role": "acudiente"
 
@@ -80,7 +77,7 @@
   {
     "id": 3,
     "name": "Cursos",
-    "img": "assets/acudiente/home/cursos.png",
+    "img": "assets/acudiente/home/cursos.JPG",
     "url": "/inscripcion-cursos",
     "role": "acudiente"
 
@@ -113,7 +110,7 @@
   {
     "id": 7,
     "name": "Medias técnicas",
-    "img": "assets/acudiente/home/medias.png",
+    "img": "assets/acudiente/home/mediastecnicas.JPG",
     "url": "/medias-tecnicas",
     "role": "acudiente"
 

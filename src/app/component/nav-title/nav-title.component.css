@@ -3,6 +3,7 @@
   justify-content: space-between;
   background: rgb(58,98,168);
   background: linear-gradient(90deg, rgba(58,98,168,1) 0%, rgba(116,191,200,1) 100%);
+  padding-right: 2rem;
 }
 
 .section-title .text{
@@ -17,6 +18,7 @@ h1 {
 }
 
 .logo {
-  height: 128px;
-  padding: 20px 75px;
+  height: 100px;
+  width: auto;
+  padding-top: 1rem;
 }

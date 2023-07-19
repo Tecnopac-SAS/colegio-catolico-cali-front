@@ -1,0 +1,86 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+            <div class="card"> 
+              <div class="card-body"> 
+                <div class="container row ">
+                  <div class="col-md-5 col-12 ml-4">
+                    <h5 class="text-info btn">Estudiantes</h5>
+                  </div>
+                 </div>
+                <div class="row justify-content-end">
+                      <div class="col-md-3 col-12 my-2">
+                        <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                            <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                              <div class="input-group-append">
+                                <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                            </div>
+                                <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-1 col-4 my-2">
+                      <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+                    </div>
+                </div>
+                <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código del estudiante<noscript></noscript></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos del estudiante</th>
+                        <th scope="col">Doc. Identidad</th>
+                        <th scope="col">Correro electrónico</th>
+                        <th scope="col">Estado Estudiante</th>
+                        <th scope="col">Estado Paz y Salvo</th>
+                        <th scope="col"  class = "text-center">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody  *ngFor="let data of dataStudentDatabase; let index = index ">
+                      <tr class="align-bottom">
+                        <th scope="row">{{index+1}}</th>
+                        <td >{{data.codigo}}</td>
+                        <td>{{data.nombres}}</td>
+                        <td>{{data.apellidos}}</td>
+                        <td>{{data.identificacion}}</td>
+                        <td>{{data.correo}}</td>
+                        <td *ngIf="data.isActive==0">Inactivo</td>
+                        <td *ngIf="data.isActive==1" class="text-center"><span class="text-danger font-weight-bold">Graduado</span></td>
+                        <td class="text-secondary text-center">Pendiente</td>
+                        <td>
+                            <button  class="btn text-primary" data-bs-target="#imprimirModalToggle" data-bs-toggle="modal" >Cargar Paz y Salvo</button>
+                        </td>
+                      </tr>
+ 
+                          <!-- modal subir certificado -->
+                          <div class="modal fade" id="imprimirModalToggle" aria-hidden="true" aria-labelledby="imprimirModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-body">
+                                  <br>
+                                  <h4 class="text-center text-primary">Subir Certificado</h4>
+                                  <br>
+                                  <div class="row justify-content-center">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="file" name="" id="">
+                                        </div>
+                                        <div class="col mt-4 text-center">
+                                            <button class="btn btn-primary">Cargar Documento</button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+    </div>
+  </app-dashboard>
+  

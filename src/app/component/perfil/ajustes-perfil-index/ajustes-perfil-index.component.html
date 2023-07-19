@@ -2,36 +2,21 @@
     <app-nav-title [navTitle]="navTitle"></app-nav-title>
     <div class="container">
       <div class="my-3 row">
-        <div style="display: contents;">
-          <div class="col-sm-4">
-            <div type="button" routerLink="/datos-estudiante" class="card m-0 bg-dark text-white" style="height: auto;">
-              <img class="card-img-top" src="assets/img-ajustes-perfil/datosAcudiente.png" alt="Card image">
-              <div class="card-img-overlay"><h1></h1>
-                <h5  class="text-center p-sm-1 p-md-3 p-lg-4 my-sm-1 my-md-3 my-lg-4 my-xl-4 card-text" >Datos del estudiante</h5>
-              </div>
+          <div class="col-md-4 col-sm-12 mb-4 px-3">
+            <div routerLink="/datos-estudiante" class="card-home" style="background: linear-gradient(0deg, #00000073 40%, transparent 70%), url('assets/img-ajustes-perfil/datosEstudiante.JPG');">
+                <h5>Datos del estudiante</h5>
             </div>
           </div>
-        </div>
-        <div style="display: contents;">
-          <div class="col-sm-4">
-            <div type="button" routerLink="/datos-acudiente" class="card m-0 bg-dark text-white" style="height: auto;">
-              <img class="card-img-top" src="assets/img-ajustes-perfil/datosEstudiante.png" alt="Card image">
-              <div class="card-img-overlay"><h1></h1>
-                <h5  class="text-center p-sm-1 p-md-3 p-lg-4 my-sm-1 my-md-3 my-lg-4 my-xl-4 card-text" >Datos del acudiente</h5>
-              </div>
+          <div class="col-md-4 col-sm-12 mb-4 px-3">
+            <div routerLink="/datos-acudiente" class="card-home" style="background: linear-gradient(0deg, #00000073 40%, transparent 70%), url('assets/img-ajustes-perfil/datosAcudiente.jpg');">
+                <h5>Datos del acudiente</h5>
             </div>
           </div>
-        </div>
-        <div style="display: contents;">
-          <div class="col-sm-4">
-            <div type="button" routerLink="/cambio-pass" class="card m-0 bg-dark text-white" style="height: auto;">
-              <img class="card-img-top" src="assets/img-ajustes-perfil/modContra.png" alt="Card image">
-              <div class="card-img-overlay"><h1></h1>
-                <h5  class="text-center p-sm-1 p-md-3 p-lg-4 my-sm-1 my-md-3 my-lg-4 my-xl-4 card-text" >Modificar contraseña</h5>
-              </div>
+          <div class="col-md-4 col-sm-12 mb-4 px-3">
+            <div routerLink="/cambio-pass" class="card-home" style="background: linear-gradient(0deg, #00000073 40%, transparent 70%), url('assets/img-ajustes-perfil/modContra.png');">
+                <h5>Modificar contraseña</h5>
             </div>
           </div>
-        </div>
       </div>
     </div>
 </app-dashboard>

@@ -26,7 +26,7 @@ export class CoursesInscripcionComponent implements OnInit {
   pmtId: any;
   descPagoAvalPay: string;
   public disableButton: boolean = true;
-  showCouseCard: boolean;
+  showCourseCard: boolean;
   navigateTo: string;
 
   constructor ( 
@@ -48,33 +48,33 @@ export class CoursesInscripcionComponent implements OnInit {
     this.disableButton = true;
     this.navigateTo = 'inscripcion-cursos';
 
-    this.showCouseCard = false;
+    this.showCourseCard = false;
   }
 
   ngOnInit(): void {
     this.navTitle = "Inscripción de cursos";
     this.curso = {id:'',typeCourse:'',starDate:'',finalDate:'',asignature:'',price:'',starHour:'',finalHour:'',description:'',courseAsTeacher:{name:''}}
-        //Valida estado de matricula
-        this.route.queryParams.subscribe(params => {
-          if(params['pmtId']){
-            this.pmtId = params['pmtId'];
-            this.Avalpay.validateTransactions(this.pmtId, () => {
-              // Pago de Cursos
-              let lsCertificados:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
-              let paymentAvalPay = JSON.parse(lsCertificados).data;
-              this.coursesService.pagoInscripcion(paymentAvalPay).subscribe(response=>{},error=>{});
-            },() => {},this.navigateTo, this.moduleName);
-            
-          }
-        });
+    //Valida estado de matricula
+    this.route.queryParams.subscribe(params => {
+      if(params['pmtId']){
+        this.pmtId = params['pmtId'];
+        this.Avalpay.validateTransactions(this.pmtId, () => {
+          // Pago de Cursos
+          let lsCertificados:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
+          let paymentAvalPay = JSON.parse(lsCertificados).data;
+          this.coursesService.pagoInscripcion(paymentAvalPay).subscribe(response=>{},error=>{});
+        },() => {},this.navigateTo, this.moduleName);
+        
+      }
+    });
   }
-    //AvalPay
-    paymentAvalPayComponent(){
-      this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.curso.price, 1, this.navigateTo, this.descPagoAvalPay)
-    }
+  //AvalPay
+  paymentAvalPayComponent(){
+    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.curso.price, 1, this.navigateTo, this.descPagoAvalPay)
+  }
   changeSelect(){
     this.curso = this.listCourses.find((obj:any) => obj.id == this.cursoSelect)
-    this.showCouseCard = true;
+    this.showCourseCard = true;
     this.disableButton = false;
 
     this.paymentData = {
@@ -98,9 +98,7 @@ export class CoursesInscripcionComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.curso.price)) {
-            let datos = {monto:this.curso.price,idCourse:this.curso.id,metodoPago:'bolsillo',idEstudiante:localStorage.getItem('idEstudiante')}
-            this.coursesService.pagoInscripcion(datos).subscribe(response=>{
-              // this.matricula = JSON.stringify(response.result)
+            this.coursesService.pagoInscripcion(this.paymentData).subscribe(response=>{
               Swal.fire(response.mensaje, '', (response.status)?'success':'error')
             },error=>{
   

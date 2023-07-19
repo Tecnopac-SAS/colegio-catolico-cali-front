@@ -14,7 +14,7 @@
                         <p>Seleccione certificado</p>
                         <!-- <p>Valor de pensión anual: <span class="text-black">$</span> <span class="ml-4">Valor de pensión mensual: <span class="text-black">$</span></span> </p> -->
                         <div class="row">
-                          <div class="col">
+                          <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                               <label class="text-black">
                                 Certificado <span class="text-danger">*</span>
@@ -44,7 +44,7 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                               <label class="text-black">
                                 Detalle del certificado y motivo de solicitud.  <span class="text-danger">*</span>
@@ -65,17 +65,10 @@
                       <div class="col-md-3 d-flex justify-content-center" [class.disabled]="disableButton" [ngClass]="{'fade-opacity': true}" (click)="paymentAvalPayComponent()">
                         <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
                       </div>
-                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" [class.disabled]="disableButton" [ngClass]="{'fade-opacity': true}" (click)="pagar()">
+                      <div class="col-md-3 mt-2 d-flex flex-column justify-content-center align-items-center" [class.disabled]="disableButton" [ngClass]="{'fade-opacity': true}" (click)="pagar()">
                         <i class="bi bi-wallet-fill text-white" style="font-size: 60px"></i>
                         <span>Bolsillo</span>
                       </div>
-                      <!-- <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
-                        <i class="bi bi-credit-card-2-back-fill text-white" style="font-size: 60px"></i>
-                        <span>Tarjeta de crédito</span>
-                      </div>
-                      <div class="col-md-3 d-flex justify-content-center">
-                        <img class="p-4" src="assets/img-pagomatricula/image2.png" alt="">
-                      </div> -->
                     </div>
                 </ul>
                 

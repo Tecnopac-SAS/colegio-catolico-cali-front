@@ -3,40 +3,40 @@
   {
       "id": 1,
       "name": "Cursos",
-      "img": "assets/acudiente/servicios/cursos.png",
+      "img": "assets/acudiente/servicios/cursos.jpg",
       "url": "/inscripcion-cursos"
 
   },
   {
     "id": 2,
     "name": "Inscripciones a extracurriculares",
-    "img": "assets/acudiente/home/cursos.png",
+    "img": "assets/acudiente/servicios/insc-extracurriculares.JPG",
     "url": "/extracurricular-inscripcion"
   }
   ,
   {
     "id": 3,
     "name": "Mis Extracurriculares",
-    "img": "assets/acudiente/servicios/extracurriculares.png",
+    "img": "assets/acudiente/servicios/extracurriculares.JPG",
     "url": "/mis-extracurriculares"
   },
   {
     "id": 4,
     "name": "Medias técnicas",
-    "img": "assets/acudiente/servicios/mediastecnicas.png",
+    "img": "assets/acudiente/servicios/mediastecnicas.JPG",
     "url": "/medias-tecnicas"
   },
   {
     "id": 5,
     "name": "Cafeteria",
-    "img": "assets/acudiente/home/cursos.png",
+    "img": "assets/acudiente/servicios/cafeteria.jpeg",
     "url": "/cafeteria-pago"
   },
 
   {
     "id": 6,
     "name": "Transporte",
-    "img": "assets/acudiente/home/cursos.png",
+    "img": "assets/acudiente/servicios/transporte.jfif",
     "url": "/"
   }
 

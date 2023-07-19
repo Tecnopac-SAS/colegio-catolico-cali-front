@@ -2,7 +2,7 @@ ul.numbered-list {
     counter-reset: li;
     list-style-type: none;
     line-height: 18px;
-    padding-left: 10px;
+    padding-left: 0px;
   }
   ul.numbered-list li {
     position: relative;

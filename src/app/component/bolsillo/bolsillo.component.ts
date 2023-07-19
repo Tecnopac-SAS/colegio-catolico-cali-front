@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 //Avalpay
 import { Avalpay } from 'src/utils/avalpay';
 import { Router } from '@angular/router';
+
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -21,6 +22,7 @@ export class BolsilloComponent implements OnInit {
   public disableButton: boolean = true;
   lsBolsillo: any;
   numberInput: any;
+
   //Avalpay
   paymentData: object;
   moduleName: string;
@@ -38,6 +40,7 @@ export class BolsilloComponent implements OnInit {
     //Avalpay
     public Avalpay: Avalpay,
     private route: ActivatedRoute,
+    
     ) { 
       this.bolsillo =  localStorage.getItem('bolsillo')
       this.amount = 0;
