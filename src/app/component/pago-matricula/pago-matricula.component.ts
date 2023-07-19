@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Acudiente } from 'src/app/models/studentDatabase.model';
 import { StudentDatabaseService } from 'src/app/services/student-database.service';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { Avalpay } from 'src/utils/avalpay';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import Swal from 'sweetalert2';
 
@@ -22,6 +24,7 @@ export class PagoMatriculaComponent implements OnInit {
   private porcentajePenali = 60
   private porcentajeDesc: any
   public matricula:any
+  public saldoPendiente :any
   formValue!: FormGroup
   dataPagoAvalPay: any;
   calendarType: any;
@@ -114,7 +117,7 @@ export class PagoMatriculaComponent implements OnInit {
           break;
         case 11:
           this.pensionMeses = selectedValue;
-          this.recargo =0
+          this.recargo =0;
           let numer:any = Number.parseFloat((this.pension/this.pensionMeses) + this.recargo).toFixed(2);
           this.pensionMensual = Math.round(numer);
           this.descPagoAvalPay = 'MATRÍCULA A 11 MESES';
@@ -127,7 +130,26 @@ export class PagoMatriculaComponent implements OnInit {
           this.descPagoAvalPay = 'MATRÍCULA A 12 MESES';
           this.disabledPaymentButton = false;
           break;
+          
       }
+
+      
+      
+      if (this.saldoPendiente > 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'No puedes realizar pagos',
+          text: 'Aún tienes un saldo pendiente.',
+        });
+        
+        this.disabledPaymentButton = false;
+        
+      } else {
+        
+        
+        this.disabledPaymentButton = true;
+      }  
+      
       this.paymentData = {
         monto:this.matricula,
         metodoPago:'AvalPay',
@@ -138,8 +160,12 @@ export class PagoMatriculaComponent implements OnInit {
         calendartype: this.calendarType,
         idPension:this.idPension
       }
+      
     }
+    
   }
+  
+  
   pagarBolsillo(){
     Swal.fire({
       title: '¿Estas seguro que deseas pagar la matricula con la opcion bolsillo?',

@@ -17,6 +17,7 @@ export class PensionPagoComponent implements OnInit {
   navTitle="Pago de pension"
   public pensionTotal=0
   private descuento=3
+  public allMonthsSelected: boolean = false;
   public pensionesList:any
   public pensionesListSelect:any
   public allPensionsPaid: boolean | undefined;
@@ -169,6 +170,8 @@ export class PensionPagoComponent implements OnInit {
         }
       }
     });
+    
+    
     if (this.pensionesListSelect.length>=3) {
       // this.pensionTotal = this.pensionTotal - (Math.floor(this.pensionTotal*this.descuento)/100)
       // let valorNew = this.pensionTotal/this.pensionesListSelect.length
@@ -194,6 +197,51 @@ export class PensionPagoComponent implements OnInit {
       pensiones: this.pensionesListSelect
     }
 
+  }
+  selectAllMonths($event: any) {
+    if ($event.target.checked) {
+      this.allMonthsSelected = true;
+      this.pensionesListSelectNames = this.mesesArr;
+      this.pensionesListSelect = this.pensionesList.filter(
+        (pension: any) => pension.estatus !== 'Pagado'
+      );
+  
+      // pensiones no pagadas (Calcula)
+      this.pensionTotal = this.pensionesListSelect.reduce(
+        (total: number, pension: any) => {
+          const valorConDescuento = pension.estatus !== 'Pagado' ? pension.valor * 0.97 : 0;
+          return total + valorConDescuento;
+        },
+        0
+      );
+  
+      // selección automática de Checkbox
+      Object.keys(this.pensionesList).forEach((key) => {
+        const checkBox = document.getElementById(
+          'check' + this.pensionesList[key].id
+        ) as HTMLInputElement;
+  
+        if (this.pensionesList[key].estatus !== 'Pagado') {
+          checkBox.checked = true;
+          this.checkPendientes(this.pensionesList[key].fechaPago, { target: checkBox });
+        }
+      });
+    } else {
+      this.allMonthsSelected = false;
+      this.pensionesListSelectNames = [];
+      this.pensionesListSelect = [];
+      this.pensionTotal = 0;
+  
+      // deja de seleccionar el Chexkbox
+      Object.keys(this.pensionesList).forEach((key) => {
+        const checkBox = document.getElementById(
+          'check' + this.pensionesList[key].id
+        ) as HTMLInputElement;
+  
+        checkBox.checked = false;
+        checkBox.disabled = false;
+      });
+    }
   }
   pagarPension(){
     Swal.fire({

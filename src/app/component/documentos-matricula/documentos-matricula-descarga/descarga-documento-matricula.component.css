@@ -21,3 +21,6 @@ ul.numbered-list {
     left: 0;
     top: 4px;
   }
+  #text-note{
+    color:red;
+  }

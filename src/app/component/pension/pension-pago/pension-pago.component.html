@@ -27,7 +27,10 @@
                             </tr>
                           </thead>
                           <tbody>
+                            
+                            
                             <tr *ngFor="let pension of pensionesList; let index = index">
+                              
                               <td *ngIf="pension.estatus=='Pagado'" class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id="check{{ pension.id }}" checked disabled></td>
                               <td *ngIf="pension.estatus=='Pendiente'" class="d-flex justify-content-center align-items-center"><input type="checkbox" name="" id="check{{ pension.id }}" (click)="checkPendientes(pension.fechaPago,$event)"></td>
                               <td [ngClass]="{'text-muted': pension.estatus === 'Pagado'}">{{ parseMes(pension.fechaPago) }}</td>
@@ -39,6 +42,10 @@
                           </tbody>
                         </table>
                     </li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="selectAllMonths" (change)="selectAllMonths($event)">
+                      <label class="form-check-label" for="selectAllMonths">Si desea pagar todo los meses, por favor seleccione esta opción</label>
+                    </div>
                     <hr class="sidebar-divider bg-primary" style="height: 1px;">
                     <li class="text-primary">
                         <p>Seleccione el método de pago</p>

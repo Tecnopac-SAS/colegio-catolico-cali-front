@@ -13,7 +13,7 @@ import Swal from'sweetalert2';
 })
 export class CoursesExtraordinarioComponent implements OnInit {
   grade !: any;
-  navTitle="Inscripción a nivelación extraordinaria, curso de verano, curso de habilitación"
+  navTitle="Cursos y Nivelaciones"
   formValue !:FormGroup
   public dataCourse:any
   public filter:any;

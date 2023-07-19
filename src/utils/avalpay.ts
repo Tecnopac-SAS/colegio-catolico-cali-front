@@ -64,14 +64,24 @@ export class Avalpay {
 						`#${pmtId} El pago de tu pensión fue ${trnStatus}`,
 						'success'
 					).then((result) => {
+						
 							let trnNewStatus = this.localStorageTransaction.trnStatus = true;
 							localStorage.setItem(`${module}-transaction-status`, JSON.stringify(this.localStorageTransaction));
               //Ejecutando la funcion opcional al cerrar la alerta
               willCloseSwal();
+			  
 							setTimeout(() => {
+								Swal.fire({
+									title: 'Información',
+									text: 'Drígete al módulo de descarga de documentos.',
+									icon: 'info',
+									confirmButtonText: 'OK',
+								  });
+								
 								this.router.navigate([`${navigateTo}`]);
 							}, 1000);
 					});
+					
 				}else{
 					Swal.fire(
 						'Hubo un error en la transacción!',
