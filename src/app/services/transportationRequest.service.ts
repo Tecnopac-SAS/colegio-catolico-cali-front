@@ -8,33 +8,19 @@ const base_url = environment.url;
 @Injectable({
   providedIn: 'root'
 })
-export class TransportationService {
+export class TransportationRequestService {
 
   constructor(private _htpp:HttpClient) { }
 
-  listTransportes(){
-    return this._htpp.get<any>(base_url+'transportation/listarTransportations')
+  listSolicitudesTransportes(){
+    return this._htpp.get<any>(base_url+'transportationRequest/listarTransportationsRequests')
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
-  listTransporte(params:any){
-    return this._htpp.get<any>(base_url+'transportation/listarTransportation/'+params)
-    .pipe(map((res:any)=>{
-      return res;
-    }))
-  }
-
-  obtenerTransporte(id:number){
-    return this._htpp.get<any>(base_url+'transportation/listarTransportationId/'+id)
-    .pipe(map((res:any)=>{
-      return res;
-    }))
-  }
-
-  createTransporte(data:any){
-    return this._htpp.post<any>(base_url+'transportation/CrearTransportation',data)
+  createTransporteSolicitud(data:any){
+    return this._htpp.post<any>(base_url+'transportationRequest/crearTransportationRequest',data)
     .pipe(map((res:any)=>{
       return res;
     }))
@@ -47,8 +33,8 @@ export class TransportationService {
     }))
   }
 
-  deshabilitar(data:any, id:number,){
-    return this._htpp.put<any>(base_url+'transportation/deshabilitar/'+id,data)
+  aprobarCupo(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'transportationRequest/aprobarCupo/'+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))

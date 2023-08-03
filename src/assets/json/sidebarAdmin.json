@@ -164,7 +164,7 @@
           {
             "menuName": "Gestión de transporte",
             "icon": "bi bi-truck-front",
-            "url": "/",  
+            "url": "/transporte",  
             "toggle": false
           }
       ]

@@ -98,6 +98,8 @@ import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-per
 import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perfil-acudiente/ajustes-perfil-acudiente.component';
 import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosellos/pazysalvocuatrosellos.component';
 import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
+import { AcudienteTransportationComponent } from './component/acudiente-transportation/acudiente-transportation.component';
+import { AcudienteTransportationCreateComponent } from './component/acudiente-transportation-create/acudiente-transportation-create.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -173,6 +175,7 @@ const routes: Routes = [
   {path: 'admision',component: AdmisionIndexComponent},
   {path: 'pazysalvocuatrosellos',component: PazysalvocuatrosellosComponent},
   {path: 'estado-cartera',component: EstadoCarteraComponent},
+  
   //gestion acudientes
   {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
   {path: 'bolsillo',component: BolsilloComponent},
@@ -197,6 +200,8 @@ const routes: Routes = [
   {path: 'cambio-pass',component: AjustesPerfilPassComponent},
   {path: 'datos-estudiante',component: AjustesPerfilEstudianteComponent},
   {path: 'datos-acudiente',component: AjustesPerfilAcudienteComponent},
+  {path: 'acudiente-transporte',component: AcudienteTransportationComponent},
+  {path: 'acudiente-transporte-crear',component: AcudienteTransportationCreateComponent},
 
   
 ];

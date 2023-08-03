@@ -8,9 +8,6 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -118,6 +115,8 @@ import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perf
 import { CurrencyUtils } from '../utils/currencyUtils';
 import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosellos/pazysalvocuatrosellos.component';
 import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
+import { AcudienteTransportationComponent } from './component/acudiente-transportation/acudiente-transportation.component';
+import { AcudienteTransportationCreateComponent } from './component/acudiente-transportation-create/acudiente-transportation-create.component';
 
 @NgModule({
   declarations: [
@@ -223,6 +222,8 @@ import { EstadoCarteraComponent } from './component/estado-cartera/estado-carter
     AjustesPerfilAcudienteComponent,
     PazysalvocuatrosellosComponent,
     EstadoCarteraComponent,
+    AcudienteTransportationComponent,
+    AcudienteTransportationCreateComponent,
   ],
   imports: [
     BrowserAnimationsModule,

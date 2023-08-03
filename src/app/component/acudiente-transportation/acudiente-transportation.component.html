@@ -1,0 +1,52 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">   
+        <div class="card"> 
+           <div class="card-body"> 
+                <div class="row justify-content-end">
+                        <div class="row mb-3">
+                            <div class="col-auto pl-0 pt-2">
+                                <span class="text-primary"><strong >Nota: </strong>Debes tener en cuenta el cupo disponible de la ruta, al no tener cupo disponible no podrás hacer la solicitúd</span>
+                            </div>
+                            <div class="col-auto ml-auto">
+                                <button type="button" class="btn btn-primary" routerLink="/acudiente-transporte-crear">Solicitar transporte</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                    <table class="table table-hover table-bordered table-responsive-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre de la ruta<noscript></noscript></th>
+                            <th scope="col">Número de la ruta</th>
+                            <th scope="col">Responsable</th>
+                            <th scope="col">Cupo Disponible</th>
+                            <th scope="col">Valor ruta</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let data of dataTransportation; let index = index ">
+                        <tr>
+                            <td>{{index+1}}</td>
+                            <td>{{data.routeName}}</td>
+                            <td>{{data.routeNumber}}</td>
+                            <td>{{data.responsible}}</td>
+                            <td class="text-center">{{data.cupo_disponible}} Puestos</td>
+                            <td>${{ currencyUtils.formatCurrency(data.price) }}</td>
+                            <td *ngIf="data.isActive==0" class="text-center"><span class="badge badge-danger ml-3 text-uppercase">Inactiva</span></td>
+                            <td *ngIf="data.isActive==1" class="text-center"><span class="badge badge-success ml-3 text-uppercase">Activa</span></td>
+                        </tr>
+                    
+                        </tbody>
+                    </table>
+                    </div>
+     
+            </div>
+        </div>
+      </div>
+    </div>
+  
+  </app-dashboard>
+    
