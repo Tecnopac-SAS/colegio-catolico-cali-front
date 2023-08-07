@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditorModule } from '@tinymce/tinymce-angular';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -117,6 +118,7 @@ import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosello
 import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
 import { AcudienteTransportationComponent } from './component/acudiente-transportation/acudiente-transportation.component';
 import { AcudienteTransportationCreateComponent } from './component/acudiente-transportation-create/acudiente-transportation-create.component';
+import { GestionDocumentosComponent } from './component/gestion-documentos/gestion-documentos.component';
 
 @NgModule({
   declarations: [
@@ -224,6 +226,7 @@ import { AcudienteTransportationCreateComponent } from './component/acudiente-tr
     EstadoCarteraComponent,
     AcudienteTransportationComponent,
     AcudienteTransportationCreateComponent,
+    GestionDocumentosComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -231,6 +234,7 @@ import { AcudienteTransportationCreateComponent } from './component/acudiente-tr
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    EditorModule,
     ReactiveFormsModule,
     MatDividerModule,
     MatIconModule,

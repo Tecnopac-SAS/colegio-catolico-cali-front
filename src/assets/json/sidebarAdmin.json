@@ -43,6 +43,10 @@
               {
                 "menuName": "Transporte",
                 "url": "/transporte"
+              },
+              {
+                "menuName": "Gestion de Documentos",
+                "url": "/gestion-documentos"
               }
             ]
           },

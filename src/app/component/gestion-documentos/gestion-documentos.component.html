@@ -1,0 +1,31 @@
+<app-dashboard>
+    <app-nav-title [navTitle]="navTitle"></app-nav-title>
+    <div class="container my-xl-2">
+      <div class="row">   
+        <div class="card"> 
+           <div class="card-body"> 
+            
+            <h1>TinyMCE en Angular</h1>
+            <editor
+              [init]="{
+                height: 500,
+                menubar: true,
+                plugins: 'advlist autolink lists link image charmap print preview anchor',
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image'
+              }"
+              [(ngModel)]="content"
+            ></editor>
+            <div>
+              <h2>Contenido:</h2>
+              <pre>{{ content }}</pre>
+            </div>
+            
+            </div>
+        </div>
+      </div>
+    </div>
+  
+  </app-dashboard>
+  
+  
+  
