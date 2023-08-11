@@ -16,12 +16,10 @@
                         <div class="mt-3 d-flex align-items-center text-black">
                           Documento a descargar<span class="text-danger">*</span>
                         <select class="form-control ml-3" style="width: fit-content;" [(ngModel)]="docId" >
-                            <option value="">Paz y Salvo</option>
-                            <!-- <option *ngFor="let item of listDoc" value="{{ item.documentUrl }}">{{ item.title }}</option> -->
+                          <option *ngFor="let item of listDoc" value="{{ item.id }}">{{ item.title }}</option>
                         </select>
-                        <!-- <button class="ml-4 btn btn-primary form-control" style="width: fit-content;" (click)="descargarDocumento()">Descargar documento</button> -->
-                        <a href="http://localhost:3000/downloads/tuition/123123/pazysalvo" target="_blank" download class="ml-4 btn btn-primary form-control"  style="width: fit-content;">Descargar documento</a>
-                        </div>
+                        <button class="ml-4 btn btn-primary form-control" style="width: fit-content;" (click)="descargarDocumento()">Descargar documento</button>
+                      </div>
                     </li>
                 </ul>
             </div>

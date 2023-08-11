@@ -5,5 +5,5 @@ export class DocumentosMatricula{
   public canViewValue=""
   public file=""
   public isActive=0;
-
+  public documentoid=0;
 }

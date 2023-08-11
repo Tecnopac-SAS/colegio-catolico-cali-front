@@ -118,7 +118,9 @@ import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosello
 import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
 import { AcudienteTransportationComponent } from './component/acudiente-transportation/acudiente-transportation.component';
 import { AcudienteTransportationCreateComponent } from './component/acudiente-transportation-create/acudiente-transportation-create.component';
-import { GestionDocumentosComponent } from './component/gestion-documentos/gestion-documentos.component';
+import { GestionDocumentosComponent } from './component/documentos/gestion-documentos/gestion-documentos.component';
+import { CrearDocumentosComponent } from './component/documentos/crear-documentos/crear-documentos.component';
+import { EditarDocumentosComponent } from './component/documentos/editar-documentos/editar-documentos.component';
 
 @NgModule({
   declarations: [
@@ -227,6 +229,8 @@ import { GestionDocumentosComponent } from './component/gestion-documentos/gesti
     AcudienteTransportationComponent,
     AcudienteTransportationCreateComponent,
     GestionDocumentosComponent,
+    CrearDocumentosComponent,
+    EditarDocumentosComponent,
   ],
   imports: [
     BrowserAnimationsModule,

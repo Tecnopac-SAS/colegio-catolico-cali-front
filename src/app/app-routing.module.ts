@@ -100,7 +100,9 @@ import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosello
 import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
 import { AcudienteTransportationComponent } from './component/acudiente-transportation/acudiente-transportation.component';
 import { AcudienteTransportationCreateComponent } from './component/acudiente-transportation-create/acudiente-transportation-create.component';
-import { GestionDocumentosComponent } from './component/gestion-documentos/gestion-documentos.component';
+import { GestionDocumentosComponent } from './component/documentos/gestion-documentos/gestion-documentos.component';
+import { CrearDocumentosComponent } from './component/documentos/crear-documentos/crear-documentos.component';
+import { EditarDocumentosComponent } from './component/documentos/editar-documentos/editar-documentos.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -159,6 +161,8 @@ const routes: Routes = [
   {path: 'gestion-acudiente-editar/:id',component: AttendingManagementsUpdateComponent},
   {path: 'gestion-acudiente-crear',component: AttendingManagementsCreateComponent},
   {path: 'gestion-documentos',component: GestionDocumentosComponent},
+  {path: 'documentos-crear',component: CrearDocumentosComponent},
+  {path: 'documentos-editar/:id',component: EditarDocumentosComponent},
   {path: 'docente',component: TeacherIndexComponent},
   {path: 'docente-editar/:id',component: TeacherUpdateComponent},
   {path: 'docente-crear',component: TeacherCreateComponent},

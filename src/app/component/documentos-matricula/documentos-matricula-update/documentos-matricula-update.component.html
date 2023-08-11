@@ -50,13 +50,16 @@
                           <span>Código del estudiante</span><span class="text-danger">*</span>
                           <input type="text" class="form-control ml-3" style="width: 100px;" formControlName="canViewValue">
                         </div>
-                        <button class="mt-3 btn btn-primary form-control" style="width: fit-content;" (click)="fileInput.click()"><i class="bi bi-upload"></i> Cargar documento</button>
-          
+                        <div class="mt-3 d-flex align-items-center text-black">
+                          <span>Seleccione plantilla (Modulo gestion de Documentos)</span><span class="text-danger">*</span>
+                          <select class="form-control ml-3" style="width: fit-content;" formControlName="canViewValue">
+                            <option *ngFor="let list of listDocumentos" value="{{ list.id }}">{{ list.titulo }}</option>
+                          </select>
+                        </div>
                       </div>
           
-                      <button type="submit" class="btn btn-primary m-3" hidden>  <input type="file" #fileInput class="form-control" formControlName="file"></button>
-                <div class="col-md-6 my-4">
-                  <button type="submit" class="btn btn-outline-primary m-3" routerLink="/documentos-matricula"> Cancelar</button>
+                <div class="col-md-6 my-4 p-0">
+                  <button type="submit" class="btn btn-outline-primary mr-3" routerLink="/documentos-matricula"> Cancelar</button>
                   <button type="submit" class="btn btn-primary m-3" (click)="actualizarDocumentosMatricula()"> Guardar</button>
                 </div>
 

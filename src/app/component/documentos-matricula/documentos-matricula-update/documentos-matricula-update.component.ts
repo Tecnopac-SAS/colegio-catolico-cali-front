@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { DocumentosMatricula } from 'src/app/models/documentos-matricula.model';
 import { DocumentosMatriculaService } from 'src/app/services/documentos-matricula.service';
+import { documentosService } from 'src/app/services/documentos.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from'sweetalert2'
 import { PensionService } from 'src/app/services/pension.service';
@@ -13,11 +14,11 @@ import { PensionService } from 'src/app/services/pension.service';
   styleUrls: ['./documentos-matricula-update.component.css']
 })
 export class DocumentosMatriculaUpdateComponent implements OnInit {
-  @ViewChild("fileInput") fileInput:any;
   DocumentosMatricula !: any;
   navTitle="documentos matricula editar"
   public dataDocumentosMatricula:any
   public listGrades:any
+  public listDocumentos:any
 
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
@@ -28,6 +29,7 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private DocumentosMatriculaService:DocumentosMatriculaService,
+    private documentosService:documentosService,
     private router:Router,
     private route : ActivatedRoute,
     private pensionService:PensionService,
@@ -36,6 +38,10 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
       this.listGrades = response.result
     },error=>{
 
+    });
+    this.documentosService.getDocumentos().subscribe(response =>{
+      this.listDocumentos = response.resp;
+      console.log(this.listDocumentos);
     });
   }
 
@@ -49,8 +55,8 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
       title: [''],
       canViewType: [''],
       canViewValue:[''],
-      file:[''],
-      isActive:['']
+      isActive:[''],
+      documentoid:[''],
     })
     this.fieldCaptureIndex()
   }
@@ -65,8 +71,8 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
           this.formValue.controls['title'].setValue(this.DocumentosMatricula.result.title)
           this.formValue.controls['canViewType'].setValue(this.DocumentosMatricula.result.canViewType)
           this.formValue.controls['canViewValue'].setValue(this.DocumentosMatricula.result.canViewValue)
-          this.formValue.controls['file'].setValue(this.DocumentosMatricula.result.file)
           this.formValue.controls['isActive'].setValue(this.DocumentosMatricula.result.isActive)
+          this.formValue.controls['isActive'].setValue(this.DocumentosMatricula.result.documentoid)
           this.documentosMatriculaModel.id = this.DocumentosMatricula.result.id
         }
       )
@@ -78,8 +84,8 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
     this.documentosMatriculaModel.title= this.formValue.value.title;
     this.documentosMatriculaModel.canViewType= this.formValue.value.canViewType;
     this.documentosMatriculaModel.canViewValue= this.formValue.value.canViewValue;
-    this.documentosMatriculaModel.file= this.formValue.value.file;
     this.documentosMatriculaModel.isActive= this.formValue.value.isActive;
+    this.documentosMatriculaModel.isActive= this.formValue.value.documentoid;
     console.log(this.documentosMatriculaModel)
 
     if(this.documentosMatriculaModel.title =="" ){
@@ -94,14 +100,11 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
       this.mensaje_error="El campo grado no puede estar vacio"
     }else if(this.documentosMatriculaModel.canViewValue == "" && this.documentosMatriculaModel.canViewType == "student"){
       this.mensaje_error="El codigo del estudiante no puede estar vacio"
-    }else if(this.formValue.value.file  == "" ){
-      this.mensaje_error="Debes tener al menos un documento"
     }else{
       const formData = new FormData();
       formData.append('title',this.formValue.value.title)
       formData.append('canViewType',this.formValue.value.canViewType)
       formData.append('canViewValue',this.formValue.value.canViewValue)
-      formData.append('file',this.fileInput.nativeElement.files[0])
     this.DocumentosMatriculaService.updateDocumentosMatricula(formData,this.id)
     .subscribe(res=>{
       

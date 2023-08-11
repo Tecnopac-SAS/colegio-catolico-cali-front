@@ -5,7 +5,7 @@
           {
             "menuName": "Servicios",
             "icon": "bi bi-bag-check",
-            "url": "",  
+            "url": "/servicios",  
             "toggle": true,
             "submenu": [
               {
