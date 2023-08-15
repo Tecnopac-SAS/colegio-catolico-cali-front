@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url:'https://colegio-api.tecnopac.com.co/'
+  url:'http://190.8.177.83:3000/'
 };
