@@ -2,34 +2,8 @@
   <app-nav-title [navTitle]="navTitle"></app-nav-title>
   <div class="container my-xl-2">
      <div class="row">   
-      <!-- <div class="card"> 
-           <div class="card-body"> 
-            
-            <h1>TinyMCE en Angular</h1>
-            <editor
-              [init]="{
-                height: 500,
-                menubar: true,
-                plugins: 'advlist autolink lists link image charmap print preview anchor',
-                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image'
-              }"
-              [(ngModel)]="content"
-            ></editor>
-            <div>
-              <h2>Contenido:</h2>
-              <pre>{{ content }}</pre>
-            </div>
-            </div>
-        </div> -->
     <div class="card">
       <div class="card-body">
-        <div class="container">
-          <ul class="numbered-list">
-            <li class="text-primary">
-              <p>Saldo actual</p>
-            </li>
-          </ul>
-        </div>
         <div class="row justify-content-end">
           <div class="col-md-3 col-12 my-2">
             <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">

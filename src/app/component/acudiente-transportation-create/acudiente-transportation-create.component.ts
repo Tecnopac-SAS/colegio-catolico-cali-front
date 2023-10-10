@@ -17,7 +17,7 @@ import * as moment from 'moment';
 export class AcudienteTransportationCreateComponent implements OnInit {
 
   Transportation !: any;
-  navTitle="Solicitúd de Transporte"
+  navTitle="Solicitud de Transporte"
   public dataTransporte:any
   public rutas: any;
   public acudiente: any;
@@ -55,7 +55,7 @@ export class AcudienteTransportationCreateComponent implements OnInit {
   }
 
   getRutas(){
-    this.transportationService.listTransportes()
+    this.transportationService.listTransportes(1)
     .subscribe(res=>{
       this.rutas=res.result
       console.log(this.rutas);

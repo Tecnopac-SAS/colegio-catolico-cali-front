@@ -38,13 +38,15 @@
                   </div>
                   <div class="col-9">
                     <editor
-                      [init]="{
-                        height: 500,
-                        menubar: true,
-                        language: 'es',
-                        plugins: 'advlist autolink lists link image charmap print preview anchor',
-                        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image'
-                      }"
+                    [init]="{
+                      height: 500,
+                      menubar: true,
+                      language: 'es',
+                      font_size_formats: '8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt',
+                      plugins: 'advlist hr autolink lists link image charmap print preview anchor table',
+                      table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+                      toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | table | casechange'
+                    }"
                       formControlName="template" name="template" [(ngModel)]="template"
                     ></editor>
                   </div>

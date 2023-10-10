@@ -5,7 +5,6 @@ import { Tuition } from 'src/app/models/tuition.model';
 import { TuitionExtra } from 'src/app/models/tuition.model';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { Router } from '@angular/router';
-import {formatCurrency, getCurrencySymbol} from '@angular/common';
 
 @Component({
   selector: 'app-tuitio-extra-create',

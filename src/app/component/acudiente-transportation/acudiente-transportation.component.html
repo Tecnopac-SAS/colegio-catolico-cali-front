@@ -1,52 +1,139 @@
 <app-dashboard>
-    <app-nav-title [navTitle]="navTitle"></app-nav-title>
-    <div class="container my-xl-2">
-      <div class="row">   
-        <div class="card"> 
-           <div class="card-body"> 
-                <div class="row justify-content-end">
-                        <div class="row mb-3">
-                            <div class="col-auto pl-0 pt-2">
-                                <span class="text-primary"><strong >Nota: </strong>Debes tener en cuenta el cupo disponible de la ruta, al no tener cupo disponible no podrás hacer la solicitúd</span>
-                            </div>
-                            <div class="col-auto ml-auto">
-                                <button type="button" class="btn btn-primary" routerLink="/acudiente-transporte-crear">Solicitar transporte</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                    <table class="table table-hover table-bordered table-responsive-sm">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre de la ruta<noscript></noscript></th>
-                            <th scope="col">Número de la ruta</th>
-                            <th scope="col">Responsable</th>
-                            <th scope="col">Cupo Disponible</th>
-                            <th scope="col">Valor ruta</th>
-                            <th scope="col">Estado</th>
-                        </tr>
-                        </thead>
-                        <tbody *ngFor="let data of dataTransportation; let index = index ">
-                        <tr>
-                            <td>{{index+1}}</td>
-                            <td>{{data.routeName}}</td>
-                            <td>{{data.routeNumber}}</td>
-                            <td>{{data.responsible}}</td>
-                            <td class="text-center">{{data.cupo_disponible}} Puestos</td>
-                            <td>${{ currencyUtils.formatCurrency(data.price) }}</td>
-                            <td *ngIf="data.isActive==0" class="text-center"><span class="badge badge-danger ml-3 text-uppercase">Inactiva</span></td>
-                            <td *ngIf="data.isActive==1" class="text-center"><span class="badge badge-success ml-3 text-uppercase">Activa</span></td>
-                        </tr>
-                    
-                        </tbody>
-                    </table>
-                    </div>
-     
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container my-xl-2">
+    <div class="row">
+      <div class="card py-4">
+        <div class="card-body">
+
+          <div class="jumbotron" style="background-color: #00000008;">
+            <h1 class="display-4">Solicita una ruta!</h1>
+            <p class="lead">Nuestro módulo de transporte estudiantil te brinda un acceso fácil a las rutas disponibles para estudiantes. <strong>Cuando ingreses, simplemente selecciona la jornada que necesitas y podrás explorar las rutas correspondientes. Una vez que encuentres la ruta que mejor se adapte a tus necesidades, podrás solicitarla en cuestión de segundos. ¡Facilitamos el proceso de transporte estudiantil para ti</strong></p>
+          </div>
+
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Seleccion de jornada
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <button (click)="validateJornada(1)" class="btn btn-secondary px-3 py-2 mr-1">Mañana ☀️</button>
+                    <button (click)="validateJornada(0)" class="btn btn-secondary px-3 py-2">Tarde 🌙</button>
+                </div>
+              </div>
             </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Rutas disponibles
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="w-100 text-center">
+                    <strong *ngIf="!dataTransportation">Selecciona una Jornada ☀️/🌙</strong>
+                  </div>
+                <div *ngIf="dataTransportation">
+                  <table class="table table-hover table-bordered table-responsive-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre de la ruta<noscript></noscript></th>
+                        <th scope="col">Número de la ruta</th>
+                        <th scope="col">Responsable</th>
+                        <th scope="col">Cupos disponibles</th>
+                        <th scope="col">Dir. Recogida</th>
+                        <th scope="col">Dir. Entrega</th>
+                        <th scope="col">Jornada</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let data of dataTransportation; let index = index ">
+                    <tr data-bs-toggle="modal" data-bs-target="#infoRouteModal" (click)="cargaRuta(data.id)">
+                        <td>{{data.id}}</td>
+                        <td>{{data.routeNumber}}</td>
+                        <td>{{data.routeName}}</td>
+                        <td>{{data.responsible}}</td>
+                        <td class="text-center">{{data.cupo_disponible}} Puestos</td>
+                        <td>{{ data.direccion_recogida }}</td>
+                        <td>{{ data.direccion_entrega }}</td>
+                        <td class="text-center font-weight-bold">
+                          {{ data.jornada === 1 ? '☀️ Mañana' : '🌙 Tarde' }}
+                        </td>
+                        <td *ngIf="data.isActive==0" class="text-center"><span class="badge badge-danger ml-3 text-uppercase">Inactiva</span></td>
+                        <td *ngIf="data.isActive==1" class="text-center"><span class="badge badge-success ml-3 text-uppercase">Activa</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  
-  </app-dashboard>
-    
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="infoRouteModal" tabindex="-1" aria-labelledby="infoRouteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" *ngFor="let item of rutaCargada">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="infoRouteModalLabel">Ruta #{{ item.routeNumber }}
+          <span *ngIf="item.isActive==0" class="badge badge-danger text-uppercase">Inactiva</span>
+          <span *ngIf="item.isActive==1" class="badge badge-success text-uppercase">Activa</span>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div *ngIf="mensaje_ok">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{mensaje_ok}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div *ngIf="mensaje_error">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{mensaje_error}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+              (click)="cerrarAlerta()"></button>
+          </div>
+        </div>
+
+        <div class="route-info">
+          <h4>Información de la ruta</h4>
+          <span>Valor: <strong>${{ currencyUtils.formatCurrency(item.price) }}</strong></span>
+          <br>
+          <span>Cupós disponibles: <span class="badge badge-primary text-uppercase">{{item.cupo_disponible}}</span></span>
+          <br>
+          <span>Conductor o Responsable: <strong>{{ item.responsible }}</strong></span>
+          <br>
+          <span>Dir. Recogida: <strong>{{ item.direccion_recogida }}</strong></span>
+          <br>
+          <span>Dir. Entrega: <strong>{{ item.direccion_entrega }}</strong></span>
+          <br>
+          <span>Tipo de Ruta: <strong>{{ item.routeName }}</strong></span>
+          <br>
+          <span>Información importante:</span>
+          <br>
+          <strong>{{ item.descripcion }}</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="solicitarRuta()">Solicitar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</app-dashboard>

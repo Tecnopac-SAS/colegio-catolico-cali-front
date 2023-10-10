@@ -12,8 +12,8 @@ export class TransportationService {
 
   constructor(private _htpp:HttpClient) { }
 
-  listTransportes(){
-    return this._htpp.get<any>(base_url+'transportation/listarTransportations')
+  listTransportes(jornada:any){
+    return this._htpp.get<any>(base_url+'transportation/listarTransportations/'+jornada)
     .pipe(map((res:any)=>{
       return res;
     }))

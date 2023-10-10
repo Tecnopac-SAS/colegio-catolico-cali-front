@@ -17,25 +17,38 @@ import Swal from'sweetalert2';
 export class AcudienteTransportationComponent implements OnInit {
 
   grade !: any;
-  navTitle="Solicitúd de Transporte"
+  navTitle="Solicitud de Transporte"
   formValue !:FormGroup
   public dataTransportation:any
   public dataTransportationRequests:any
   public rutaObtenida:any;
   TransportationModel:Transportation = new Transportation();
   id !: any;
+  rutaCargada:any;
+  TransportationRequests: any;
+  mensaje_error: any;
+  mensaje_ok: string;
   constructor(
     private formBuilder:FormBuilder,
     private transportationService:TransportationService,
     public currencyUtils: CurrencyUtils,
     private transportationRequestService:TransportationRequestService,
     private router:Router
-  ) { }
+  ) { 
+  }
 
   ngOnInit(): void {
-    this.listTransportations()
-    this.listTransportationsRequests()
     this.fieldCapture()
+    this.rutaCargada = [
+      {
+          "id": 1,
+          "routeName": "Selecciona Ruta",
+          "routeNumber": "1",
+          "responsible": "Selecciona Ruta",
+          "price": 0,
+          "cupo_disponible": 0
+      }
+    ];
   }
 
   fieldCapture(){
@@ -49,12 +62,44 @@ export class AcudienteTransportationComponent implements OnInit {
     })
   }
 
-  solicitarRuta(){
-    this.transportationRequestService.listSolicitudesTransportes()
+  cargaRuta(id: number){
+    this.transportationService.obtenerTransporte((id))
+    .subscribe(res=>{
+      this.rutaCargada=[res.result]
+    })
   }
 
-  listTransportations(){
-    this.transportationService.listTransportes()
+  solicitarRuta(){
+    this.transportationRequestService.createTransporteSolicitud(this.TransportationRequests)
+    .subscribe(res=>{
+    console.log(res);
+      if (res.mensaje=="el tranporte ya existe") {
+        this.mensaje_error=res.mensaje;
+      }
+      else{
+        this.mensaje_ok="Se registro correctamente"
+        this.formValue = this.formBuilder.group({
+          routeid: [''],
+          acudienteid: [''],
+          estudianteid: [''],
+          estado:[''],
+          direccion_recogida:[''],
+          direccion_entrega:[''],
+        })
+        setTimeout(() => {
+          this.router.navigate(['acudiente-transporte']);
+        }, 1000);
+      }
+    },
+    err=>{
+      console.log(err)
+    })
+  }
+
+  
+
+  listTransportations(jornada: number){
+    this.transportationService.listTransportes(jornada)
     .subscribe(res=>{
       this.dataTransportation=res.result
       console.log(this.dataTransportation)
@@ -67,6 +112,9 @@ export class AcudienteTransportationComponent implements OnInit {
       console.log(this.dataTransportationRequests)
     })
   }
-  
+
+  validateJornada(type:number){
+    type === 1 ? this.listTransportations(1) : this.listTransportations(0)
+  }
 
 }

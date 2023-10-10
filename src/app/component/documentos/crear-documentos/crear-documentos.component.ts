@@ -15,7 +15,18 @@ export class CrearDocumentosComponent implements OnInit {
   content = '';
   titulo:any = '';
   template:any = '';
-  variables: any = ['acudiente-nombre','estudiante-nombre'];
+  variables: any = [
+    'acudiente_nombre',
+    'estudiante_nombre',
+    'estudiante_grado',
+    'valor_matricula_letras',
+    'valor_matricula',
+    'fecha_actual',
+    'fecha_actual_anio',
+    'fecha_actual_mes',
+    'fecha_actual_dia',
+    'tabla_pensiones'
+  ];
   formDocumento!: FormGroup;
   documentosModel:Documentos= new Documentos();
   public mensaje_ok:any;

@@ -52,7 +52,7 @@ export class TransportationIndexComponent implements OnInit {
   }
 
   listTransportations(){
-    this.transportationService.listTransportes()
+    this.transportationService.listTransportes(1)
     .subscribe(res=>{
       this.dataTransportation=res.result
       console.log(this.dataTransportation)

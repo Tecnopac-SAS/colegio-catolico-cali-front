@@ -13,6 +13,10 @@
                 "url": "/matriculas"
               },
               {
+                "menuName": "Documentos de Matricula",
+                "url": "/documentos-matricula"
+              },
+              {
                 "menuName": "Pensión",
                 "url": "/pension"
               },

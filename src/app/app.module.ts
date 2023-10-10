@@ -117,7 +117,6 @@ import { CurrencyUtils } from '../utils/currencyUtils';
 import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosellos/pazysalvocuatrosellos.component';
 import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
 import { AcudienteTransportationComponent } from './component/acudiente-transportation/acudiente-transportation.component';
-import { AcudienteTransportationCreateComponent } from './component/acudiente-transportation-create/acudiente-transportation-create.component';
 import { GestionDocumentosComponent } from './component/documentos/gestion-documentos/gestion-documentos.component';
 import { CrearDocumentosComponent } from './component/documentos/crear-documentos/crear-documentos.component';
 import { EditarDocumentosComponent } from './component/documentos/editar-documentos/editar-documentos.component';
@@ -227,7 +226,6 @@ import { EditarDocumentosComponent } from './component/documentos/editar-documen
     PazysalvocuatrosellosComponent,
     EstadoCarteraComponent,
     AcudienteTransportationComponent,
-    AcudienteTransportationCreateComponent,
     GestionDocumentosComponent,
     CrearDocumentosComponent,
     EditarDocumentosComponent,
