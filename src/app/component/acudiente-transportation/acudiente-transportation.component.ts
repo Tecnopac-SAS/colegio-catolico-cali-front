@@ -27,7 +27,7 @@ export class AcudienteTransportationComponent implements OnInit {
   rutaCargada:any;
   TransportationRequests: any;
   mensaje_error: any;
-  mensaje_ok: string;
+  mensaje_ok: any;
   constructor(
     private formBuilder:FormBuilder,
     private transportationService:TransportationService,
@@ -38,7 +38,6 @@ export class AcudienteTransportationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fieldCapture()
     this.rutaCargada = [
       {
           "id": 1,
@@ -51,17 +50,6 @@ export class AcudienteTransportationComponent implements OnInit {
     ];
   }
 
-  fieldCapture(){
-    this.formValue = this.formBuilder.group({
-      routeName: [''],
-      routeNumber: [''],
-      responsible: [''],
-      price:[''],
-      isActive:['']
-
-    })
-  }
-
   cargaRuta(id: number){
     this.transportationService.obtenerTransporte((id))
     .subscribe(res=>{
@@ -69,26 +57,21 @@ export class AcudienteTransportationComponent implements OnInit {
     })
   }
 
-  solicitarRuta(){
-    this.transportationRequestService.createTransporteSolicitud(this.TransportationRequests)
+  solicitarRuta(id: number){
+    this.transportationRequestService.createTransporteSolicitud({
+      routeid: id,
+        acudienteid: localStorage.getItem('idAcudiente'),
+        estudianteid: localStorage.getItem('idEstudiante'),
+        estado: 1
+      }
+    )
     .subscribe(res=>{
-    console.log(res);
       if (res.mensaje=="el tranporte ya existe") {
         this.mensaje_error=res.mensaje;
       }
       else{
         this.mensaje_ok="Se registro correctamente"
-        this.formValue = this.formBuilder.group({
-          routeid: [''],
-          acudienteid: [''],
-          estudianteid: [''],
-          estado:[''],
-          direccion_recogida:[''],
-          direccion_entrega:[''],
-        })
-        setTimeout(() => {
-          this.router.navigate(['acudiente-transporte']);
-        }, 1000);
+        this.router.navigate(['acudiente-transporte']);
       }
     },
     err=>{

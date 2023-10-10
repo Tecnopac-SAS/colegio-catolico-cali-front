@@ -104,8 +104,7 @@
         <div *ngIf="mensaje_error">
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>{{mensaje_error}}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-              (click)="cerrarAlerta()"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>
 
@@ -130,7 +129,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="solicitarRuta()">Solicitar</button>
+        <button type="button" class="btn btn-primary" (click)="solicitarRuta(item.id)">Solicitar</button>
       </div>
     </div>
   </div>
