@@ -18,6 +18,12 @@ export class TransportationRequestService {
       return res;
     }))
   }
+  listSolicitudesEstudianteTransportes(estudianteid: any, acudienteid: any){
+    return this._htpp.get<any>(base_url+'transportationRequest/listarTransportationsRequests/'+estudianteid+'/'+acudienteid)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   createTransporteSolicitud(data:any){
     return this._htpp.post<any>(base_url+'transportationRequest/crearTransportationRequest',data)

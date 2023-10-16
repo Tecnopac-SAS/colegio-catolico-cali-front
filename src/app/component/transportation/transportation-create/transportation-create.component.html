@@ -23,57 +23,56 @@
                     (click)="cerrarAlerta()"></button>
                 </div>
               </div>
-              <h5 class="text-primary">Nuevo transporte:</h5>
-
-              <div class="col-md-12 my-2">
-              </div>
-
-              <div class="col-md-1">
-                <label class="">Nombre de la ruta</label>
-              </div>
-
-              <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="routeName">
-              </div>
-
-              <div class="col-md-1">
-                <label class="">Número de la ruta</label>
-              </div>
-
-              <div class="col-md-5">
-                <input type="number" class="form-control" formControlName="routeNumber">
-              </div>
-
-              <div class="col-md-12 my-4">
-              </div>
-              <div class="col-md-1">
-                <label class="">Responsable</label>
-              </div>
-
-              <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="responsible">
-              </div>
-
-              <div class="col-md-1">
-                <label class="">Valor ruta</label>
-              </div>
-
-              <div class="col-md-5">
-                <input type="number" class="form-control" formControlName="price">
-              </div>
-              <div class="col-md-12 my-4">
-              </div>
-              <div class="col-md-1">
-                <label class="">Tipo de ruta</label>
-              </div>
-
-              <div class="col-md-5">
-                <select class="form-select form-control" aria-label="Default select example" formControlName="routeType">
-                  <option value="" selected>Seleccione una opción</option>
-                  <option value="Media">Media</option>
-                  <option value="Completa">Completa</option>
-                </select>
-              </div>
+              
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="">Nombre de la ruta</label>
+                    <input type="text" class="form-control" formControlName="routeName">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Número de la ruta</label>
+                    <input type="number" class="form-control" formControlName="routeNumber">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Responsable</label>
+                    <input type="text" class="form-control" formControlName="responsible">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Valor ruta</label>
+                    <input type="number" class="form-control" formControlName="price">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Tipo de ruta</label>
+                    <input type="text" class="form-control" formControlName="routeType">
+                  </div>
+                </div>
+              
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="">Dir. Recogida</label>
+                    <input type="text" class="form-control" formControlName="direccion_recogida">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Dir. Entrega</label>
+                    <input type="text" class="form-control" formControlName="direccion_entrega">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Jornada</label>
+                    <select class="form-control" formControlName="jornada">
+                      <option value="1" selected>Mañana</option>
+                      <option value="0">Tarde</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="">Descripción</label>
+                    <textarea class="form-control" formControlName="descripcion"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="">Cupo</label>
+                    <input class="form-control" type="number" formControlName="cupo" value="20"/>
+                  </div>
+                </div>
+              
 
             </div>
 

@@ -28,6 +28,9 @@ export class AcudienteTransportationComponent implements OnInit {
   TransportationRequests: any;
   mensaje_error: any;
   mensaje_ok: any;
+  toggleTable: boolean;
+  dataEstudentCurrentRoutes: any;
+  hasRoutes: boolean;
   constructor(
     private formBuilder:FormBuilder,
     private transportationService:TransportationService,
@@ -35,19 +38,12 @@ export class AcudienteTransportationComponent implements OnInit {
     private transportationRequestService:TransportationRequestService,
     private router:Router
   ) { 
+    this.toggleTable = false;
+    this.hasRoutes = false;
   }
 
   ngOnInit(): void {
-    this.rutaCargada = [
-      {
-          "id": 1,
-          "routeName": "Selecciona Ruta",
-          "routeNumber": "1",
-          "responsible": "Selecciona Ruta",
-          "price": 0,
-          "cupo_disponible": 0
-      }
-    ];
+    this.validateRoute();
   }
 
   cargaRuta(id: number){
@@ -70,8 +66,10 @@ export class AcudienteTransportationComponent implements OnInit {
         this.mensaje_error=res.mensaje;
       }
       else{
-        this.mensaje_ok="Se registro correctamente"
-        this.router.navigate(['acudiente-transporte']);
+        this.mensaje_ok="Ruta solicitada correctamente!";
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
       }
     },
     err=>{
@@ -95,8 +93,37 @@ export class AcudienteTransportationComponent implements OnInit {
       console.log(this.dataTransportationRequests)
     })
   }
+  validateRoute(){
+    let lsEstudiante = localStorage.getItem('idEstudiante');
+    let lsAcudiente = localStorage.getItem('idAcudiente');
+    this.transportationRequestService.listSolicitudesEstudianteTransportes(lsEstudiante,lsAcudiente)
+    .subscribe(res=>{
+      this.dataEstudentCurrentRoutes = res.result;
+      this.dataEstudentCurrentRoutes.length > 0 ? this.hasRoutes = true : this.hasRoutes = false;
+      console.log(this.dataEstudentCurrentRoutes)
+    });
+  }
+
+  formatoFecha(fechaEntrada: any) {
+    const fecha = new Date(fechaEntrada);
+    const año = fecha.getFullYear();
+    const mes = this.getNombreMes(fecha.getMonth() + 1);
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    
+    return `${dia}/${mes}/${año}`;
+  }
+
+  getNombreMes(numeroMes: number): string {
+    const meses = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    return meses[numeroMes - 1];
+  }
 
   validateJornada(type:number){
+    this.toggleTable = !this.toggleTable;
     type === 1 ? this.listTransportations(1) : this.listTransportations(0)
   }
 

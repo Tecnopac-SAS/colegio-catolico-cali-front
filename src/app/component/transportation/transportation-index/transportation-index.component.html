@@ -36,7 +36,7 @@
               </div>
             </div>
             <div>
-              <table class="table table-hover table-bordered table-responsive-sm">
+              <table class="table table-hover table-bordered table-responsive">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -45,6 +45,10 @@
                     <th scope="col">Responsable</th>
                     <th scope="col">Cupo total</th>
                     <th scope="col">Cupo Disponible</th>
+                    <th scope="col">Dir. Recogida</th>
+                    <th scope="col">Dir.Entrega</th>
+                    <th scope="col">Jornada</th>
+                    <th scope="col">Descripción</th>
                     <th scope="col">Valor ruta</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
@@ -56,8 +60,13 @@
                     <td>{{data.routeName}}</td>
                     <td>{{data.routeNumber}}</td>
                     <td>{{data.responsible}}</td>
-                    <td>{{data.cupo}} Puestos</td>
-                    <td>{{data.cupo_disponible}} Puestos</td>
+                    <td><span class="badge badge-primary text-uppercase">{{data.cupo}} Puestos</span></td>
+                    <td><span class="badge badge-success text-uppercase">{{data.cupo_disponible}} Puestos</span></td>
+                    <td>{{data.direccion_recogida}}</td>
+                    <td>{{data.direccion_entrega}}</td>
+                    <td>{{ data.jornada === 1 ? '☀️ Mañana' : '🌙 Tarde' }}</td>
+                    
+                    <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">{{data.descripcion}}</td>
                     <td>${{ currencyUtils.formatCurrency(data.price) }}</td>
                     <td *ngIf="data.isActive==0" class="text-center"><span class="badge badge-danger text-uppercase">Inactivo</span></td>
                     <td *ngIf="data.isActive==1" class="text-center"><span class="badge badge-success text-uppercase">Activo</span></td>
@@ -76,12 +85,8 @@
             </div>
             <div class="tab-pane fade" id="gestionRutas" role="tabpanel" aria-labelledby="gestionRutas-tab">
               <br>
-              <!-- <small class="text-primary">Cantidad de solicitudes Ruta 1</small>
-              <small class="text-primary">Cantidad de solicitudes Ruta 2</small>
-              <small class="text-primary">Cantidad de solicitudes Ruta 3</small> -->
-
             <!-- Lista -->
-            <div>
+            <div *ngIf="dataTransportationRequests">
               <table class="table table-hover table-bordered table-responsive-sm">
                 <thead>
                   <tr>
@@ -89,8 +94,6 @@
                     <th scope="col">Número de la ruta</th>
                     <th scope="col">Acudiente</th>
                     <th scope="col">Estudiante</th>
-                    <th scope="col">Dir. Recogida</th>
-                    <th scope="col">Dir. Entrega</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                   </tr>
@@ -99,13 +102,9 @@
                   <tr>
                     <td>{{index+1}}</td>
                     <td>{{data.routeid}}</td>
-                    <td *ngIf="data.acudienteid==1">Andres Bojaca - 1000000000</td>
-                    <td *ngIf="data.estudianteid==1">Julian Cruz - 100077777</td>
-                    <!-- <td>{{data.acudienteid}}</td> -->
-                    <!-- <td>{{data.estudianteid}}</td> -->
-                    <td>{{data.direccion_recogida}}</td>
-                    <td>{{data.direccion_entrega}}</td>
-                    <td *ngIf="data.estado==0" class="text-center"><span class="badge badge-success text-uppercase">Activo</span></td>
+                    <td>{{data.acudiente.nombres}} {{data.acudiente.apellidos}} - {{data.acudiente.identificacion}}</td>
+                    <td>{{data.estudiante.nombres}} {{data.estudiante.apellidos}} - {{data.estudiante.identificacion}}</td>
+                    <td *ngIf="data.estado==0" class="text-center"><span class="badge badge-success text-uppercase">Aprobado</span></td>
                     <td *ngIf="data.estado==1" class="text-center"><span class="badge badge-warning text-uppercase">Pendiente</span></td>
             
                     <td class="text-center">

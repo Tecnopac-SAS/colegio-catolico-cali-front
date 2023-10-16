@@ -18,6 +18,12 @@ export class TransportationService {
       return res;
     }))
   }
+  listTransportesAll(){
+    return this._htpp.get<any>(base_url+'transportation/listarTransportations/')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   listTransporte(params:any){
     return this._htpp.get<any>(base_url+'transportation/listarTransportation/'+params)

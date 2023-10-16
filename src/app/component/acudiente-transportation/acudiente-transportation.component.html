@@ -10,15 +10,15 @@
             <p class="lead">Nuestro módulo de transporte estudiantil te brinda un acceso fácil a las rutas disponibles para estudiantes. <strong>Cuando ingreses, simplemente selecciona la jornada que necesitas y podrás explorar las rutas correspondientes. Una vez que encuentres la ruta que mejor se adapte a tus necesidades, podrás solicitarla en cuestión de segundos. ¡Facilitamos el proceso de transporte estudiantil para ti</strong></p>
           </div>
 
-          <div class="accordion" id="accordionExample">
+          <div *ngIf="!hasRoutes" class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                  aria-expanded="true" aria-controls="collapseOne">
+                  [attr.aria-expanded]="toggleTable" aria-controls="collapseOne">
                   Seleccion de jornada
                 </button>
               </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              <div id="collapseOne" class="accordion-collapse collapse" [ngClass]="{'show': !toggleTable}" aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <button (click)="validateJornada(1)" class="btn btn-secondary px-3 py-2 mr-1">Mañana ☀️</button>
@@ -33,7 +33,7 @@
                   Rutas disponibles
                 </button>
               </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              <div id="collapseTwo" class="accordion-collapse collapse" [ngClass]="{'show': toggleTable}" aria-labelledby="headingTwo"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <div class="w-100 text-center">
@@ -55,7 +55,7 @@
                     </tr>
                     </thead>
                     <tbody *ngFor="let data of dataTransportation; let index = index ">
-                    <tr data-bs-toggle="modal" data-bs-target="#infoRouteModal" (click)="cargaRuta(data.id)">
+                    <tr data-bs-toggle="modal" data-bs-target="#infoRouteModal" (click)="cargaRuta(data.id)" style="cursor: pointer;">
                         <td>{{data.id}}</td>
                         <td>{{data.routeNumber}}</td>
                         <td>{{data.routeName}}</td>
@@ -76,6 +76,25 @@
               </div>
             </div>
           </div>
+          <div *ngIf="hasRoutes">
+            <div class="alert alert-success alert-dismissible fade show pr-3" role="alert">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column">
+                  <strong>Ya has hecho una solicitud de a una ruta!</strong>
+
+                  <div class="d-flex gap-2">
+                    <span>Creada: {{formatoFecha(dataEstudentCurrentRoutes[0].createdAt)}}</span>
+                    <span>Estado: <span *ngIf="dataEstudentCurrentRoutes[0].estado === '1'" class="badge badge-warning text-uppercase">Pendiente</span>
+                    <span *ngIf="dataEstudentCurrentRoutes[0].estado === '0'" class="badge badge-success text-uppercase">Aprobada</span>
+                  </span> 
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#infoRouteModal" (click)="cargaRuta(dataEstudentCurrentRoutes[0].routeid)">Ver ruta</button>
+              </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
     </div>
@@ -83,7 +102,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="infoRouteModal" tabindex="-1" aria-labelledby="infoRouteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" *ngFor="let item of rutaCargada">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="infoRouteModalLabel">Ruta #{{ item.routeNumber }}
@@ -129,7 +148,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="solicitarRuta(item.id)">Solicitar</button>
+        <button *ngIf="!hasRoutes" type="button" class="btn btn-primary" (click)="solicitarRuta(item.id)">Solicitar</button>
       </div>
     </div>
   </div>

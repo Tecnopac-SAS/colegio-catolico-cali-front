@@ -25,53 +25,51 @@
               </div>
               <h4>Nuevo transporte:</h4>
 
-              <div class="col-md-12 my-2">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="">Nombre de la ruta</label>
+                    <input type="text" class="form-control" formControlName="routeName" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label class="">Número de la ruta</label>
+                    <input type="number" class="form-control" formControlName="routeNumber" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label class="">Valor ruta</label>
+                    <input type="number" class="form-control" formControlName="price">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Tipo de ruta</label>
+                    <input type="text" class="form-control" formControlName="routeType" readonly>
+                  </div>
+                </div>
+              
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="">Dir. Recogida</label>
+                    <input type="text" class="form-control" formControlName="direccion_recogida">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Dir. Entrega</label>
+                    <input type="text" class="form-control" formControlName="direccion_entrega">
+                  </div>
+                  <div class="form-group">
+                    <label class="">Jornada</label>
+                    <select class="form-control" formControlName="jornada" readonly>
+                      <option value="1" selected>Mañana</option>
+                      <option value="0">Tarde</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="">Descripción</label>
+                    <textarea class="form-control" formControlName="descripcion"></textarea>
+                  </div>
+                </div>
+              
               </div>
-
-              <div class="col-md-1">
-                <label class="">Nombre de la ruta</label>
-              </div>
-
-              <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="routeName" readonly>
-              </div>
-
-              <div class="col-md-1">
-                <label class="">Número de la ruta</label>
-              </div>
-
-              <div class="col-md-5">
-                <input type="number" class="form-control" formControlName="routeNumber" readonly>
-              </div>
-
-              <div class="col-md-12 my-4">
-              </div>
-              <div class="col-md-1">
-                <label class="">Responsable</label>
-              </div>
-
-              <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="responsible" readonly>
-              </div>
-
-              <div class="col-md-1">
-                <label class="">Valor ruta</label>
-              </div>
-
-              <div class="col-md-5">
-                <input  type="number" class="form-control" formControlName="price" >
-              </div>
-              <div class="col-md-12 my-4">
-              </div>
-              <div class="col-md-1">
-                <label class="">Tipo de ruta</label>
-              </div>
-
-              <div class="col-md-5">
-                <input type="text" class="form-control" formControlName="routeType" readonly>
-              </div>
-
             </div>
+              
 
             <div class="col-md-6 my-4">
               <button type="submit" class="btn btn-outline-primary m-3" routerLink="/transporte"> Cancelar</button>

@@ -39,6 +39,10 @@ export class TransportationUpdateComponent implements OnInit {
       routeName: [''],
       routeNumber: [''],
       responsible: [''],
+      direccion_recogida: [''],
+      direccion_entrega: [''],
+      jornada: [''],
+      descripcion: [''],
       price:[''],
       isActive:[''],
       routeType:[''],
@@ -57,10 +61,14 @@ export class TransportationUpdateComponent implements OnInit {
           this.formValue.controls['routeNumber'].setValue(this.transportation.result.routeNumber)
           this.formValue.controls['responsible'].setValue(this.transportation.result.responsible)
           this.formValue.controls['price'].setValue(this.transportation.result.price)
+          this.formValue.controls['direccion_recogida'].setValue(this.transportation.result.direccion_recogida)
+          this.formValue.controls['direccion_entrega'].setValue(this.transportation.result.direccion_entrega)
+          this.formValue.controls['jornada'].setValue(this.transportation.result.jornada)
+          this.formValue.controls['descripcion'].setValue(this.transportation.result.descripcion)
           this.formValue.controls['routeType'].setValue(this.transportation.result.routeType)
           this.formValue.controls['isActive'].setValue(this.transportation.result.isActive)
           this.transportationModel.id = this.transportation.result.id
-          console.log("holaa " +this.transportationModel.id)
+          console.log(this.transportationModel.id)
 
         }
       )
@@ -72,6 +80,10 @@ export class TransportationUpdateComponent implements OnInit {
     this.transportationModel.routeName= this.formValue.value.routeName;
     this.transportationModel.routeNumber= this.formValue.value.routeNumber;
     this.transportationModel.responsible= this.formValue.value.responsible;
+    this.transportationModel.direccion_recogida= this.formValue.value.direccion_recogida;
+    this.transportationModel.direccion_entrega= this.formValue.value.direccion_entrega;
+    this.transportationModel.jornada= this.formValue.value.jornada;
+    this.transportationModel.descripcion= this.formValue.value.descripcion;
     this.transportationModel.price= this.formValue.value.price;
     this.transportationModel.routeType= this.formValue.value.routeType;
     this.transportationModel.isActive= this.formValue.value.isActive;
