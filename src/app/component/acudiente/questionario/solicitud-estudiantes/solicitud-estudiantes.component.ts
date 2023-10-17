@@ -8,10 +8,12 @@ import { Padres } from 'src/app/models/studentDatabase.model';
 import { Hermano } from 'src/app/models/studentDatabase.model';
 import { Acudiente } from 'src/app/models/studentDatabase.model';
 import { Responsable } from 'src/app/models/studentDatabase.model';
+import { Avalpay } from 'src/utils/avalpay';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { CanalReferencia } from 'src/app/models/canalReferencia.model';
 import { CanalReferenciaService } from 'src/app/services/canal-referencia.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HermanosComponent } from '../../hermanos/hermanos.component';
-import { Router } from '@angular/router';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import Swal from'sweetalert2';
 
@@ -69,15 +71,32 @@ export class SolicitudEstudiantesComponent implements OnInit {
   @Input()
   idHermano:any;
   newFormHermano: any;
-
+  //Avalpay
+  paymentData: object;
+  moduleName: string;
+  pmtId: any;
+  descPagoAvalPay: string;
+  dataPagoAvalPay: any;
+  navigateTo: string;
+  public disabledPaymentButton: boolean = true;
+  public matricula:any
 
   constructor(
     private formBuilder:FormBuilder,
     private studentDatabaseService:StudentDatabaseService,
     private canalReferenciaService:CanalReferenciaService,
-    private router:Router
+    private router:Router,
+    public  Avalpay: Avalpay,
+    private currencyUtils: CurrencyUtils,
+    private route: ActivatedRoute,
   ) {
-   
+
+    //Avalpay
+    this.paymentData = {};
+    this.moduleName = 'solicitud-estudiante';
+    this.descPagoAvalPay = 'Solicitud Estudiante';
+    this.navigateTo = 'solicitud-estudiante';
+    this.matricula = 30000;
   }
 
 
@@ -99,6 +118,21 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.fieldCaptureDatosAdicionalesResponsable()
     this.fieldCaptureCanalReferencia()
     this.hermanosForm();
+
+
+    //Valida estado de matricula
+    this.route.queryParams.subscribe(params => {
+      if(params['pmtId']){
+        this.pmtId = params['pmtId'];
+        this.Avalpay.validateTransactions(this.pmtId, () => {
+
+          let lsMatricula:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
+          let paymentAvalPay = JSON.parse(lsMatricula).data;
+          // this.MatriculaService.pagoMatricula(paymentAvalPay).subscribe(response=>{},error=>{})
+          
+        },() => {}, this.navigateTo, this.moduleName);
+      }
+    });
 
   }
 
@@ -122,6 +156,17 @@ export class SolicitudEstudiantesComponent implements OnInit {
       // codigo: ['', Validators.required],
       // estadoEstudiante: ['', Validators.required],
     })
+  }
+
+  paymentAvalPayComponent(){
+    this.paymentData = {
+      monto:this.matricula,
+      metodoPago:'AvalPay',
+    }
+    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.matricula, 1, this.navigateTo, this.descPagoAvalPay)
+  }
+  formatCurrency(amount: number): string {
+    return this.currencyUtils.formatCurrency(amount);
   }
   addPrescolar(){
     this.formValueHistorialAcademico.value.preescolar.push({nombre:'',gradoCursadoPreescolar:'',gradoCursadoJardin:'',gradoCursadoTransicion:''})
@@ -834,10 +879,9 @@ export class SolicitudEstudiantesComponent implements OnInit {
     }
     else if(this.formValueEstudiantes.value.correo =="" ){
       this.mensaje_error="El campo correo no puede estar vacio"
-    }else if(!this.isEmailValid(this.formValueEstudiantes.value.correo)){
+    }else if(this.isEmailValid(this.formValueEstudiantes.value.correo)){
       this.mensaje_error="El campo correo no es valido"
     }
-
     else if(this.formValueEstudiantes.value.tipoCupo =="" ){
       this.mensaje_error="El campo tipo de cupo no puede estar vacio"
     }
@@ -1129,7 +1173,6 @@ export class SolicitudEstudiantesComponent implements OnInit {
    else{
     this.formValueMadre.value.continuar="ok"
     this.formValuePadre.controls['continuar'].setValue("ok")
-  
    }
   
   
@@ -1260,6 +1303,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
   }
 
   isEmailValid = (email:string) => {
+    console.log('test');
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
   };

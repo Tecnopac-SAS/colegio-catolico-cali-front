@@ -40,8 +40,8 @@
                   <label class="">Tipo de documento</label>
                   <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento">
                     <option value="" selected>Seleccione una opción</option>
-                    <option value="CEDULA">CC</option>
-                    <option value="CE">CE</option>
+                    <option value="RC">Registro Civil</option>
+                    <option value="TI">Tarjeta de Identidad</option>
                   </select>
                 </div>
   
@@ -52,7 +52,7 @@
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Expedida en</label>
-                  <input type="text" class="form-control" formControlName="expedicion">
+                  <input type="date" class="form-control" formControlName="expedicion">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
@@ -92,7 +92,7 @@
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Teléfono</label>
-                  <input type="text" class="form-control" formControlName="telefono">
+                  <input type="number" class="form-control" formControlName="telefono">
                 </div>
   
                 <div class="col-12 col-xs-12  col-md-4 my-4">
@@ -110,7 +110,7 @@
   
                 <div class="col-12 col-xs-12  col-md-3 my-3">
                   <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                  <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposEstudiante()" > Guardar y seguir</button>
+                  <button class="btn btn-primary m-3" matStepperNext [disabled]="mensaje_error" (click)="validarCamposEstudiante()">Guardar y seguir</button>
                 </div>
               </div>
             </div>
@@ -154,7 +154,7 @@
                      <label class="form-check-label" for="inlineCheckbox3">Transición</label>
                    </div>
    
-                   <button class="btn btn-danger" (click)="removePrescolar(i)">x</button>
+                   <button class="btn btn-danger" *ngIf="i !== 0" (click)="removePrescolar(i)">x</button>
                  </div>
               </div>
               <button class="btn form-control btn-primary" (click)="addPrescolar()">+</button>
@@ -193,10 +193,10 @@
                      <input class="form-check-input" type="checkbox" id="inlineCheckboxP5" value="option5" [(ngModel)] = "item.gradoCursadoPrimaria5" [ngModelOptions]="{standalone: true}">
                      <label class="form-check-label" for="inlineCheckboxP5">5</label>
                    </div>
-                   <button class="btn btn-danger" (click)="removePrimaria(i)">x</button>
+                   <button class="btn btn-danger" *ngIf="i !== 0" (click)="removePrimaria(i)">x</button>
                  </div>
                </div>
-              <button class="btn form-control btn-primary" (click)="addPrimaria()">+</button>
+              <button class="btn form-control btn-primary" (click)="addPrimaria()">Agregar Institución</button>
 
 
                <div class="row" *ngFor="let item of formValueHistorialAcademico.value.bachillerato; let i = index">
@@ -225,11 +225,11 @@
                      <input class="form-check-input" type="checkbox" id="inlineCheckboxB3" value="option3" [(ngModel)] = "item.gradoCursadoBachillerato8" [ngModelOptions]="{standalone: true}">
                      <label class="form-check-label" for="inlineCheckboxB3">8</label>
                    </div>
-                   <button class="btn btn-danger" (click)="removeBachillerato(i)">x</button>
+                   <button class="btn btn-danger" *ngIf="i !== 0"(click)="removeBachillerato(i)">x</button>
 
                  </div>
                </div>
-              <button class="btn form-control btn-primary" (click)="addBachillerato()">+</button>
+              <button class="btn form-control btn-primary" (click)="addBachillerato()">Agregar Institución</button>
 
   
   
@@ -1104,21 +1104,12 @@
                 <button  class="btn btn-primary m-3" matStepperNext (click)="guardarFormularios()" [disabled]="validadorTerminos"> Guardar y seguir</button>
               </div>
               <h6 class="text-primary">Seleccione el método de pago</h6>
-              <p>Valor de matrícula $30.000</p>
-              <p>Seleccione el método de pago digital</p>
-
-              <div class=" col-12 col-xs-12  col-md-2 my-1">
-                <img src="../../../../../assets/acudiente/pse.png" class="btn" alt="..." style="width:150px ; height:150px">
-              </div>
-
-              <div class=" col-12 col-xs-12  col-md-2 my-1">
-                <img src="../../../../../assets/acudiente/tarjeta.png" class="btn" alt="..." style="width:150px ; height:150px">
-              </div>
-
-              <div class=" col-12 col-xs-12  col-md-2 my-1">
-                <img src="../../../../../assets/acudiente/paypal.png" class="btn" alt="..." style="width:150px ; height:150px">
-              </div>
-
+              <p>Valor de matrícula ${{formatCurrency(matricula)}}</p>
+              <div class="row cardPago">
+                <div class="col-md-3 d-flex justify-content-center" [ngClass]="{'fade-opacity': true}" (click)="paymentAvalPayComponent()">
+                  <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
+                </div>
+            </div>
             </div>
           </div>
           </form>
