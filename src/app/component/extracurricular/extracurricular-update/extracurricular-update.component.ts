@@ -106,8 +106,9 @@ export class ExtracurricularUpdateComponent implements OnInit {
       this.id = params['id'];
       this.extracurricularService.obtenerExtracurricular(this.id).subscribe(
         response=>{
+          console.log(response);
           this.Extracurricular= response
-          console.log(this.Extracurricular)
+          console.log('1',this.Extracurricular)
           console.log(this.Extracurricular.result.extracurricularAsTeacher.name)
           this.dataExtracurricular = new ExtracurricularFile(
             "",
@@ -119,6 +120,7 @@ export class ExtracurricularUpdateComponent implements OnInit {
             this.Extracurricular.result.information,
             this.Extracurricular.result.schedule);
             this.imgSelect=this.Extracurricular.result.imagen
+         console.log(this.dataExtracurricular);
          
         }
       )

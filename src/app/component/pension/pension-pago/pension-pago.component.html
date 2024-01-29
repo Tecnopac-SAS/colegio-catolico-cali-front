@@ -49,9 +49,15 @@
                     <hr class="sidebar-divider bg-primary" style="height: 1px;">
                     <li class="text-primary">
                         <p>Seleccione el método de pago</p>
-                        <p class="text-black" [attr.data-value]="pensionTotal">Valor de pensión: <span class="font-weight-bold">${{ formatCurrency(pensionTotal) }}</span>
+                        <p class="text-black" [attr.data-value]="pensionTotal">Valor de pensión: <span class="font-weight-bold">${{ formatCurrency(pensionTotal) }} <span *ngIf="discount" style="text-decoration-line: line-through; opacity: 0.5;" class="font-weight-bold">${{ formatCurrency(pensionTotalSinDescuento) }}</span></span>
                         </p>
-                        <p *ngIf="discount" class="text-success font-weight-bold">Descuento del {{discountPercent}}%</p>  
+                        <p  class="text-success font-weight-bold"></p>
+                        <div *ngIf="discount" class="alert alert-success" role="alert">
+                          Tines un descuento del {{discountPercent}}%!
+                        </div>  
+                        <div *ngIf="discountWarning5days"class="alert alert-warning" role="alert">
+                          Recuerda que el descuento del {{discountPercent}}% es unicamente valido durante los primeros 5 días del mes!
+                        </div>  
                     </li>
                     <div class="row ml-3 cardPago">
                         <p class="text-black">Seleccione el método de pago digital</p>

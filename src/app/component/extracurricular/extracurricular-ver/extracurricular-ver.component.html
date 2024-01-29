@@ -7,7 +7,7 @@
            <div class="card-body">
             <div class="card-body">
             </div>
-            <h5 class="text-primary">Editar extracurricular</h5>
+            <h5 class="text-primary">Ver extracurricular</h5>
             <div class="card text-center" style="width: 15rem;height: 15rem">
               <div class="card-body">
                 <h5 class="card-title"></h5>
@@ -18,7 +18,7 @@
                 <!-- <input [(ngModel)]="imageUrl" (change)="imageSelect($event)"  type="file" style="width: 100% !important;"> -->
               </div>
             </div>
-            <form #extracurricularForm="ngForm" (ngSubmit)="actualizarExtracurricular(extracurricularForm)">
+            <form #extracurricularForm="ngForm">
               <div class="row">
   
                 <div *ngIf="mensaje_ok">
@@ -49,7 +49,7 @@
                 </div>
   
                 <div class="col-md-5 my-3">
-                  <input type="text" class="form-control" #activity="ngModel" name="activity" [(ngModel)]="dataExtracurricular.activity" required>
+                  <input type="text" class="form-control" #activity="ngModel" name="activity" readonly [(ngModel)]="dataExtracurricular.activity" required>
                 </div>
   
                 <div class="col-md-5">
@@ -64,7 +64,7 @@
                 </div>
   
                 <div class="col-md-5">
-                  <input type="date" class="form-control" #startDate="ngModel" name="startDate" [(ngModel)]="dataExtracurricular.startDate" required>
+                  <input type="date" class="form-control" #startDate="ngModel" name="startDate" readonly [(ngModel)]="dataExtracurricular.startDate" required>
                 </div>
   
                 <div class="col-md-1">
@@ -72,7 +72,7 @@
                 </div>
   
                 <div class="col-md-5">
-                  <input type="date" class="form-control"  #finalDate="ngModel" name="finalDate" [(ngModel)]="dataExtracurricular.finalDate" required>
+                  <input type="date" class="form-control"  #finalDate="ngModel" name="finalDate" readonly [(ngModel)]="dataExtracurricular.finalDate" required>
                 </div>
   
                 <div class="col-md-12 my-3">
@@ -83,14 +83,14 @@
                   <label class="">Valor</label>
                 </div>
                 <div class="col-md-5">
-                  <input type="number" class="form-control"  #price="ngModel" name="price" [(ngModel)]="dataExtracurricular.price"required>
+                  <input type="number" class="form-control"  #price="ngModel" name="price" readonly [(ngModel)]="dataExtracurricular.price"required>
                 </div>
   
                 <div class="col-md-1">
                   <label class="">Docente</label>
                 </div>
                 <div class="col-md-5">
-                  <select class="form-control"  #idTeacher="ngModel" name="idTeacher" [(ngModel)]="dataExtracurricular.idTeacher"required>
+                  <select class="form-control"  #idTeacher="ngModel" name="idTeacher" readonly [(ngModel)]="dataExtracurricular.idTeacher"required>
                     <option value="" selected>SELECCIONAR</option>
                     <option *ngFor="let item of teacherData" value="{{item.id}}">{{item.name}}</option>
                   </select> 
@@ -104,23 +104,20 @@
                   <label class="">Información (URL)</label>
                 </div>
                 <div class="col-md-5">
-                  <input type="text" class="form-control" #information="ngModel" name="information" [(ngModel)]="dataExtracurricular.information">
+                  <input type="text" class="form-control" #information="ngModel" name="information" readonly [(ngModel)]="dataExtracurricular.information">
                 </div>
   
                 <div class="col-md-1">
                   <label class="">Horario (URL)</label>
                 </div>
                 <div class="col-md-5">
-                  <input type="text" class="form-control"  #schedule="ngModel" name="schedule" [(ngModel)]="dataExtracurricular.schedule">
+                  <input type="text" class="form-control"  #schedule="ngModel" name="schedule" readonly [(ngModel)]="dataExtracurricular.schedule">
                 </div>
   
               </div>
   
               <div class="col-md-6 my-4">
-                <button class="btn btn-outline-primary m-3" routerLink="/extracurriculares"> Cancelar</button>
-  
-                <button type="submit" class="btn btn-primary m-3"> Actualizar</button>
-  
+                <button class="btn btn-outline-primary m-3" routerLink="/mis-extracurriculares"> Volver</button>
               </div>
   
             </form>

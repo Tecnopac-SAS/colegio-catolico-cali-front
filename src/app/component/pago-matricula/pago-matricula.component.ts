@@ -142,12 +142,11 @@ export class PagoMatriculaComponent implements OnInit {
           text: 'Aún tienes un saldo pendiente.',
         });
         
-        this.disabledPaymentButton = false;
+        this.disabledPaymentButton = true;
         
       } else {
         
-        
-        this.disabledPaymentButton = true;
+        this.disabledPaymentButton = false;
       }  
       
       this.paymentData = {
@@ -168,7 +167,7 @@ export class PagoMatriculaComponent implements OnInit {
   
   pagarBolsillo(){
     Swal.fire({
-      title: '¿Estas seguro que deseas pagar la matricula con la opcion bolsillo?',
+      title: '¿Estas seguro que deseas pagar la matricula con la opción bolsillo?',
       showDenyButton: true,
       confirmButtonText: 'Si',
       denyButtonText: `No`,

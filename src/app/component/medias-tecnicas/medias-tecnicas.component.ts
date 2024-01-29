@@ -35,7 +35,7 @@ export class MediasTecnicasComponent implements OnInit {
   pagar(){
     if (this.mediaSelect) {
       Swal.fire({
-        title: '¿Estas seguro que deseas pagar la media técnica con la opcion bolsillo?',
+        title: '¿Estas seguro que deseas pagar la media técnica con la opción bolsillo?',
         showDenyButton: true,
         confirmButtonText: 'Si',
         denyButtonText: `No`,

@@ -30,6 +30,7 @@ import { TuitionCreateComponent } from './component/tuition/tuition-create/tuiti
 import { TuitioExtraCreateComponent } from './component/tuition/tuitio-extra-create/tuitio-extra-create.component';
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
+import { ExtracurricularVerComponent } from './component/extracurricular/extracurricular-ver/extracurricular-ver.component';
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 import { ServicesIndexComponent } from './component/services-index/services-index.component';
@@ -142,6 +143,7 @@ import { EditarDocumentosComponent } from './component/documentos/editar-documen
     TuitioExtraCreateComponent,
     ExtracurricularIndexComponent,
     ExtracurricularCreateComponent,
+    ExtracurricularVerComponent,
     PensionIndexComponent,
     PensionCreateComponent,
     ServicesIndexComponent,

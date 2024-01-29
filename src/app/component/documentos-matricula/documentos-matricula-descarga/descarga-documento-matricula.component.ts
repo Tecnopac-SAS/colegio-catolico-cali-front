@@ -4,6 +4,7 @@ import { DocumentosMatriculaService } from 'src/app/services/documentos-matricul
 import { documentosService } from 'src/app/services/documentos.service';
 import { PensionPagoService } from 'src/app/services/pension-pago.service';
 import { StudentDatabaseService } from 'src/app/services/student-database.service';
+import { count } from 'rxjs/operators';
 import * as moment from 'moment';
 
 
@@ -50,7 +51,6 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
 
     this.docId = '';
     this.StudentDatabaseService.obtenerStudentDatabase(Number(localStorage.getItem('idEstudiante'))).subscribe(response => {
-      console.log(response);
       this.estudiante = response.result;
     });
   }
@@ -101,9 +101,12 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
           <tbody>
             ${filasTabla}
           </tbody>
-        </table>`
+        </table>`,
+        total_pensiones: this.pensionesList.length,
+        total_pensiones_letras: this.amountToWords(this.pensionesList.length),
+        mensualidad: this.formatCurrency(this.pensionesList[0]?.valor),
+        mensualidad_letras: this.amountToWords(this.pensionesList[0]?.valor),
     };
-
     this.documentosService.crearPDFDocumento(this.data, this.docId).subscribe(res => {
       window.location.href = res.pdfDownloadUrl;
     });

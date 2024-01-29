@@ -90,7 +90,7 @@ export class CoursesInscripcionComponent implements OnInit {
   pagarCurso(){
     if (this.cursoSelect) {
       Swal.fire({
-        title: '¿Estas seguro que deseas pagar la matricula con la opcion bolsillo?',
+        title: '¿Estas seguro que deseas pagar la matricula con la opción bolsillo?',
         showDenyButton: true,
         confirmButtonText: 'Si',
         denyButtonText: `No`,

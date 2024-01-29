@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CertificateService } from 'src/app/services/certificate.service';
 import { PensionService } from 'src/app/services/pension.service';
+import { BolsilloService } from 'src/app/services/bolsillo.service';
+import { AppComponent } from 'src/app/app.component';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import * as moment from 'moment';
 //Avalpay
@@ -36,6 +38,8 @@ export class SolicitudCertificadoComponent implements OnInit {
       private pensionService:PensionService,
       public currencyUtils: CurrencyUtils,
       private router:Router,
+      private AppComponent:AppComponent,
+
 
       //Avalpay
       public Avalpay: Avalpay,
@@ -126,13 +130,14 @@ export class SolicitudCertificadoComponent implements OnInit {
       idCertificate:this.certificateSelect,
       idGrade:this.gradeSelect,
       metodoPago:'bolsillo',
-      idEstudiante:localStorage.getItem('idEstudiante')
+      idEstudiante:localStorage.getItem('idEstudiante'),
+      idAcudiente:localStorage.getItem('idAcudiente')
     }
   }
   pagar(){
     if (this.certificateSelect) {
       Swal.fire({
-        title: '¿Estas seguro que deseas pagar la matricula con la opcion bolsillo?',
+        title: '¿Estas seguro que deseas pagar la solicitud con la opción bolsillo?',
         showDenyButton: true,
         confirmButtonText: 'Si',
         denyButtonText: `No`,
@@ -149,6 +154,7 @@ export class SolicitudCertificadoComponent implements OnInit {
                 this.detalle = ''
                 this.certificate = {price:''}
               }
+              window.location.reload();
             },error=>{
   
             });

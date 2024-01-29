@@ -12,8 +12,8 @@
             <div class="card-body">
               <h5 class="card-title"></h5>
               <p class="card-text"></p>
-              <img  class="" alt="Imagen" [src]=" imgSelect || '../../../../assets/img/default.jpg'" class="rounded-circle img-responsive mt-2" width="128" height="128">
-              <input [(ngModel)]="imageUrl" (change)="imageSelect($event)"  type="file" style="width: 100% !important;">
+              <img class="" alt="Imagen" [src]=" imageUrl || 'https://montevista.greatheartsamerica.org/wp-content/uploads/sites/2/2016/11/default-placeholder.png'" class="rounded-circle img-responsive mt-2" width="128" height="128">
+              <input [(ngModel)]="imageUrl" type="text" style="width: 100% !important;">
             </div>
           </div>
           <form #extracurricularForm="ngForm" (ngSubmit)="onSubmit(extracurricularForm)">

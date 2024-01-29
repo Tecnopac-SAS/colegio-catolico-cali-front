@@ -83,8 +83,10 @@ export class ExtracurricularInscripcionComponent implements OnInit {
     this.paymentData = { 
       monto: this.extracurricular.price,
       idExtracurricular: this.extracurricular.id,
-      metodoPago: 'Avalpay',
-      idEstudiante: localStorage.getItem('idEstudiante') 
+      metodoPago: 'bolsillo',
+      idEstudiante: localStorage.getItem('idEstudiante'), 
+      idAcudiente: localStorage.getItem('idAcudiente'),
+      isActive: 1 
     };
 
   }
@@ -94,7 +96,7 @@ export class ExtracurricularInscripcionComponent implements OnInit {
   pagar(){
     if (this.extracurricularSelect) {
       Swal.fire({
-        title: '¿Estas seguro que deseas pagar el extracurricular con la opcion bolsillo?',
+        title: '¿Estas seguro que deseas pagar el extracurricular con la opción bolsillo?',
         showDenyButton: true,
         confirmButtonText: 'Si',
         denyButtonText: `No`,
@@ -102,9 +104,12 @@ export class ExtracurricularInscripcionComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.extracurricular.price)) {
-            let datos = {monto:this.extracurricular.price,idExtracurricular:this.extracurricular.id,metodoPago:'bolsillo',idEstudiante:localStorage.getItem('idEstudiante')}
+            let datos = {monto:this.extracurricular.price,idExtracurricular:this.extracurricular.id,metodoPago:'bolsillo',idEstudiante:localStorage.getItem('idEstudiante'),isActive: 1}
             this.extracurricularService.pagoExtracurricular(this.paymentData).subscribe(response=>{
               Swal.fire(response.mensaje, '', (response.status)?'success':'error')
+              if(response.status = 400){
+                // window.location.reload();
+              }
             },error=>{
   
             });

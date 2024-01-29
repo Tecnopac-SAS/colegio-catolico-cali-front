@@ -86,7 +86,7 @@ export class CafeteriaPagoComponent implements OnInit {
   pagar(){
     if (this.cant) {
       Swal.fire({
-        title: '¿Estas seguro que deseas dinero a tu lonchera con la opcion bolsillo?',
+        title: '¿Estas seguro que deseas dinero a tu lonchera con la opción bolsillo?',
         showDenyButton: true,
         confirmButtonText: 'Si',
         denyButtonText: `No`,

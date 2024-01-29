@@ -31,7 +31,7 @@
                     <div class="card p-3 mb-3">
                       <span>Variables precargadas:</span>
                       <br>
-                      <div class=" d-flex flex-column gap-1">
+                      <div class="vars-content">
                         <input type="button" *ngFor="let variable of variables let i = index" class="btn btn-outline-secondary" value="{{variable}}" (click)="loadVariable($event)"/>
                       </div>
                     </div>

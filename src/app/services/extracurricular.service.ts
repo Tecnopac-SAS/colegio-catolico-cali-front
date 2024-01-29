@@ -92,4 +92,11 @@ export class ExtracurricularService {
     }))
   }
 
+  desvincularse(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'extracurricular/desvincularse/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
 }

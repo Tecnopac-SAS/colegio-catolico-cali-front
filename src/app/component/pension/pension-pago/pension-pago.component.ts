@@ -16,6 +16,7 @@ import { event } from 'jquery';
 export class PensionPagoComponent implements OnInit {
   navTitle="Pago de pension"
   public pensionTotal=0
+  public pensionTotalSinDescuento=0
   private descuento=3
   public allMonthsSelected: boolean = false;
   public pensionesList:any
@@ -35,6 +36,7 @@ export class PensionPagoComponent implements OnInit {
   public disabledPaymentButton: boolean = true;
   discount: boolean;
   discountPercent: number;
+  discountWarning5days: boolean;
 
   constructor(
     private pensionService:PensionPagoService,
@@ -51,7 +53,8 @@ export class PensionPagoComponent implements OnInit {
     this.descMeses = '';
     this.lsPensionesListSelect = {};
     this.discount = false;
-    this.discountPercent = 0;
+    this.discountPercent = 3;
+    this.discountWarning5days = false;
     //Avalpay
     this.paymentData = {};
     this.moduleName = 'pensiones';
@@ -117,28 +120,24 @@ export class PensionPagoComponent implements OnInit {
   }
   checkPendientes(fecha:any,$event:any){
 
+
     this.pensionTotal=0
     this.pensionesListSelect=[]
-    console.log(this.pensionesListSelectNames);
     
+    const fechaActual = new Date();
+    const diaDelMes = fechaActual.getDate();
 
     let text=''
     const isChecked = ($event.target as HTMLInputElement).checked;
-    //Validacion lista de meses para armar la descripcion del mensaje del pago
+
+    if (!this.pensionesListSelectNames.includes(this.parseMes(fecha))) {
+       this.pensionesListSelectNames.push(this.parseMes(fecha));
+    }
     if (isChecked) {
 
-      if(this.pensionesListSelectNames.length > 2){
-        this.discount = true;
-        this.discountPercent = 3;
-        let discount = this.pensionTotal * 0.3;
-        this.pensionTotal = this.pensionTotal - discount;
-      }
+      //Descripcion para enviar a avalpay
+      this.descMeses = `PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
 
-      if (!this.pensionesListSelectNames.includes(this.parseMes(fecha))) {
-        this.pensionesListSelectNames.push(this.parseMes(fecha));
-        //Descripcion para enviar a avalpay
-        this.descMeses = `PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
-      }
     } else {
         this.pensionesListSelectNames.pop(this.parseMes(fecha));
         //Descripcion para enviar a avalpay
@@ -173,16 +172,26 @@ export class PensionPagoComponent implements OnInit {
     
     
     if (this.pensionesListSelect.length>=3) {
-      // this.pensionTotal = this.pensionTotal - (Math.floor(this.pensionTotal*this.descuento)/100)
-      // let valorNew = this.pensionTotal/this.pensionesListSelect.length
-      let sum = 0
-      Object.keys(this.pensionesListSelect).forEach(key => {
-        let descuento = this.pensionesListSelect[key].valor - (Math.floor(this.pensionesListSelect[key].valor*this.descuento)/100)
-        this.pensionesListSelect[key].valor = descuento
-        sum += descuento
-      });
-      this.pensionTotal = sum
+      if (diaDelMes <= 5) {
+        this.discount = true;
+        let sum = 0
+        Object.keys(this.pensionesListSelect).forEach(key => {
+          let descuento = this.pensionesListSelect[key].valor - (Math.floor(this.pensionesListSelect[key].valor*this.discountPercent)/100)
+          this.pensionesListSelect[key].valor = descuento
+          sum += descuento
+        });
+        this.pensionTotalSinDescuento = this.pensionTotal;
+        this.pensionTotal = sum
+      }else{
+        this.discountWarning5days = true;
+        this.pensionTotal = this.pensionTotal; // No hay descuento
+      }
+    }else{
+      this.discount = false;
+      this.discountWarning5days = false;
     }
+
+
     if (text!='') {
       $event.currentTarget.checked=false
       text+=' antes de seleccionar esta pensión'
@@ -245,7 +254,7 @@ export class PensionPagoComponent implements OnInit {
   }
   pagarPension(){
     Swal.fire({
-      title: '¿Estas seguro que deseas pagar la matricula con la opcion bolsillo?',
+      title: '¿Estas seguro que deseas pagar la pensión con la opción bolsillo?',
       showDenyButton: true,
       confirmButtonText: 'Si',
       denyButtonText: `No`,
@@ -259,8 +268,9 @@ export class PensionPagoComponent implements OnInit {
             this.pensionService.pagoPension(this.paymentData, 'bolsillo').subscribe(response=>{
               Swal.fire(response.mensaje, '', (response.status)?'success':'error').then((result) => {
                 if (result.isConfirmed) {
-                  this.getListPensiones()
-								  this.router.navigate([`${this.navigateTo}`]);
+                  this.getListPensiones();
+                  window.location.reload();
+								  // this.router.navigate([`${this.navigateTo}`]);
                 }
               } )
             },error=>{

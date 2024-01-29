@@ -25,7 +25,11 @@ export class CrearDocumentosComponent implements OnInit {
     'fecha_actual_anio',
     'fecha_actual_mes',
     'fecha_actual_dia',
-    'tabla_pensiones'
+    'tabla_pensiones',
+    'total_pensiones',
+    'total_pensiones_letras',
+    'mensualidad_letras',
+    'mensualidad',
   ];
   formDocumento!: FormGroup;
   documentosModel:Documentos= new Documentos();

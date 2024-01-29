@@ -17,6 +17,7 @@ import { TuitionUpdateComponent } from './component/tuition/tuition-update/tuiti
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
 import { ExtracurricularUpdateComponent } from './component/extracurricular/extracurricular-update/extracurricular-update.component';
+import { ExtracurricularVerComponent } from './component/extracurricular/extracurricular-ver/extracurricular-ver.component';
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 import { PensionUpdateComponent } from './component/pension/pension-update/pension-update.component';
@@ -122,6 +123,7 @@ const routes: Routes = [
   {path: 'extracurriculares', component: ExtracurricularIndexComponent },
   {path: 'extracurriculares-crear', component: ExtracurricularCreateComponent },
   {path: 'extracurriculares-editar/:id', component: ExtracurricularUpdateComponent },
+  {path: 'extracurriculares-ver/:id', component: ExtracurricularVerComponent },
   {path: 'pension', component: PensionIndexComponent },
   {path: 'pension-crear', component: PensionCreateComponent },
   {path: 'pension-editar/:id', component: PensionUpdateComponent },
