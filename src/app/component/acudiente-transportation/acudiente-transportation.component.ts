@@ -29,6 +29,7 @@ export class AcudienteTransportationComponent implements OnInit {
   mensaje_error: any;
   mensaje_ok: any;
   toggleTable: boolean;
+  toggleRouteType: boolean;
   dataEstudentCurrentRoutes: any;
   hasRoutes: boolean;
   constructor(
@@ -39,6 +40,7 @@ export class AcudienteTransportationComponent implements OnInit {
     private router:Router
   ) { 
     this.toggleTable = false;
+    this.toggleRouteType = false;
     this.hasRoutes = false;
   }
 
@@ -123,6 +125,10 @@ export class AcudienteTransportationComponent implements OnInit {
   }
 
   validateJornada(type:number){
+    this.toggleRouteType = !this.toggleRouteType;
+    // type === 1 ? this.listTransportations(1) : this.listTransportations(0)
+  }
+  validateRoutype(type:number){
     this.toggleTable = !this.toggleTable;
     type === 1 ? this.listTransportations(1) : this.listTransportations(0)
   }

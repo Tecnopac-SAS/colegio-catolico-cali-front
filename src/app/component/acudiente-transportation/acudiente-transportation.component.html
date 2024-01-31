@@ -7,7 +7,9 @@
 
           <div class="jumbotron" style="background-color: #00000008;">
             <h1 class="display-4">Solicita una ruta!</h1>
-            <p class="lead">Nuestro módulo de transporte estudiantil te brinda un acceso fácil a las rutas disponibles para estudiantes. <strong>Cuando ingreses, simplemente selecciona la jornada que necesitas y podrás explorar las rutas correspondientes. Una vez que encuentres la ruta que mejor se adapte a tus necesidades, podrás solicitarla en cuestión de segundos. ¡Facilitamos el proceso de transporte estudiantil para ti</strong></p>
+            <p class="lead">En este módulo podrás solicitar servicio de transporte de acuerdo a tu necesidad. Ingresa la información requerida. 
+              La solicitud será evaluada de acuerdo a la disponibilidad de cupos. Recibirás una notificación cuando se haya asignado la ruta. 
+            <p>
           </div>
 
           <div *ngIf="!hasRoutes" class="accordion" id="accordionExample">
@@ -18,7 +20,7 @@
                   Seleccion de jornada
                 </button>
               </h2>
-              <div id="collapseOne" class="accordion-collapse collapse" [ngClass]="{'show': !toggleTable}" aria-labelledby="headingOne"
+              <div id="collapseOne" class="accordion-collapse collapse" [ngClass]="{'show': !toggleTable && !toggleRouteType}" aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <button (click)="validateJornada(1)" class="btn btn-secondary px-3 py-2 mr-1">Mañana ☀️</button>
@@ -28,12 +30,27 @@
             </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                  [attr.aria-expanded]="toggleTable" aria-controls="collapseTwo">
+                  Seleccion de ruta
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" [ngClass]="{'show': toggleRouteType}" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <button (click)="validateRoutype(0)" class="btn btn-secondary px-3 py-2 mr-1">Ruta Completa</button>
+                    <button (click)="validateRoutype(1)" class="btn btn-secondary px-3 py-2">Media Ruta</button>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   Rutas disponibles
                 </button>
               </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" [ngClass]="{'show': toggleTable}" aria-labelledby="headingTwo"
+              <div id="collapseThree" class="accordion-collapse collapse" [ngClass]="{'show': toggleTable}" aria-labelledby="headingThree"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <div class="w-100 text-center">
