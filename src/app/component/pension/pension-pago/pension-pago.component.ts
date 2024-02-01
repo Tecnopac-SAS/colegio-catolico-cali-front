@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PensionPagoService } from 'src/app/services/pension-pago.service';
+import { BolsilloService } from 'src/app/services/bolsillo.service';
+import { SoportesPagosService } from 'src/app/services/soportes-pagos.service';
 import { Avalpay } from 'src/utils/avalpay';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
@@ -38,10 +40,17 @@ export class PensionPagoComponent implements OnInit {
   discountPercent: number;
   discountWarning5days: boolean;
 
+  //Soportes de Pago
+  paymentCode: any;
+
   constructor(
     private pensionService:PensionPagoService,
     private matriculaService:TuitionService,
     private currencyUtils: CurrencyUtils,
+    //Soportes de Pago
+    public bolsilloService:BolsilloService,
+    public soportesPagosService:SoportesPagosService,
+
     private route: ActivatedRoute,
     //Avalpay
     public Avalpay: Avalpay,
@@ -59,6 +68,9 @@ export class PensionPagoComponent implements OnInit {
     this.paymentData = {};
     this.moduleName = 'pensiones';
     this.navigateTo = 'pago-pension';
+
+    //Soportes de Pago
+    this.paymentCode;
   }
   
   
@@ -66,6 +78,10 @@ export class PensionPagoComponent implements OnInit {
     this.getMatriculaPagada()
     this.getListPensiones()
     this.pensionesPagadas()
+
+    
+    //Soportes de Pago
+    this.paymentCode = [...Array(8)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
 
     //Valida estado de matricula
     this.route.queryParams.subscribe(params => {
@@ -203,7 +219,8 @@ export class PensionPagoComponent implements OnInit {
     }
 
     this.paymentData = {
-      pensiones: this.pensionesListSelect
+      pensiones: this.pensionesListSelect,
+      paymentCode: this.paymentCode
     }
 
   }
@@ -266,13 +283,31 @@ export class PensionPagoComponent implements OnInit {
         } else {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.pensionTotal)) {
             this.pensionService.pagoPension(this.paymentData, 'bolsillo').subscribe(response=>{
-              Swal.fire(response.mensaje, '', (response.status)?'success':'error').then((result) => {
-                if (result.isConfirmed) {
-                  this.getListPensiones();
-                  window.location.reload();
-								  // this.router.navigate([`${this.navigateTo}`]);
-                }
-              } )
+
+           //Descuento bolsillo
+           this.bolsilloService.descuento({idAcudiente: localStorage.getItem('idAcudiente'), cant: this.pensionTotal}).subscribe(response=>{}); 
+          
+           //Soportes De Pago
+           let soportePagoData = {
+             paymentCode: this.paymentCode,
+             idAcudiente: localStorage.getItem('idAcudiente'),
+             tipoPago: 'Pensión',
+             viaPago: 'Bolsillo',
+             monto: this.pensionTotal
+           }
+           this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response=>{}); 
+
+           Swal.fire({
+            icon:  response.status ? 'success':'error',
+            title: response.mensaje,
+            showCancelButton: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.getListPensiones();
+                window.location.reload();
+              } else if (result.isDenied) {}
+            });
+
             },error=>{
   
             });

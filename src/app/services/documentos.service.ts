@@ -41,4 +41,10 @@ export class documentosService {
       return res;
     }))
   }
+  crearPDFSoporteDePago(data: any, id: any){
+    return this._htpp.post<any>(base_url+'documentos/crearPDFSoporteDePago/'+id, data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }

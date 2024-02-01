@@ -11,6 +11,13 @@ const base_url = environment.url;
 export class SoportesPagosService {
   constructor(private _htpp:HttpClient) { }
 
+  crearSoportePago(data:any){
+    return this._htpp.post<any>(base_url+'soportePagos/crearSoportePago/',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
   misSoportesPagos(params:any){
     return this._htpp.get<any>(base_url+'soportePagos/listarMisSoportesPagos/'+params)
     .pipe(map((res:any)=>{

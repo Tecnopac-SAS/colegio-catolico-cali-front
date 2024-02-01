@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Acudiente } from 'src/app/models/studentDatabase.model';
 import { StudentDatabaseService } from 'src/app/services/student-database.service';
+import { BolsilloService } from 'src/app/services/bolsillo.service';
+import { SoportesPagosService } from 'src/app/services/soportes-pagos.service';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { Avalpay } from 'src/utils/avalpay';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import Swal from 'sweetalert2';
 
@@ -38,6 +38,7 @@ export class PagoMatriculaComponent implements OnInit {
   public disabledPaymentButton: boolean = true;
 
   jornada: string;
+  paymentCode: any;
   
   constructor(
     private formBuilder:FormBuilder,
@@ -45,6 +46,8 @@ export class PagoMatriculaComponent implements OnInit {
     private route: ActivatedRoute,
     private router:Router,
     public Avalpay: Avalpay,
+    public bolsilloService:BolsilloService,
+    public soportesPagosService:SoportesPagosService,
     private StudentService:StudentDatabaseService, private MatriculaService:TuitionService) { 
 
       //Avalpay
@@ -55,6 +58,8 @@ export class PagoMatriculaComponent implements OnInit {
 
       this.jornada = '';
       
+      //Soportes de Pago
+      this.paymentCode;
 
       this.pensionMensual=0
       this.pensionMeses=10
@@ -73,6 +78,9 @@ export class PagoMatriculaComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    //Soportes de Pago
+    this.paymentCode = [...Array(8)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
 
     //Valida estado de matricula
     this.route.queryParams.subscribe(params => {
@@ -157,7 +165,8 @@ export class PagoMatriculaComponent implements OnInit {
         valMes:this.pensionMensual,
         meses:this.pensionMeses,
         calendartype: this.calendarType,
-        idPension:this.idPension
+        idPension:this.idPension,
+        paymentCode: this.paymentCode
       }
       
     }
@@ -175,8 +184,30 @@ export class PagoMatriculaComponent implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         if (Number(localStorage.getItem('bolsillo')) >= Number(this.matricula)) {
+
           this.MatriculaService.pagoMatricula(this.paymentData).subscribe(response=>{
-            Swal.fire(response.mensaje, '', (response.status)?'success':'error')
+           //Descuento bolsillo
+           this.bolsilloService.descuento({idAcudiente: localStorage.getItem('idAcudiente'), cant: this.matricula}).subscribe(response=>{}); 
+          
+           //Soportes De Pago
+           let soportePagoData = {
+             paymentCode: this.paymentCode,
+             idAcudiente: localStorage.getItem('idAcudiente'),
+             tipoPago: 'Matrícula',
+             viaPago: 'Bolsillo',
+             monto: this.matricula
+           }
+           this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response=>{}); 
+            
+            Swal.fire({
+              icon:  response.status ? 'success':'error',
+              title: response.mensaje,
+              showCancelButton: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
+              } else if (result.isDenied) {}
+            });
           },error=>{});
         }else{
           Swal.fire('Parece que no tienes fondos suficientes', 'Favor de ingresar fondos en el bolsillo', 'info')

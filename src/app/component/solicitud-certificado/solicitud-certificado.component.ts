@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CertificateService } from 'src/app/services/certificate.service';
 import { PensionService } from 'src/app/services/pension.service';
+
 import { BolsilloService } from 'src/app/services/bolsillo.service';
-import { AppComponent } from 'src/app/app.component';
+import { SoportesPagosService } from 'src/app/services/soportes-pagos.service';
+
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import * as moment from 'moment';
 //Avalpay
@@ -32,13 +34,20 @@ export class SolicitudCertificadoComponent implements OnInit {
   descPagoAvalPay: string;
   navigateTo: string;
   public disableButton: boolean = true;
+  
+  //Soportes de Pago
+  paymentCode: any;
 
   constructor(
       private certificateService:CertificateService,
+      
+      //Soportes de Pago
+      public bolsilloService:BolsilloService,
+      public soportesPagosService:SoportesPagosService,
+
       private pensionService:PensionService,
       public currencyUtils: CurrencyUtils,
       private router:Router,
-      private AppComponent:AppComponent,
 
 
       //Avalpay
@@ -57,6 +66,9 @@ export class SolicitudCertificadoComponent implements OnInit {
       this.canalSelect = '';
       this.detalle = '';
 
+      //Soportes de Pago
+      this.paymentCode;
+
       this.certificateService.listCertificatesAcu().subscribe(response=>{
         this.listCertificate = response.result
       },error=>{
@@ -70,6 +82,10 @@ export class SolicitudCertificadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    //Soportes de Pago
+    this.paymentCode = [...Array(8)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
+
     this.navTitle = "Solicitud de certificados";
     this.certificate = {price:''}
     //Valida estado de matricula
@@ -131,7 +147,7 @@ export class SolicitudCertificadoComponent implements OnInit {
       idGrade:this.gradeSelect,
       metodoPago:'bolsillo',
       idEstudiante:localStorage.getItem('idEstudiante'),
-      idAcudiente:localStorage.getItem('idAcudiente')
+      paymentCode: this.paymentCode
     }
   }
   pagar(){
@@ -145,8 +161,30 @@ export class SolicitudCertificadoComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.certificate.price)) {
+            
+            //Descuento bolsillo
+            this.bolsilloService.descuento({idAcudiente: localStorage.getItem('idAcudiente'), cant: this.certificate.price}).subscribe(response=>{}); 
+          
             this.certificateService.pagoInscripcion(this.paymentData).subscribe(response=>{
-              Swal.fire(response.mensaje, '', (response.status)?'success':'error')
+              //Soportes De Pago
+              let soportePagoData = {
+                paymentCode: this.paymentCode,
+                idAcudiente: localStorage.getItem('idAcudiente'),
+                tipoPago: 'Certificado',
+                viaPago: 'Bolsillo',
+                monto: this.certificate.price
+              }
+              this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response=>{}); 
+
+              Swal.fire({
+                icon:  response.status ? 'success':'error',
+                title: response.mensaje,
+                showCancelButton: true,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.reload();
+                } else if (result.isDenied) {}
+              });
               if (response.status) {
                 this.canalSelect = ''
                 this.certificateSelect = ''
@@ -154,7 +192,7 @@ export class SolicitudCertificadoComponent implements OnInit {
                 this.detalle = ''
                 this.certificate = {price:''}
               }
-              window.location.reload();
+
             },error=>{
   
             });

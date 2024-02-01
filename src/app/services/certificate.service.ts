@@ -12,6 +12,13 @@ export class CertificateService {
 
   constructor(private _htpp:HttpClient) { }
 
+  descuento(data:any):Observable<any>{
+    return this._htpp.get<any>(base_url+'acudiente/descBolsillo', data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
   listCertificates(){
     return this._htpp.get<any>(base_url+'certificate/listarCertificates')
     .pipe(map((res:any)=>{
