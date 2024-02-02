@@ -130,15 +130,17 @@ export class ExtracurricularInscripcionComponent implements OnInit {
 
             let datos = { monto: this.extracurricular.price, idExtracurricular: this.extracurricular.id, metodoPago: 'bolsillo', idEstudiante: localStorage.getItem('idEstudiante'), isActive: 1 }
             this.extracurricularService.pagoExtracurricular(this.paymentData).subscribe(response => {
-              //Soportes De Pago
-              let soportePagoData = {
-                paymentCode: this.paymentCode,
-                idAcudiente: localStorage.getItem('idAcudiente'),
-                tipoPago: 'Extracurricular',
-                viaPago: 'Bolsillo',
-                monto: this.extracurricular.price
+              if (response.status) {
+                //Soportes De Pago
+                let soportePagoData = {
+                  paymentCode: this.paymentCode,
+                  idAcudiente: localStorage.getItem('idAcudiente'),
+                  tipoPago: 'Extracurricular',
+                  viaPago: 'Bolsillo',
+                  monto: this.extracurricular.price
+                }
+                this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response => { });
               }
-              this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response => { });
               Swal.fire({
                 icon: response.status ? 'success' : 'error',
                 title: response.mensaje,

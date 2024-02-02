@@ -4,6 +4,8 @@ export class TransportationRequests{
   public acudienteid = 0;
   public estudianteid = 0;
   public estado = 0;
+  public routeType = 0;
+  public datosResponsable = '';
   public direccion_recogida = '';
   public direccion_entrega = '';
 }

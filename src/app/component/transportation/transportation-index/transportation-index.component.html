@@ -1,133 +1,183 @@
 <app-dashboard>
   <app-nav-title [navTitle]="navTitle"></app-nav-title>
   <div class="container my-xl-2">
-    <div class="row">   
-      <div class="card"> 
-         <div class="card-body"> 
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
 
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="listaRutas">
-              <button class="nav-link active" id="listaRutas-tab" data-bs-toggle="tab" data-bs-target="#listaRutas" type="button" role="tab" aria-controls="listaRutas" aria-selected="true">lista de Rutas</button>
+              <button class="nav-link active" id="listaRutas-tab" data-bs-toggle="tab" data-bs-target="#listaRutas"
+                type="button" role="tab" aria-controls="listaRutas" aria-selected="true">lista de Rutas</button>
             </li>
             <li class="nav-item" role="gestionRutas">
-              <button class="nav-link" id="gestionRutas-tab" data-bs-toggle="tab" data-bs-target="#gestionRutas" type="button" role="tab" aria-controls="gestionRutas" aria-selected="false">Gestion de Rutas (Solicitudes)</button>
+              <button class="nav-link" id="gestionRutas-tab" data-bs-toggle="tab" data-bs-target="#gestionRutas"
+                type="button" role="tab" aria-controls="gestionRutas" aria-selected="false">Gestion de Rutas
+                (Solicitudes)</button>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="listaRutas" role="tabpanel" aria-labelledby="listaRutas-tab">
-            <!-- Lista -->
-            <div class="row justify-content-end">
-              <div class="col-md-3 col-12 my-2">
-                <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
-                  <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
-                    <div class="input-group-append">
-                      <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+              <!-- Lista -->
+              <div class="row justify-content-end">
+                <div class="col-md-3 col-12 my-2">
+                  <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                    <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                      <div class="input-group-append">
+                        <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                      </div>
+                      <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro"
+                        [(ngModel)]="filterText">
                     </div>
-                    <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro"
-                      [(ngModel)]="filterText">
-                  </div>
-                </form>
+                  </form>
+                </div>
+                <div class="col-md-1 col-4 my-2">
+                  <button class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i>
+                    Filtro</button>
+                </div>
+                <div class="col-md-3 col-8 my-2">
+                  <button type="button" class="btn btn-primary" routerLink="/transporte-crear">Agregar
+                    transporte</button>
+                </div>
               </div>
-              <div class="col-md-1 col-4 my-2">
-                <button class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+              <div>
+                <table class="table table-hover table-bordered table-responsive">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Nombre de la ruta<noscript></noscript></th>
+                      <th scope="col">Número de la ruta</th>
+                      <th scope="col">Responsable</th>
+                      <th scope="col">Cupo total</th>
+                      <th scope="col">Cupo Disponible</th>
+                      <th scope="col">Descripción</th>
+                      <th scope="col">Valor ruta</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let data of dataTransportation; let index = index ">
+                    <tr>
+                      <td>{{index+1}}</td>
+                      <td>{{data.routeName}}</td>
+                      <td>{{data.routeNumber}}</td>
+                      <td>{{data.responsible}}</td>
+                      <td><span class="badge badge-primary text-uppercase">{{data.cupo}} Puestos</span></td>
+                      <td><span class="badge badge-success text-uppercase">{{data.cupo_disponible}} Puestos</span></td>
+                      <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
+                        {{data.descripcion}}</td>
+                      <td>${{ currencyUtils.formatCurrency(data.price) }}</td>
+                      <td *ngIf="data.isActive==0" class="text-center"><span
+                          class="badge badge-danger text-uppercase">Inactivo</span></td>
+                      <td *ngIf="data.isActive==1" class="text-center"><span
+                          class="badge badge-success text-uppercase">Activo</span></td>
+                      <td>
+                        <button class="text-info btn" routerLink="/transporte-editar/{{data.id}}">Editar</button>|
+                        <button class="text-danger btn" (click)="deshabilitar(data)">Desactivar</button>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
               </div>
-              <div class="col-md-3 col-8 my-2">
-                <button type="button" class="btn btn-primary" routerLink="/transporte-crear">Agregar transporte</button>
-              </div>
-            </div>
-            <div>
-              <table class="table table-hover table-bordered table-responsive">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre de la ruta<noscript></noscript></th>
-                    <th scope="col">Número de la ruta</th>
-                    <th scope="col">Responsable</th>
-                    <th scope="col">Cupo total</th>
-                    <th scope="col">Cupo Disponible</th>
-                    <th scope="col">Dir. Recogida</th>
-                    <th scope="col">Dir.Entrega</th>
-                    <th scope="col">Jornada</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Valor ruta</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let data of dataTransportation; let index = index ">
-                  <tr>
-                    <td>{{index+1}}</td>
-                    <td>{{data.routeName}}</td>
-                    <td>{{data.routeNumber}}</td>
-                    <td>{{data.responsible}}</td>
-                    <td><span class="badge badge-primary text-uppercase">{{data.cupo}} Puestos</span></td>
-                    <td><span class="badge badge-success text-uppercase">{{data.cupo_disponible}} Puestos</span></td>
-                    <td>{{data.direccion_recogida}}</td>
-                    <td>{{data.direccion_entrega}}</td>
-                    <td>{{ data.jornada === 1 ? '☀️ Mañana' : '🌙 Tarde' }}</td>
-                    
-                    <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">{{data.descripcion}}</td>
-                    <td>${{ currencyUtils.formatCurrency(data.price) }}</td>
-                    <td *ngIf="data.isActive==0" class="text-center"><span class="badge badge-danger text-uppercase">Inactivo</span></td>
-                    <td *ngIf="data.isActive==1" class="text-center"><span class="badge badge-success text-uppercase">Activo</span></td>
-            
-                    <td>
-                      <button class="text-info btn" routerLink="/transporte-editar/{{data.id}}">Editar</button>|
-                      <button class="text-danger btn" (click)="deshabilitar(data)">Desactivar</button>
-                    </td>
-                  </tr>
-            
-                </tbody>
-              </table>
-            </div>
-            <!-- Lista End -->
+              <!-- Lista End -->
 
             </div>
             <div class="tab-pane fade" id="gestionRutas" role="tabpanel" aria-labelledby="gestionRutas-tab">
               <br>
-            <!-- Lista -->
-            <div *ngIf="dataTransportationRequests">
-              <table class="table table-hover table-bordered table-responsive-sm">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Número de la ruta</th>
-                    <th scope="col">Acudiente</th>
-                    <th scope="col">Estudiante</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let data of dataTransportationRequests; let index = index ">
-                  <tr>
-                    <td>{{index+1}}</td>
-                    <td>{{data.routeid}}</td>
-                    <td>{{data.acudiente.nombres}} {{data.acudiente.apellidos}} - {{data.acudiente.identificacion}}</td>
-                    <td>{{data.estudiante.nombres}} {{data.estudiante.apellidos}} - {{data.estudiante.identificacion}}</td>
-                    <td *ngIf="data.estado==0" class="text-center"><span class="badge badge-success text-uppercase">Aprobado</span></td>
-                    <td *ngIf="data.estado==1" class="text-center"><span class="badge badge-warning text-uppercase">Pendiente</span></td>
-            
-                    <td class="text-center">
-                      <button [disabled]="data.estado==0" class="btn text-primary" (click)="aprobarCupo(data)">Aprobar Solicitud</button>
-                    </td>
-                  </tr>
-            
-                </tbody>
-              </table>
-            </div>
-            <!-- Lista End -->
+              <!-- Lista -->
+              <div *ngIf="dataTransportationRequests">
+                <table class="table table-hover table-bordered table-responsive-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Número de la ruta</th>
+                      <th scope="col">Persona Responsable</th>
+                      <th scope="col">Dir. Entrega</th>
+                      <th scope="col">Dir. Recogida</th>
+                      <th scope="col">Acudiente</th>
+                      <th scope="col">Estudiante</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let data of dataTransportationRequests; let index = index ">
+                    <tr>
+                      <td>{{index+1}}</td>
+                      <td>{{ data?.routeid !== null ? data.routeid : 'Sin asignar' }}</td>
+                      <td>{{ data?.datosResponsable }}</td>
+                      <td>{{ data?.direccion_recogida }}</td>
+                      <td>{{ data?.direccion_entrega }}</td>
+                      <td>{{data?.acudiente?.nombres}} {{data?.acudiente?.apellidos}} -
+                        {{data?.acudiente?.identificacion}}</td>
+                      <td>{{data?.estudiante?.nombres}} {{data?.estudiante?.apellidos}} -
+                        {{data?.estudiante?.identificacion}}</td>
+                      <td *ngIf="data.estado==0" class="text-center"><span
+                          class="badge badge-success text-uppercase">Aprobado</span></td>
+                      <td *ngIf="data.estado==1" class="text-center"><span
+                          class="badge badge-warning text-uppercase">Pendiente</span></td>
+
+                      <td class="text-center">
+                        <button class="btn btn-outline-primary"
+                          data-toggle="modal" data-target="#gestionarSolicitudModal"
+                          (click)="selectToEdit(data.id)">Gestionar</button>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- Lista End -->
 
             </div>
           </div>
-          
-   
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="gestionarSolicitudModal" tabindex="-1" role="dialog"
+    aria-labelledby="gestionarSolicitudModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form [formGroup]="editTransportation" (ngSubmit)="editTransportationReq()">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="gestionarSolicitudModalLabel">Gestionar Solicitud</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Ruta Asignada <span class="text-danger font-weight-bold"
+                  *ngIf="selectedToEditRouteReq?.routeid == null" selected>- Sin ruta asociada</span></label>
+              <select type="text" class="form-control" formControlName="routeid">
+                <option value="">Selecciona una Ruta</option>
+                <option *ngFor="let item of dataTransportation; let i = index"
+                  [selected]="item.id == selectedToEditRouteReq?.routeid" value="{{item.id}}">{{item.id}} -
+                  {{item.routeName}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Estado</label>
+              <select type="text" class="form-control" formControlName="estado">
+                <option [selected]="selectedToEditRouteReq?.estado == 0" value="0">Aprobada</option>
+                <option [selected]="selectedToEditRouteReq?.estado == 1" value="1">Pendiente</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+
+        </form>
       </div>
     </div>
   </div>
 
 </app-dashboard>
-
-
-
-

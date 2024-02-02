@@ -21,6 +21,7 @@ export class TransportationIndexComponent implements OnInit {
   grade!: any;
   navTitle = 'Transporte';
   formValue!: FormGroup;
+  editTransportation!: FormGroup;
   public dataTransportation: any;
   public dataTransportationRequests: any;
   public filter: any;
@@ -28,6 +29,7 @@ export class TransportationIndexComponent implements OnInit {
   public rutaObtenida: any;
   TransportationModel: Transportation = new Transportation();
   id!: any;
+  selectedToEditRouteReq: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,6 +45,7 @@ export class TransportationIndexComponent implements OnInit {
     this.listTransportations();
     this.listTransportationsRequests();
     this.fieldCapture();
+    this.fieldCaptureEditReq();
   }
 
   fieldCapture() {
@@ -58,6 +61,36 @@ export class TransportationIndexComponent implements OnInit {
       isActive: [''],
     });
   }
+  fieldCaptureEditReq() {
+    this.editTransportation = this.formBuilder.group({
+      routeid: [''],
+      estado: [''],
+    });
+  }
+
+  selectToEdit(id: any,){
+    this.transportationRequestService.listSolicitudTransporte(id).subscribe((res) => {
+      this.selectedToEditRouteReq = res.result[0];
+    })
+  }
+  editTransportationReq(){
+    const editTransportationReqData = {
+      routeid: this.editTransportation.value.routeid, 
+      estado: this.editTransportation.value.estado
+    }
+    this.transportationRequestService.aprobarSolicitud(editTransportationReqData, this.selectedToEditRouteReq.id).subscribe((res) => {
+      Swal.fire({
+        icon: res.status ? 'success' : 'error',
+        title: res.mensaje,
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        } else if (result.isDenied) { }
+      });
+    })
+  }
+
 
   listTransportations() {
     this.transportationService.listTransportesAll().subscribe((res) => {
@@ -77,6 +110,10 @@ export class TransportationIndexComponent implements OnInit {
   listTransportationsRequests() {
     this.transportationRequestService.listSolicitudesTransportes().subscribe((res) => {
       this.dataTransportationRequests = res.result;
+
+      console.log(this.dataTransportationRequests);
+      
+
       const requestsWithStudentsAndGuardians = this.dataTransportationRequests.map((req: any) => {
         const studentRequest = this.listStudentsRequest(req.estudianteid).pipe(
           map((studentData) => {
@@ -130,47 +167,4 @@ export class TransportationIndexComponent implements OnInit {
     });
   }
 
-  aprobarCupo(data: any) {
-    Swal.fire({
-      title: 'Confirmación',
-      text: '¿Estás seguro de aprobar el cupo para el o los estudiantes asociados?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#0d6efd',
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.transportationService.obtenerTransporte(data.routeid).subscribe(
-          (res) => {
-            this.rutaObtenida = res.result;
-            console.log('dads', this.rutaObtenida);
-
-            this.transportationRequestService
-              .aprobarCupo({
-                estado: 0,
-                cupo: this.rutaObtenida.cupo_disponible - 1,
-                idruta: data.routeid,
-              }, data.id)
-              .subscribe(
-                (res) => {
-                  Swal.fire({
-                    title: 'Perfecto!',
-                    text: 'Se realizó la modificación.',
-                    icon: 'success',
-                    confirmButtonColor: '#0891B2',
-                  });
-                  window.location.reload();
-                },
-                (error) => {
-                  // Manejo de errores en la solicitud de aprobación del cupo
-                }
-              );
-          },
-          (error) => {
-            // Manejo de errores en la obtención de datos del transporte
-          }
-        );
-      }
-    });
-  }
 }

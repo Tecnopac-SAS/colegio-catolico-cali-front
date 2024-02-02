@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SoportesPagosService } from 'src/app/services/soportes-pagos.service';
 import { documentosService } from 'src/app/services/documentos.service';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
-
-
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-soportes-pago',
@@ -62,7 +60,8 @@ export class SoportesPagoComponent implements OnInit {
       window.location.href = res.pdfDownloadUrl;
     });
   }
-  formatFecha(fecha:any){
-    return (moment(fecha).format('DD/MM/YYYY')==='Invalid date')?'':moment(fecha).format('DD/MM/YYYY')
+  formatFecha(fecha: any) {
+    const fechaColombia = moment(fecha).tz('America/Bogota');
+    return fechaColombia.isValid() ? fechaColombia.format('DD/MM/YYYY - HH:mm:ss') : '';
   }
 }

@@ -15,20 +15,20 @@ import Swal from 'sweetalert2';
   styleUrls: ['./pago-matricula.component.css']
 })
 export class PagoMatriculaComponent implements OnInit {
-  navTitle="Pago de matrícula"
+  navTitle = "Pago de matrícula"
   public pension: any
   public pensionMensual: any
-  public pensionMeses:any
-  public idPension:any
+  public pensionMeses: any
+  public idPension: any
   public recargo: any
   private porcentajePenali = 60
   private porcentajeDesc: any
-  public matricula:any
-  public saldoPendiente :any
+  public matricula: any
+  public saldoPendiente: any
   formValue!: FormGroup
   dataPagoAvalPay: any;
   calendarType: any;
-  
+
   //Avalpay
   paymentData: object;
   moduleName: string;
@@ -39,43 +39,43 @@ export class PagoMatriculaComponent implements OnInit {
 
   jornada: string;
   paymentCode: any;
-  
+
   constructor(
-    private formBuilder:FormBuilder,
+    private formBuilder: FormBuilder,
     private currencyUtils: CurrencyUtils,
     private route: ActivatedRoute,
-    private router:Router,
+    private router: Router,
     public Avalpay: Avalpay,
-    public bolsilloService:BolsilloService,
-    public soportesPagosService:SoportesPagosService,
-    private StudentService:StudentDatabaseService, private MatriculaService:TuitionService) { 
+    public bolsilloService: BolsilloService,
+    public soportesPagosService: SoportesPagosService,
+    private StudentService: StudentDatabaseService, private MatriculaService: TuitionService) {
 
-      //Avalpay
-      this.paymentData = {};
-      this.moduleName = 'matricula';
-      this.descPagoAvalPay = 'MATRÍCULA';
-      this.navigateTo = 'pago-matricula';
+    //Avalpay
+    this.paymentData = {};
+    this.moduleName = 'matricula';
+    this.descPagoAvalPay = 'MATRÍCULA';
+    this.navigateTo = 'pago-matricula';
 
-      this.jornada = '';
-      
-      //Soportes de Pago
-      this.paymentCode;
+    this.jornada = '';
 
-      this.pensionMensual=0
-      this.pensionMeses=10
-      this.paymentData = {};
-      this.StudentService.getPension().subscribe(response=>{
-        this.pension = JSON.stringify(response.result.price)
-        this.porcentajeDesc = JSON.stringify(response.result.discount)
-        this.idPension = JSON.stringify(response.result.id)
-        this.dataPagoAvalPay = {};
-        this.calendarType = '';
-      },error=>{});
+    //Soportes de Pago
+    this.paymentCode;
 
-      this.StudentService.getMatricula().subscribe(response=>{
-        this.matricula = JSON.stringify(response.result)
-      },error=>{});
-    }
+    this.pensionMensual = 0
+    this.pensionMeses = 10
+    this.paymentData = {};
+    this.StudentService.getPension().subscribe(response => {
+      this.pension = JSON.stringify(response.result.price)
+      this.porcentajeDesc = JSON.stringify(response.result.discount)
+      this.idPension = JSON.stringify(response.result.id)
+      this.dataPagoAvalPay = {};
+      this.calendarType = '';
+    }, error => { });
+
+    this.StudentService.getMatricula().subscribe(response => {
+      this.matricula = JSON.stringify(response.result)
+    }, error => { });
+  }
 
   ngOnInit(): void {
 
@@ -84,32 +84,32 @@ export class PagoMatriculaComponent implements OnInit {
 
     //Valida estado de matricula
     this.route.queryParams.subscribe(params => {
-      if(params['pmtId']){
+      if (params['pmtId']) {
         this.pmtId = params['pmtId'];
         this.Avalpay.validateTransactions(this.pmtId, () => {
 
-          let lsMatricula:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
+          let lsMatricula: string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
           let paymentAvalPay = JSON.parse(lsMatricula).data;
-          this.MatriculaService.pagoMatricula(paymentAvalPay).subscribe(response=>{},error=>{})
-          
-        },() => {}, this.navigateTo, this.moduleName);
+          this.MatriculaService.pagoMatricula(paymentAvalPay).subscribe(response => { }, error => { })
+
+        }, () => { }, this.navigateTo, this.moduleName);
       }
     });
 
   }
-  paymentAvalPayComponent(){
-    this.Avalpay.paymentAvalPay(this.moduleName,this.paymentData, this.matricula, 1, this.navigateTo, this.descPagoAvalPay)
+  paymentAvalPayComponent() {
+    this.Avalpay.paymentAvalPay(this.moduleName, this.paymentData, this.matricula, 1, this.navigateTo, this.descPagoAvalPay)
   }
   formatCurrency(amount: number): string {
     return this.currencyUtils.formatCurrency(amount);
   }
 
-  configurarMatricula(e:Event){
-    
+  configurarMatricula(e: Event) {
+
     const selectElement = e.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
 
-    if (selectedValue!=undefined || selectedValue!=0) {
+    if (selectedValue != undefined || selectedValue != 0) {
       switch (Number(selectedValue)) {
         case 0:
           this.pensionMensual = 0
@@ -117,16 +117,16 @@ export class PagoMatriculaComponent implements OnInit {
           break;
         case 10:
           this.pensionMeses = selectedValue;
-          this.recargo =0
-          let newPension = this.pension-Math.floor(this.pension*this.porcentajeDesc)/100
-          this.pensionMensual = Number.parseFloat((newPension/this.pensionMeses) + this.recargo).toFixed(2);
+          this.recargo = 0
+          let newPension = this.pension - Math.floor(this.pension * this.porcentajeDesc) / 100
+          this.pensionMensual = Number.parseFloat((newPension / this.pensionMeses) + this.recargo).toFixed(2);
           this.descPagoAvalPay = 'MATRÍCULA A 10 MESES';
           this.disabledPaymentButton = false;
           break;
         case 11:
           this.pensionMeses = selectedValue;
-          this.recargo =0;
-          let numer:any = Number.parseFloat((this.pension/this.pensionMeses) + this.recargo).toFixed(2);
+          this.recargo = 0;
+          let numer: any = Number.parseFloat((this.pension / this.pensionMeses) + this.recargo).toFixed(2);
           this.pensionMensual = Math.round(numer);
           this.descPagoAvalPay = 'MATRÍCULA A 11 MESES';
           this.disabledPaymentButton = false;
@@ -134,47 +134,47 @@ export class PagoMatriculaComponent implements OnInit {
         case 12:
           this.pensionMeses = selectedValue;
           this.recargo = 0;
-          this.pensionMensual = Number.parseFloat((this.pension/this.pensionMeses) + this.recargo).toFixed(2);
+          this.pensionMensual = Number.parseFloat((this.pension / this.pensionMeses) + this.recargo).toFixed(2);
           this.descPagoAvalPay = 'MATRÍCULA A 12 MESES';
           this.disabledPaymentButton = false;
           break;
-          
+
       }
 
-      
-      
+
+
       if (this.saldoPendiente > 0) {
         Swal.fire({
           icon: 'error',
           title: 'No puedes realizar pagos',
           text: 'Aún tienes un saldo pendiente.',
         });
-        
+
         this.disabledPaymentButton = true;
-        
+
       } else {
-        
+
         this.disabledPaymentButton = false;
-      }  
-      
+      }
+
       this.paymentData = {
-        monto:this.matricula,
-        metodoPago:'AvalPay',
+        monto: this.matricula,
+        metodoPago: 'AvalPay',
         jornada: this.jornada,
-        idAcudiente:localStorage.getItem('idAcudiente'),
-        valMes:this.pensionMensual,
-        meses:this.pensionMeses,
+        idAcudiente: localStorage.getItem('idAcudiente'),
+        valMes: this.pensionMensual,
+        meses: this.pensionMeses,
         calendartype: this.calendarType,
-        idPension:this.idPension,
+        idPension: this.idPension,
         paymentCode: this.paymentCode
       }
-      
+
     }
-    
+
   }
-  
-  
-  pagarBolsillo(){
+
+
+  pagarBolsillo() {
     Swal.fire({
       title: '¿Estas seguro que deseas pagar la matricula con la opción bolsillo?',
       showDenyButton: true,
@@ -185,31 +185,34 @@ export class PagoMatriculaComponent implements OnInit {
       if (result.isConfirmed) {
         if (Number(localStorage.getItem('bolsillo')) >= Number(this.matricula)) {
 
-          this.MatriculaService.pagoMatricula(this.paymentData).subscribe(response=>{
-           //Descuento bolsillo
-           this.bolsilloService.descuento({idAcudiente: localStorage.getItem('idAcudiente'), cant: this.matricula}).subscribe(response=>{}); 
-          
-           //Soportes De Pago
-           let soportePagoData = {
-             paymentCode: this.paymentCode,
-             idAcudiente: localStorage.getItem('idAcudiente'),
-             tipoPago: 'Matrícula',
-             viaPago: 'Bolsillo',
-             monto: this.matricula
-           }
-           this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response=>{}); 
-            
+          this.MatriculaService.pagoMatricula(this.paymentData).subscribe(response => {
+
+            if (response.status) {
+              //Descuento bolsillo
+              this.bolsilloService.descuento({ idAcudiente: localStorage.getItem('idAcudiente'), cant: this.matricula }).subscribe(response => { });
+
+              //Soportes De Pago
+              let soportePagoData = {
+                paymentCode: this.paymentCode,
+                idAcudiente: localStorage.getItem('idAcudiente'),
+                tipoPago: 'Matrícula',
+                viaPago: 'Bolsillo',
+                monto: this.matricula
+              }
+              this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response => { });
+            }
+
             Swal.fire({
-              icon:  response.status ? 'success':'error',
+              icon: response.status ? 'success' : 'error',
               title: response.mensaje,
               showCancelButton: true,
             }).then((result) => {
               if (result.isConfirmed) {
                 window.location.reload();
-              } else if (result.isDenied) {}
+              } else if (result.isDenied) { }
             });
-          },error=>{});
-        }else{
+          }, error => { });
+        } else {
           Swal.fire('Parece que no tienes fondos suficientes', 'Favor de ingresar fondos en el bolsillo', 'info')
         }
       }

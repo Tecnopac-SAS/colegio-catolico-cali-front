@@ -29,6 +29,7 @@
     "jquery": "^3.6.1",
     "material-icons": "^1.13.1",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.44",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.4.33",
     "tslib": "^2.3.0",

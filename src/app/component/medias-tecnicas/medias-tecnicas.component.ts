@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TechnicalService } from 'src/app/services/technical.service';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 
 @Component({
   selector: 'app-medias-tecnicas',
@@ -12,8 +13,16 @@ export class MediasTecnicasComponent implements OnInit {
   navTitle: any;
   mediaSelect: any;
   listTechnicals: any;
-  media:any
-  constructor(private technicalService:TechnicalService) {
+  media:any;
+  showCourseCard: boolean;
+  disableButton: boolean;
+  constructor(
+    private technicalService:TechnicalService,
+    public currencyUtils: CurrencyUtils) {
+
+    this.showCourseCard = false;
+    this.disableButton = true;
+
     this.technicalService.listTechnicals().subscribe(response=>{
       this.listTechnicals = response.result
     },error=>{
@@ -28,6 +37,11 @@ export class MediasTecnicasComponent implements OnInit {
   }
   changeSelect(){
     this.media = this.listTechnicals.find((obj:any) => obj.id == this.mediaSelect)
+
+    
+
+    this.showCourseCard = true;
+    this.disableButton = false;
   }
   formatFecha(fecha:any){
     return (moment(fecha).format('DD/MM/YYYY')==='Invalid date')?'':moment(fecha).format('DD/MM/YYYY')

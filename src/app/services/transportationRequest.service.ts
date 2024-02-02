@@ -18,6 +18,12 @@ export class TransportationRequestService {
       return res;
     }))
   }
+  listSolicitudTransporte(params: string){
+    return this._htpp.get<any>(base_url+'transportationRequest/listarTransportationsRequest/'+params)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
   listSolicitudesEstudianteTransportes(estudianteid: any, acudienteid: any){
     return this._htpp.get<any>(base_url+'transportationRequest/listarTransportationsRequests/'+estudianteid+'/'+acudienteid)
     .pipe(map((res:any)=>{
@@ -39,8 +45,8 @@ export class TransportationRequestService {
     }))
   }
 
-  aprobarCupo(data:any, id:number,){
-    return this._htpp.put<any>(base_url+'transportationRequest/aprobarCupo/'+id,data)
+  aprobarSolicitud(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'transportationRequest/aprobarSolicitud/'+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))

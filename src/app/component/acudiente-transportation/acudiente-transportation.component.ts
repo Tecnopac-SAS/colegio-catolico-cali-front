@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TransportationService } from 'src/app/services/transportation.service';
 import { TransportationRequestService } from 'src/app/services/transportationRequest.service';
 import { Transportation } from 'src/app/models/transportation.model';
+import { TransportationRequests } from 'src/app/models/transportation-requests.model';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -18,14 +19,14 @@ export class AcudienteTransportationComponent implements OnInit {
 
   grade !: any;
   navTitle="Solicitud de Transporte"
-  formValue !:FormGroup
+  TransportationRequests:TransportationRequests= new TransportationRequests();
+  formValueExtra!: FormGroup;
   public dataTransportation:any
   public dataTransportationRequests:any
   public rutaObtenida:any;
   TransportationModel:Transportation = new Transportation();
   id !: any;
   rutaCargada:any;
-  TransportationRequests: any;
   mensaje_error: any;
   mensaje_ok: any;
   toggleTable: boolean;
@@ -46,6 +47,7 @@ export class AcudienteTransportationComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateRoute();
+    this.fieldCaptureExtra()
   }
 
   cargaRuta(id: number){
@@ -55,28 +57,51 @@ export class AcudienteTransportationComponent implements OnInit {
     })
   }
 
-  solicitarRuta(id: number){
-    this.transportationRequestService.createTransporteSolicitud({
-      routeid: id,
-        acudienteid: localStorage.getItem('idAcudiente'),
-        estudianteid: localStorage.getItem('idEstudiante'),
-        estado: 1
-      }
-    )
+  fieldCaptureExtra(){
+    this.formValueExtra = this.formBuilder.group({
+      acudienteid: [''],
+      estudianteid: [''],
+      routeType: [''],
+      datosResponsable: [''],
+      direccion_recogida: [''],
+      direccion_entrega: [''],
+    })
+  }
+
+  solicitarRuta(){
+    this.TransportationRequests.routeType = this.formValueExtra.value.routeType;
+    this.TransportationRequests.datosResponsable = this.formValueExtra.value.datosResponsable;
+    this.TransportationRequests.direccion_recogida = this.formValueExtra.value.direccion_recogida;
+    this.TransportationRequests.direccion_entrega = this.formValueExtra.value.direccion_entrega;
+
+    const solicitudData = {
+      routeid: null,
+      acudienteid: localStorage.getItem('idAcudiente'),
+      estudianteid: localStorage.getItem('idEstudiante'),
+      estado: 1,
+      routeType: this.TransportationRequests.routeType,
+      datosResponsable: this.TransportationRequests.datosResponsable,
+      direccion_recogida: this.TransportationRequests.direccion_recogida,
+      direccion_entrega: this.TransportationRequests.direccion_entrega,
+    }
+    console.log(solicitudData);
+
+    this.transportationRequestService.createTransporteSolicitud(solicitudData)
     .subscribe(res=>{
-      if (res.mensaje=="el tranporte ya existe") {
-        this.mensaje_error=res.mensaje;
-      }
-      else{
-        this.mensaje_ok="Ruta solicitada correctamente!";
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
-      }
+      Swal.fire({
+        icon: res.status ? 'success' : 'error',
+        title: res.mensaje,
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        } else if (result.isDenied) { }
+      });
     },
     err=>{
       console.log(err)
     })
+    
   }
 
   

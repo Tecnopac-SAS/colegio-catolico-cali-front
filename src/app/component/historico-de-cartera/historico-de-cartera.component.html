@@ -41,7 +41,7 @@
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody  ngIf*="data.total > 0" *ngFor="let data of listPagos; let index = index ">
+              <tbody *ngFor="let data of listPagos; let index = index ">
                 <tr class="align-bottom">
                   <th scope="row">{{index+1}}</th>
                   <td >{{data.servicio}}</td>

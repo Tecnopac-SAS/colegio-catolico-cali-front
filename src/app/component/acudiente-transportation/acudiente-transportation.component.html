@@ -12,93 +12,86 @@
             <p>
           </div>
 
-          <div *ngIf="!hasRoutes" class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                  [attr.aria-expanded]="toggleTable" aria-controls="collapseOne">
-                  Seleccion de jornada
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse" [ngClass]="{'show': !toggleTable && !toggleRouteType}" aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <button (click)="validateJornada(1)" class="btn btn-secondary px-3 py-2 mr-1">Mañana ☀️</button>
-                    <button (click)="validateJornada(0)" class="btn btn-secondary px-3 py-2">Tarde 🌙</button>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                  [attr.aria-expanded]="toggleTable" aria-controls="collapseTwo">
-                  Seleccion de ruta
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" [ngClass]="{'show': toggleRouteType}" aria-labelledby="headingTwo"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <button (click)="validateRoutype(0)" class="btn btn-secondary px-3 py-2 mr-1">Ruta Completa</button>
-                    <button (click)="validateRoutype(1)" class="btn btn-secondary px-3 py-2">Media Ruta</button>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Rutas disponibles
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" [ngClass]="{'show': toggleTable}" aria-labelledby="headingThree"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="w-100 text-center">
-                    <strong *ngIf="!dataTransportation">Selecciona una Jornada ☀️/🌙</strong>
+          <form [formGroup]="formValueExtra" (ngSubmit)="solicitarRuta()">
+            <div *ngIf="!hasRoutes" class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button collapsed font-weight-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                    [attr.aria-expanded]="toggleTable" aria-controls="collapseTwo">
+                    Tipo de ruta
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" [ngClass]="{'show': toggleRouteType}" aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div>
+                        <label>
+                          <input type="radio" formControlName="routeType" name="routeType" value="1">
+                          Ruta Completa
+                        </label>
+                      </div>
+                      <div>
+                        <label>
+                          <input type="radio" formControlName="routeType" name="routeType" value="0">
+                          Media Ruta
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                <div *ngIf="dataTransportation">
-                  <table class="table table-hover table-bordered table-responsive-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre de la ruta<noscript></noscript></th>
-                        <th scope="col">Número de la ruta</th>
-                        <th scope="col">Responsable</th>
-                        <th scope="col">Cupos disponibles</th>
-                        <th scope="col">Dir. Recogida</th>
-                        <th scope="col">Dir. Entrega</th>
-                        <th scope="col">Jornada</th>
-                        <th scope="col">Estado</th>
-                    </tr>
-                    </thead>
-                    <tbody *ngFor="let data of dataTransportation; let index = index ">
-                    <tr data-bs-toggle="modal" data-bs-target="#infoRouteModal" (click)="cargaRuta(data.id)" style="cursor: pointer;">
-                        <td>{{data.id}}</td>
-                        <td>{{data.routeNumber}}</td>
-                        <td>{{data.routeName}}</td>
-                        <td>{{data.responsible}}</td>
-                        <td class="text-center">{{data.cupo_disponible}} Puestos</td>
-                        <td>{{ data.direccion_recogida }}</td>
-                        <td>{{ data.direccion_entrega }}</td>
-                        <td class="text-center font-weight-bold">
-                          {{ data.jornada === 1 ? '☀️ Mañana' : '🌙 Tarde' }}
-                        </td>
-                        <td *ngIf="data.isActive==0" class="text-center"><span class="badge badge-danger ml-3 text-uppercase">Inactiva</span></td>
-                        <td *ngIf="data.isActive==1" class="text-center"><span class="badge badge-success ml-3 text-uppercase">Activa</span></td>
-                    </tr>
-                    </tbody>
-                </table>
                 </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed font-weight-bold" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Diligencia de Datos
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" [ngClass]="{'show': toggleTable}" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="w-100">
+
+                      <div class="form-group">
+                        <label>Datos del Responsable</label>
+                        <textarea class="form-control" formControlName="datosResponsable" placeholder="Nombre, Teléfono"></textarea>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label>Direccion de Recogida</label>
+                            <input type="text" class="form-control" formControlName="direccion_recogida" placeholder="">
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label>Direccion de Entrega</label>
+                            <input type="text" class="form-control" formControlName="direccion_entrega" placeholder="">
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+            <div *ngIf="formValueExtra.value.routeType" class="mt-2 text-right">
+              <button class="btn btn-primary" type="submit">Solicitar</button>
+            </div>
+          </form>
           <div *ngIf="hasRoutes">
             <div class="alert alert-success alert-dismissible fade show pr-3" role="alert">
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-column">
-                  <strong>Ya has hecho una solicitud de a una ruta!</strong>
-
+                  <ng-container *ngIf="dataEstudentCurrentRoutes[0].routeid !== null; else elseBlock">
+                    <strong>¡Tienes una ruta asignada!</strong>
+                  </ng-container>
+                  <ng-template #elseBlock>
+                    <strong>Ya has hecho una solicitud de una ruta!</strong>
+                  </ng-template>
                   <div class="d-flex gap-2">
                     <span>Creada: {{formatoFecha(dataEstudentCurrentRoutes[0].createdAt)}}</span>
                     <span>Estado: <span *ngIf="dataEstudentCurrentRoutes[0].estado === '1'" class="badge badge-warning text-uppercase">Pendiente</span>
@@ -106,18 +99,16 @@
                   </span> 
                   </div>
                 </div>
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#infoRouteModal" (click)="cargaRuta(dataEstudentCurrentRoutes[0].routeid)">Ver ruta</button>
+                <button *ngIf="dataEstudentCurrentRoutes[0].routeid !== null" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#infoRouteModal" (click)="cargaRuta(dataEstudentCurrentRoutes[0].routeid)">Ver ruta</button>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
   </div>
 
-<!-- Modal -->
+  <!-- Modal -->
 <div class="modal fade" id="infoRouteModal" tabindex="-1" aria-labelledby="infoRouteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" *ngFor="let item of rutaCargada">
@@ -152,12 +143,6 @@
           <br>
           <span>Conductor o Responsable: <strong>{{ item.responsible }}</strong></span>
           <br>
-          <span>Dir. Recogida: <strong>{{ item.direccion_recogida }}</strong></span>
-          <br>
-          <span>Dir. Entrega: <strong>{{ item.direccion_entrega }}</strong></span>
-          <br>
-          <span>Tipo de Ruta: <strong>{{ item.routeName }}</strong></span>
-          <br>
           <span>Información importante:</span>
           <br>
           <strong>{{ item.descripcion }}</strong>
@@ -165,10 +150,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button *ngIf="!hasRoutes" type="button" class="btn btn-primary" (click)="solicitarRuta(item.id)">Solicitar</button>
       </div>
     </div>
   </div>
 </div>
+
 
 </app-dashboard>
