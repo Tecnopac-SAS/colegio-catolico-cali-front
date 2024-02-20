@@ -5,6 +5,7 @@ import { Discount } from 'src/app/models/discount.model';
 import { DiscountService } from 'src/app/services/discount.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from'sweetalert2'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-discount-update',
@@ -34,6 +35,10 @@ export class DiscountUpdateComponent implements OnInit {
 
   }
 
+  formatFecha(fecha:any){
+    return (moment(fecha).format('YYYY-MM-DD')==='Invalid date')?'':moment(fecha).format('YYYY-MM-DD')
+  }
+
   fieldCapture(){
     this.formValue = this.formBuilder.group({
       name: [''],
@@ -42,7 +47,8 @@ export class DiscountUpdateComponent implements OnInit {
       percentage:[''],
       frequency:[''],
       service:[''],
-      isActive:['']
+      isActive:[''],
+      status:['']
     })
     this.fieldCaptureIndex()
   }
@@ -55,12 +61,13 @@ export class DiscountUpdateComponent implements OnInit {
           this.Discount= response
           console.log(this.Discount)
           this.formValue.controls['name'].setValue(this.Discount.result.name)
-          this.formValue.controls['starDate'].setValue(this.Discount.result.starDate)
-          this.formValue.controls['finalDate'].setValue(this.Discount.result.finalDate)
+          this.formValue.controls['starDate'].setValue(this.formatFecha(this.Discount.result.starDate))
+          this.formValue.controls['finalDate'].setValue(this.formatFecha(this.Discount.result.finalDate))
           this.formValue.controls['percentage'].setValue(this.Discount.result.percentage)
           this.formValue.controls['frequency'].setValue(this.Discount.result.frequency)
           this.formValue.controls['service'].setValue(this.Discount.result.service)
           this.formValue.controls['isActive'].setValue(this.Discount.result.isActive)
+          this.formValue.controls['status'].setValue(this.Discount.result.status)
           this.DiscountModel.id = this.Discount.result.id
         }
       )
@@ -76,6 +83,7 @@ export class DiscountUpdateComponent implements OnInit {
     this.DiscountModel.frequency= this.formValue.value.frequency;
     this.DiscountModel.service= this.formValue.value.service;
     this.DiscountModel.isActive= this.formValue.value.isActive;
+    this.DiscountModel.status= this.formValue.value.status;
     console.log(this.DiscountModel)
 
     if(this.DiscountModel.name =="" ){
@@ -106,8 +114,7 @@ export class DiscountUpdateComponent implements OnInit {
     .subscribe(res=>{
 
       Swal.fire(
-        'descuento actualizado!',
-        'You clicked the button!',
+        'Descuento actualizado!',
         'success'
        )
        setTimeout(() => {

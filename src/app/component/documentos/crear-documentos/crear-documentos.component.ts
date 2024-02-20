@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder,FormControl,FormGroup,Validators } from '@angular/forms';
 import { Documentos } from 'src/app/models/documentos.model';
 import { documentosService } from 'src/app/services/documentos.service';
@@ -10,7 +10,7 @@ import Swal from'sweetalert2';
   styleUrls: ['./crear-documentos.component.css']
 })
 export class CrearDocumentosComponent implements OnInit {
-  
+  @ViewChild('miBoton') miBoton: any;
   navTitle="Creacion de Documentos";
   content = '';
   titulo:any = '';
@@ -35,6 +35,7 @@ export class CrearDocumentosComponent implements OnInit {
   documentosModel:Documentos= new Documentos();
   public mensaje_ok:any;
   public mensaje_error:any;
+  showTutorialModal!: boolean;
   constructor(
     private formBuilder:FormBuilder,
     private documentosService:documentosService,
@@ -43,6 +44,13 @@ export class CrearDocumentosComponent implements OnInit {
 
   ngOnInit(): void {
     this.fieldCaptureEstudiantes();
+    this.showTutorialModal = true;
+  }
+
+  ngAfterViewInit() {
+    if (this.miBoton) {
+      this.miBoton.nativeElement.click(); // Simular clic en el botón
+    }
   }
 
   loadVariable(event: Event){

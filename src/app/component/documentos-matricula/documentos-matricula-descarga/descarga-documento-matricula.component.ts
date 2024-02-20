@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { DocumentosMatriculaService } from 'src/app/services/documentos-matricula.service';
 import { documentosService } from 'src/app/services/documentos.service';
+import { TuitionService } from 'src/app/services/tuition.service';
 import { PensionPagoService } from 'src/app/services/pension-pago.service';
 import { StudentDatabaseService } from 'src/app/services/student-database.service';
 import { count } from 'rxjs/operators';
@@ -19,7 +20,8 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
   navTitle = 'Descarga de documentos';
   public listDoc: any;
   public docId: any;
-  estudiante: any;
+  public estudiante: any;
+  public tuition: any;
   docSelected: any;
   acudiente: any;
   data: any;
@@ -31,7 +33,9 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
     private DocumentosMatriculaService: DocumentosMatriculaService,
     private pensionService: PensionPagoService,
     private CurrencyUtils: CurrencyUtils,
+    private TuitionService:TuitionService,
     private StudentDatabaseService: StudentDatabaseService,
+    private StudentService: StudentDatabaseService,
     private documentosService: documentosService
   ) {
     moment.locale('es');
@@ -45,18 +49,60 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
       this.pensionesList = res.result;
     });
 
-    this.DocumentosMatriculaService.listDocumentosMatriculas().subscribe(res => {
-      this.listDoc = res;
-    });
+
 
     this.docId = '';
-    this.StudentDatabaseService.obtenerStudentDatabase(Number(localStorage.getItem('idEstudiante'))).subscribe(response => {
-      this.estudiante = response.result;
-    });
+
   }
 
   ngOnInit(): void {
+
+    this.StudentDatabaseService.obtenerStudentDatabase(Number(localStorage.getItem('idEstudiante'))).subscribe(response => {
+      this.estudiante = response.result;
+    });
+
+    this.validateDocuments();
   }
+
+  validateDocuments() {
+
+
+    this.StudentDatabaseService.obtenerStudentDatabase(Number(localStorage.getItem('idEstudiante'))).subscribe(response => {
+      this.estudiante = response.result;
+    });
+
+
+    let anticipada = false;
+
+    this.StudentService.getMatricula().subscribe(response => {
+      if(response.result.type = 'extraordinaria'){
+        anticipada = true
+      }
+    }, error => { });
+    
+      let docs: any[] = [];
+      const lsEstudiante = localStorage.getItem('idEstudiante');
+
+      this.DocumentosMatriculaService.listDocumentosMatriculas().subscribe(res => {
+          docs = res;
+          console.log(res);
+          this.listDoc = [];
+          docs.forEach(element => {
+              if (element.canViewType === 'student' && element.canViewValue === lsEstudiante) {
+                  this.listDoc.push(element);
+              } else if(element.canViewType === 'grade' && this.estudiante.grado === element.canViewValue) {
+                  this.listDoc.push(element);
+              } else if(element.canViewTuitionType === 'extraordinaria' && anticipada == true) {
+                this.listDoc.push(element);
+              } else if (element.canViewType === 'all' && element.canViewTuitionType === 'all') {
+                  this.listDoc.push(element);
+              }
+          });
+          console.log('Documentos válidos:', this.listDoc);
+      });
+  }
+
+
 
   formatCurrency(amount: number): string {
     return this.CurrencyUtils.formatCurrency(amount);

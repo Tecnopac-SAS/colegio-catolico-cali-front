@@ -7,7 +7,7 @@ export class Discount{
   public frequency=""
   public service=""
   public isActive=0;
-
+  public status=0;
 }
 
 

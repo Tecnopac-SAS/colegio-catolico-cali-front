@@ -73,6 +73,7 @@ import { BackupIndexComponent } from './component/backup/backup-index/backup-ind
 import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
 import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
 import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
+import { PagosPresencialesComponent } from './component/pagos-presenciales/pagos-presenciales.component';
 
 //gestion acudiente
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
@@ -182,6 +183,7 @@ const routes: Routes = [
   {path: 'admision',component: AdmisionIndexComponent},
   {path: 'pazysalvocuatrosellos',component: PazysalvocuatrosellosComponent},
   {path: 'estado-cartera',component: EstadoCarteraComponent},
+  {path: 'pagos-presenciales',component: PagosPresencialesComponent},
   
   //gestion acudientes
   {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
@@ -208,7 +210,6 @@ const routes: Routes = [
   {path: 'datos-estudiante',component: AjustesPerfilEstudianteComponent},
   {path: 'datos-acudiente',component: AjustesPerfilAcudienteComponent},
   {path: 'acudiente-transporte',component: AcudienteTransportationComponent},
-
   
 ];
 

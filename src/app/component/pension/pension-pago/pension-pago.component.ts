@@ -4,6 +4,7 @@ import { BolsilloService } from 'src/app/services/bolsillo.service';
 import { SoportesPagosService } from 'src/app/services/soportes-pagos.service';
 import { Avalpay } from 'src/utils/avalpay';
 import { TuitionService } from 'src/app/services/tuition.service';
+import { PensionService } from 'src/app/services/pension.service';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -19,7 +20,6 @@ export class PensionPagoComponent implements OnInit {
   navTitle="Pago de pension"
   public pensionTotal=0
   public pensionTotalSinDescuento=0
-  private descuento=3
   public allMonthsSelected: boolean = false;
   public pensionesList:any
   public pensionesListSelect:any
@@ -44,9 +44,11 @@ export class PensionPagoComponent implements OnInit {
   paymentCode: any;
 
   constructor(
-    private pensionService:PensionPagoService,
+    private pensionPagoService:PensionPagoService,
+    private PensionService:PensionService,
     private matriculaService:TuitionService,
     private currencyUtils: CurrencyUtils,
+    
     //Soportes de Pago
     public bolsilloService:BolsilloService,
     public soportesPagosService:SoportesPagosService,
@@ -62,7 +64,7 @@ export class PensionPagoComponent implements OnInit {
     this.descMeses = '';
     this.lsPensionesListSelect = {};
     this.discount = false;
-    this.discountPercent = 3;
+    this.discountPercent = 0;
     this.discountWarning5days = false;
     //Avalpay
     this.paymentData = {};
@@ -71,6 +73,8 @@ export class PensionPagoComponent implements OnInit {
 
     //Soportes de Pago
     this.paymentCode;
+
+
   }
   
   
@@ -78,7 +82,6 @@ export class PensionPagoComponent implements OnInit {
     this.getMatriculaPagada()
     this.getListPensiones()
     this.pensionesPagadas()
-
     
     //Soportes de Pago
     this.paymentCode = [...Array(8)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
@@ -91,7 +94,7 @@ export class PensionPagoComponent implements OnInit {
           // Pago de pension
           let lsPension:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
           let paymentAvalPay = JSON.parse(lsPension).data.pensiones;
-          this.pensionService.pagoPension({pensiones: paymentAvalPay},'AvalPay').subscribe(response=>{},error=>{});
+          this.pensionPagoService.pagoPension({pensiones: paymentAvalPay},'AvalPay').subscribe(response=>{},error=>{});
         },() => {
           this.getListPensiones()
         }, this.navigateTo, this.moduleName);
@@ -111,12 +114,22 @@ export class PensionPagoComponent implements OnInit {
 
   getListPensiones(){
     let data = {idAcudiente:localStorage.getItem('idAcudiente')}
-    this.pensionService.listPension(data).subscribe(res=>{
+    this.pensionPagoService.listPension(data).subscribe(res=>{
       this.pensionesList = res.result
       if(this.pensionesList.every((item: any) => item.estatus === 'Pagado')){
         this.allPensionsPaid = true
       }
+      console.log(this.pensionesList);
+      this.getListPension()
     })
+  }
+
+  getListPension(){
+    this.PensionService.obtenerPension(this.pensionesList[0]?.idPension).subscribe(
+      response=>{
+        this.discountPercent = response.result?.discount
+        console.log(response);
+      });
   }
 
   async pensionesPagadas(){
@@ -282,7 +295,7 @@ export class PensionPagoComponent implements OnInit {
           Swal.fire('Parece que aun no seleccionas alguna pensión', 'Favor de ingresar al menos una pensión', 'info')
         } else {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.pensionTotal)) {
-            this.pensionService.pagoPension(this.paymentData, 'bolsillo').subscribe(response=>{
+            this.pensionPagoService.pagoPension(this.paymentData, 'bolsillo').subscribe(response=>{
 
            //Descuento bolsillo
            this.bolsilloService.descuento({idAcudiente: localStorage.getItem('idAcudiente'), cant: this.pensionTotal}).subscribe(response=>{}); 

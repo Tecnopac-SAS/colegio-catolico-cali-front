@@ -53,6 +53,7 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
       title: [''],
       canViewType: [''],
       canViewValue:[''],
+      canViewTuitionType:[''],
       isActive:[''],
       documentoid:['']
     })
@@ -63,8 +64,12 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
     this.documentosMatriculaModel.title = this.formValue.value.title;
     this.documentosMatriculaModel.canViewType = this.formValue.value.canViewType;
     this.documentosMatriculaModel.canViewValue = this.formValue.value.canViewValue;
+    this.documentosMatriculaModel.canViewTuitionType = this.formValue.value.canViewTuitionType;
     this.documentosMatriculaModel.isActive = this.formValue.value.isActive;
     this.documentosMatriculaModel.documentoid = this.formValue.value.documentoid;
+
+    console.log(this.formValue.value);
+    
 
     if(this.documentosMatriculaModel.title =="" ){
       this.mensaje_error="El campo nombre no puede estar vacio"
@@ -78,11 +83,16 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
       this.mensaje_error="El campo grado no puede estar vacio"
     }else if(this.documentosMatriculaModel.canViewValue == "" && this.documentosMatriculaModel.canViewType == "student"){
       this.mensaje_error="El codigo del estudiante no puede estar vacio"
+    }else if(this.documentosMatriculaModel.documentoid == null){
+      this.mensaje_error="La plantilla no puede ir vacía"
+    }else if(this.documentosMatriculaModel.canViewTuitionType  == ""){
+      this.mensaje_error="El campo grado no puede estar vacio"
     }else{
       const formData = new FormData();
       formData.append('title',this.formValue.value.title)
       formData.append('canViewType',this.formValue.value.canViewType)
       formData.append('canViewValue',this.formValue.value.canViewValue)
+      formData.append('canViewTuitionType',this.formValue.value.canViewTuitionType)
       this.DocumentosMatriculaService.createDocumentosMatricula(formData)
       .subscribe(res=>{
       console.log(res);
@@ -95,6 +105,7 @@ export class DocumentosMatriculaCreateComponent implements OnInit {
           title: [''],
           canViewType: [''],
           canViewValue:[''],
+          canViewTuitionType:[''],
           isActive:[''],
           documentoid:['']
           })

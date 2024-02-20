@@ -27,7 +27,6 @@ import { InscriptionIndexComponent } from './component/incription/inscription-in
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
 import { TuitionIndexComponent } from './component/tuition/tuition-index/tuition-index.component';
 import { TuitionCreateComponent } from './component/tuition/tuition-create/tuition-create.component';
-import { TuitioExtraCreateComponent } from './component/tuition/tuitio-extra-create/tuitio-extra-create.component';
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
 import { ExtracurricularVerComponent } from './component/extracurricular/extracurricular-ver/extracurricular-ver.component';
@@ -113,6 +112,7 @@ import { AjustesPerfilIndexComponent } from './component/perfil/ajustes-perfil-i
 import { AjustesPerfilPassComponent } from './component/perfil/ajustes-perfil-pass/ajustes-perfil-pass.component';
 import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-perfil-estudiante/ajustes-perfil-estudiante.component';
 import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perfil-acudiente/ajustes-perfil-acudiente.component';
+import { PagosPresencialesComponent } from './component/pagos-presenciales/pagos-presenciales.component';
 
 import { CurrencyUtils } from '../utils/currencyUtils';
 import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosellos/pazysalvocuatrosellos.component';
@@ -140,7 +140,6 @@ import { EditarDocumentosComponent } from './component/documentos/editar-documen
     InscriptionCreateComponent,
     TuitionIndexComponent,
     TuitionCreateComponent,
-    TuitioExtraCreateComponent,
     ExtracurricularIndexComponent,
     ExtracurricularCreateComponent,
     ExtracurricularVerComponent,
@@ -225,6 +224,7 @@ import { EditarDocumentosComponent } from './component/documentos/editar-documen
     AjustesPerfilPassComponent,
     AjustesPerfilEstudianteComponent,
     AjustesPerfilAcudienteComponent,
+    PagosPresencialesComponent,
     PazysalvocuatrosellosComponent,
     EstadoCarteraComponent,
     AcudienteTransportationComponent,

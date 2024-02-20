@@ -2,6 +2,7 @@ export class StudentDatabase{
     public idEstudiante=0;
     public isActive=0;
     public codigo="";
+    public grado="";
     public nombres="";
     public apellidos="";
     public tipoDocumento="";

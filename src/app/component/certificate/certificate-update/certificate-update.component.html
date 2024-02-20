@@ -52,7 +52,11 @@
               </div>
 
               <div class="col-md-4">
-                <input type="text" class="form-control" formControlName="channel">
+                <select class="form-control" formControlName="channel">
+                  <option value="" selected>Seleccione una opción</option>
+                  <option value="online">Online</option>
+                  <option value="fisico">Físico</option>
+                </select>
               </div>
 
               <div class="col-md-2">
@@ -62,7 +66,7 @@
               <div class="col-md-4">
                 <select class="form-select form-control" aria-label="Default select example" formControlName="applicant">
                   <option value="" selected>Seleccione una opción</option>
-                  <option value="Activo">Activo</option>
+                  <option value="Activo">Estudiante Activo</option>
                   <option value="Exalumno">Exalumno</option>
                 </select>
               </div>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Hermano2, StudentDatabase } from 'src/app/models/studentDatabase.model';
 import { StudentDatabaseService } from 'src/app/services/student-database.service';
+import { PensionService } from 'src/app/services/pension.service';
 import { HistorialAcademico } from 'src/app/models/studentDatabase.model';
 import { Aptitudes } from 'src/app/models/studentDatabase.model';
 import { Padres } from 'src/app/models/studentDatabase.model';
@@ -16,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { HermanosComponent } from '../../hermanos/hermanos.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import * as moment from 'moment';
 import Swal from 'sweetalert2';
 
 
@@ -96,6 +98,8 @@ export class SolicitudEstudiantesComponent implements OnInit {
   validarCamposHistorialEstadoFisicoFormFull: boolean;
   validarCamposPadresFormFull: boolean;
   validarCamposAdicionalesFormFull: boolean;
+  codigo: string;
+  listGrades: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -105,8 +109,12 @@ export class SolicitudEstudiantesComponent implements OnInit {
     public Avalpay: Avalpay,
     private currencyUtils: CurrencyUtils,
     private MatriculaService:TuitionService,
+    private pensionService:PensionService,
     private route: ActivatedRoute,
   ) {
+
+    this.codigo = '';
+    this.listGrades = [];
 
     //Avalpay
     this.paymentData = {};
@@ -153,8 +161,14 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.fieldCaptureDatosAdicionalesHermanos()
     this.fieldCaptureDatosAdicionalesHermanos2()
     this.fieldCaptureDatosAdicionalesResponsable()
-    this.fieldCaptureCanalReferencia()
+    this.fieldCaptureCanalReferencia();
+    this.generarCodigoEstudiante();
     this.hermanosForm();
+
+
+    this.pensionService.listGrades().subscribe(response=>{
+      this.listGrades = response.result
+    },error=>{})
 
 
     //Valida estado de matricula
@@ -497,8 +511,19 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.datosFormArray.removeAt(index)
   }
 
+  generarCodigoEstudiante(){
+    this.studentDatabaseService.listStudentDatabases().subscribe(res => {
+      const cantidadEstudiantes = res.result.length;
+      const codigoBase = moment().format('YY'); // Obtener los primeros cuatro dígitos del año actual
+      const codigoEstudiantes = (cantidadEstudiantes + 1).toString().padStart(4, '0'); // Agregar ceros a la izquierda si es necesario para completar 4 dígitos
+
+      // Combinar los componentes del código
+      this.codigo = `${codigoBase}${codigoEstudiantes}`;
+    });
+  }
 
   CrearEstudiante() {
+    this.studentDatabaseModel.codigo = this.codigo;
     this.studentDatabaseModel.nombres = this.formValueEstudiantes.value.nombres;
     this.studentDatabaseModel.apellidos = this.formValueEstudiantes.value.apellidos;
     this.studentDatabaseModel.tipoDocumento = this.formValueEstudiantes.value.tipoDocumento;
@@ -507,6 +532,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.studentDatabaseModel.lugarNacimiento = this.formValueEstudiantes.value.lugarNacimiento;
     this.studentDatabaseModel.fechaNacimiento = this.formValueEstudiantes.value.fechaNacimiento;
     this.studentDatabaseModel.edad = this.formValueEstudiantes.value.edad;
+    this.studentDatabaseModel.grado = this.formValueEstudiantes.value.grado;
     this.studentDatabaseModel.direccion = this.formValueEstudiantes.value.direccion;
     this.studentDatabaseModel.tipoDireccion = this.formValueEstudiantes.value.tipoDireccion;
     this.studentDatabaseModel.barrio = this.formValueEstudiantes.value.barrio;
@@ -794,14 +820,6 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
     console.log(this.acudienteModel)
 
-    if (this.acudienteModel.parentesco == "") {
-      this.mensaje_error = "El campo parentesco no puede estar vacio"
-    }
-
-    else if (this.acudienteModel.nombres == "") {
-      this.mensaje_error = "El campo nombres no puede estar vacio"
-    }
-    else {
       this.studentDatabaseService.createAcudiente(this.acudienteModel)
         .subscribe(res => {
           console.log(res);
@@ -830,7 +848,6 @@ export class SolicitudEstudiantesComponent implements OnInit {
           err => {
             console.log(err)
           })
-    }
   }
 
 

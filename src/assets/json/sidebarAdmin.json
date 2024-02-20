@@ -142,7 +142,7 @@
           {
             "menuName": "Pagos presenciales",
             "icon": "bi bi-cash-coin",
-            "url": "/",  
+            "url": "/pagos-presenciales",  
             "toggle": false
           },
           {

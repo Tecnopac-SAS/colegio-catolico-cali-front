@@ -73,7 +73,9 @@ export class PagoMatriculaComponent implements OnInit {
     }, error => { });
 
     this.StudentService.getMatricula().subscribe(response => {
-      this.matricula = JSON.stringify(response.result)
+      this.matricula = JSON.stringify(response.result.value)
+      console.log(this.matricula);
+      
     }, error => { });
   }
 

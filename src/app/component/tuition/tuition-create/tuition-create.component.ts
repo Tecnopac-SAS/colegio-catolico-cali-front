@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Tuition } from 'src/app/models/tuition.model';
-import { TuitionExtra } from 'src/app/models/tuition.model';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { Router } from '@angular/router';
 
@@ -13,12 +12,11 @@ import { Router } from '@angular/router';
 })
 export class TuitionCreateComponent implements OnInit {
   grade !: any;
-  navTitle="crear matricula"
+  navTitle="Crear matricula"
   public dataTuition:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
   tuitionModel:Tuition= new Tuition();
-  tuitionExtraModel:TuitionExtra= new TuitionExtra();
   public mensaje_ok:any;
   public mensaje_error:any;
   constructor(
@@ -34,28 +32,35 @@ export class TuitionCreateComponent implements OnInit {
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      isActive:[''],
-      description: [''],
-      price: [''],
+      isActive:[1],
+      ordinary_price: [''],
+      extraordinary_price: [''],
       startDate: [''],
       finalDate: [''],
+      extraordinary_startDate: [''],
+      extraordinary_finalDate: [''],
       surcharge: [''],
       grade: [''],
     })
   }
 
   CrearMatricula(){
+    console.log(this.formValue.value);
     this.tuitionModel.isActive = this.formValue.value.isActive;
-    this.tuitionModel.price = this.formValue.value.price;
+    this.tuitionModel.ordinary_price = this.formValue.value.ordinary_price;
+    this.tuitionModel.extraordinary_price = this.formValue.value.extraordinary_price;
+    this.tuitionModel.extraordinary_startDate = this.formValue.value.extraordinary_startDate;
+    this.tuitionModel.extraordinary_finalDate = this.formValue.value.extraordinary_finalDate;
     this.tuitionModel.startDate = this.formValue.value.startDate;
     this.tuitionModel.finalDate = this.formValue.value.finalDate;
     this.tuitionModel.grade = this.formValue.value.grade;
+    console.log(this.tuitionModel);
 
     if(this.tuitionModel.grade =="" ){
       this.mensaje_error="El campo grado no puede estar vacio"
     }
 
-    else if(this.tuitionModel.price <=0 ){
+    else if(this.tuitionModel.ordinary_price <=0 ){
       this.mensaje_error="El campo precio no puede estar vacio"
     }
 
@@ -67,7 +72,6 @@ export class TuitionCreateComponent implements OnInit {
       this.mensaje_error="El campo Fecha final no puede estar vacio"
     }
     else{
-      this.tuitionModel.description = "Ordinaria";
       this.tuitionModel.surcharge = 0;
       this.tuitionService.createTuition(this.tuitionModel)
       .subscribe(res=>{
@@ -79,10 +83,12 @@ export class TuitionCreateComponent implements OnInit {
           this.mensaje_ok="Se registro correctamente"
           this.formValue = this.formBuilder.group({
             isActive:[''],
-            description: [''],
-            price: [''],
+            ordinary_price: [''],
+            extraordinary_price: [''],
             startDate: [''],
             finalDate: [''],
+            extraordinary_startDate: [''],
+            extraordinary_finalDate: [''],
             surcharge: [''],
             grade: [''],
           })
@@ -95,6 +101,7 @@ export class TuitionCreateComponent implements OnInit {
         console.log(err)
       })
     }
+    
   }
 
   gradeList(){
@@ -103,7 +110,6 @@ export class TuitionCreateComponent implements OnInit {
       this.grade=res.result
       console.log(this.grade)
     })
-
   }
   cerrarAlerta(){
     this.mensaje_error=""

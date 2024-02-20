@@ -39,19 +39,31 @@
             <tr>
               <td>{{index+1}}</td>
               <td>{{tuition.grade}}</td>
-              <td *ngIf="tuition.description== 'Ordinaria'; then thenBlock else elseBlock"></td>
-              <td *ngIf="tuition.description== 'ExtraOrdinaria'; then thenBlock else elseBlock"></td>
-              <td *ngIf="tuition.isActive==0">Inactivo</td>
-              <td *ngIf="tuition.isActive==1">Activo</td>
+              <td>
+                <div>
+                  ${{currencyUtils.formatCurrency(tuition.ordinary_price)}}
+                  <p>
+                    <small class="text-primary">{{formatFecha(tuition.startDate)}} - {{formatFecha(tuition.finalDate)}}</small>
+                  </p>
+                </div>
+              </td>
+              <td>
+                <div>
+                  ${{currencyUtils.formatCurrency(tuition.extraordinary_price)}}
+                  <p>
+                    <small class="text-primary">{{formatFecha(tuition.extraordinary_startDate)}} - {{formatFecha(tuition.extraordinary_finalDate)}}</small>
+                  </p>
+                </div>  
+              </td>
+              <td *ngIf="tuition.isActive==0"><span class="badge badge-warning text-uppercase">Inactivo</span></td>
+              <td *ngIf="tuition.isActive==1"><span class="badge badge-success text-uppercase">Activo</span></td>
               <td class="text-center">
                 <button  class="text-black btn" routerLink="/matriculas-editar/{{tuition.id}}">Editar</button>|
                 <button  class="text-info btn" (click)="activar(tuition)">Activar</button>|
                 <button  class="text-danger btn"(click)="deshabilitar(tuition)">Desactivar</button>
               </td>
             </tr>
-            <ng-template #thenBlock><td>{{tuition.price}}</td></ng-template>
-            <ng-template #elseBlock><td>-</td></ng-template>
-    
+
           </tbody>
         </table>
       </div>

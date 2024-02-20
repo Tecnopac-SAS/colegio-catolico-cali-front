@@ -64,21 +64,10 @@ export class ExtracurricularService {
     fd.append('isActive',data.isActive);
     fd.append('information',data.information);
     fd.append('schedule',data.schedule);
-
     return this._htpp.post(base_url+'extracurricular/CrearExtracurricular',fd);
   }
 
   updateExtracurricular(data:any,id:any){
-    // const fd = new FormData();
-    // fd.append('imagen',data.imagen);
-    // fd.append('startDate',data.startDate);
-    // fd.append('finalDate',data.finalDate);
-    // fd.append('idTeacher',data.idTeacher);
-    // fd.append('activity',data.activity);
-    // fd.append('price',data.price);
-    // fd.append('information',data.information);
-    // fd.append('schedule',data.schedule);
-    // return this._htpp.put(base_url+'extracurricular/actualizarExtracurricular/'+data.id,fd);
     return this._htpp.put<any>(base_url+'extracurricular/actualizarExtracurricular/'+id,data)
     .pipe(map((res:any)=>{
       return res;

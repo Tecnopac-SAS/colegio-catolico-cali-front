@@ -41,7 +41,6 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
     });
     this.documentosService.getDocumentos().subscribe(response =>{
       this.listDocumentos = response.resp;
-      console.log(this.listDocumentos);
     });
   }
 
@@ -55,6 +54,7 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
       title: [''],
       canViewType: [''],
       canViewValue:[''],
+      canViewTuitionType:[''],
       isActive:[''],
       documentoid:[''],
     })
@@ -62,6 +62,7 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
   }
 
   fieldCaptureIndex(){
+    
     this.route.params.subscribe(params=>{
       this.id = params['id'];
       this.DocumentosMatriculaService.obtenerDocumentosMatricula(this.id).subscribe(
@@ -71,8 +72,9 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
           this.formValue.controls['title'].setValue(this.DocumentosMatricula.result.title)
           this.formValue.controls['canViewType'].setValue(this.DocumentosMatricula.result.canViewType)
           this.formValue.controls['canViewValue'].setValue(this.DocumentosMatricula.result.canViewValue)
+          this.formValue.controls['canViewTuitionType'].setValue(this.DocumentosMatricula.result.canViewTuitionType)
           this.formValue.controls['isActive'].setValue(this.DocumentosMatricula.result.isActive)
-          this.formValue.controls['isActive'].setValue(this.DocumentosMatricula.result.documentoid)
+          this.formValue.controls['documentoid'].setValue(this.DocumentosMatricula.result.documentoid)
           this.documentosMatriculaModel.id = this.DocumentosMatricula.result.id
         }
       )
@@ -84,8 +86,9 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
     this.documentosMatriculaModel.title= this.formValue.value.title;
     this.documentosMatriculaModel.canViewType= this.formValue.value.canViewType;
     this.documentosMatriculaModel.canViewValue= this.formValue.value.canViewValue;
+    this.documentosMatriculaModel.canViewTuitionType= this.formValue.value.canViewTuitionType;
     this.documentosMatriculaModel.isActive= this.formValue.value.isActive;
-    this.documentosMatriculaModel.isActive= this.formValue.value.documentoid;
+    this.documentosMatriculaModel.documentoid= this.formValue.value.documentoid;
     console.log(this.documentosMatriculaModel)
 
     if(this.documentosMatriculaModel.title =="" ){
@@ -100,11 +103,17 @@ export class DocumentosMatriculaUpdateComponent implements OnInit {
       this.mensaje_error="El campo grado no puede estar vacio"
     }else if(this.documentosMatriculaModel.canViewValue == "" && this.documentosMatriculaModel.canViewType == "student"){
       this.mensaje_error="El codigo del estudiante no puede estar vacio"
+    }else if(this.documentosMatriculaModel.documentoid == null){
+      this.mensaje_error="La plantilla no puede ir vacía"
+    }else if(this.documentosMatriculaModel.canViewTuitionType  == ""){
+      this.mensaje_error="El campo grado no puede estar vacio"
     }else{
       const formData = new FormData();
       formData.append('title',this.formValue.value.title)
       formData.append('canViewType',this.formValue.value.canViewType)
       formData.append('canViewValue',this.formValue.value.canViewValue)
+      formData.append('canViewTuitionType',this.formValue.value.canViewTuitionType)
+      formData.append('documentoid',this.formValue.value.documentoid)
     this.DocumentosMatriculaService.updateDocumentosMatricula(formData,this.id)
     .subscribe(res=>{
       

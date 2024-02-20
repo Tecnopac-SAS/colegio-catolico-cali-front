@@ -39,8 +39,8 @@ export class DiscountCreateComponent implements OnInit {
       percentage:[''],
       frequency:[''],
       service:[''],
-      isActive:['']
-
+      isActive:[''],
+      status:['']
     })
   }
 
@@ -52,6 +52,7 @@ export class DiscountCreateComponent implements OnInit {
     this.DiscountModel.frequency = this.formValue.value.frequency;
     this.DiscountModel.service = this.formValue.value.service;
     this.DiscountModel.isActive = this.formValue.value.isActive;
+    this.DiscountModel.status = this.formValue.value.status;
 
     if(this.DiscountModel.name =="" ){
       this.mensaje_error="El campo nombre no puede estar vacio"
@@ -60,7 +61,9 @@ export class DiscountCreateComponent implements OnInit {
     else if(this.DiscountModel.starDate  == "" ){
       this.mensaje_error="El campo fecha de inicio no puede estar vacio"
     }
-
+    else if(this.DiscountModel.status  == null ){
+      this.mensaje_error="El campo estado no puede estar vacio"
+    }
     else if(this.DiscountModel.finalDate  == "" ){
       this.mensaje_error="El campo fecha final no puede estar vacio"
     }
@@ -95,7 +98,8 @@ export class DiscountCreateComponent implements OnInit {
             percentage:[''],
             frequency:[''],
             service:[''],
-            isActive:['']
+            isActive:[''],
+            status:['']
           })
         }
       },

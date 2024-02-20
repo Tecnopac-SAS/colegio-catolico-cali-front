@@ -40,7 +40,7 @@
               <td>{{index+1}}</td>
               <!-- <td>{{data.pensionAsGrade.description}}</td> -->
               <td>{{data.idGrade}}</td>
-              <td>{{data.price}}</td>
+              <td>${{this.currencyUtils.formatCurrency(data.price)}}</td>
               <td>{{data.discount}}</td>
               <td>{{data.use}}</td>
               <td *ngIf="data.isActive==0">Inactivo</td>

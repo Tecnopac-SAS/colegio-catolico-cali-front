@@ -3,7 +3,7 @@ export class DocumentosMatricula{
   public title="";
   public canViewType="";
   public canViewValue=""
-  public file=""
+  public canViewTuitionType=""
   public isActive=0;
   public documentoid=0;
 }

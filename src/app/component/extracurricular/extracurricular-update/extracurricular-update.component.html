@@ -7,19 +7,16 @@
            <div class="card-body">
             <div class="card-body">
             </div>
-            <h5 class="text-primary">Editar extracurricular</h5>
+            <h5 class="text-primary mb-3">Nuevo extracurricular</h5>
+            <form #extracurricularForm="ngForm">
             <div class="card text-center" style="width: 15rem;height: 15rem">
               <div class="card-body">
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
-            
-                <!-- <img *ngIf="base_url"  class="" alt="Imagen" [src]="base_url + 'extracurricular/extracurricular/img/'+ imgSelect || '../../../../assets/img/default.jpg'"  class="rounded-circle img-responsive my-2" width="120" height="120"> -->
-                <!-- <img *ngIf="!base_url" class="" alt="Imagen" [src]=" imgSelect || '../../../../assets/img/default.jpg'" class="rounded-circle img-responsive mt-2" width="128" height="128"> -->
-                <!-- <input [(ngModel)]="imageUrl" (change)="imageSelect($event)"  type="file" style="width: 100% !important;"> -->
+                <img alt="Imagen" [src]="dataExtracurricular.imagen || 'https://montevista.greatheartsamerica.org/wp-content/uploads/sites/2/2016/11/default-placeholder.png'" class="rounded-circle img-responsive mt-2" width="128" height="128">
               </div>
             </div>
-            <form #extracurricularForm="ngForm" (ngSubmit)="actualizarExtracurricular(extracurricularForm)">
-              <div class="row">
+            <div class="row mt-3">
   
                 <div *ngIf="mensaje_ok">
                   <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -36,12 +33,13 @@
                       (click)="cerrarAlerta()"></button>
                   </div>
                 </div>
-           
+                
+                <div class="col-md-1 my-3">
+                  <label class="">Imágen URL</label>
+                </div>
   
-  
-  
-                <div class="col-md-12 my-3">
-                  <label class=""></label>
+                <div class="col-md-5 my-3">
+                  <input [(ngModel)]="dataExtracurricular.imagen" #imagen="ngModel" name="imagen" class="form-control" (change)="setImage()" type="text" style="width: 100% !important;">
                 </div>
   
                 <div class="col-md-1 my-3">
@@ -116,11 +114,9 @@
   
               </div>
   
-              <div class="col-md-6 my-4">
+              <div class="col my-4 text-right">
                 <button class="btn btn-outline-primary m-3" routerLink="/extracurriculares"> Cancelar</button>
-  
-                <button type="submit" class="btn btn-primary m-3"> Actualizar</button>
-  
+                <button type="submit" (click)="actualizarExtracurricular(extracurricularForm)" class="btn btn-primary m-3"> Guardar</button>
               </div>
   
             </form>

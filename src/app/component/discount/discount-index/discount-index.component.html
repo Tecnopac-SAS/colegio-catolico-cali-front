@@ -50,13 +50,13 @@
                     <td>{{data.finalDate | date:'dd/MM/yy'}}</td>
                     <!-- <td>{{data.frequency}}</td> -->
                     <td>{{data.service}}</td>
-                    <td *ngIf="data.isActive==0">Inactivo</td>
-                    <td *ngIf="data.isActive==1">Activo</td>
+                    <td *ngIf="data.status==0"><span class="badge badge-warning text-uppercase">Inactivo</span></td>
+                    <td *ngIf="data.status==1"><span class="badge badge-success text-uppercase">Activo</span></td>
         
                     <td>
                       <button  class="text-black btn" routerLink="/discount-editar/{{data.id}}">Editar</button>|
                       <button  class="text-info btn" (click)="activar(data)">Activar</button>|
-                      <button  class="text-danger btn"(click)="deshabilitar(data)">Desactivar</button>
+                      <button  class="text-danger btn"(click)="eliminar(data)">Eliminar</button>
                     </td>
                   </tr>
                 </tbody>

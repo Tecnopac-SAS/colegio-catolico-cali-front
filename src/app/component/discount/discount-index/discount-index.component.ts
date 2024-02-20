@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import Swal from'sweetalert2';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-discount-index',
@@ -30,6 +31,11 @@ export class DiscountIndexComponent implements OnInit {
   ngOnInit(): void {
     this.listDiscounts()
     this.fieldCapture()
+  }
+
+
+  formatFecha(fecha:any){
+    return (moment(fecha).format('DD/MM/YYYY')==='Invalid date')?'':moment(fecha).format('DD/MM/YYYY')
   }
 
   fieldCapture(){
@@ -69,17 +75,17 @@ export class DiscountIndexComponent implements OnInit {
 
   }
 
-  deshabilitar(data:any){
+  eliminar(data:any){
     this.DiscountModel.isActive = data.isActive
       if (data.isActive=1) {
        this.DiscountModel.isActive= 0;
        Swal.fire(
-         'Descuento deshabilitado!',
+         'Descuento Eliminado!',
          '',
-         'warning'
+         'success'
         )
      }
-     this.DiscountService.deshabilitar(this.DiscountModel,data.id)
+     this.DiscountService.eliminar(this.DiscountModel,data.id)
      .subscribe(res=>{
       this.listDiscounts()
      })

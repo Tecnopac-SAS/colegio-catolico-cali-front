@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PensionService } from 'src/app/services/pension.service';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { Pension } from 'src/app/models/pension.model';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
@@ -22,6 +23,7 @@ export class PensionIndexComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private pensionService:PensionService,
+    public currencyUtils: CurrencyUtils,
     private router:Router
   ) { }
 

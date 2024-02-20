@@ -1,6 +1,6 @@
 export class Extracurricular{
   public id=0;
-  public imagen:any;
+  public imagen="";
   public startDate="";
   public finalDate="";
   public idTeacher=0;

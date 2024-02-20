@@ -55,4 +55,10 @@ export class DiscountService {
       return res;
     }))
   }
+  eliminar(data:any, id:number,){
+    return this._htpp.put<any>(base_url+'discount/eliminar/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }
