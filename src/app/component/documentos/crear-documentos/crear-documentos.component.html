@@ -22,6 +22,11 @@
 
           <div class="row">
             <form [formGroup]="formDocumento">
+              <div class="row mb-4">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTutorial">
+                  Guia previa para el uso de este módulo
+                </button>   
+              </div>
               <div class="col-12 mb-3 p-0">
                 <label class="">Título del Documento</label>
                 <input type="text" class="form-control" formControlName="titulo" name="titulo" [(ngModel)]="titulo"
@@ -55,9 +60,6 @@
 
           <div class="row mt-3">
             <div class="ml-auto col-4 text-right">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTutorial">
-                ¿Cómo se usa?
-              </button>
               <button type="submit" class="btn btn-outline-primary mx-3" routerLink="/gestion-documentos">
                 Cancelar</button>
               <button type="submit" class="btn btn-primary" (click)="crearDocumento()"> Guardar</button>

@@ -262,6 +262,7 @@ export class PensionPagoComponent implements OnInit {
   
         if (this.pensionesList[key].estatus !== 'Pagado') {
           checkBox.checked = true;
+          checkBox.disabled = true;
           this.checkPendientes(this.pensionesList[key].fechaPago, { target: checkBox });
         }
       });

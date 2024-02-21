@@ -116,7 +116,7 @@ export class ExtracurricularInscripcionComponent implements OnInit {
   pagar() {
     if (this.extracurricularSelect) {
       Swal.fire({
-        title: '¿Estas seguro que deseas pagar el extracurricular con la opción bolsillo?',
+        title: '¿Estas seguro que deseas pagar la extracurricular con la opción bolsillo?',
         showDenyButton: true,
         confirmButtonText: 'Si',
         denyButtonText: `No`,

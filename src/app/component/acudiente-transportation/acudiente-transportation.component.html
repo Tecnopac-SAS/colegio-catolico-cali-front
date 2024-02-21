@@ -52,19 +52,28 @@
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <div class="w-100">
-
+                      <div *ngIf="formValueExtra.value.routeType == '0'" class="form-group">
+                        <label class="mr-2">
+                          <input type="radio" formControlName="mediaRouteType" name="mediaRouteType" value="1">
+                          Recogida
+                        </label>
+                        <label>
+                          <input type="radio" formControlName="mediaRouteType" name="mediaRouteType" value="0">
+                          Entrega
+                        </label>
+                      </div>
                       <div class="form-group">
                         <label>Datos del Responsable</label>
                         <textarea class="form-control" formControlName="datosResponsable" placeholder="Nombre, Teléfono"></textarea>
                       </div>
                       <div class="row">
-                        <div class="col">
+                        <div *ngIf="formValueExtra.value.routeType == '1' || formValueExtra.value.mediaRouteType == '1'" class="col">
                           <div class="form-group">
                             <label>Direccion de Recogida</label>
                             <input type="text" class="form-control" formControlName="direccion_recogida" placeholder="">
                           </div>
                         </div>
-                        <div class="col">
+                        <div *ngIf="formValueExtra.value.routeType == '1' || formValueExtra.value.mediaRouteType == '0'" class="col">
                           <div class="form-group">
                             <label>Direccion de Entrega</label>
                             <input type="text" class="form-control" formControlName="direccion_entrega" placeholder="">

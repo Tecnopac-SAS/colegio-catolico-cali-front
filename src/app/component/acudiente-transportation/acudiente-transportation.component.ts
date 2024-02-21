@@ -62,6 +62,7 @@ export class AcudienteTransportationComponent implements OnInit {
       acudienteid: [''],
       estudianteid: [''],
       routeType: [''],
+      mediaRouteType: [''],
       datosResponsable: [''],
       direccion_recogida: [''],
       direccion_entrega: [''],
