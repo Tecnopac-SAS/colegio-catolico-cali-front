@@ -7,13 +7,6 @@
         </ol>
         <div class="card">
           <div class="card-body">
-            <div class="container">
-                <ul class="numbered-list">
-                    <li class="text-primary">
-                        <p>Certificados</p>
-                    </li>
-                </ul>
-            </div>
             <div class="row justify-content-end">
                 <div class="col-md-3 col-12 my-2">
                   <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
@@ -39,18 +32,34 @@
                   <th scope="col">Valor</th>
                   <th scope="col">Solicitante</th>
                   <th scope="col">¿Pago?</th>
+                  <th scope="col">Metodo Pago</th>
+                  <th scope="col">Estado</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody  *ngFor="let data of listCertificados; let index = index ">
                 <tr class="align-bottom">
-                  <td >{{data.certificateInscriptionAsCertificate.concept}}</td>
-                  <td>{{data.certificateInscriptionAsCertificate.time}} dias</td>
-                  <td>{{data.certificateInscriptionAsCertificate.channel}}</td>
-                  <td>{{data.monto}}</td>
-                  <td>{{ data.certificateInscriptionAsCertificate.applicant }}</td>
-                  <td>Si</td>
-                  <td><a routerLink="/certificate/{{ data.id}}">Ver</a> | <button  class="text-{{ (data.status)?'danger':'success' }} btn" (click)="statusChange(data)">{{ (data.status)?'Rechazar':'Aprobar' }}</button></td>
+                  <td >{{data.certificateInscriptionAsCertificate?.concept}}</td>
+                  <td>{{data.certificateInscriptionAsCertificate?.time}} días</td>
+                  <td>{{data.canalEntrega}}</td>
+                  <td>${{this.currencyUtils.formatCurrency(data.monto)}}</td>
+                  <td>{{ data.certificateInscriptionAsCertificate?.applicant }}</td>
+                  <td>{{data.paid ? 'Si' : 'No'}}</td>
+                  <td>{{data.metodoPago}}</td>
+                  <td class="text-center">
+                    <span *ngIf="data.status == 1" class="badge badge-success text-uppercase">Aprobado</span>
+                    <span *ngIf="data.status == 0" class="badge badge-danger text-uppercase">Rechazado</span>
+                    <span *ngIf="data.status == 2" class="badge badge-secondary text-uppercase">Entregado</span>
+                    <span *ngIf="data.status == 3 && data.certificateInscriptionAsCertificate?.channel != 'Online'" class="badge badge-info text-uppercase">Listo</span>
+                    <span *ngIf="data.status == null" class="badge badge-secondary text-uppercase">Pendiente</span>
+                  </td>
+                  <td class="text-center">
+                    <a routerLink="/certificate/{{ data.id}}">Ver</a>
+                    <span class="mx-2" *ngIf="data.status == null">|</span> 
+                    <button *ngIf="data.status == null" class="btn text-success" (click)="statusChange(data, 1)">Aprobar</button>
+                    <span class="mx-2" *ngIf="data.status == null">|</span> 
+                    <button *ngIf="data.status == null" class="btn text-danger" (click)="statusChange(data, 0)" >Rechazar</button>
+                  </td>
                 </tr>
               </tbody>
             </table>

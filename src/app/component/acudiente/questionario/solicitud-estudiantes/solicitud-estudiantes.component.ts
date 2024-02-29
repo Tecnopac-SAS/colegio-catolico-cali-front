@@ -515,7 +515,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.studentDatabaseService.listStudentDatabases().subscribe(res => {
       const cantidadEstudiantes = res.result.length;
       const codigoBase = moment().format('YY'); // Obtener los primeros cuatro dígitos del año actual
-      const codigoEstudiantes = (cantidadEstudiantes + 1).toString().padStart(4, '0'); // Agregar ceros a la izquierda si es necesario para completar 4 dígitos
+      const codigoEstudiantes = (cantidadEstudiantes + 1).toString().padStart(2, '0'); // Agregar ceros a la izquierda si es necesario para completar 4 dígitos
 
       // Combinar los componentes del código
       this.codigo = `${codigoBase}${codigoEstudiantes}`;

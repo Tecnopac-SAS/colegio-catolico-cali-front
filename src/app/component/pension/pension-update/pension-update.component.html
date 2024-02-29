@@ -27,16 +27,11 @@
                               (click)="cerrarAlerta()"></button>
                           </div>
                         </div>
-                        <h4 class="text-primary">Editar pensión:</h4>
                         <div class="col-md-1 my-3">
                           <label class="">Grado</label>
                         </div>
           
                         <div class="col-md-5 my-3">
-                          <!-- <select class="form-control" formControlName="idGrade">
-                            <option value="" selected>SELECCIONAR</option>
-                            <option *ngFor="let item of grade" value="{{item.id}}">{{item.description}}</option>
-                          </select> -->
                           <input type="text" class="form-control" formControlName="idGrade" readonly>
                         </div>
           
@@ -60,7 +55,10 @@
                         </div>
           
                         <div class="col-md-5">
-                          <input type="number" class="form-control" formControlName="discount">
+                          <select formControlName="discount" class="form-control" >
+                            <option value="">Seleccione una opción</option>
+                            <option *ngFor=" let disc of dataDiscount" value="{{disc?.id}}" [selected]="Pension.result?.discount == disc?.id">{{disc?.name}} - {{disc?.percentage}} %</option>
+                          </select>
                         </div>
           
           

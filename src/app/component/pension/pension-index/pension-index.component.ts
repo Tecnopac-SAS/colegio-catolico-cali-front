@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PensionService } from 'src/app/services/pension.service';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
+import { DiscountService } from 'src/app/services/discount.service';
 import { Pension } from 'src/app/models/pension.model';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
@@ -20,12 +21,15 @@ export class PensionIndexComponent implements OnInit {
   public filter:any;
   public filterText:any;
   pensionModel:Pension = new Pension();
+  currentDiscount: any;
+  dataDiscount: any;
   constructor(
     private formBuilder:FormBuilder,
     private pensionService:PensionService,
     public currencyUtils: CurrencyUtils,
+    public DiscountService:DiscountService,
     private router:Router
-  ) { }
+  ) {  }
 
   ngOnInit(): void {
     this.listPensions()
@@ -46,6 +50,11 @@ export class PensionIndexComponent implements OnInit {
     this.pensionService.listPensiones()
     .subscribe(res=>{
       this.dataPension=res.result
+      // //Get discount
+      // this.DiscountService.obtenerDiscount(res.result.discount).subscribe(
+      //   res=>{
+      //     this.currentDiscount = res.result
+      // });
       console.log(this.dataPension)
     })
   }

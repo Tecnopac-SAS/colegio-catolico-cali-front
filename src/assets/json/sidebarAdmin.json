@@ -112,7 +112,7 @@
           "toggle": false
         },
         {
-          "menuName": "Certificados",
+          "menuName": "Certificados (Solicitudes)",
           "icon": "bi-file-earmark-pdf",
           "url": "/certificados-solicitud",  
           "toggle": false

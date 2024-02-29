@@ -127,7 +127,9 @@ export class PensionPagoComponent implements OnInit {
   getListPension(){
     this.PensionService.obtenerPension(this.pensionesList[0]?.idPension).subscribe(
       response=>{
-        this.discountPercent = response.result?.discount
+        console.log(response.result);
+        this.discountPercent = response.result?.pensionAsDiscounts.percentage
+        
         console.log(response);
       });
   }
@@ -243,15 +245,6 @@ export class PensionPagoComponent implements OnInit {
       this.pensionesListSelectNames = this.mesesArr;
       this.pensionesListSelect = this.pensionesList.filter(
         (pension: any) => pension.estatus !== 'Pagado'
-      );
-  
-      // pensiones no pagadas (Calcula)
-      this.pensionTotal = this.pensionesListSelect.reduce(
-        (total: number, pension: any) => {
-          const valorConDescuento = pension.estatus !== 'Pagado' ? pension.valor * 0.97 : 0;
-          return total + valorConDescuento;
-        },
-        0
       );
   
       // selección automática de Checkbox

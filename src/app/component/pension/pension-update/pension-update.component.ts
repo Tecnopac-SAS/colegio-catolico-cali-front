@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Pension } from 'src/app/models/pension.model';
 import { PensionService } from 'src/app/services/pension.service';
+import { DiscountService } from 'src/app/services/discount.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from'sweetalert2'
 
@@ -22,12 +23,22 @@ export class PensionUpdateComponent implements OnInit {
   public mensaje_ok:any;
   public mensaje_error:any;
   id !: any;
+  dataDiscount: any;
   constructor(
     private formBuilder:FormBuilder,
     private PensionService:PensionService,
+    private DiscountService:DiscountService,
     private router:Router,
     private route : ActivatedRoute,
-  ) { }
+  ) {
+    this.dataDiscount = []
+
+    // Descuentos 
+    this.DiscountService.listDiscounts()
+    .subscribe(res=>{
+      this.dataDiscount=res.result
+    })  
+  }
 
   ngOnInit(): void {
     this.fieldCapture()

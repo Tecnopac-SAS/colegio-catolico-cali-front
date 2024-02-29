@@ -15,6 +15,7 @@ export class LoginAcudienteComponent implements OnInit {
  public user: any;
  public token: any;
  public id:any;
+ public idGrade:any;
  public nombre: any;
  public role: any;
  public bolsillo: any;
@@ -65,9 +66,12 @@ login(){
  else{
    this.loginService.login(this.formValue.value,'2').subscribe(
      response=>{
+      console.log(response);
+      
       if (response.token) {
         this.token=response.token
         this.nombre=response.nombres
+        this.idGrade=response.idGrade
         this.role=response.idRole
         this.id=response.id
         this.bolsillo=response.bolsillo
@@ -80,6 +84,7 @@ login(){
         localStorage.setItem('bolsillo',this.bolsillo);
         localStorage.setItem('idAcudiente',this.idAcudiente);
         localStorage.setItem('idEstudiante',this.idEstudiante);
+        localStorage.setItem('idGrade',this.idGrade);
         this.router.navigate(['home'])
       }else{
         Swal.fire(

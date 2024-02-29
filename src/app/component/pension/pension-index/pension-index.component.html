@@ -41,7 +41,7 @@
               <!-- <td>{{data.pensionAsGrade.description}}</td> -->
               <td>{{data.idGrade}}</td>
               <td>${{this.currencyUtils.formatCurrency(data.price)}}</td>
-              <td>{{data.discount}}</td>
+              <td><a routerLink="/discount-editar/{{data.pensionAsDiscounts?.id}}">{{data.pensionAsDiscounts?.name}} - {{data.pensionAsDiscounts?.percentage}}%</a></td>
               <td>{{data.use}}</td>
               <td *ngIf="data.isActive==0">Inactivo</td>
               <td *ngIf="data.isActive==1">Activo</td>

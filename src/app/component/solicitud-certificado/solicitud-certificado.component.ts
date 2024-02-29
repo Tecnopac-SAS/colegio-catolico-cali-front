@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CertificateService } from 'src/app/services/certificate.service';
+import { PagosPresencialesService } from 'src/app/services/pagos-presenciales.service';
 import { PensionService } from 'src/app/services/pension.service';
 
 import { BolsilloService } from 'src/app/services/bolsillo.service';
@@ -28,7 +29,7 @@ export class SolicitudCertificadoComponent implements OnInit {
   detalle:any
 
   //Avalpay
-  paymentData: object;
+  public paymentData: object;
   moduleName: string;
   pmtId: any;
   descPagoAvalPay: string;
@@ -37,6 +38,8 @@ export class SolicitudCertificadoComponent implements OnInit {
   
   //Soportes de Pago
   paymentCode: any;
+  isPaid: boolean;
+  metodoPago: any;
 
   constructor(
       private certificateService:CertificateService,
@@ -44,6 +47,7 @@ export class SolicitudCertificadoComponent implements OnInit {
       //Soportes de Pago
       public bolsilloService:BolsilloService,
       public soportesPagosService:SoportesPagosService,
+      public PagosPresencialesService:PagosPresencialesService,
 
       private pensionService:PensionService,
       public currencyUtils: CurrencyUtils,
@@ -56,15 +60,17 @@ export class SolicitudCertificadoComponent implements OnInit {
 
       //Avalpay
       this.paymentData = {};
+      this.isPaid = false;
       this.moduleName = 'certificados';
       this.descPagoAvalPay = 'RECARGA BOLSILLO';
       this.navigateTo = 'solicitud-certificado';
       this.disableButton = true;
-
+      
       this.certificateSelect = '';
       this.gradeSelect = '';
       this.canalSelect = '';
       this.detalle = '';
+      this.metodoPago = '';
 
       //Soportes de Pago
       this.paymentCode;
@@ -145,7 +151,8 @@ export class SolicitudCertificadoComponent implements OnInit {
       detalle:this.detalle,
       idCertificate:this.certificateSelect,
       idGrade:this.gradeSelect,
-      metodoPago:'bolsillo',
+      metodoPago: this.metodoPago,
+      paid: this.isPaid,
       idEstudiante:localStorage.getItem('idEstudiante'),
       paymentCode: this.paymentCode
     }
@@ -164,14 +171,30 @@ export class SolicitudCertificadoComponent implements OnInit {
             
             //Descuento bolsillo
             this.bolsilloService.descuento({idAcudiente: localStorage.getItem('idAcudiente'), cant: this.certificate.price}).subscribe(response=>{}); 
-          
-            this.certificateService.pagoInscripcion(this.paymentData).subscribe(response=>{
+            
+            //Al ser online queda pagado
+            this.isPaid = true;
+            this.metodoPago = 'Bolsillo';
+
+            const paymentDataBolsillo = {
+              monto:this.certificate.price,
+              canalEntrega:this.canalSelect,
+              detalle:this.detalle,
+              idCertificate:this.certificateSelect,
+              idGrade:this.gradeSelect,
+              metodoPago: this.metodoPago,
+              paid: this.isPaid,
+              idEstudiante:localStorage.getItem('idEstudiante'),
+              paymentCode: this.paymentCode
+            }
+
+            this.certificateService.pagoInscripcion(paymentDataBolsillo).subscribe(response=>{
               //Soportes De Pago
               let soportePagoData = {
                 paymentCode: this.paymentCode,
                 idAcudiente: localStorage.getItem('idAcudiente'),
                 tipoPago: 'Certificado',
-                viaPago: 'Bolsillo',
+                viaPago: this.metodoPago,
                 monto: this.certificate.price
               }
               this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response=>{}); 
@@ -179,7 +202,6 @@ export class SolicitudCertificadoComponent implements OnInit {
               Swal.fire({
                 icon:  response.status ? 'success':'error',
                 title: response.mensaje,
-                showCancelButton: true,
               }).then((result) => {
                 if (result.isConfirmed) {
                   window.location.reload();
@@ -199,6 +221,80 @@ export class SolicitudCertificadoComponent implements OnInit {
           }else{
             Swal.fire('Parece que no tienes fondos suficientes', 'Favor de ingresar fondos en el bolsillo', 'info')
           }
+        }
+      })
+    }else{
+      Swal.fire('Favor de seleccionar un curso', '', 'info')
+    }
+  }
+
+  pagarPresencial(){
+    if (this.certificateSelect) {
+      Swal.fire({
+        title: '¿Estas seguro que deseas pagar la solicitud con la opción Pago presencial?',
+        showDenyButton: true,
+        confirmButtonText: 'Si',
+        denyButtonText: `No`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            //Al ser presencial no queda pagado
+            this.isPaid = false;
+            this.metodoPago = 'Pago Presencial';
+
+            const paymentDataPresencial = {
+              monto:this.certificate.price,
+              canalEntrega:this.canalSelect,
+              detalle:this.detalle,
+              idCertificate:this.certificateSelect,
+              idGrade:this.gradeSelect,
+              metodoPago: this.metodoPago,
+              paid: this.isPaid,
+              idEstudiante:localStorage.getItem('idEstudiante'),
+              paymentCode: this.paymentCode
+            }
+
+            this.certificateService.pagoInscripcion(paymentDataPresencial).subscribe(response=>{
+
+              //Soportes De Pago
+              let soportePagoData = {
+                paymentCode: this.paymentCode,
+                idAcudiente: localStorage.getItem('idAcudiente'),
+                tipoPago: 'Certificado',
+                viaPago: this.metodoPago,
+                monto: this.certificate.price
+              }
+              let pagoPresencialData = {
+                paymentCode: this.paymentCode,
+                servicio: 'Certificado',
+                observacion: `${this.detalle}`,
+                monto: this.certificate.price,
+                estado: null
+              }
+              this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response=>{}); 
+              //Pago Presencial
+              this.PagosPresencialesService.crearPagoPresencial(pagoPresencialData).subscribe(response=>{}); 
+
+              Swal.fire({
+                icon:  response.status ? 'success':'error',
+                title: response.status ? response.mensaje + ' | Código:'+ this.paymentCode : response.mensaje,
+                text: response.status ? 'Puedes validar el código desde el módulo de soportes de pago': '',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.reload();
+                } else if (result.isDenied) {}
+              });
+              if (response.status) {
+                this.canalSelect = ''
+                this.certificateSelect = ''
+                this.gradeSelect = ''
+                this.detalle = ''
+                this.certificate = {price:''}
+              }
+
+            },error=>{
+  
+            });
         }
       })
     }else{

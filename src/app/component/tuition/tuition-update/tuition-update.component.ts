@@ -25,17 +25,28 @@ export class TuitionUpdateComponent implements OnInit {
   public mensaje_ok:any;
   public mensaje_error:any;
   id !: any;
+  extraordinary_startDate: any;
   constructor(
     private formBuilder:FormBuilder,
     private TuitionService:TuitionService,
     private currencyUtils: CurrencyUtils,
     private router:Router,
     private route : ActivatedRoute,
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit(): void {
     this.fieldCapture()
 
+    this.formValue.get('finalDate')?.valueChanges.subscribe((value) => {
+    // Incrementa el valor de finalDate en un día usando Moment.js
+    const newDate = moment(value).add(1, 'days');
+
+    const formattedValue = newDate.format('YYYY-MM-DD');
+    this.formValue.controls['extraordinary_startDate'].setValue(formattedValue)
+    this.extraordinary_startDate = formattedValue;
+    });
   }
 
   fieldCapture(){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { DocumentosMatriculaService } from 'src/app/services/documentos-matricula.service';
 import { documentosService } from 'src/app/services/documentos.service';
@@ -28,21 +29,22 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
   pensionesList: any;
   tabla_pensiones_template: any;
   pension: any;
+  anticipada: boolean;
 
   constructor(
     private DocumentosMatriculaService: DocumentosMatriculaService,
     private pensionService: PensionPagoService,
     private CurrencyUtils: CurrencyUtils,
-    private TuitionService:TuitionService,
+    private TuitionService: TuitionService,
     private StudentDatabaseService: StudentDatabaseService,
     private StudentService: StudentDatabaseService,
     private documentosService: documentosService
   ) {
     moment.locale('es');
     this.pension = '';
-    this.StudentDatabaseService.getPension().subscribe(response=>{
+    this.StudentDatabaseService.getPension().subscribe(response => {
       this.pension = JSON.stringify(response.result.price)
-    },error=>{});
+    }, error => { });
 
     let data = { idAcudiente: localStorage.getItem('idAcudiente') };
     this.pensionService.listPension(data).subscribe(res => {
@@ -52,6 +54,8 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
 
 
     this.docId = '';
+    this.anticipada = false;
+  
 
   }
 
@@ -64,43 +68,48 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
     this.validateDocuments();
   }
 
+
   validateDocuments() {
 
-
-    this.StudentDatabaseService.obtenerStudentDatabase(Number(localStorage.getItem('idEstudiante'))).subscribe(response => {
-      this.estudiante = response.result;
-    });
-
-
-    let anticipada = false;
-
-    this.StudentService.getMatricula().subscribe(response => {
-      if(response.result.type = 'extraordinaria'){
-        anticipada = true
-      }
-    }, error => { });
+    console.log(this.estudiante);
     
-      let docs: any[] = [];
-      const lsEstudiante = localStorage.getItem('idEstudiante');
 
-      this.DocumentosMatriculaService.listDocumentosMatriculas().subscribe(res => {
-          docs = res;
-          console.log(res);
-          this.listDoc = [];
-          docs.forEach(element => {
-              if (element.canViewType === 'student' && element.canViewValue === lsEstudiante) {
-                  this.listDoc.push(element);
-              } else if(element.canViewType === 'grade' && this.estudiante.grado === element.canViewValue) {
-                  this.listDoc.push(element);
-              } else if(element.canViewTuitionType === 'extraordinaria' && anticipada == true) {
-                this.listDoc.push(element);
-              } else if (element.canViewType === 'all' && element.canViewTuitionType === 'all') {
-                  this.listDoc.push(element);
-              }
-          });
-          console.log('Documentos válidos:', this.listDoc);
+    this.StudentDatabaseService.obtenerStudentDatabase(Number(localStorage.getItem('idEstudiante')))
+      .subscribe(response => {
+        this.estudiante = response.result;
       });
+  
+    const lsEstudiante = localStorage.getItem('idEstudiante');
+    const lsEstudianteGrado = localStorage.getItem('idGrade');
+  
+    forkJoin([
+      this.StudentService.getMatricula(),
+      this.DocumentosMatriculaService.listDocumentosMatriculas()
+    ]).subscribe(([matriculaResponse, documentosResponse]) => {
+      
+      console.log(documentosResponse);
+      
+
+      if (matriculaResponse.result.type == "extraordinaria") {
+        this.anticipada = true;
+      }
+  
+      this.listDoc = documentosResponse.filter((element: { canViewType: string; canViewValue: string | null; canViewTuitionType: string; }) => {
+        if (element.canViewType === 'student' && element.canViewValue === lsEstudiante) {
+          return true;
+        } else if (element.canViewType == 'grade' && lsEstudianteGrado == element.canViewValue) {
+          return true;
+        } else if (element.canViewTuitionType == "extraordinaria" && this.anticipada == true) {
+          return true;
+        } else if (element.canViewType === 'all' && element.canViewTuitionType === 'all') {
+          return true;
+        }
+        return false;
+      });
+      console.log('Documentos válidos:', this.listDoc);
+    });
   }
+  
 
 
 
@@ -148,10 +157,10 @@ export class DescargaDocumentoMatriculaComponent implements OnInit {
             ${filasTabla}
           </tbody>
         </table>`,
-        total_pensiones: this.pensionesList.length,
-        total_pensiones_letras: this.amountToWords(this.pensionesList.length),
-        mensualidad: this.formatCurrency(this.pensionesList[0]?.valor),
-        mensualidad_letras: this.amountToWords(this.pensionesList[0]?.valor),
+      total_pensiones: this.pensionesList.length,
+      total_pensiones_letras: this.amountToWords(this.pensionesList.length),
+      mensualidad: this.formatCurrency(this.pensionesList[0]?.valor),
+      mensualidad_letras: this.amountToWords(this.pensionesList[0]?.valor),
     };
     this.documentosService.crearPDFDocumento(this.data, this.docId).subscribe(res => {
       window.location.href = res.pdfDownloadUrl;

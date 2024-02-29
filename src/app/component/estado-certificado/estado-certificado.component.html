@@ -1,38 +1,53 @@
 <app-dashboard>
-    <app-nav-title [navTitle]="navTitle"></app-nav-title>
-    <div class="container my-xl-2">
-      <div class="row">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a href="/certificados">Certificados</a> / Página actual</li>
-        </ol>
-        <div class="card">
-          <div class="card-body">
-            <div class="container">
-                <table class="table table-hover table-bordered table-responsive-sm">
-                    <thead>
-                      <tr>
-                        <th scope="col">Tipo de documento</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Tiempo de entrega</th>
-                        <th scope="col">Estado de documento</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Entrega</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let certificado of listCertificate; let index = index ">
-                        <td>{{ certificado.certificateInscriptionAsCertificate.concept }}</td>
-                        <td>{{ formatFecha(certificado.createAt) }}</td>
-                        <td>{{ certificado.certificateInscriptionAsCertificate.time }} Días</td>
-                        <td [ngClass]="certificado.entregado === 'Listo' ? 'text-success' : 'text-warning'">{{ (certificado.entregado)?'Listo':'Pendiente' }}</td>
-                        <td>${{ currencyUtils.formatCurrency(certificado.monto)}}</td>
-                        <td>{{ certificado.canalEntrega }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-            </div>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container my-xl-2">
+    <div class="row">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / <a
+            href="/certificados">Certificados</a> / Página actual</li>
+      </ol>
+      <div class="card">
+        <div class="card-body">
+          <div class="container">
+            <table class="table table-hover table-bordered table-responsive-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Tipo de documento</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Tiempo de entrega</th>
+                  <th scope="col">Estado de documento</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Método Pago</th>
+                  <th scope="col">Entrega</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let certificado of listCertificate; let index = index ">
+                  <td>{{ certificado.certificateInscriptionAsCertificate.concept }}</td>
+                  <td>{{ formatFecha(certificado.createAt) }}</td>
+                  <td>{{ certificado.certificateInscriptionAsCertificate.time }} Días</td>
+                  <td>
+                    <span *ngIf="certificado.status == 1" class="badge badge-success text-uppercase">Aprobado</span>
+                    <span *ngIf="certificado.status == 0" class="badge badge-danger text-uppercase">Rechazado</span>
+                    <span *ngIf="certificado.status == 2" class="badge badge-secondary text-uppercase">Entregado</span>
+                    <span *ngIf="certificado.status == 3" class="badge badge-info text-uppercase">Listo</span>
+                    <span *ngIf="certificado.status == null" class="badge badge-secondary text-uppercase">Pendiente</span>
+                  </td>
+                  <td>${{ currencyUtils.formatCurrency(certificado.monto)}}</td>
+                  <td>{{ certificado.metodoPago}}</td>
+                  <td>{{ certificado.canalEntrega }}</td>
+                  <td *ngIf="certificado.canalEntrega == 'Online' && certificado.status == 3" class="text-center">
+                    <a class="btn btn-primary" href="{{certificado.documentUrl}}" target="_blank">
+                      <i class="bi bi-file-earmark-arrow-down"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </app-dashboard>
