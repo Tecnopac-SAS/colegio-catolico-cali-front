@@ -95,6 +95,9 @@ export class CoursesCreateComponent implements OnInit {
             isActive: [''],
           })
         }
+        setTimeout(() => {
+          this.router.navigate(['cursos-extraordinaria']);
+        }, 2000);
       },
       err=>{
         console.log(err)

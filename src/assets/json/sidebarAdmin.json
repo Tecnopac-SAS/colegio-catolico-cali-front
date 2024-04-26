@@ -63,7 +63,7 @@
           {
             "menuName": "Gestión docentes",
             "icon": "bi bi-book",
-            "url": "",  
+            "url": "/docente",  
             "toggle": true,
             "submenu": [
               {
@@ -75,7 +75,7 @@
           {
             "menuName": "Gestión administradores",
             "icon": "bi bi-house",
-            "url": "",  
+            "url": "/listar-usuarios",  
             "toggle": true,
             "submenu": [
               {

@@ -2,15 +2,15 @@
   <button class="sidebar__toggle--button" (click)="toggleSidebar()">
     <i class="bi bi-list"></i>
   </button>
-  <div class="sidebar-brand text-primary font-weight-bold" type="button" routerLink="/home">
+  <div class="sidebar-brand text-primary font-weight-bold" type="button">
     <span>Sistema Académico</span>
   </div>
   <ul class="mx-2">
     <li class="mb-2" *ngFor="let module of menuItems">
       <h1>{{module.moduleTitle}}</h1>
       <ul>
-        <li class="nav__submenu" *ngFor="let submenu of module.moduleSubMenu" [routerLink]="submenu.url">
-          <a>
+        <li class="nav__submenu" *ngFor="let submenu of module.moduleSubMenu">
+          <a [routerLink]="submenu.url">
             <i class="{{ submenu.icon }}"></i>
             {{ submenu.menuName }}
           </a>

@@ -85,6 +85,9 @@ export class CoursesCreateHabilitacionComponent implements OnInit {
             typeCourse: [''],
             isActive: [''],
           })
+          setTimeout(() => {
+            this.router.navigate(['cursos-extraordinaria']);
+          }, 2000);
         }
       },
       err=>{

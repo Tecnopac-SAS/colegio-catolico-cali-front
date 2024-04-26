@@ -4,121 +4,121 @@
     <div class="row">
       <div class="content-section col-md-12 mx-auto">
         <div class="card">
-         <div class="card-body">
-          <form [formGroup]="formValue">
-            <div class="row">
+          <div class="card-body">
+            <form [formGroup]="formValue">
+              <div class="row">
 
-              <div *ngIf="mensaje_ok">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <strong>{{mensaje_ok}}</strong>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div *ngIf="mensaje_ok">
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{mensaje_ok}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                </div>
+
+
+                <div *ngIf="mensaje_error">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{mensaje_error}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                      (click)="cerrarAlerta()"></button>
+                  </div>
+                </div>
+                <h5 class="text-primary">Editar descuento</h5>
+
+                <div class="col-md-12 my-2">
+                </div>
+
+                <div class="col-md-2">
+                  <label class="">Nombre del descuento</label>
+                </div>
+
+                <div class="col-md-4">
+                  <input type="text" class="form-control" formControlName="name" readonly>
+                </div>
+
+                <div class="col-md-2">
+                  <label class="">Porcentaje del descuento</label>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">%</span>
+                    </div>
+                    <input type="number" formControlName="percentage" class="form-control" placeholder="%"
+                      aria-label="percentage" aria-describedby="basic-addon1">
+                  </div>
+                </div>
+
+                <div class="col-md-12 my-4">
+                </div>
+
+                <div class="col-md-2">
+                  <label class="">Inicio</label>
+                </div>
+
+                <div class="col-md-4">
+                  <input type="date" class="form-control" formControlName="starDate">
+                </div>
+
+                <div class="col-md-2">
+                  <label class="">Termina</label>
+                </div>
+
+                <div class="col-md-4">
+                  <input type="date" class="form-control" formControlName="finalDate">
+                </div>
+
+                <div class="col-md-12 my-4">
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <label class="">Uso</label>
+                  </div>
+
+                  <div class="col-md-4">
+                    <select class="form-select form-control" aria-label="Default select example"
+                      formControlName="useType">
+                      <option value="" selected>Seleccione una opción</option>
+                      <option value="0">Varios Usos</option>
+                      <option value="1">Solo Uso</option>
+                    </select>
+                  </div>
+
+                    <div class="col-md-2" *ngIf="formValue.value.useType == 0">
+                      <label class="">Frecuencia</label>
+                    </div>
+                    <div class="col-md-4" *ngIf="formValue.value.useType == 0">
+                      <input type="number" class="form-control" formControlName="frequency" min="2" max="999">
+                    </div>
+                  </div>
+
+                <div class="col-md-12 my-4">
+                </div>
+
+                <div class="col-md-2">
+                  <label class="">Servicio aplicar</label>
+                </div>
+
+                <div class="col-md-4">
+                  <input type="text" class="form-control" formControlName="service">
+                </div>
+                <div class="col-md-12 my-4">
                 </div>
               </div>
 
+              <div class="col-md-6 my-4">
+                <button type="submit" class="btn btn-outline-primary m-3" routerLink="/discount"> Cancelar</button>
 
-              <div *ngIf="mensaje_error">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <strong>{{mensaje_error}}</strong>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                    (click)="cerrarAlerta()"></button>
-                </div>
-              </div>
-              <h5 class="text-primary">Editar descuento</h5>
+                <button type="submit" class="btn btn-primary m-3" (click)="actualizarDiscount()"> Guardar</button>
 
-              <div class="col-md-12 my-2">
               </div>
 
-              <div class="col-md-2">
-                <label class="">Nombre del descuento</label>
-              </div>
-
-              <div class="col-md-4">
-                <input type="text" class="form-control" formControlName="name" readonly>
-              </div>
-
-              <div class="col-md-2">
-                <label class="">Porcentaje del descuento</label>
-              </div>
-
-              <div class="col-md-4">
-                <input type="number" class="form-control" formControlName="percentage">
-              </div>
-
-              <div class="col-md-12 my-4">
-              </div>
-
-              <div class="col-md-2">
-                <label class="">Inicio</label>
-              </div>
-
-              <div class="col-md-4">
-                <input type="date" class="form-control" formControlName="starDate">
-              </div>
-
-              <div class="col-md-2">
-                <label class="">Termina</label>
-              </div>
-
-              <div class="col-md-4">
-                <input type="date" class="form-control" formControlName="finalDate">
-              </div>
-
-              <div class="col-md-12 my-4">
-              </div>
-
-              <div class="col-md-2">
-                <label class="">Frecuencia</label>
-              </div>
-
-              <div class="col-md-4">
-                <input type="text" class="form-control" formControlName="frequency" readonly>
-              </div>
-
-              <div class="col-md-2">
-                <label class="">Servicio aplicar</label>
-              </div>
-
-              <div class="col-md-4">
-                <select class="form-select form-control" aria-label="Default select example" formControlName="service">
-                  <option value="" selected>Seleccione una opción</option>
-                  <option value="Unico">Pensión</option>
-                  <option value="Frecuente">Mátricula</option>
-                </select>
-              </div>
-              <div class="col-md-12 my-4">
-              </div>
-              <div class="col-md-2">
-                <label class="">Estado</label>
-              </div>
-
-              <div class="col-md-4">
-                <select class="form-select form-control" aria-label="Default select example" formControlName="status">
-                  <option value="" selected>Seleccione una opción</option>
-                  <option value="0">Inactivo</option>
-                  <option value="1">Activo</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col-md-6 my-4">
-              <button type="submit" class="btn btn-outline-primary m-3" routerLink="/discount"> Cancelar</button>
-
-              <button type="submit" class="btn btn-primary m-3" (click)="actualizarDiscount()"> Guardar</button>
-
-            </div>
-
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </div>
 </app-dashboard>
-
-
-
-
-
-
-
-
