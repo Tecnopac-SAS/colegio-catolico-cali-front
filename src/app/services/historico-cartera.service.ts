@@ -23,6 +23,12 @@ export class HistoricoCarteraService {
       return res;
     }))
   }
+  totalDeudas(){
+    return this._htpp.get<any>(base_url+'historicoCartera/totalDeudas')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   historicoCarteraSearch(params:any,idAcudiente:any){
     return this._htpp.get<any>(base_url+`historicoCartera/listarHistoricoCarteraSearch/${encodeURIComponent(params)}/${idAcudiente}`)

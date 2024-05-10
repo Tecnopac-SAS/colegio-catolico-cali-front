@@ -148,13 +148,13 @@
           {
             "menuName": "Informe de pago",
             "icon": "bi bi-file-earmark-text",
-            "url": "/",  
+            "url": "/informes-pago",  
             "toggle": false
           },
           {
-            "menuName": "Creación deuda",
+            "menuName": "Gestión de Deudas",
             "icon": "bi bi-coin text-dark",
-            "url": "/",  
+            "url": "/gestion-deudas",  
             "toggle": false
           },
           {

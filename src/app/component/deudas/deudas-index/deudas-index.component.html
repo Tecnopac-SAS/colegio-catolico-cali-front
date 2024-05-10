@@ -1,0 +1,68 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container my-xl-2">
+    <div class="row">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / {{navTitle}}</li>
+      </ol>
+      <div class="card">
+        <div class="card-body">
+          <div class="row justify-content-end">
+              <div class="col-md-3 col-12 my-2">
+                <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                    <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                      <div class="input-group-append">
+                        <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                    </div>
+                        <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1 col-4 my-2">
+              <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+            </div>
+            <div class="col-md-3 col-8 my-2">
+              <button type="button" class="btn btn-primary" routerLink="/gestion-deudas-crear">Crear Deuda</button>
+            </div>
+        </div>
+        <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Código</th>
+                <th scope="col">Responsable</th>
+                <th scope="col">Concepto de cobro</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fechas</th>
+                <th scope="col">Valor de Cobro</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let data of listPagos; let index = index ">
+              <tr class="align-bottom">
+                <th scope="row">{{index+1}}</th>
+                <th scope="row">{{data.deudaCode}}</th>
+                <td *ngIf="data.cobro == 'todos'">Todos los Estudiantes</td>
+                <td *ngIf="data.cobro == 'grado'">A todos del Grado - {{data.cobroValue}}</td>
+                <td *ngIf="data.cobro == 'estudiante'">{{data.deudaAsEstudiante.nombres + ' ' + data.deudaAsEstudiante.apellidos + ' (' + data.deudaAsEstudiante.identificacion + ')'}}</td>
+                <td >{{data.concepto}}</td>
+                <td>
+                  <span *ngIf="data.estado == 'Pendiente'" class="badge badge-warning">Pendiente</span>
+                  <span *ngIf="data.estado == 'En Mora'" class="badge badge-danger">En Mora</span>
+                </td>
+                <td>{{formatFecha(data.fecha)}}</td>
+                <td>${{formatCurrency(data.monto)}}</td>
+                <td>
+                  <button class="text-info btn" routerLink="/gestion-deudas-ver/{{data.id}}">Ver</button>|
+                  <button class="text-secondary btn" routerLink="/gestion-deudas/{{data.id}}">Editar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>

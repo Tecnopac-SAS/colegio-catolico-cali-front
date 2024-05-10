@@ -52,11 +52,14 @@ export class DashboardComponent implements OnInit {
     }
     this.navTitle="Estoy en dash " + this.name
     this.bolsillo= localStorage.getItem('bolsillo');
-    this.historicoCarteraService.totalDeuda({idAcudiente:localStorage.getItem('idAcudiente')}).subscribe(response=>{
-      this.saldoPendiente = response.result
-    },error=>{
 
-    });
+    if (this.role != 'admin') {
+      this.historicoCarteraService.totalDeuda({idAcudiente:localStorage.getItem('idAcudiente')}).subscribe(response=>{
+        this.saldoPendiente = response.result
+      },error=>{
+  
+      });
+    }
   }
 
   sessionValidation(){

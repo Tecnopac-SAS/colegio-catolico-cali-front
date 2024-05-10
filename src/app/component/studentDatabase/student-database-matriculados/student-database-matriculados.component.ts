@@ -34,6 +34,8 @@ export class StudentDatabaseMatriculadosComponent implements OnInit {
     this.fieldCapture()
   }
 
+  
+
   fieldCapture(){
     this.formValue = this.formBuilder.group({
       code: [''],

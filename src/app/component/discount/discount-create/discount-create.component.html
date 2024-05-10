@@ -86,11 +86,11 @@
                     </select>
                   </div>
 
-                  <div class="col-md-2" *ngIf="this.formValue.value.useType == 0">
+                  <div class="col-md-2" [style.display]="this.formValue.value.useType == 0 ? 'block' : 'none'">
                     <label class="">Frecuencia</label>
                   </div>
-                  <div class="col-md-4" *ngIf="this.formValue.value.useType == 0">
-                    <input type="number" class="form-control" formControlName="frequency" min="2" max="999">
+                  <div class="col-md-4" [style.display]="this.formValue.value.useType == 0 ? 'block' : 'none'">
+                    <input type="number" class="form-control" formControlName="frequency" min="2" max="999" [value]="this.formValue.value.useType == 0 ? 2 : 1">
                   </div>
                 </div>
 

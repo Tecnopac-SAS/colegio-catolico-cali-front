@@ -38,7 +38,7 @@ export class DiscountCreateComponent implements OnInit {
       finalDate: [''],
       percentage:[''],
       useType:[1],
-      frequency:[''],
+      frequency:[1],
       service:[''],
       isActive:[''],
       status:['']

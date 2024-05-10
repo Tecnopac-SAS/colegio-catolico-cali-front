@@ -18,6 +18,12 @@ export class AcudienteService {
     let headers = new HttpHeaders().set('Content-Type','application/json')
     return this._htpp.post(base_url +'acudiente/getAcudiente',json,{headers:headers})
   }
+  getAcudientebyEstudiante(data:any){
+    return this._htpp.post<any>(base_url+'acudiente/getAcudientebyEstudiante',data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
   actualizarAcudiente(data: any) {
     return this._htpp.post<any>(base_url+'acudiente/actualizarAcudiente', data)
       .pipe(map((res:any)=>{

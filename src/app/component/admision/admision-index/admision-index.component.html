@@ -43,6 +43,7 @@
                         <th scope="col">Fecha de solicitud</th>
                         <th scope="col">¿Pago inscripción?</th>
                         <th scope="col">Tipo de pago</th>
+                        <th scope="col">Estado</th>
                         <th scope="col"  class = "text-center">Acciones</th>
                       </tr>
                     </thead>
@@ -56,8 +57,12 @@
                         <td>{{data.grado}}</td>
                         <td>{{data.createdAt | date:'dd/MM/yy'}}</td>
                         <td>{{data.correo}}</td>
-                        <td>Tpo Pago</td>
-                        <td>
+                        <td>N/A</td>
+                        <td *ngIf="data.estadoEstudiante=='Aspirante'"><span class="badge badge-warning text-uppercase">Aspirante</span></td>
+                        <td *ngIf="data.estadoEstudiante=='Inscrito'"><span class="badge badge-success text-uppercase">Inscrito</span></td>
+                        <td *ngIf="data.estadoEstudiante=='Rechazado'"><span class="badge badge-danger text-uppercase">Rechazado</span></td>
+                        
+                        <td *ngIf="data.estadoEstudiante !='Inscrito'">
                             <button  class="text-dark btn">Ver</button>|
                             <button  class="text-info btn" [attr.data-target]="'#aprobarModalToggle' + data.id" data-toggle="modal" >Aprobar</button>|
                             <button  class="text-danger btn" [attr.data-target]="'#rechazarModalToggle' + data.id" data-toggle="modal" >Rechazar</button>

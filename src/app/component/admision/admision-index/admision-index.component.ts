@@ -51,7 +51,7 @@ export class AdmisionIndexComponent implements OnInit {
   }
 
   listarCriterio(){
-      this.StudentDatabaseService.listStudentDatabaseTipo("Aspirante")
+      this.StudentDatabaseService.listStudentDatabases()
       .subscribe(res=>{
         this.dataStudentDatabase=res.result
         console.log(res.result)
