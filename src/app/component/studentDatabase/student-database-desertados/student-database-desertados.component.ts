@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentDatabase } from 'src/app/models/studentDatabase.model';
 import { StudentDatabaseService } from 'src/app/services/student-database.service';
+import { AcudienteService } from 'src/app/services/acudiente.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from'sweetalert2';
+import * as moment from 'moment';
 
 
 @Component({
@@ -14,8 +16,16 @@ import Swal from'sweetalert2';
   styleUrls: ['./student-database-desertados.component.css']
 })
 export class StudentDatabaseDesertadosComponent implements OnInit {
-
+  tipoContenido: string;
   grade !: any;
+  idEstudiante: any;
+
+  public acudiente:any;
+  public madre:any;
+  public padre:any;
+  public responsable:any;
+  public estudiante:any;
+
   navTitle="Estudiantes Desertados"
   formValue !:FormGroup
   public dataStudentDatabase:any
@@ -27,8 +37,11 @@ export class StudentDatabaseDesertadosComponent implements OnInit {
     private formBuilder:FormBuilder,
     private StudentDatabaseService:StudentDatabaseService,
     private loginService:LoginService,
+    private AcudienteService:AcudienteService,
     private router:Router
-  ) { }
+  ) { 
+    this.tipoContenido = '';
+  }
 
   ngOnInit(): void {
     this.listarCriterio()
@@ -48,6 +61,29 @@ export class StudentDatabaseDesertadosComponent implements OnInit {
     })
   }
 
+  listarEstudiante(id:any){
+    this.StudentDatabaseService.obtenerStudentDatabase(Number(id))
+    .subscribe(response => {
+      this.estudiante = response.result;
+    });
+  }
+  listarDatos(id:any){
+    this.AcudienteService.getAcudientebyEstudiante({idEstudiante: Number(id)})
+    .subscribe(response => {
+      this.acudiente = response.result;
+      this.StudentDatabaseService.getAllAcudiente(Number(this.acudiente[0].id)).subscribe((res:any)=>{
+          this.madre={...res.result?.madre,fechaNacimiento:this.formatFecha(res.result?.madre?.fechaNacimiento)};
+          this.padre={...res.result?.padre,fechaNacimiento:this.formatFecha(res.result?.madre?.fechaNacimiento)};
+          this.responsable={...res.result?.responsable,fechaNacimiento:this.formatFecha(res.result?.madre?.fechaNacimiento)};
+        }
+      )
+    });
+  }
+
+  formatFecha(fecha:any){
+    return (moment(fecha).format('DD/MM/YYYY')==='Invalid date')?'':moment(fecha).format('YYYY-MM-DD')
+  }
+  
   listarCriterio(){
       this.StudentDatabaseService.listStudentDatabaseTipo("Desertor")
       .subscribe(res=>{

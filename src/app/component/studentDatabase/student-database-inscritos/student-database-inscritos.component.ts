@@ -79,13 +79,12 @@ export class StudentDatabaseInscritosComponent implements OnInit {
     .subscribe(response => {
       this.acudiente = response.result;
       this.StudentDatabaseService.getAllAcudiente(Number(this.acudiente[0].id)).subscribe((res:any)=>{
-          this.madre={...res.result.madre,fechaNacimiento:this.formatFecha(res.result.madre.fechaNacimiento)};
-          this.padre={...res.result.padre,fechaNacimiento:this.formatFecha(res.result.madre.fechaNacimiento)};
-          this.responsable={...res.result.responsable,fechaNacimiento:this.formatFecha(res.result.madre.fechaNacimiento)};
+          this.madre={...res.result?.madre,fechaNacimiento:this.formatFecha(res.result?.madre?.fechaNacimiento)};
+          this.padre={...res.result?.padre,fechaNacimiento:this.formatFecha(res.result?.madre?.fechaNacimiento)};
+          this.responsable={...res.result?.responsable,fechaNacimiento:this.formatFecha(res.result?.madre?.fechaNacimiento)};
         }
       )
     });
-
   }
 
   formatFecha(fecha:any){

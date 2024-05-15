@@ -11,6 +11,11 @@ export class CurrencyUtils {
       minimumFractionDigits: 0,
     }).format(amount);
   }
+
+  removeCurrencyFormat(inputValue: string): number {
+    const numericValue = inputValue.replace(/[^\d.]/g, '');
+    return parseFloat(numericValue);
+  }
   
   amountToWords(numero: number): string {
     const unidades = ['', 'UNO', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE'];

@@ -44,7 +44,7 @@
           <td>{{data.asignature}}</td>
           <td>{{data.starDate |date:'dd/MM/yy'}}</td>
           <td>{{data.finalDate |date:'dd/MM/yy'}}</td>
-          <td>{{data.price}}</td>
+          <td>${{formatCurrency(data.price)}}</td>
           <td>{{data.courseAsTeacher.name}}</td>
           <td *ngIf="data.isActive==0">Inactivo</td>
           <td *ngIf="data.isActive==1">Activo</td>

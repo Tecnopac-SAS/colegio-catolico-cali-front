@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { TeacherService } from 'src/app/services/teacher.service';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,18 +16,19 @@ export class CoursesCreateComponent implements OnInit {
 
   course !: any;
   teacher !: any;
-  navTitle="Cursos crear"
-  public dataPension:any
+  navTitle = "Cursos crear"
+  public dataPension: any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
-  courseModel:Course= new Course();
-  public mensaje_ok:any;
-  public mensaje_error:any;
+  courseModel: Course = new Course();
+  public mensaje_ok: any;
+  public mensaje_error: any;
   constructor(
-    private formBuilder:FormBuilder,
-    private coursesService:CoursesService,
-    private teacherService:TeacherService,
-    private router:Router
+    private formBuilder: FormBuilder,
+    private coursesService: CoursesService,
+    private teacherService: TeacherService,
+    private currencyUtils: CurrencyUtils,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,9 +37,9 @@ export class CoursesCreateComponent implements OnInit {
 
   }
 
-  fieldCaptureExtra(){
+  fieldCaptureExtra() {
     this.formValueExtra = this.formBuilder.group({
-      asignature:[''],
+      asignature: [''],
       starDate: [''],
       finalDate: [''],
       price: [''],
@@ -50,11 +52,30 @@ export class CoursesCreateComponent implements OnInit {
     })
   }
 
-  CrearCourse(){
+
+  formatCurrency(amount: number): string {
+    return '$ ' + this.currencyUtils.formatCurrency(amount);
+  }
+  removeCurrencyFormat(inputValue: string): number {
+    const numericValue = inputValue.replace(/[^\d.]/g, '');
+    return parseFloat(numericValue);
+  }
+
+  formatCurrencyInput(event: any) {
+    const inputElement = event.target;
+    let value = inputElement.value;
+    value = value.replace(/[^\d.]/g, '');
+    let amount = parseFloat(value);
+    if (!isNaN(amount)) {
+      inputElement.value = this.formatCurrency(amount);
+    }
+  }
+
+  CrearCourse() {
     this.courseModel.asignature = this.formValueExtra.value.asignature;
     this.courseModel.starDate = this.formValueExtra.value.starDate;
     this.courseModel.finalDate = this.formValueExtra.value.finalDate;
-    this.courseModel.price = this.formValueExtra.value.price;
+    this.courseModel.price = this.removeCurrencyFormat(this.formValueExtra.value.price);
     this.courseModel.idTeacher = this.formValueExtra.value.idTeacher;
     this.courseModel.typeCourse = "verano";;
     this.courseModel.starHour = this.formValueExtra.value.starHour;
@@ -62,61 +83,61 @@ export class CoursesCreateComponent implements OnInit {
     this.courseModel.description = this.formValueExtra.value.description;
     this.courseModel.isActive = this.formValueExtra.value.isActive;
 
-    if(this.courseModel.asignature =="" ){
-      this.mensaje_error="El campo asignatura no puede estar vacio"
+    if (this.courseModel.asignature == "") {
+      this.mensaje_error = "El campo asignatura no puede estar vacio"
     }
 
-    else if(this.courseModel.price  <=0 ){
-      this.mensaje_error="El campo precio no puede estar vacio"
+    else if (this.courseModel.price <= 0) {
+      this.mensaje_error = "El campo precio no puede estar vacio"
     }
 
 
 
-    else{
+    else {
 
       this.coursesService.createCourse(this.courseModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el curso ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-          this.formValueExtra = this.formBuilder.group({
-            asignature:[''],
-            starDate: [''],
-            finalDate: [''],
-            price: [''],
-            idTeacher: [''],
-            typeCourse: [''],
-            starHour: [''],
-            finalHour: [''],
-            description: [''],
-            isActive: [''],
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el curso ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
+            this.formValueExtra = this.formBuilder.group({
+              asignature: [''],
+              starDate: [''],
+              finalDate: [''],
+              price: [''],
+              idTeacher: [''],
+              typeCourse: [''],
+              starHour: [''],
+              finalHour: [''],
+              description: [''],
+              isActive: [''],
+            })
+          }
+          setTimeout(() => {
+            this.router.navigate(['cursos-extraordinaria']);
+          }, 2000);
+        },
+          err => {
+            console.log(err)
           })
-        }
-        setTimeout(() => {
-          this.router.navigate(['cursos-extraordinaria']);
-        }, 2000);
-      },
-      err=>{
-        console.log(err)
-      })
     }
   }
 
 
-  teacherList(){
+  teacherList() {
     this.teacherService.listTeachers()
-    .subscribe(res=>{
-      this.teacher=res.result
-      console.log(this.teacher)
-    })
+      .subscribe(res => {
+        this.teacher = res.result
+        console.log(this.teacher)
+      })
 
   }
 
-  cerrarAlerta(){
-    this.mensaje_error=""
+  cerrarAlerta() {
+    this.mensaje_error = ""
   }
 
 

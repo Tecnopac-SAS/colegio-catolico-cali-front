@@ -4,6 +4,7 @@ import { Course } from 'src/app/models/course.model';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import Swal from'sweetalert2';
 
 @Component({
@@ -22,6 +23,7 @@ export class CoursesExtraordinarioComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private coursesService:CoursesService,
+    private currencyUtils: CurrencyUtils,
     private router:Router
   ) { }
 
@@ -63,6 +65,12 @@ export class CoursesExtraordinarioComponent implements OnInit {
     }
 
   }
+
+
+  formatCurrency(amount: number): string {
+    return this.currencyUtils.formatCurrency(amount);
+  }
+
 
   editcourse(course:any){
     this.courseModel.id = course.id
