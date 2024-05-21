@@ -67,7 +67,7 @@ export class AdmisionIndexComponent implements OnInit {
   listarCriterio(){
       this.StudentDatabaseService.listStudentDatabases()
       .subscribe(res=>{
-        this.dataStudentDatabase=res.result
+        this.dataStudentDatabase= res.result.filter((estudiante: any) => estudiante.estadoEstudiante == 'Aspirante' || estudiante.estadoEstudiante == 'Rechazado')
         console.log(res.result)
       })
   }

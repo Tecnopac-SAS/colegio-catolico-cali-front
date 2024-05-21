@@ -98,3 +98,11 @@
   .modal .modal-dialog {
     background: transparent !important;
 }
+
+.column-search-btn{
+  opacity: 0;
+  transition: all .3s ease;
+}
+th:hover .column-search-btn{
+  opacity: 1;
+}
