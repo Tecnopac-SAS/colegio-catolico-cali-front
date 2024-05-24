@@ -29,6 +29,14 @@ export class HistoricoCarteraService {
       return res;
     }))
   }
+  totalDeudasAcudiente(params:any){
+    console.log(params);
+    
+    return this._htpp.get<any>(base_url+'historicoCartera/totalDeudasAcudiente/'+params.idAcudiente)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 
   historicoCarteraSearch(params:any,idAcudiente:any){
     return this._htpp.get<any>(base_url+`historicoCartera/listarHistoricoCarteraSearch/${encodeURIComponent(params)}/${idAcudiente}`)
