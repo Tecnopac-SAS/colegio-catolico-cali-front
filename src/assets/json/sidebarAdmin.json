@@ -160,7 +160,7 @@
           {
             "menuName": "Acuerdo de pago",
             "icon": "bi bi-card-text text-dark",
-            "url": "/",  
+            "url": "/acuerdos-pago",  
             "toggle": false
           },
           {

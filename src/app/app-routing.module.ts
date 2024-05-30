@@ -8,6 +8,9 @@ import { IndexUserComponent } from './component/user-manager/index-user/index-us
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
 import { HomepageComponent } from './component/homepage/homepage.component';
 import { PeriodIndexComponent } from './component/period/period-index/period-index.component';
+import { AcuerdosPagoComponent } from './component/acuerdos-pago/acuerdos-pago-index/acuerdos-pago.component';
+import { AcuerdosPagoUpdateComponent } from './component/acuerdos-pago/acuerdos-pago-update/acuerdos-pago-update.component';
+import { AcuerdosPagoCreateComponent } from './component/acuerdos-pago/acuerdos-pago-create/acuerdos-pago-create.component';
 import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
 import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
@@ -122,6 +125,9 @@ const routes: Routes = [
   {path: 'inicio', component: HomepageComponent },
   {path: 'inscripcion', component: InscriptionIndexComponent },
   {path: 'periodo', component: PeriodIndexComponent },
+  {path: 'acuerdos-pago', component: AcuerdosPagoComponent },
+  {path: 'acuerdos-pago/:id', component: AcuerdosPagoUpdateComponent },
+  {path: 'acuerdos-pago-crear/:id', component: AcuerdosPagoCreateComponent },
   {path: 'periodo-crear', component: PeriodCreateComponent },
   {path: 'inscripcion-crear', component: InscriptionCreateComponent },
   {path: 'matriculas-crear', component: TuitionCreateComponent },

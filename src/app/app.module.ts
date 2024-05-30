@@ -21,6 +21,9 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
 import { HomepageComponent } from './component/homepage/homepage.component';
 import { PeriodIndexComponent } from './component/period/period-index/period-index.component';
+import { AcuerdosPagoCreateComponent } from './component/acuerdos-pago/acuerdos-pago-create/acuerdos-pago-create.component';
+import { AcuerdosPagoUpdateComponent } from './component/acuerdos-pago/acuerdos-pago-update/acuerdos-pago-update.component';
+import { AcuerdosPagoComponent } from './component/acuerdos-pago/acuerdos-pago-index/acuerdos-pago.component';
 import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
 import { PeriodChangeComponent } from './component/period/period-change/period-change.component';
 import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
@@ -139,6 +142,9 @@ import { InformesPagoComponent } from './component/informes-pago/informes-pago.c
     NavTitleComponent,
     HomepageComponent,
     PeriodIndexComponent,
+    AcuerdosPagoCreateComponent,
+    AcuerdosPagoUpdateComponent,
+    AcuerdosPagoComponent,
     PeriodCreateComponent,
     PeriodChangeComponent,
     InscriptionIndexComponent,
