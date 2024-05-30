@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditorModule } from '@tinymce/tinymce-angular';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -8,9 +9,6 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -23,15 +21,22 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
 import { HomepageComponent } from './component/homepage/homepage.component';
 import { PeriodIndexComponent } from './component/period/period-index/period-index.component';
+import { AcuerdosPagoCreateComponent } from './component/acuerdos-pago/acuerdos-pago-create/acuerdos-pago-create.component';
+import { AcuerdosPagoUpdateComponent } from './component/acuerdos-pago/acuerdos-pago-update/acuerdos-pago-update.component';
+import { AcuerdosPagoComponent } from './component/acuerdos-pago/acuerdos-pago-index/acuerdos-pago.component';
 import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
 import { PeriodChangeComponent } from './component/period/period-change/period-change.component';
 import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
 import { TuitionIndexComponent } from './component/tuition/tuition-index/tuition-index.component';
 import { TuitionCreateComponent } from './component/tuition/tuition-create/tuition-create.component';
-import { TuitioExtraCreateComponent } from './component/tuition/tuitio-extra-create/tuitio-extra-create.component';
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
+import { ExtracurricularVerComponent } from './component/extracurricular/extracurricular-ver/extracurricular-ver.component';
+import { DeudasIndexComponent } from './component/deudas/deudas-index/deudas-index.component';
+import { DeudasCreateComponent } from './component/deudas/deudas-create/deudas-create.component';
+import { DeudasUpdateComponent } from './component/deudas/deudas-update/deudas-update.component';
+import { DeudasViewComponent } from './component/deudas/deudas-view/deudas-view.component';
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 import { ServicesIndexComponent } from './component/services-index/services-index.component';
@@ -114,10 +119,16 @@ import { AjustesPerfilIndexComponent } from './component/perfil/ajustes-perfil-i
 import { AjustesPerfilPassComponent } from './component/perfil/ajustes-perfil-pass/ajustes-perfil-pass.component';
 import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-perfil-estudiante/ajustes-perfil-estudiante.component';
 import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perfil-acudiente/ajustes-perfil-acudiente.component';
+import { PagosPresencialesComponent } from './component/pagos-presenciales/pagos-presenciales.component';
 
 import { CurrencyUtils } from '../utils/currencyUtils';
 import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosellos/pazysalvocuatrosellos.component';
 import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
+import { AcudienteTransportationComponent } from './component/acudiente-transportation/acudiente-transportation.component';
+import { GestionDocumentosComponent } from './component/documentos/gestion-documentos/gestion-documentos.component';
+import { CrearDocumentosComponent } from './component/documentos/crear-documentos/crear-documentos.component';
+import { EditarDocumentosComponent } from './component/documentos/editar-documentos/editar-documentos.component';
+import { InformesPagoComponent } from './component/informes-pago/informes-pago.component';
 
 @NgModule({
   declarations: [
@@ -131,15 +142,18 @@ import { EstadoCarteraComponent } from './component/estado-cartera/estado-carter
     NavTitleComponent,
     HomepageComponent,
     PeriodIndexComponent,
+    AcuerdosPagoCreateComponent,
+    AcuerdosPagoUpdateComponent,
+    AcuerdosPagoComponent,
     PeriodCreateComponent,
     PeriodChangeComponent,
     InscriptionIndexComponent,
     InscriptionCreateComponent,
     TuitionIndexComponent,
     TuitionCreateComponent,
-    TuitioExtraCreateComponent,
     ExtracurricularIndexComponent,
     ExtracurricularCreateComponent,
+    ExtracurricularVerComponent,
     PensionIndexComponent,
     PensionCreateComponent,
     ServicesIndexComponent,
@@ -211,6 +225,7 @@ import { EstadoCarteraComponent } from './component/estado-cartera/estado-carter
     ExtracurricularListComponent,
     CafeteriaPagoComponent,
     SoportesPagoComponent,
+    InformesPagoComponent,
     CertificadosComponent,
     SolicitudCertificadoComponent,
     EstadoCertificadoComponent,
@@ -221,8 +236,17 @@ import { EstadoCarteraComponent } from './component/estado-cartera/estado-carter
     AjustesPerfilPassComponent,
     AjustesPerfilEstudianteComponent,
     AjustesPerfilAcudienteComponent,
+    PagosPresencialesComponent,
     PazysalvocuatrosellosComponent,
+    DeudasIndexComponent,
+    DeudasCreateComponent,
+    DeudasUpdateComponent,
+    DeudasViewComponent,
     EstadoCarteraComponent,
+    AcudienteTransportationComponent,
+    GestionDocumentosComponent,
+    CrearDocumentosComponent,
+    EditarDocumentosComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -230,6 +254,7 @@ import { EstadoCarteraComponent } from './component/estado-cartera/estado-carter
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    EditorModule,
     ReactiveFormsModule,
     MatDividerModule,
     MatIconModule,

@@ -29,34 +29,68 @@
                   </div>
 
                   <h5 class="text-primary">Editar documento de matricula:</h5>
-                        <div class="mt-3 d-flex align-items-center text-black">
-                          <span>Nombre del documento</span><span class="text-danger">*</span>
-                          <input type="text" class="form-control ml-3" style="width: 356px;" formControlName="title">
 
-                          <span class="ml-3">A quien aplica el documento</span><span class="text-danger">*</span>
-                          <select class="form-control ml-3" #canViewType style="width: fit-content;" formControlName="canViewType">
-                            <option value="all">Todos los estudiantes</option>
-                            <option value="grade">Un solo grado</option>
-                            <option value="student">Un solo estudiante</option>
-                          </select>
+                    <div class="mt-4">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label class="text-black">Nombre del documento<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control w-100" formControlName="title">
+                          </div>
                         </div>
-                        <div class="mt-3 d-flex align-items-center text-black" *ngIf="canViewType.value=='grade'">
-                          <span>Seleecione grado</span><span class="text-danger">*</span>
-                          <select class="form-control ml-3" style="width: fit-content;" formControlName="canViewValue">
-                            <option *ngFor="let list of listGrades" value="{{ list.id }}">{{ list.description }}</option>
-                          </select>
-                        </div>
-                        <div class="mt-3 d-flex align-items-center text-black" *ngIf="canViewType.value=='student'">
-                          <span>Código del estudiante</span><span class="text-danger">*</span>
-                          <input type="text" class="form-control ml-3" style="width: 100px;" formControlName="canViewValue">
-                        </div>
-                        <button class="mt-3 btn btn-primary form-control" style="width: fit-content;" (click)="fileInput.click()"><i class="bi bi-upload"></i> Cargar documento</button>
-          
                       </div>
+    
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label class="text-black">A quien aplica el documento<span class="text-danger">*</span></label>
+                            <select class="form-control w-100" #canViewType formControlName="canViewType">
+                              <option value="all">Todos los estudiantes</option>
+                              <option value="grade">Un solo grado</option>
+                              <option value="student">Un solo estudiante</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col" *ngIf="canViewType.value=='grade'">
+                            <label class="text-black">Seleecione grado<span class="text-danger">*</span></label>
+                            <select class="form-control w-100" formControlName="canViewValue">
+                              <option *ngFor="let list of listGrades" value="{{ list.id }}">{{ list.description }}</option>
+                            </select>
+                        </div>
+                        <div class="col" *ngIf="canViewType.value=='student'">
+                            <label class="text-black">Código del estudiante<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control w-100" style="width: 100px;" formControlName="canViewValue">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label class="text-black">A que tipo de matrícula<span class="text-danger">*</span></label>
+                            <select class="form-control w-100" #canViewTuitionType formControlName="canViewTuitionType">
+                              <option value="all">Todos los tipos de matrículas</option>
+                              <option value="extraordinaria">Matrícula anticipada</option>
+                              <option value="ordinaria">Matrícula ordinaria</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label class="text-black">Seleccione plantilla (Modulo gestion de Documentos)<span class="text-danger">*</span></label>
+                            <select class="form-control w-100" formControlName="documentoid">
+                              <option *ngFor="let list of listDocumentos" value="{{ list.id }}">{{ list.titulo }}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
           
-                      <button type="submit" class="btn btn-primary m-3" hidden>  <input type="file" #fileInput class="form-control" formControlName="file"></button>
-                <div class="col-md-6 my-4">
-                  <button type="submit" class="btn btn-outline-primary m-3" routerLink="/documentos-matricula"> Cancelar</button>
+                <div class="col text-right">
+                  <button type="submit" class="btn btn-outline-primary mr-3" routerLink="/documentos-matricula"> Cancelar</button>
                   <button type="submit" class="btn btn-primary m-3" (click)="actualizarDocumentosMatricula()"> Guardar</button>
                 </div>
 

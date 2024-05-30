@@ -5,12 +5,16 @@
           {
             "menuName": "Servicios",
             "icon": "bi bi-bag-check",
-            "url": "",  
+            "url": "/servicios",  
             "toggle": true,
             "submenu": [
               {
                 "menuName": "Matriculas",
                 "url": "/matriculas"
+              },
+              {
+                "menuName": "Documentos de Matricula",
+                "url": "/documentos-matricula"
               },
               {
                 "menuName": "Pensión",
@@ -43,6 +47,10 @@
               {
                 "menuName": "Transporte",
                 "url": "/transporte"
+              },
+              {
+                "menuName": "Gestion de Documentos",
+                "url": "/gestion-documentos"
               }
             ]
           },
@@ -55,7 +63,7 @@
           {
             "menuName": "Gestión docentes",
             "icon": "bi bi-book",
-            "url": "",  
+            "url": "/docente",  
             "toggle": true,
             "submenu": [
               {
@@ -67,7 +75,7 @@
           {
             "menuName": "Gestión administradores",
             "icon": "bi bi-house",
-            "url": "",  
+            "url": "/listar-usuarios",  
             "toggle": true,
             "submenu": [
               {
@@ -104,7 +112,7 @@
           "toggle": false
         },
         {
-          "menuName": "Certificados",
+          "menuName": "Certificados (Solicitudes)",
           "icon": "bi-file-earmark-pdf",
           "url": "/certificados-solicitud",  
           "toggle": false
@@ -134,25 +142,25 @@
           {
             "menuName": "Pagos presenciales",
             "icon": "bi bi-cash-coin",
-            "url": "/",  
+            "url": "/pagos-presenciales",  
             "toggle": false
           },
           {
             "menuName": "Informe de pago",
             "icon": "bi bi-file-earmark-text",
-            "url": "/",  
+            "url": "/informes-pago",  
             "toggle": false
           },
           {
-            "menuName": "Creación deuda",
+            "menuName": "Gestión de Deudas",
             "icon": "bi bi-coin text-dark",
-            "url": "/",  
+            "url": "/gestion-deudas",  
             "toggle": false
           },
           {
             "menuName": "Acuerdo de pago",
             "icon": "bi bi-card-text text-dark",
-            "url": "/",  
+            "url": "/acuerdos-pago",  
             "toggle": false
           },
           {
@@ -164,7 +172,7 @@
           {
             "menuName": "Gestión de transporte",
             "icon": "bi bi-truck-front",
-            "url": "/",  
+            "url": "/transporte",  
             "toggle": false
           }
       ]

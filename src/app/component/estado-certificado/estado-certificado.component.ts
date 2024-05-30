@@ -14,6 +14,7 @@ export class EstadoCertificadoComponent implements OnInit {
     constructor(private certificateService:CertificateService,public currencyUtils: CurrencyUtils) { 
     this.certificateService.listCertificatesInscription(localStorage.getItem('idEstudiante')).subscribe(response=>{
       this.listCertificate = response.result
+      console.log(this.listCertificate);
     },error=>{
 
     });

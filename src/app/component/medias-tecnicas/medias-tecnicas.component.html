@@ -19,33 +19,27 @@
                                 <option value="{{ item.id }}" *ngFor="let item of listTechnicals">{{ item.course }}</option>
                             </select>
                         </div>
-                        <p class="mt-3">Profesor encargado: <span class="text-black">{{ media.mediasTecnicasAsTeacher.name }}</span></p>
-                        <p>Fecha del media técnica: <span class="text-black">{{ formatFecha(media.startDate) }} - {{ formatFecha(media.finalDate) }}</span></p>
-                        <p>Horario de la media técnica: <span class="text-black">{{ media.starHour }} - {{ media.finalHour }}</span></p>
-                        <p>Descripción de la media técnica: <span class="text-black">{{ media.description }}</span></p>
+                        <div [class.disabled]="showCourseCard" [ngClass]="{'heightCourseCard': true}">
+                          <p class="mt-3">Profesor encargado: <span class="text-black font-weight-bold">{{ media.mediasTecnicasAsTeacher.name }}</span></p>
+                          <p>Fecha del media técnica: <span class="text-black font-weight-bold">{{ formatFecha(media.startDate) }} - {{ formatFecha(media.finalDate) }}</span></p>
+                          <p>Horario de la media técnica: <span class="text-black font-weight-bold">{{ media.starHour }} - {{ media.finalHour }}</span></p>
+                          <p>Descripción de la media técnica: <span class="text-black font-weight-bold">{{ media.description }}</span></p>
+                        </div>
                     </li>
                     <hr class="sidebar-divider bg-primary" style="height: 1px;">
                     <li class="text-primary">
                         <p>Seleccione el método de pago</p>
-                        <p class="text-black">Valor de la media técnica {{ media.course }}:  ${{ media.price }}</p>
-                        <p class="text-black">Seleccione el metodo de pago digital</p>
-
+                        <p class="text-black">Valor de la media técnica:  <span class="text-black font-weight-bold">${{ currencyUtils.formatCurrency(media.price) || 0}}</span></p>
+                        <!-- <p class="text-black font-weight-bold">Esta media técnica tiene una duracion mayor a un mes, ¿deseas pagar mes a mes?</p> -->
                     </li>
                     <div class="row ml-3 cardPago">
-                      <div class="col-md-3 d-flex justify-content-center">
+                      <div class="col-md-3 d-flex justify-content-center" [class.disabled]="disableButton" [ngClass]="{'fade-opacity': true}">
                         <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
                       </div>
-                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" (click)="pagar()">
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center" [class.disabled]="disableButton" [ngClass]="{'fade-opacity': true}" (click)="pagar()">
                         <i class="bi bi-wallet-fill text-white" style="font-size: 60px"></i>
                         <span>Bolsillo</span>
                       </div>
-                      <!-- <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
-                        <i class="bi bi-credit-card-2-back-fill text-white" style="font-size: 60px"></i>
-                        <span>Tarjeta de crédito</span>
-                      </div>
-                      <div class="col-md-3 d-flex justify-content-center">
-                        <img class="p-4" src="assets/img-pagomatricula/image2.png" alt="">
-                      </div> -->
                     </div>
                 </ul>
                 

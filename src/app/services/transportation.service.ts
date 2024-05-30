@@ -12,8 +12,14 @@ export class TransportationService {
 
   constructor(private _htpp:HttpClient) { }
 
-  listTransportes(){
-    return this._htpp.get<any>(base_url+'transportation/listarTransportations')
+  listTransportes(jornada:any){
+    return this._htpp.get<any>(base_url+'transportation/listarTransportations/'+jornada)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+  listTransportesAll(){
+    return this._htpp.get<any>(base_url+'transportation/listarTransportations/')
     .pipe(map((res:any)=>{
       return res;
     }))
@@ -25,8 +31,6 @@ export class TransportationService {
       return res;
     }))
   }
-
-
 
   obtenerTransporte(id:number){
     return this._htpp.get<any>(base_url+'transportation/listarTransportationId/'+id)

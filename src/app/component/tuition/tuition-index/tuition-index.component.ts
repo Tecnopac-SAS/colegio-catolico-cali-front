@@ -4,7 +4,9 @@ import { Tuition } from 'src/app/models/tuition.model';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import Swal from'sweetalert2';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tuition-index',
@@ -22,6 +24,7 @@ export class TuitionIndexComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private tuitionService:TuitionService,
+    public currencyUtils: CurrencyUtils,
     private router:Router
   ) { }
 
@@ -37,6 +40,10 @@ export class TuitionIndexComponent implements OnInit {
       description: [''],
       isActive:[''],
     })
+  }
+
+  formatFecha(fecha:any){
+    return (moment(fecha).format('YYYY-MM-DD')==='Invalid date')?'':moment(fecha).format('YYYY-MM-DD')
   }
 
   listTuitions(){
@@ -76,7 +83,8 @@ export class TuitionIndexComponent implements OnInit {
     this.gradeList()
     this.tuitionModel.id = tuition.id
     this.formValue.controls['grade'].setValue(tuition.grade)
-    this.formValue.controls['price'].setValue(tuition.price)
+    this.formValue.controls['ordinary_price'].setValue(tuition.ordinary_price)
+    this.formValue.controls['extraordinary_price'].setValue(tuition.extraordinary_price)
     this.formValue.controls['description'].setValue(tuition.description)
 
     if (tuition.isActive==0) {
@@ -91,8 +99,8 @@ export class TuitionIndexComponent implements OnInit {
   updateTuition(){
 
     this.tuitionModel.grade= this.formValue.value.grade;
-    this.tuitionModel.price= this.formValue.value.price;
-    this.tuitionModel.description= this.formValue.value.description;
+    this.tuitionModel.ordinary_price= this.formValue.value.ordinary_price;
+    this.tuitionModel.extraordinary_price= this.formValue.value.extraordinary_price;
     this.tuitionModel.isActive= this.formValue.value.isActive;
     this.tuitionModel.surcharge=10;
 

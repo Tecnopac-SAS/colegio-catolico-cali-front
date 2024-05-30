@@ -32,8 +32,8 @@ export class UserService {
     }))
   }
 
-  obtenerUsuario(params:any){
-    return this._htpp.get<any>(base_url+'user/listarUsuario/'+params)
+  obtenerUsuario(id:any){
+    return this._htpp.get<any>(base_url+'user/listarUsuario/'+id)
     .pipe(map((res:any)=>{
       return res;
     }))

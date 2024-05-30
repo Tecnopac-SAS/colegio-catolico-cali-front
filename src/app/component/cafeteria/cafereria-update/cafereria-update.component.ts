@@ -70,8 +70,8 @@ export class CafereriaUpdateComponent implements OnInit {
     .subscribe(res=>{
 
       Swal.fire(
-        'Curso actualizado!',
-        'You clicked the button!',
+        'Ítem actualizado!',
+        '',
         'success'
        )
        setTimeout(() => {

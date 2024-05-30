@@ -23,67 +23,66 @@
                       (click)="cerrarAlerta()"></button>
                   </div>
                 </div>
+
+
                 <h5 class="text-primary py-3">Nueva matricula</h5>
-                <div class="col-md-1 my-3">
-                  <label class="">Grado *</label>
+                <div class="row">
+                  <div class="form-group">
+                    <label>Grado *</label>
+                    <select class="form-control" formControlName="grade">
+                      <option *ngFor="let grad of grade" [ngValue]="grad?.description">{{grad?.description}}</option>
+                    </select>
+                  </div>
                 </div>
+                <div class="row">
+                  <div class="col">
+                    <label class="text-primary font-weight-bold">Ordinaria</label>
+                    <div class="form-group">
+                      <label class="">Valor</label>
+                      <input type="number" class="form-control" formControlName="ordinary_price">
+                    </div>
+                    <div class="row">
+                      <div class="form-group col">
+                        <label>Inicio</label>
+                        <input type="date" class="form-control" formControlName="startDate">
+                      </div>
+                      <div class="form-group col">
+                        <label class="">Fin</label>
+                        <input type="date" class="form-control" formControlName="finalDate">
+                      </div>
+                    </div>
+                  </div>
 
-                <div class="col-md-5 my-3">
-                  <input type="text" class="form-control" formControlName="grade">
+                  <div class="col">
+                    <label class="text-primary font-weight-bold">Extraordinaria</label>
+                    <div class="form-group">
+                      <label class="">Valor</label>
+                      <input type="number" class="form-control" formControlName="extraordinary_price">
+                    </div>
+                    <div class="row">
+                      <div class="form-group col">
+                        <label>Inicio</label>
+                        <input type="date" class="form-control" formControlName="extraordinary_startDate">
+                      </div>
+                      <div class="form-group col">
+                        <label class="">Fin</label>
+                        <input type="date" class="form-control" formControlName="extraordinary_finalDate">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-                <div class="col-md-5">
-                </div>
-
-                <div class="col-md-12 my-4">
-                  <label class="text-primary"><b>Ordinaria</b></label>
-                </div>
-
-                <div class="col-md-1">
-                  <label class="">Inicio</label>
-                </div>
-
-                <div class="col-md-5">
-                  <input type="date" class="form-control" formControlName="startDate">
-                </div>
-
-                <div class="col-md-1">
-                  <label class="">Fin</label>
-                </div>
-
-                <div class="col-md-5">
-                  <input type="date" class="form-control" formControlName="finalDate">
-                </div>
-
-                <div class="col-md-12 my-3">
-
-                </div>
-
-                <div class="col-md-1">
-                  <label class="">Valor</label>
-                </div>
-                <div class="col-md-5">
-                  <input type="number" class="form-control" formControlName="price">
-                </div>
-
-
               </div>
 
-              <div class="col-md-6 my-4">
+
+              <div class="text-right">
                 <button type="submit" class="btn btn-outline-primary m-3" routerLink="/matriculas"> Cancelar</button>
-
                 <button type="submit" class="btn btn-primary m-3" (click)="CrearMatricula()"> Guardar</button>
-
               </div>
 
             </form>
           </div>
-         <hr class="txt-danger">
-       <app-tuitio-extra-create></app-tuitio-extra-create>
         </div>
       </div>
     </div>
   </div>
 </app-dashboard>
-
-

@@ -1,0 +1,52 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container my-xl-2">
+    <div class="row">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / Página actual</li>
+      </ol>
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-center">#</th>
+                  <th scope="col" class="text-center">Código</th>
+                  <th scope="col" class="text-center">Servicio</th>
+                  <th scope="col" class="text-center">Detalle</th>
+                  <th scope="col" class="text-center">Fecha</th>
+                  <th scope="col" class="text-center">Monto</th>
+                  <th scope="col" class="text-center">Estado</th>
+                  <th scope="col" class="text-center"></th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let data of listPagos; let index = index ">
+                <tr class="align-bottom">
+                  <th scope="row" class="text-center">{{index+1}}</th>
+                  <td class="text-center">{{data.paymentCode}}</td>
+                  <td class="text-center">{{data.servicio}}</td>
+                  <td class="text-center" style="max-width: 300px;">{{data.observacion}}</td>
+                  <td class="text-center">{{formatFecha(data.fecha)}}</td>
+                  <td class="text-center">${{this.currencyUtils.formatCurrency(data.monto)}}</td>
+                  <td class="text-center">
+                    <span *ngIf="data.estado == 1" class="badge badge-success text-uppercase">Pagado</span>
+                    <span *ngIf="data.estado == 0" class="badge badge-danger text-uppercase">No Pagado</span>
+                    <span *ngIf="data.estado == null" class="badge badge-secondary text-uppercase">Pendiente</span>
+                  </td>
+                  <td class="text-center">
+                    <div *ngIf="data.estado == null">
+                      <button class="btn text-success" (click)="statusChange(data, 1)">Aprobar</button>
+                      <span class="mx-2">|</span>
+                      <button class="btn text-danger" (click)="statusChange(data, 0)">Rechazar</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>

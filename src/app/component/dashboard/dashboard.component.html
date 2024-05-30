@@ -9,8 +9,8 @@
     <li class="mb-2" *ngFor="let module of menuItems">
       <h1>{{module.moduleTitle}}</h1>
       <ul>
-        <li class="nav__submenu" *ngFor="let submenu of module.moduleSubMenu" [routerLink]="submenu.url">
-          <a>
+        <li class="nav__submenu" *ngFor="let submenu of module.moduleSubMenu">
+          <a [routerLink]="submenu.url">
             <i class="{{ submenu.icon }}"></i>
             {{ submenu.menuName }}
           </a>
@@ -51,9 +51,12 @@
         </a>
       </li>
       <li class="nav-item" *ngIf=" role == 'acudiente' ">
+        <div class="d-flex align-items-center justify-content-center">
         <a class="nav-link text-primary" href="#" routerLink="/bolsillo">
           <h5>Bolsillo $<span>{{ currencyUtils.formatCurrency(bolsillo) }}</span></h5>
         </a>
+        <a *ngIf=" role == 'acudiente' " style="padding: 4px 8px;" class="btn btn-primary rounded-circle" (click)="checkBolsillo()"><i class="bi bi-arrow-repeat"></i></a>
+      </div>
       </li>
       <li class="nav-item" *ngIf=" role == 'acudiente' ">
         <a class="nav-link" href="#" routerLink="/historico-cartera">

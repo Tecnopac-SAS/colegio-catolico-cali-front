@@ -34,9 +34,11 @@
                     <th scope="col">#</th>
                     <th scope="col">Servicio<noscript></noscript></th>
                     <th scope="col">Porcentaje</th>
+                    <th scope="col">Uso</th>
+                    <th scope="col">Frecuencia</th>
                     <th scope="col">Fecha de inicio</th>
                     <th scope="col">Fecha final</th>
-                    <th scope="col">Tipo de descuento</th>
+                    <th scope="col">Servicio Aplicar</th>
                     <th scope="col">Estado</th>
                     <th scope="col" class="text-center">Acciones</th>
                   </tr>
@@ -45,18 +47,20 @@
                   <tr>
                     <td>{{index+1}}</td>
                     <td>{{data.name}}</td>
-                    <td>{{data.percentage}}</td>
+                    <td>{{data.percentage}}%</td>
+                    <td *ngIf="data.useType == 0"><span class="badge badge-secondary text-uppercase">Varios</span></td>
+                    <td *ngIf="data.useType == 1"><span class="badge badge-primary text-uppercase">Un Solo uso</span></td>
+                    <td>{{data.frequency}}</td>
                     <td>{{data.starDate | date:'dd/MM/yy'}}</td>
                     <td>{{data.finalDate | date:'dd/MM/yy'}}</td>
-                    <!-- <td>{{data.frequency}}</td> -->
                     <td>{{data.service}}</td>
-                    <td *ngIf="data.isActive==0">Inactivo</td>
-                    <td *ngIf="data.isActive==1">Activo</td>
+                    <td *ngIf="data.status==0"><span class="badge badge-warning text-uppercase">Inactivo</span></td>
+                    <td *ngIf="data.status==1"><span class="badge badge-success text-uppercase">Activo</span></td>
         
                     <td>
                       <button  class="text-black btn" routerLink="/discount-editar/{{data.id}}">Editar</button>|
                       <button  class="text-info btn" (click)="activar(data)">Activar</button>|
-                      <button  class="text-danger btn"(click)="deshabilitar(data)">Desactivar</button>
+                      <button  class="text-danger btn"(click)="eliminar(data)">Eliminar</button>
                     </td>
                   </tr>
                 </tbody>

@@ -1,0 +1,112 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container my-xl-4">
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <div *ngIf="mensaje_ok">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>{{mensaje_ok}}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+
+
+          <div *ngIf="mensaje_error">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>{{mensaje_error}}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                (click)="cerrarAlerta()"></button>
+            </div>
+          </div>
+
+          <div class="row">
+            <form [formGroup]="formDocumento">
+              <div class="row mb-4">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTutorial">
+                  Guia previa para el uso de este módulo
+                </button>   
+              </div>
+              <div class="col-12 mb-3 p-0">
+                <label class="">Título del Documento</label>
+                <input type="text" class="form-control" formControlName="titulo" name="titulo" [(ngModel)]="titulo"
+                  value="{{titulo}}">
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <div class="card p-3 mb-3">
+                    <span>Variables precargadas:</span>
+                    <br>
+                    <div class="vars-content">
+                      <input type="button" *ngFor="let variable of variables let i = index"
+                        class="btn btn-outline-secondary" value="{{variable}}" (click)="loadVariable($event)" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <editor apiKey="evod9g7rr0yymuzkscbo1ek27isepcdxhyad8qhmroambuti" [init]="{
+                        height: 500,
+                        menubar: true,
+                        language: 'es',
+                        font_size_formats: '8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt',
+                        plugins: 'advlist hr autolink lists link image charmap print preview anchor table',
+                        table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+                        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | table | casechange'
+                      }" formControlName="template" name="template" [(ngModel)]="template"></editor>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="row mt-3">
+            <div class="ml-auto col-4 text-right">
+              <button type="submit" class="btn btn-outline-primary mx-3" routerLink="/gestion-documentos">
+                Cancelar</button>
+              <button type="submit" class="btn btn-primary" (click)="crearDocumento()"> Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalTutorial" tabindex="-1" role="dialog" aria-labelledby="modalTutorialLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTutorialLabel">Información</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="jumbotron px-5" style="background-color: #00000008;">
+              <h1 class="display-4">Arma tu documento!</h1>
+              <p class="lead">
+                El Módulo de creación de Documentos es una herramienta versátil que te permite crear documentos
+                personalizados con facilidad. Utiliza su editor de texto enriquecido para dar formato al contenido de
+                tus documentos, incluyendo opciones como negritas, cursivas, tamaños y estilos de fuente variados.
+                Además, puedes organizar la información mediante la inserción de tablas, permitiéndote estructurar tus
+                documentos de manera clara y profesional. Para agilizar el proceso de creación, el módulo ofrece una
+                selección de plantillas predefinidas, las cuales puedes personalizar según tus necesidades específicas.
+                Estas plantillas te proporcionan un punto de partida sólido, facilitando la creación de documentos
+                consistentes y bien estructurados en poco tiempo.
+              <p>
+              <p> Este enfoque resalta la capacidad del módulo para crear documentos mediante el formato de texto y la
+                utilización de tablas, así como la conveniencia de las plantillas predefinidas para agilizar el proceso
+                de creación de documentos </p>
+              <p class="text-primary"> Clickee encima de la variable de la lista de "Variables precargadas" para que se traspase al documento. </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Entendido</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</app-dashboard>

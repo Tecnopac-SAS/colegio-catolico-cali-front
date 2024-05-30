@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { TeacherService } from 'src/app/services/teacher.service';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,6 +26,7 @@ export class CoursesCreateHabilitacionComponent implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private coursesService:CoursesService,
+    private currencyUtils: CurrencyUtils,
     private teacherService:TeacherService,
     private router:Router
   ) { }
@@ -47,11 +49,30 @@ export class CoursesCreateHabilitacionComponent implements OnInit {
     })
   }
 
+
+  formatCurrency(amount: number): string {
+    return '$ ' + this.currencyUtils.formatCurrency(amount);
+  }
+  removeCurrencyFormat(inputValue: string): number {
+    const numericValue = inputValue.replace(/[^\d.]/g, '');
+    return parseFloat(numericValue);
+  }
+
+  formatCurrencyInput(event: any) {
+    const inputElement = event.target;
+    let value = inputElement.value;
+    value = value.replace(/[^\d.]/g, '');
+    let amount = parseFloat(value);
+    if (!isNaN(amount)) {
+      inputElement.value = this.formatCurrency(amount);
+    }
+  }
+
   CrearCourse(){
     this.courseModel.asignature = this.formValueExtra.value.asignature;
     this.courseModel.starDate = this.formValueExtra.value.starDate;
     this.courseModel.finalDate = this.formValueExtra.value.finalDate;
-    this.courseModel.price = this.formValueExtra.value.price;
+    this.courseModel.price = this.removeCurrencyFormat(this.formValueExtra.value.price);
     this.courseModel.idTeacher = this.formValueExtra.value.idTeacher;
     this.courseModel.typeCourse = "habilitacion";;
     this.courseModel.isActive = this.formValueExtra.value.isActive;
@@ -85,6 +106,9 @@ export class CoursesCreateHabilitacionComponent implements OnInit {
             typeCourse: [''],
             isActive: [''],
           })
+          setTimeout(() => {
+            this.router.navigate(['cursos-extraordinaria']);
+          }, 2000);
         }
       },
       err=>{

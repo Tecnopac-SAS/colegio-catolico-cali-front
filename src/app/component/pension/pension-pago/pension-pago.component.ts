@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PensionPagoService } from 'src/app/services/pension-pago.service';
+import { BolsilloService } from 'src/app/services/bolsillo.service';
+import { SoportesPagosService } from 'src/app/services/soportes-pagos.service';
 import { Avalpay } from 'src/utils/avalpay';
 import { TuitionService } from 'src/app/services/tuition.service';
+import { PensionService } from 'src/app/services/pension.service';
 import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -16,7 +19,7 @@ import { event } from 'jquery';
 export class PensionPagoComponent implements OnInit {
   navTitle="Pago de pension"
   public pensionTotal=0
-  private descuento=3
+  public pensionTotalSinDescuento=0
   public allMonthsSelected: boolean = false;
   public pensionesList:any
   public pensionesListSelect:any
@@ -35,11 +38,21 @@ export class PensionPagoComponent implements OnInit {
   public disabledPaymentButton: boolean = true;
   discount: boolean;
   discountPercent: number;
+  discountWarning5days: boolean;
+
+  //Soportes de Pago
+  paymentCode: any;
 
   constructor(
-    private pensionService:PensionPagoService,
+    private pensionPagoService:PensionPagoService,
+    private PensionService:PensionService,
     private matriculaService:TuitionService,
     private currencyUtils: CurrencyUtils,
+    
+    //Soportes de Pago
+    public bolsilloService:BolsilloService,
+    public soportesPagosService:SoportesPagosService,
+
     private route: ActivatedRoute,
     //Avalpay
     public Avalpay: Avalpay,
@@ -52,10 +65,16 @@ export class PensionPagoComponent implements OnInit {
     this.lsPensionesListSelect = {};
     this.discount = false;
     this.discountPercent = 0;
+    this.discountWarning5days = false;
     //Avalpay
     this.paymentData = {};
     this.moduleName = 'pensiones';
     this.navigateTo = 'pago-pension';
+
+    //Soportes de Pago
+    this.paymentCode;
+
+
   }
   
   
@@ -63,6 +82,9 @@ export class PensionPagoComponent implements OnInit {
     this.getMatriculaPagada()
     this.getListPensiones()
     this.pensionesPagadas()
+    
+    //Soportes de Pago
+    this.paymentCode = [...Array(8)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
 
     //Valida estado de matricula
     this.route.queryParams.subscribe(params => {
@@ -72,7 +94,7 @@ export class PensionPagoComponent implements OnInit {
           // Pago de pension
           let lsPension:string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
           let paymentAvalPay = JSON.parse(lsPension).data.pensiones;
-          this.pensionService.pagoPension({pensiones: paymentAvalPay},'AvalPay').subscribe(response=>{},error=>{});
+          this.pensionPagoService.pagoPension({pensiones: paymentAvalPay},'AvalPay').subscribe(response=>{},error=>{});
         },() => {
           this.getListPensiones()
         }, this.navigateTo, this.moduleName);
@@ -92,12 +114,24 @@ export class PensionPagoComponent implements OnInit {
 
   getListPensiones(){
     let data = {idAcudiente:localStorage.getItem('idAcudiente')}
-    this.pensionService.listPension(data).subscribe(res=>{
+    this.pensionPagoService.listPension(data).subscribe(res=>{
       this.pensionesList = res.result
       if(this.pensionesList.every((item: any) => item.estatus === 'Pagado')){
         this.allPensionsPaid = true
       }
+      console.log(this.pensionesList);
+      this.getListPension()
     })
+  }
+
+  getListPension(){
+    this.PensionService.obtenerPension(this.pensionesList[0]?.idPension).subscribe(
+      response=>{
+        console.log(response.result);
+        this.discountPercent = response.result?.pensionAsDiscounts.percentage
+        
+        console.log(response);
+      });
   }
 
   async pensionesPagadas(){
@@ -117,28 +151,24 @@ export class PensionPagoComponent implements OnInit {
   }
   checkPendientes(fecha:any,$event:any){
 
+
     this.pensionTotal=0
     this.pensionesListSelect=[]
-    console.log(this.pensionesListSelectNames);
     
+    const fechaActual = new Date();
+    const diaDelMes = fechaActual.getDate();
 
     let text=''
     const isChecked = ($event.target as HTMLInputElement).checked;
-    //Validacion lista de meses para armar la descripcion del mensaje del pago
+
+    if (!this.pensionesListSelectNames.includes(this.parseMes(fecha))) {
+       this.pensionesListSelectNames.push(this.parseMes(fecha));
+    }
     if (isChecked) {
 
-      if(this.pensionesListSelectNames.length > 2){
-        this.discount = true;
-        this.discountPercent = 3;
-        let discount = this.pensionTotal * 0.3;
-        this.pensionTotal = this.pensionTotal - discount;
-      }
+      //Descripcion para enviar a avalpay
+      this.descMeses = `PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
 
-      if (!this.pensionesListSelectNames.includes(this.parseMes(fecha))) {
-        this.pensionesListSelectNames.push(this.parseMes(fecha));
-        //Descripcion para enviar a avalpay
-        this.descMeses = `PENSIÓN MES: ${JSON.parse(JSON.stringify(this.pensionesListSelectNames)).join(', ')} `;
-      }
     } else {
         this.pensionesListSelectNames.pop(this.parseMes(fecha));
         //Descripcion para enviar a avalpay
@@ -173,16 +203,26 @@ export class PensionPagoComponent implements OnInit {
     
     
     if (this.pensionesListSelect.length>=3) {
-      // this.pensionTotal = this.pensionTotal - (Math.floor(this.pensionTotal*this.descuento)/100)
-      // let valorNew = this.pensionTotal/this.pensionesListSelect.length
-      let sum = 0
-      Object.keys(this.pensionesListSelect).forEach(key => {
-        let descuento = this.pensionesListSelect[key].valor - (Math.floor(this.pensionesListSelect[key].valor*this.descuento)/100)
-        this.pensionesListSelect[key].valor = descuento
-        sum += descuento
-      });
-      this.pensionTotal = sum
+      if (diaDelMes <= 5) {
+        this.discount = true;
+        let sum = 0
+        Object.keys(this.pensionesListSelect).forEach(key => {
+          let descuento = this.pensionesListSelect[key].valor - (Math.floor(this.pensionesListSelect[key].valor*this.discountPercent)/100)
+          this.pensionesListSelect[key].valor = descuento
+          sum += descuento
+        });
+        this.pensionTotalSinDescuento = this.pensionTotal;
+        this.pensionTotal = sum
+      }else{
+        this.discountWarning5days = true;
+        this.pensionTotal = this.pensionTotal; // No hay descuento
+      }
+    }else{
+      this.discount = false;
+      this.discountWarning5days = false;
     }
+
+
     if (text!='') {
       $event.currentTarget.checked=false
       text+=' antes de seleccionar esta pensión'
@@ -194,7 +234,8 @@ export class PensionPagoComponent implements OnInit {
     }
 
     this.paymentData = {
-      pensiones: this.pensionesListSelect
+      pensiones: this.pensionesListSelect,
+      paymentCode: this.paymentCode
     }
 
   }
@@ -206,15 +247,6 @@ export class PensionPagoComponent implements OnInit {
         (pension: any) => pension.estatus !== 'Pagado'
       );
   
-      // pensiones no pagadas (Calcula)
-      this.pensionTotal = this.pensionesListSelect.reduce(
-        (total: number, pension: any) => {
-          const valorConDescuento = pension.estatus !== 'Pagado' ? pension.valor * 0.97 : 0;
-          return total + valorConDescuento;
-        },
-        0
-      );
-  
       // selección automática de Checkbox
       Object.keys(this.pensionesList).forEach((key) => {
         const checkBox = document.getElementById(
@@ -223,6 +255,7 @@ export class PensionPagoComponent implements OnInit {
   
         if (this.pensionesList[key].estatus !== 'Pagado') {
           checkBox.checked = true;
+          checkBox.disabled = true;
           this.checkPendientes(this.pensionesList[key].fechaPago, { target: checkBox });
         }
       });
@@ -245,7 +278,7 @@ export class PensionPagoComponent implements OnInit {
   }
   pagarPension(){
     Swal.fire({
-      title: '¿Estas seguro que deseas pagar la matricula con la opcion bolsillo?',
+      title: '¿Estas seguro que deseas pagar la pensión con la opción bolsillo?',
       showDenyButton: true,
       confirmButtonText: 'Si',
       denyButtonText: `No`,
@@ -256,13 +289,32 @@ export class PensionPagoComponent implements OnInit {
           Swal.fire('Parece que aun no seleccionas alguna pensión', 'Favor de ingresar al menos una pensión', 'info')
         } else {
           if (Number(localStorage.getItem('bolsillo')) >= Number(this.pensionTotal)) {
-            this.pensionService.pagoPension(this.paymentData, 'bolsillo').subscribe(response=>{
-              Swal.fire(response.mensaje, '', (response.status)?'success':'error').then((result) => {
-                if (result.isConfirmed) {
-                  this.getListPensiones()
-								  this.router.navigate([`${this.navigateTo}`]);
-                }
-              } )
+            this.pensionPagoService.pagoPension(this.paymentData, 'bolsillo').subscribe(response=>{
+
+           //Descuento bolsillo
+           this.bolsilloService.descuento({idAcudiente: localStorage.getItem('idAcudiente'), cant: this.pensionTotal}).subscribe(response=>{}); 
+          
+           //Soportes De Pago
+           let soportePagoData = {
+             paymentCode: this.paymentCode,
+             idAcudiente: localStorage.getItem('idAcudiente'),
+             tipoPago: 'Pensión',
+             viaPago: 'Bolsillo',
+             monto: this.pensionTotal
+           }
+           this.soportesPagosService.crearSoportePago(soportePagoData).subscribe(response=>{}); 
+
+           Swal.fire({
+            icon:  response.status ? 'success':'error',
+            title: response.mensaje,
+            showCancelButton: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.getListPensiones();
+                window.location.reload();
+              } else if (result.isDenied) {}
+            });
+
             },error=>{
   
             });

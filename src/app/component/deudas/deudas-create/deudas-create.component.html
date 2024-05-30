@@ -1,0 +1,116 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="content container my-xl-2">
+    <div class="row">
+      <div class="content-section col-md-12 mx-auto">
+        <div class="card">
+         <div class="card-body">
+          <form [formGroup]="formValue">
+            <div class="row">
+
+              <div *ngIf="mensaje_ok">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_ok}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+
+              <div *ngIf="mensaje_error">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_error}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    (click)="cerrarAlerta()"></button>
+                </div>
+              </div>
+              <h5 class="text-primary">Nueva Deuda:</h5>
+              <div class="col-md-12 my-2">
+              </div>
+              <div class="col-md-2">
+                <label class="">Concepto de Cobro</label>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="concepto">
+              </div>
+              <div class="col-md-2">
+                <label class="">Monto</label>
+              </div>
+              <div class="col-md-4">
+                <input type="number" class="form-control" formControlName="monto">
+              </div>
+              <div class="col-md-12 my-4">
+              </div>
+              <div class="col-md-2">
+                <label class="">Fecha Inicio</label>
+              </div>
+              <div class="col-md-4">
+                <input type="date" class="form-control" formControlName="fechaInicio">
+              </div>
+              <div class="col-md-2">
+                <label class="">Fecha Final</label>
+              </div>
+              <div class="col-md-4">
+                <input type="date" class="form-control" formControlName="fechaFinal">
+              </div>
+              <div class="col-md-12 my-4">
+              </div>
+              <div class="col-md-2">
+                <label class="">Aquien aplica el cobro</label>
+              </div>
+              <div class="col-md-4">
+                <select class="form-control" formControlName="cobro">
+                  <option value="todos">Todos los estudiantes</option>
+                  <option value="grado">Grado</option>
+                  <option value="estudiante">Estudiante</option>
+                </select>
+              </div>
+              <div class="col-md-2" *ngIf="formValue.value.cobro == 'grado'">
+                <label class="">Grado</label>
+              </div>
+              <div class="col-md-4" *ngIf="formValue.value.cobro == 'grado'">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                  </div>
+                  <input type="text" class="form-control" list="cobroValue" formControlName="cobroValue" placeholder="Buscar..." aria-label="Estudiante" aria-describedby="basic-addon1">
+                </div>
+                <datalist id="cobroValue">
+                  <option *ngFor="let grade of grades"  value="{{grade.description}}"></option>
+                </datalist>
+              </div>
+              
+              <div class="col-md-2" *ngIf="formValue.value.cobro == 'estudiante'">
+                <label class="">Estudiante</label>
+              </div>
+              <div class="col-md-4" *ngIf="formValue.value.cobro == 'estudiante'">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                  </div>
+                  <input type="text" class="form-control" list="cobroValue" formControlName="cobroValue" placeholder="Buscar..." aria-label="Estudiante" aria-describedby="basic-addon1">
+                </div>
+                <datalist id="cobroValue">
+                  <option *ngFor="let estudiante of estudiantes"  value="{{estudiante.id}} - {{estudiante.nombres}} {{estudiante.apellidos}} ({{estudiante.codigo}})"></option>
+                </datalist>
+              </div>
+
+            </div>
+            <div class="col-md-6 my-4">
+              <button type="submit" class="btn btn-outline-primary m-3" routerLink="/gestion-deudas"> Cancelar</button>
+              <button type="submit" class="btn btn-primary m-3" (click)="CrearDeuda()"> Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>
+
+
+
+
+
+
+
+

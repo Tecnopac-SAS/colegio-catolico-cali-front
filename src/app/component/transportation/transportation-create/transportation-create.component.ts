@@ -36,6 +36,12 @@ export class TransportationCreateComponent implements OnInit {
       routeName: [''],
       routeNumber: [''],
       responsible: [''],
+      direccion_recogida: [''],
+      direccion_entrega: [''],
+      jornada: [1],
+      cupo: [20],
+      cupo_disponible: [''],
+      descripcion: [''],
       price:[''],
       isActive:[''],
       routeType:[''],
@@ -46,6 +52,12 @@ export class TransportationCreateComponent implements OnInit {
     this.TransportationModel.routeName = this.formValue.value.routeName;
     this.TransportationModel.routeNumber = this.formValue.value.routeNumber;
     this.TransportationModel.responsible = this.formValue.value.responsible;
+    this.TransportationModel.direccion_recogida = this.formValue.value.direccion_recogida;
+    this.TransportationModel.direccion_entrega = this.formValue.value.direccion_entrega;
+    this.TransportationModel.jornada = this.formValue.value.jornada;
+    this.TransportationModel.descripcion = this.formValue.value.descripcion;
+    this.TransportationModel.cupo = this.formValue.value.cupo;
+    this.TransportationModel.cupo_disponible = this.formValue.value.cupo;
     this.TransportationModel.price = this.formValue.value.price;
     this.TransportationModel.isActive = this.formValue.value.isActive;
     this.TransportationModel.routeType = this.formValue.value.routeType;
@@ -73,6 +85,10 @@ export class TransportationCreateComponent implements OnInit {
             routeName: [''],
             routeNumber: [''],
             responsible: [''],
+            direccion_recogida: [''],
+            direccion_entrega: [''],
+            jornada: [''],
+            descripcion: [''],
             price:[''],
             isActive:[''],
             routeType:[''],

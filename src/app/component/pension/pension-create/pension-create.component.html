@@ -33,11 +33,10 @@
                       </div>
         
                       <div class="col-md-5 my-3">
-                        <!-- <select class="form-control" formControlName="idGrade">
+                        <select  class="form-control" formControlName="idGrade">
                           <option value="" selected>SELECCIONAR</option>
-                          <option *ngFor="let item of grade" value="{{item.id}}">{{item.description}}</option>
-                        </select> -->
-                        <input type="text" class="form-control" formControlName="idGrade">
+                          <option value="{{item.id}}" *ngFor="let item of listGrades; let i = index">{{item.description}}</option>
+                        </select>
                       </div>
         
                       <div class="col-md-1 my-3">
@@ -60,31 +59,17 @@
                       </div>
         
                       <div class="col-md-5">
-                        <input type="number" class="form-control" formControlName="discount">
-                      </div>
-                      <div class="col-md-2">
-                        <label class="">Taza de interes(Mora)</label>
-                      </div>
-        
-                      <div class="col-md-2">
-                        <div class="input-group mb-3">
-                          <input type="number" class="form-control" formControlName="interes">
-                          <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">%</span>
-                          </div>
-                        </div>
-                      </div>
-
-        
-        
+                        <select formControlName="discount" class="form-control" >
+                          <option value="">Seleccione una opción</option>
+                          <option *ngFor=" let disc of dataDiscount" value="{{disc?.id}}">{{disc?.name}} - {{disc?.percentage}} %</option>
+                        </select>
+                      </div>        
         
                     </div>
         
                     <div class="col-md-6 my-4">
                       <button type="submit" class="btn btn-outline-primary m-3" routerLink="/pension"> Cancelar</button>
-        
                       <button type="submit" class="btn btn-primary m-3" (click)="CrearMatriculaExtra()"> Guardar</button>
-        
                     </div>
         
                   </form>

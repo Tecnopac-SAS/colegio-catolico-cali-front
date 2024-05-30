@@ -7,9 +7,9 @@
               <h5>Pago matricula</h5>
           </div>
         </div>
-        <div class="col-md-4 col-sm-12 mb-4 px-3">
+        <div *ngIf="matriculaPagada" class="col-md-4 col-sm-12 mb-4 px-3">
           <div routerLink="/descarga-documento-matricula" class="card-home" style="background: linear-gradient(0deg, #00000073 40%, transparent 70%), url('assets/acudiente/matricula/descarga.png');">
-              <h5>Decarga de documentos de la matrícula</h5>
+              <h5>Descarga de documentos de la matrícula</h5>
           </div>
         </div>
       </div>

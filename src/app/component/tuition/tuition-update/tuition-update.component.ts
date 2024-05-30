@@ -4,7 +4,9 @@ import { FormGroup } from '@angular/forms';
 import { Tuition } from 'src/app/models/tuition.model';
 import { TuitionService } from 'src/app/services/tuition.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import Swal from'sweetalert2'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tuition-update',
@@ -23,26 +25,45 @@ export class TuitionUpdateComponent implements OnInit {
   public mensaje_ok:any;
   public mensaje_error:any;
   id !: any;
+  extraordinary_startDate: any;
   constructor(
     private formBuilder:FormBuilder,
     private TuitionService:TuitionService,
+    private currencyUtils: CurrencyUtils,
     private router:Router,
     private route : ActivatedRoute,
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit(): void {
     this.fieldCapture()
 
+    this.formValue.get('finalDate')?.valueChanges.subscribe((value) => {
+    // Incrementa el valor de finalDate en un día usando Moment.js
+    const newDate = moment(value).add(1, 'days');
+
+    const formattedValue = newDate.format('YYYY-MM-DD');
+    this.formValue.controls['extraordinary_startDate'].setValue(formattedValue)
+    this.extraordinary_startDate = formattedValue;
+    });
   }
 
   fieldCapture(){
     this.formValue = this.formBuilder.group({
-      price: [''],
+      ordinary_price: [''],
+      extraordinary_price: [''],
+      extraordinary_startDate: [''],
+      extraordinary_finalDate: [''],
       startDate: [''],
       finalDate: [''],
       grade: [''],
     })
     this.fieldCaptureIndex()
+  }
+
+  formatFecha(fecha:any){
+    return (moment(fecha).format('YYYY-MM-DD')==='Invalid date')?'':moment(fecha).format('YYYY-MM-DD')
   }
 
   fieldCaptureIndex(){
@@ -51,12 +72,14 @@ export class TuitionUpdateComponent implements OnInit {
       this.TuitionService.obtenerTuition(this.id).subscribe(
         response=>{
           this.Tuition= response
-          console.log(this.Tuition)
+          console.log(this.Tuition);
           this.formValue.controls['grade'].setValue(this.Tuition.result.grade)
-          this.formValue.controls['startDate'].setValue(this.Tuition.result.startDate)
-          this.formValue.controls['finalDate'].setValue(this.Tuition.result.finalDate)
-          this.formValue.controls['price'].setValue(this.Tuition.result.price)
-          this.descripcion=this.Tuition.result.description
+          this.formValue.controls['startDate'].setValue(this.formatFecha(this.Tuition.result.startDate))
+          this.formValue.controls['finalDate'].setValue(this.formatFecha(this.Tuition.result.finalDate))
+          this.formValue.controls['ordinary_price'].setValue(this.Tuition.result.ordinary_price)
+          this.formValue.controls['extraordinary_price'].setValue(this.Tuition.result.extraordinary_price)
+          this.formValue.controls['extraordinary_startDate'].setValue(this.formatFecha(this.Tuition.result.extraordinary_startDate))
+          this.formValue.controls['extraordinary_finalDate'].setValue(this.formatFecha(this.Tuition.result.extraordinary_finalDate))
           this.tuitionModel.id = this.Tuition.result.id
         }
       )
@@ -68,12 +91,14 @@ export class TuitionUpdateComponent implements OnInit {
     this.tuitionModel.grade= this.formValue.value.grade;
     this.tuitionModel.startDate= this.formValue.value.startDate;
     this.tuitionModel.finalDate= this.formValue.value.finalDate;
-    this.tuitionModel.price= this.formValue.value.price;
+    this.tuitionModel.ordinary_price= this.formValue.value.ordinary_price;
+    this.tuitionModel.extraordinary_price= this.formValue.value.extraordinary_price;
+    this.tuitionModel.extraordinary_startDate= this.formValue.value.extraordinary_startDate;
+    this.tuitionModel.extraordinary_finalDate= this.formValue.value.extraordinary_finalDate;
     console.log(this.tuitionModel)
     this.TuitionService.updateTuition(this.id,this.tuitionModel)
    
     .subscribe(res=>{
-
       Swal.fire(
         'Matricula actualizada!',
         '',
@@ -90,6 +115,5 @@ export class TuitionUpdateComponent implements OnInit {
   cerrarAlerta(){
     this.mensaje_error=""
   }
-
 
 }

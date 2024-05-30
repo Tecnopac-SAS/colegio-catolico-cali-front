@@ -17,774 +17,1036 @@
             (click)="cerrarAlerta()"></button>
         </div>
       </div>
-   
-      <mat-stepper linear #stepper class="bg-card" >
+
+      <mat-stepper linear #stepper class="bg-card">
+        
+        <!-- Datos Estudiante -->
+        
         <mat-step [stepControl]="formValueEstudiantes">
-          <form [formGroup]="formValueEstudiantes" class="example-form">
+          <form [formGroup]="formValueEstudiantes" [class.was-validated]="formSubmitted">
             <ng-template matStepLabel>Datos personales del estudiante</ng-template>
             <div class="container">
               <h6 class="text-primary">Datos personales del estudiante:</h6>
               <div class="row align-items-end">
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Nombres completos</label>
-                  <input type="text" class="form-control" formControlName="nombres">
+                  <input type="text" class="form-control" required formControlName="nombres">
+                  <div class="invalid-feedback">
+                    El campo nombres no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Apellidos completos</label>
-                  <input type="text" class="form-control" formControlName="apellidos">
+                  <input type="text" class="form-control" required formControlName="apellidos">
+                  <div class="invalid-feedback">
+                    El campo apellidos no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Tipo de documento</label>
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento">
+                  <select class="form-select form-control" required aria-label="Default select example"
+                    formControlName="tipoDocumento">
                     <option value="" selected>Seleccione una opción</option>
-                    <option value="CEDULA">CC</option>
-                    <option value="CE">CE</option>
+                    <option value="RC">Registro Civil</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                    <option value="CC">Cedula de Ciudadania</option>
+                    <option value="CE">Cedula de Extrangería</option>
                   </select>
+                  <div class="invalid-feedback">
+                    El campo tipo de documento no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Identificación</label>
-                  <input type="text" class="form-control" formControlName="identificacion">
+                  <input type="text" class="form-control" required formControlName="identificacion">
+                  <div class="invalid-feedback">
+                    El campo tipo de identificacion no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Expedida en</label>
-                  <input type="text" class="form-control" formControlName="expedicion">
+                  <input type="date" class="form-control" required formControlName="expedicion">
+                  <div class="invalid-feedback">
+                    El campo expedición no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Lugar de nacimiento</label>
-                  <input type="text" class="form-control" formControlName="lugarNacimiento">
+                  <input type="text" class="form-control" required formControlName="lugarNacimiento">
+                  <div class="invalid-feedback">
+                    El campo lugar de nacimiento no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Fecha de nacimiento</label>
-                  <input type="date" class="form-control" formControlName="fechaNacimiento">
+                  <input type="date" class="form-control" required formControlName="fechaNacimiento">
+                  <div class="invalid-feedback">
+                    El campo fecha de nacimiento no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Edad</label>
-                  <input type="number" class="form-control" formControlName="edad">
+                  <input type="number" class="form-control" required formControlName="edad">
+                  <div class="invalid-feedback">
+                    El campo edad no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Dirección</label>
-                  <input type="text" class="form-control" formControlName="direccion">
+                  <input type="text" class="form-control" required formControlName="direccion">
+                  <div class="invalid-feedback">
+                    El campo dirección no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Unidad/Casa/Apto No.</label>
-                  <input type="text" class="form-control" formControlName="tipoDireccion">
+                  <input type="text" class="form-control" required formControlName="tipoDireccion">
+                  <div class="invalid-feedback">
+                    El campo tipo de dirección no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Barrio</label>
-                  <input type="text" class="form-control" formControlName="barrio">
+                  <input type="text" class="form-control" required formControlName="barrio">
+                  <div class="invalid-feedback">
+                    El campo barrio no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Estrato</label>
-                  <input type="number" class="form-control" formControlName="estrato">
+                  <input type="number" class="form-control" required formControlName="estrato">
+                  <div class="invalid-feedback">
+                    El campo estrato no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Teléfono</label>
-                  <input type="text" class="form-control" formControlName="telefono">
+                  <input type="number" class="form-control" required formControlName="telefono">
+                  <div class="invalid-feedback">
+                    El campo telefono no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Correo electrónico</label>
-                  <input type="email" class="form-control" formControlName="correo">
+                  <input type="email" class="form-control" required formControlName="correo">
+                  <div class="invalid-feedback">
+                    El campo es requerido y su formato debe tener @.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Solicito cupo para</label>
-                  <input type="text" class="form-control" formControlName="tipoCupo">
+                  <input type="text" class="form-control" required formControlName="tipoCupo">
+                  <div class="invalid-feedback">
+                    El campo tipo de cupo no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-9">
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-3 my-3">
-                  <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                  <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposEstudiante()" > Guardar y seguir</button>
+                  <button class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                  <button class="btn btn-primary m-3" matStepperNext [disabled]="mensaje_error"
+                    (click)="validarCamposEstudiante(formValueEstudiantes)">Guardar y seguir</button>
                 </div>
               </div>
             </div>
           </form>
         </mat-step>
-  
+
         <!-- historial academico -->
-  
+
         <mat-step [stepControl]="formValueHistorialAcademico" [optional]="isOptional">
-       <form [formGroup]="formValueHistorialAcademico">
-          <ng-template matStepLabel>Historial académico</ng-template>
-          <div class="container">
-            <h6 class="text-primary">Historial académico:</h6>
-            <div class="row align-items-end">
-              <div class="row" *ngFor="let item of formValueHistorialAcademico.value.preescolar; let i = index">
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                   <label class="">Cursó pre-escolar en</label>
-                 </div>
-   
-                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                   <input type="text" class="form-control" [(ngModel)] = "item.nombre" [ngModelOptions]="{standalone: true}">
-                 </div>
-                 
-                 <div class="col-12 col-xs-12  col-md-2 my-4">
-                   <label class="">Grados cursados</label>
-                 </div>
-   
-                 <div class="col-12 col-xs-12  col-md-4 my-4">
-               
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Jardin" [(ngModel)] = "item.gradoCursadoPreescolar" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckbox1">Preescolar</label>
-                   </div>
-                   
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Jardin" [(ngModel)] = "item.gradoCursadoJardin" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckbox2">Jardin</label>
-                   </div>
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Transicion" [(ngModel)] = "item.gradoCursadoTransicion" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckbox3">Transición</label>
-                   </div>
-   
-                   <button class="btn btn-danger" (click)="removePrescolar(i)">x</button>
-                 </div>
-              </div>
-              <button class="btn form-control btn-primary" (click)="addPrescolar()">+</button>
-  
-               <div class="row" *ngFor="let item of formValueHistorialAcademico.value.primaria; let i = index">
-                 <div class="col-12 col-xs-12  col-md-2 my-4">
-                   <label class="">Cursó primaria en</label>
-                 </div>
-   
-                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                   <input type="text" class="form-control" [(ngModel)] = "item.nombre" [ngModelOptions]="{standalone: true}">
-                 </div>
-   
-                 <div class="col-12 col-xs-12  col-md-2 my-4">
-                   <label class="">Grados cursados</label>
-                 </div>
-   
-                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckboxP1" value="option1"  [(ngModel)] = "item.gradoCursadoPrimaria1" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckboxP1">1</label>
-                   </div>
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckboxP2" value="option2" [(ngModel)] = "item.gradoCursadoPrimaria2" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckboxP2">2</label>
-                   </div>
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckboxP3" value="option3" [(ngModel)] = "item.gradoCursadoPrimaria3" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckboxP3">3</label>
-                   </div>
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckboxP4" value="option4" [(ngModel)] = "item.gradoCursadoPrimaria4" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckboxP4">4</label>
-                   </div>
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckboxP5" value="option5" [(ngModel)] = "item.gradoCursadoPrimaria5" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckboxP5">5</label>
-                   </div>
-                   <button class="btn btn-danger" (click)="removePrimaria(i)">x</button>
-                 </div>
-               </div>
-              <button class="btn form-control btn-primary" (click)="addPrimaria()">+</button>
+          <form [formGroup]="formValueHistorialAcademico" [class.was-validated]="formSubmitted">
+            <ng-template matStepLabel>Historial académico</ng-template>
+            <div class="container">
+              <h6 class="text-primary">Historial académico:</h6>
+              <div class="row align-items-end">
+                <div class="row" *ngFor="let item of formValueHistorialAcademico.value.preescolar; let i = index">
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Cursó pre-escolar en</label>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" required [(ngModel)]="item.nombre"
+                      [ngModelOptions]="{standalone: true}">
+                    <div class="invalid-feedback">
+                      El campo preescolar de cupo no puede estar vacío.
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Grados cursados</label>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4 d-flex">
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Jardin"
+                        (change)="validateCheckPrescolar($event)" [(ngModel)]="item.gradoCursadoPreescolar"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckbox1">Preescolar</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Jardin"
+                        (change)="validateCheckJardin($event)" [(ngModel)]="item.gradoCursadoJardin"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckbox2">Jardin</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Transicion"
+                        (change)="validateCheckTransicion($event)" [(ngModel)]="item.gradoCursadoTransicion"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckbox3">Transición</label>
+                    </div>
+
+                    <button class="btn btn-danger" *ngIf="i !== 0" (click)="removePrescolar(i)">x</button>
+                  </div>
+                </div>
+                <button class="btn btn-primary" [disabled]="disabledAddPrescolar" (click)="addPrescolar()">Agregar
+                  Institución</button>
+
+                <div class="row" *ngFor="let item of formValueHistorialAcademico.value.primaria; let i = index">
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Cursó primaria en</label>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" required [(ngModel)]="item.nombre"
+                      [ngModelOptions]="{standalone: true}">
+                    <div class="invalid-feedback">
+                      El campo primaria no puede estar vacío.
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Grados cursados</label>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckboxP1"
+                        (change)="validateCheckPrimero($event)" value="option1" [(ngModel)]="item.gradoCursadoPrimaria1"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckboxP1">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckboxP2"
+                        (change)="validateCheckSegundo($event)" value="option2" [(ngModel)]="item.gradoCursadoPrimaria2"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckboxP2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckboxP3"
+                        (change)="validateCheckTercero($event)" value="option3" [(ngModel)]="item.gradoCursadoPrimaria3"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckboxP3">3</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckboxP4"
+                        (change)="validateCheckCuarto($event)" value="option4" [(ngModel)]="item.gradoCursadoPrimaria4"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckboxP4">4</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckboxP5"
+                        (change)="validateCheckQuinto($event)" value="option5" [(ngModel)]="item.gradoCursadoPrimaria5"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckboxP5">5</label>
+                    </div>
+                    <button class="btn btn-danger" *ngIf="i !== 0" (click)="removePrimaria(i)">x</button>
+                  </div>
+                </div>
+                <button class="btn btn-primary" [disabled]="disabledAddPrimaria" (click)="addPrimaria()">Agregar
+                  Institución</button>
 
 
-               <div class="row" *ngFor="let item of formValueHistorialAcademico.value.bachillerato; let i = index">
-                 <div class="col-12 col-xs-12  col-md-2 my-4">
-                   <label class="">Cursó bachillerato en</label>
-                 </div>
-   
-                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                   <input type="text" class="form-control" [(ngModel)] = "item.nombre" [ngModelOptions]="{standalone: true}">
-                 </div>
-   
-                 <div class="col-12 col-xs-12  col-md-2 my-4">
-                   <label class="">Grados cursados</label>
-                 </div>
-                 
-                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckboxB1" value="option1"  [(ngModel)] = "item.gradoCursadoBachillerato6" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckboxB1">6</label>
-                   </div>
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckboxB2" value="option2" [(ngModel)] = "item.gradoCursadoBachillerato7" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckboxB2">7</label>
-                   </div>
-                   <div class="form-check form-check-inline">
-                     <input class="form-check-input" type="checkbox" id="inlineCheckboxB3" value="option3" [(ngModel)] = "item.gradoCursadoBachillerato8" [ngModelOptions]="{standalone: true}">
-                     <label class="form-check-label" for="inlineCheckboxB3">8</label>
-                   </div>
-                   <button class="btn btn-danger" (click)="removeBachillerato(i)">x</button>
+                <div class="row" *ngFor="let item of formValueHistorialAcademico.value.bachillerato; let i = index">
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Cursó bachillerato en</label>
+                  </div>
 
-                 </div>
-               </div>
-              <button class="btn form-control btn-primary" (click)="addBachillerato()">+</button>
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" required [(ngModel)]="item.nombre"
+                      [ngModelOptions]="{standalone: true}">
+                    <div class="invalid-feedback">
+                      El campo bachillerato no puede estar vacío
+                    </div>
+                  </div>
 
-  
-  
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Grados cursados</label>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckboxB1" value="option1"
+                        (change)="validateCheckSexto($event)" [(ngModel)]="item.gradoCursadoBachillerato6"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckboxB1">6</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckboxB2" value="option2"
+                        (change)="validateCheckSeptimo($event)" [(ngModel)]="item.gradoCursadoBachillerato7"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckboxB2">7</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckboxB3" value="option3"
+                        (change)="validateCheckOctavo($event)" [(ngModel)]="item.gradoCursadoBachillerato8"
+                        [ngModelOptions]="{standalone: true}">
+                      <label class="form-check-label" for="inlineCheckboxB3">8</label>
+                    </div>
+                    <button class="btn btn-danger" *ngIf="i !== 0" (click)="removeBachillerato(i)">x</button>
+
+                  </div>
+                </div>
+                <button class="btn btn-primary" [disabled]="disabledAddBachillerato" (click)="addBachillerato()">Agregar
+                  Institución</button>
+
+
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Cursó año anterior en</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="anioAnterior">
+                  <input type="text" class="form-control" required formControlName="anioAnterior">
+                  <div class="invalid-feedback">
+                    El campo año anterior no puede estar vacío
+                  </div>
                 </div>
-  
+
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">¿Se retiro por?</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="motivoRetiro">
+                  <input type="text" class="form-control" required formControlName="motivoRetiro">
+                  <div class="invalid-feedback">
+                    El campo motivo de retiro no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">¿Ha repetido algún año?</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="repeticionAnio">
+                  <input type="text" class="form-control" required formControlName="repeticionAnio">
+                  <div class="invalid-feedback">
+                    El campo si ha repetido año no puede estar vacío
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">¿Alguna distinción academica?</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="distincionAcademica">
+                  <input type="text" class="form-control" required formControlName="distincionAcademica">
+                  <div class="invalid-feedback">
+                    El campo distinción académica no puede estar vacío
+                  </div>
                 </div>
-  
-              <div class="col-9">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-3 my-3">
-                <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposHistorialAcademico()"> Guardar y seguir</button>
+
+                <div class="col-9">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-3 my-3">
+                  <button class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                  <button class="btn btn-primary m-3" matStepperNext
+                    (click)="validarCamposHistorialAcademico(formValueHistorialAcademico)">
+                    Guardar y seguir</button>
+                </div>
               </div>
             </div>
-          </div>
-         
+
           </form>
         </mat-step>
-  
+
         <!-- Aptitudes y estado físico -->
-       <mat-step [stepControl]="formValueAptitudes" [optional]="isOptional">
-          <form [formGroup]="formValueAptitudes">
-          <ng-template matStepLabel>Aptitudes y estado físico</ng-template>
-          <div class="container">
-            <h6 class="text-primary">Aptitudes y estado físico:</h6>
-            <div class="row align-items-end">
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">Deportes que le gustan</label>
-                <input type="text" class="form-control" formControlName="deporteGusto">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">Artes que más le gustan</label>
-                <input type="text" class="form-control" formControlName="arteGusto">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Ha tenido alguna distinción en deporte?</label>
-                <input type="text" class="form-control" formControlName="distincionDeporte">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Ha tenido alguna distinción en artística?</label>
-                <input type="text" class="form-control" formControlName="distincionArtistica">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Qué pasatiempos tiene?</label>
-                <input type="text" class="form-control" formControlName="pasatiempos">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Posee alguna colección?</label>
-                <input type="text" class="form-control" formControlName="coleccion">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">Estado de salud</label>
-                <input type="text" class="form-control" formControlName="estadoSalud">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Qué enfermedades ha sufrido?</label>
-                <input type="text" class="form-control" formControlName="enfermedades">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Toma algún medicamento?</label>
-                <input type="text" class="form-control" formControlName="medicamentos">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Puede hacer educación física?</label>
-                <input type="text" class="form-control" formControlName="limitacionEducacionFisica">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">Tipo de sangre y RH</label>
-                <input type="text" class="form-control" formControlName="tipoSangre">
-              </div>
-  
-              <div class="col-9">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-3 my-3">
-                <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposHistorialEstadoFisico()"> Guardar y seguir</button>
+        <mat-step [stepControl]="formValueAptitudes" [optional]="isOptional">
+          <form [formGroup]="formValueAptitudes" [class.was-validated]="formSubmitted">
+            <ng-template matStepLabel>Aptitudes y estado físico</ng-template>
+            <div class="container">
+              <h6 class="text-primary">Aptitudes y estado físico:</h6>
+              <div class="row align-items-end">
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Deportes que le gustan</label>
+                  <input type="text" class="form-control" required formControlName="deporteGusto">
+                  <div class="invalid-feedback">
+                    El campo deporte que le gusta no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Artes que más le gustan</label>
+                  <input type="text" class="form-control" required formControlName="arteGusto">
+                  <div class="invalid-feedback">
+                    El campo arte que le gusta no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Ha tenido alguna distinción en deporte?</label>
+                  <input type="text" class="form-control" required formControlName="distincionDeporte">
+                  <div class="invalid-feedback">
+                    El campo distinción de algún deporte puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Ha tenido alguna distinción en artística?</label>
+                  <input type="text" class="form-control" required formControlName="distincionArtistica">
+                  <div class="invalid-feedback">
+                    El campo distinción artística no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Qué pasatiempos tiene?</label>
+                  <input type="text" class="form-control" required formControlName="pasatiempos">
+                  <div class="invalid-feedback">
+                    El campo año pasatiempos no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Posee alguna colección?</label>
+                  <input type="text" class="form-control" required formControlName="coleccion">
+                  <div class="invalid-feedback">
+                    El campo colección no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Estado de salud</label>
+                  <input type="text" class="form-control" required formControlName="estadoSalud">
+                  <div class="invalid-feedback">
+                    El campo estado de salud no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Qué enfermedades ha sufrido?</label>
+                  <input type="text" class="form-control" required formControlName="enfermedades">
+                  <div class="invalid-feedback">
+                    El campo enfermedades no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Toma algún medicamento?</label>
+                  <input type="text" class="form-control" required formControlName="medicamentos">
+                  <div class="invalid-feedback">
+                    El campo medicamentos no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Puede hacer educación física?</label>
+                  <input type="text" class="form-control" required formControlName="limitacionEducacionFisica">
+                  <div class="invalid-feedback">
+                    El campo limitación física no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">Tipo de sangre y RH</label>
+                  <input type="text" class="form-control" required formControlName="tipoSangre">
+                  <div class="invalid-feedback">
+                    El campo tipo de sangre no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-9">
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-3 my-3">
+                  <button class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                  <button class="btn btn-primary m-3" matStepperNext
+                    (click)="validarCamposHistorialEstadoFisico(formValueAptitudes)">
+                    Guardar y seguir</button>
+                </div>
               </div>
             </div>
-          </div>
-         
-          </form> 
-        </mat-step>  -->
-  
+
+          </form>
+        </mat-step>
+        
         <!-- Datos de los padres -->
-          <mat-step [stepControl]="formValuePadre" [optional]="isOptional">
-          <form [formGroup]="formValuePadre">
-          <ng-template matStepLabel>Datos de los padres</ng-template>
-          <div class="container">
-         
-            <h6 class="text-primary">Datos del Padre:</h6>
-            <div class="row align-items-end">
-              
-               <div class="col-12 col-xs-12  col-md-2 my-4">
+        <mat-step [stepControl]="formValuePadre" [optional]="isOptional">
+          
+          <form [formGroup]="formValuePadre" [class.was-validated]="formSubmitted">
+            <ng-template matStepLabel>Datos de los padres</ng-template>
+            <div class="container">
+
+              <h6 class="text-primary">Datos del Padre:</h6>
+              <div class="row align-items-end">
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Estado</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="estado" (change)="bloquedarCamposPadre()" >
+                  <select class="form-select form-control" aria-label="Default select example" required
+                    formControlName="estado" (change)="bloquedarCamposPadre()">
                     <option value="" selected>Seleccione una opción</option>
                     <option value="0">SIN DATOS</option>
                     <option value="1">CON DATOS</option>
                   </select>
+                  <div class="invalid-feedback">
+                    El campo estado no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">¿Vive?</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="vive" [disabled]="habilitarCampoPadre">
+                  <select class="form-select form-control" aria-label="Default select example" formControlName="vive"
+                    required [disabled]="habilitarCampoPadre">
                     <option value="" selected>Seleccione una opción</option>
                     <option value="1">SI</option>
                     <option value="0">NO</option>
                     <option value="2">NO APLICA</option>
                   </select>
+                  <div class="invalid-feedback">
+                    El campo vive no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Tipo de documento</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento" [disabled]="habilitarCampoPadre">
+                  <select class="form-select form-control" aria-label="Default select example"
+                    formControlName="tipoDocumento" required [disabled]="habilitarCampoPadre">
                     <option value="" selected>Seleccione una opción</option>
                     <option value="CEDULA">CC</option>
                     <option value="CE">CE</option>
                     <option value="NO">NO APLICA</option>
                   </select>
+                  <div class="invalid-feedback">
+                    El campo tipo documento no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Identificación</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="identificacion"[readonly]="habilitarCampoPadre">
+                  <input type="text" class="form-control" required formControlName="identificacion"
+                    [readonly]="habilitarCampoPadre">
+                  <div class="invalid-feedback">
+                    El campo identificación no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Nombres completos</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="nombres" [readonly]="habilitarCampoPadre">
+                  <input type="text" class="form-control" required formControlName="nombres"
+                    [readonly]="habilitarCampoPadre">
+                  <div class="invalid-feedback">
+                    El campo nombres no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Apellidos completos</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="apellidos" [readonly]="habilitarCampoPadre">
+                  <input type="text" class="form-control" required formControlName="apellidos"
+                    [readonly]="habilitarCampoPadre">
+                  <div class="invalid-feedback">
+                    El campo apellidos no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Profesión</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="profesion" [readonly]="habilitarCampoPadre">
+                  <input type="text" class="form-control" required formControlName="profesion"
+                    [readonly]="habilitarCampoPadre">
+                  <div class="invalid-feedback">
+                    El campo profesión no puede estar vacío.
+                  </div>
+
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Empresa donde trabaja</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="dondeTrabaja" [readonly]="habilitarCampoPadre">
+                  <input type="text" class="form-control" required formControlName="dondeTrabaja"
+                    [readonly]="habilitarCampoPadre">
+                  <div class="invalid-feedback">
+                    El campo donde trabaja no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Cargo</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="cargo" [readonly]="habilitarCampoPadre">
+                  <input type="text" class="form-control" required formControlName="cargo"
+                    [readonly]="habilitarCampoPadre">
+                  <div class="invalid-feedback">
+                    El campo cargo no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Ingreso mensual</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="number" class="form-control" formControlName="ingresoMensual" [readonly]="habilitarCampoPadre">
+                  <input type="number" class="form-control" required formControlName="ingresoMensual"
+                    [readonly]="habilitarCampoPadre">
+                  <div class="invalid-feedback">
+                    El campo ingreso mensual no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Correo electrónico</label>
                 </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="email" class="form-control" formControlName="correoElectronico"[readonly]="habilitarCampoPadre">
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Dirección</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="direccion" [readonly]="habilitarCampoPadre">
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Telefono</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input maxlength="7" type="number" class="form-control" formControlName="telefono" [readonly]="habilitarCampoPadre">
-                  <small></small>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Celular</label>
-                </div>
-
-        
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input maxlength="10" type="number" class="form-control" formControlName="celular" [readonly]="habilitarCampoPadre">
-                  <small></small>
-                </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="continuar" style="display: none;">
+                  <input type="email" class="form-control" required formControlName="correoElectronico"
+                    [readonly]="habilitarCampoPadre">
+                  <div class="invalid-feedback">
+                    El campo es requerido y su formato debe tener @.
+                  </div>
                 </div>
-                <hr>
-            </div>
-          </div>
+
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Dirección</label>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" required formControlName="direccion"
+                      [readonly]="habilitarCampoPadre">
+                    <div class="invalid-feedback">
+                      El campo dirección no puede estar vacío.
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Telefono</label>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input maxlength="7" type="number" class="form-control" required formControlName="telefono"
+                      [readonly]="habilitarCampoPadre">
+                    <div class="invalid-feedback">
+                      El campo telefono no puede estar vacío.
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-2 my-4">
+                    <label class="">Celular</label>
+                  </div>
+
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input maxlength="10" type="number" class="form-control" required formControlName="celular"
+                      [readonly]="habilitarCampoPadre">
+                    <div class="invalid-feedback">
+                      El campo celular no puede estar vacío.
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-xs-12  col-md-4 my-4">
+                    <input type="text" class="form-control" formControlName="continuar" value="ok" style="display: none;">
+                  </div>
+                  <hr>
+                </div>
+              </div>
           </form>
-       
-           <form [formGroup]="formValueMadre">
+
+          <form [formGroup]="formValueMadre" [class.was-validated]="formSubmitted">
             <ng-template matStepLabel>Datos de los padres</ng-template>
             <div class="container">
               <h6 class="text-primary">Datos de la madre:</h6>
               <div class="row align-items-end">
-                
-                 <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Estado</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <select class="form-select form-control" aria-label="Default select example" formControlName="estado" (change)="bloquedarCamposMadre()">
-                      <option value="" selected>Seleccione una opción</option>
-                      <option value="0">SIN DATOS</option>
-                      <option value="1">CON DATOS</option>
-                    </select>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">¿Vive?</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <select class="form-select form-control" aria-label="Default select example" formControlName="vive" [disabled]="habilitarCampoMadre">
-                      <option value="" selected>Seleccione una opción</option  >
-                      <option value="1">SI</option>
-                      <option value="0">NO</option>
-                      <option value="2">NO APLICA</option>
-                    </select>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Tipo de documento</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <select class="form-select form-control" aria-label="Default select example" formControlName="tipoDocumento" [disabled]="habilitarCampoMadre">
-                      <option value="" selected>Seleccione una opción</option>
-                      <option value="CEDULA">CC</option>
-                      <option value="CE">CE</option>
-                      <option value="NO">NO APLICA</option>
-                    </select>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Identificación</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="identificacion" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Nombres completos</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="nombres" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Apellidos completos</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="apellidos" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Profesión</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="profesion" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Empresa donde trabaja</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="dondeTrabaja" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Cargo</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="cargo" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Ingreso mensual</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="number" class="form-control" formControlName="ingresoMensual" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Correo electrónico</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="email" class="form-control" formControlName="correoElectronico" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Dirección</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="direccion" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Telefono</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="number" class="form-control" formControlName="telefono" [readonly]="habilitarCampoMadre">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Celular</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="number" class="form-control" formControlName="celular" [readonly]="habilitarCampoMadre">
-                  </div>
 
-                 
-  
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Estado</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <select class="form-select form-control" aria-label="Default select example" required
+                    formControlName="estado" (change)="bloquedarCamposMadre()">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option value="0">SIN DATOS</option>
+                    <option value="1">CON DATOS</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    El campo estado no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">¿Vive?</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <select class="form-select form-control" aria-label="Default select example" required
+                    formControlName="vive" [disabled]="habilitarCampoMadre">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option value="1">SI</option>
+                    <option value="0">NO</option>
+                    <option value="2">NO APLICA</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    El campo vive no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Tipo de documento</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <select class="form-select form-control" aria-label="Default select example"
+                    formControlName="tipoDocumento" required [disabled]="habilitarCampoMadre">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option value="CEDULA">CC</option>
+                    <option value="CE">CE</option>
+                    <option value="NO">NO APLICA</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    El campo tipo documento no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Identificación</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" required formControlName="identificacion"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo identificación no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Nombres completos</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" required formControlName="nombres"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo nombres no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Apellidos completos</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" required formControlName="apellidos"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo apellidos no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Profesión</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" required formControlName="profesion"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo profesión no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Empresa donde trabaja</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" required formControlName="dondeTrabaja"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo donde trabaja no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Cargo</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" required formControlName="cargo"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo cargo no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Ingreso mensual</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="number" class="form-control" required formControlName="ingresoMensual"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo ingreso mensual no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Correo electrónico</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="email" class="form-control" required formControlName="correoElectronico"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo es requerido y su formato debe tener @.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Dirección</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="text" class="form-control" required formControlName="direccion"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo dirección no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Telefono</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="number" class="form-control" required formControlName="telefono"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo telefono no puede estar vacío.
+                  </div>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4">
+                  <label class="">Celular</label>
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <input type="number" class="form-control" required formControlName="celular"
+                    [readonly]="habilitarCampoMadre">
+                  <div class="invalid-feedback">
+                    El campo celular no puede estar vacío.
+                  </div>
+                </div>
+
                 <div class="col-9">
                 </div>
-    
+
                 <div class="col-12 col-xs-12  col-md-3 my-3">
-                  <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                  <button  class="btn btn-primary m-3" matStepperNext (click)="validarCamposPadres()"> Guardar y seguir</button>
+                  <button class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                  <button class="btn btn-primary m-3" matStepperNext (click)="validarCamposPadres(formValuePadre)">
+                    Guardar y
+                    seguir</button>
                 </div>
               </div>
             </div>
-            </form>
-        </mat-step> 
-  
+          </form>
+        </mat-step>
+
         <!-- Datos adicionales -->
-        
+
         <mat-step [stepControl]="formValueDatosAdicionales" [optional]="isOptional">
-        <form [formGroup]="formValueDatosAdicionales">
-          <ng-template matStepLabel>Datos adicionales</ng-template>
-          <div class="container">
-            <h6 class="text-primary">Datos adicionales:</h6>
-            <div class="row align-items-end">
-              
-              <div class="col-12 col-xs-12  col-md-2 my-4">
-                <label class="">¿Tiene hermanos?</label>
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-            
-                <div class="form-check form-check-inline" (change)="validarCheckSi()">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" formArrayName="checkSi" [checked]="validadorCheckSi">
-                  <label class="form-check-label" for="inlineCheckbox1">Si</label>
-                </div>
-                <div class="form-check form-check-inline" (change)="validarCheckNo()">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" formArrayName="checkNo" [checked]="validadorCheckNo">
-                  <label class="form-check-label" for="inlineCheckbox2">No</label>
-                </div>
+          <form [formGroup]="formValueDatosAdicionales" [class.was-validated]="formSubmitted">
+            <ng-template matStepLabel>Datos adicionales</ng-template>
+            <div class="container">
+              <h6 class="text-primary">Datos adicionales:</h6>
+              <div class="row align-items-end">
 
-              </div>
-  
                 <div class="col-12 col-xs-12  col-md-2 my-4">
-             
+                  <label class="">¿Tiene hermanos?</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                 
-                </div>
-                
-                <!-- <form #newFormHermano="ngForm">
 
-                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Crear otro hermano</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <app-hermanos   [validadorCheck]="checkSi"
-                              *ngFor="let item of datosFormArray.controls;let i=index;"
-                              [miFormulario]="item"
-                              [id]="i"
-                            >
-                            </app-hermanos>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                          </div>
-                        </div>
+                  <div class="form-check form-check-inline" (change)="validarCheckSi()">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"
+                      formArrayName="checkSi" [checked]="validadorCheckSi">
+                    <label class="form-check-label" for="inlineCheckbox1">Si</label>
+                  </div>
+                  <div class="form-check form-check-inline" (change)="validarCheckNo()">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"
+                      formArrayName="checkNo" [checked]="validadorCheckNo">
+                    <label class="form-check-label" for="inlineCheckbox2">No</label>
+                  </div>
+
+                </div>
+
+                <div class="col-12 col-xs-12  col-md-2 my-4"></div>
+                <div class="col-12 col-xs-12  col-md-4 my-4"></div>
+
+                <form [formGroup]="formValueDatosAdicionalesHermanos" [class.was-validated]="formSubmitted">
+                  <div class="row">
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Nombres completos</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="nombres"
+                        [readonly]="validadorCheckHermano">
+                      <div class="invalid-feedback">
+                        El campo Nombres completos no puede estar vacío.
                       </div>
-                </form> -->
-              <form [formGroup]="formValueDatosAdicionalesHermanos">
-                <div class="row">
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Nombres completos</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="nombres" [readonly]="validadorCheckHermano">
-                  </div> 
-    
-                   <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Apellidos completos</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="apellidos" [readonly]="validadorCheckHermano">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Nivel de estudios</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="nivelEstudio" [readonly]="validadorCheckHermano">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Institución educativa</label>
-                  </div>
-  
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="institucion" [readonly]="validadorCheckHermano">
-                  </div>  
-                </div>
-                <div class="col-12">
-                  <button  class="btn btn-primary m-1"  [disabled]="validadorBotonHermano" (click)="AgregarOtroHermano()"> Agregar más hermanos</button>
-                </div>
-              </form>
+                    </div>
 
-              <form [formGroup]="formValueDatosAdicionalesHermanos2" *ngIf="validadorAgregarOtroHermano==true">
-                <div class="row">
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Nombres completos</label>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Apellidos completos</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="apellidos"
+                        [readonly]="validadorCheckHermano">
+                      <div class="invalid-feedback">
+                        El campo Apellidos completos no puede estar vacío.
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Nivel de estudios</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="nivelEstudio"
+                        [readonly]="validadorCheckHermano">
+                      <div class="invalid-feedback">
+                        El campo Nivel de estudios no puede estar vacío.
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Institución educativa</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="institucion"
+                        [readonly]="validadorCheckHermano">
+                      <div class="invalid-feedback">
+                        El campo Institución educativa no puede estar vacío.
+                      </div>
+                    </div>
                   </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="nombres" [readonly]="validadorCheckHermano">
-                  </div> 
-    
-                   <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Apellidos completos</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="apellidos" [readonly]="validadorCheckHermano">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Nivel de estudios</label>
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="nivelEstudio" [readonly]="validadorCheckHermano">
-                  </div>
-    
-                  <div class="col-12 col-xs-12  col-md-2 my-4">
-                    <label class="">Institución educativa</label>
-                  </div>
-  
-                  <div class="col-12 col-xs-12  col-md-4 my-4">
-                    <input type="text" class="form-control" formControlName="institucion" [readonly]="validadorCheckHermano">
-                  </div>  
+                </form>
+
+                <div class="col-12" *ngIf="validadorAgregarOtroHermano==true">
+                  <hr class="txt-danger">
                 </div>
-              
-              </form>
+
+                <form [formGroup]="formValueDatosAdicionalesHermanos2" *ngIf="validadorAgregarOtroHermano==true"
+                  [class.was-validated]="formSubmitted">
+                  <div class="row">
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Nombres completos</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="nombres"
+                        [readonly]="validadorCheckHermano">
+                      <div class="invalid-feedback">
+                        El campo Nombres completos no puede estar vacío.
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Apellidos completos</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="apellidos"
+                        [readonly]="validadorCheckHermano">
+                      <div class="invalid-feedback">
+                        El campo Apellidos completos no puede estar vacío.
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Nivel de estudios</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="nivelEstudio"
+                        [readonly]="validadorCheckHermano">
+                      <div class="invalid-feedback">
+                        El campo Nivel de estudios no puede estar vacío.
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Institución educativa</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="institucion"
+                        [readonly]="validadorCheckHermano">
+                      <div class="invalid-feedback">
+                        El campo Institución educativa no puede estar vacío.
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+
+                <div class="col-12">
+                  <button class="btn btn-primary m-1" [disabled]="validadorBotonHermano" (click)="AgregarOtroHermano()">
+                    Agregar más hermanos</button>
+                </div>
 
                 <div class="col-12">
                   <hr class="txt-danger">
                 </div>
-
-               
 
                 <h6 class="text-primary">Persona responsable ante el colegio:</h6>
 
@@ -792,340 +1054,439 @@
                   <label class="">Responsable</label>
                 </div>
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="responsable" (change)="responsable()" >
-                    <option value="" selected>Seleccione una opción</option >
+                  <select class="form-select form-control" aria-label="Default select example" required
+                    formControlName="responsable" (change)="responsable()">
+                    <option value="" selected>Seleccione una opción</option>
                     <option value="1">Padre</option>
                     <option value="2">Madre</option>
                     <option value="3">Otro/acudiente</option>
                   </select>
+                  <div class="invalid-feedback">
+                    El campo Responsable no puede estar vacío.
+                  </div>
                 </div>
 
                 <div class="col-12">
                   <hr class="txt-danger">
                 </div>
-             
+
                 <label class="">Datos del acudiente</label>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Parentesco</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="parentesco" [readonly]="validadorResponsable" formControlName="parentesco">
+                  <input type="text" class="form-control" formControlName="parentesco" [readonly]="validadorResponsable"
+                    required formControlName="parentesco">
+                  <div class="invalid-feedback">
+                    El campo Parentesco no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Dirección</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="direccion">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="direccion">
+                  <div class="invalid-feedback">
+                    El campo Dirección no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Tipo de documento</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="tipoDocumento">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="tipoDocumento">
+                  <div class="invalid-feedback">
+                    El campo Tipo de documento no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Identificación</label>
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="identificacion">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="identificacion">
+                  <div class="invalid-feedback">
+                    El campo Identificación no puede estar vacío.
+                  </div>
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Nombres completos</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="nombres">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="nombres">
+                  <div class="invalid-feedback">
+                    El campo Nombres completos no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Apellidos completos</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control"[readonly]="validadorResponsable" formControlName="apellidos">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="apellidos">
+                  <div class="invalid-feedback">
+                    El campo Apellidos completos no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">¿Vive?</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="vive">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="vive">
+                  <div class="invalid-feedback">
+                    El campo ¿Vive? no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Correo electrónico</label>
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="correoElectronico">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="correoElectronico">
+                  <div class="invalid-feedback">
+                    El campo Correo electrónico no puede estar vacío.
+                  </div>
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Profesión</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="profesion">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="profesion">
+                  <div class="invalid-feedback">
+                    El campo Profesión no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Empresa donde trabaja</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="dondeTrabaja">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="dondeTrabaja">
+                  <div class="invalid-feedback">
+                    El campo Empresa donde trabaja no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Cargo</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable"formControlName="cargo">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="cargo">
+                  <div class="invalid-feedback">
+                    El campo Cargo no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Ingreso mensual</label>
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="number" class="form-control" [readonly]="validadorResponsable" formControlName="ingresoMensual">
+                  <input type="number" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="ingresoMensual">
+                  <div class="invalid-feedback">
+                    El campo Ingreso mensual no puede estar vacío.
+                  </div>
                 </div>
 
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Teléfono</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="telefono">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="telefono">
+                  <div class="invalid-feedback">
+                    El campo Teléfono no puede estar vacío.
+                  </div>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-2 my-4">
                   <label class="">Celular</label>
                 </div>
-  
+
                 <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" [readonly]="validadorResponsable" formControlName="celular">
+                  <input type="text" class="form-control" [readonly]="validadorResponsable" required
+                    formControlName="celular">
+                  <div class="invalid-feedback">
+                    El campo Celular no puede estar vacío.
+                  </div>
                 </div>
 
                 <div class="col-12">
                   <hr class="txt-danger">
                 </div>
 
-                <form [formGroup]="formValueDatosAdicionalesResponsable" >
+                <form [formGroup]="formValueDatosAdicionalesResponsable" [class.was-validated]="formSubmitted">
                   <div class="row">
                     <h6 class="text-primary">Persona responsable para facturación electrónica:</h6>
 
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Responsable</label>
-                </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Responsable</label>
+                    </div>
 
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <select class="form-select form-control" aria-label="Default select example" formControlName="responsable" (change)="responsableFacturacion()" >
-                    <option value="" selected>Seleccione una opción</option >
-                    <option value="1">Padre</option>
-                    <option value="2">Madre</option>
-                    <option value="3">Otro/acudiente</option>
-                  </select>
-                </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <select class="form-select form-control" required aria-label="Default select example"
+                        formControlName="responsable" (change)="responsableFacturacion()">
+                        <option value="" selected>Seleccione una opción</option>
+                        <option value="1">Padre</option>
+                        <option value="2">Madre</option>
+                        <option value="3">Otro/acudiente</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        El campo Responsable no puede estar vacío.
+                      </div>
+                    </div>
 
-                <div class="col-12">
-                  <hr class="txt-danger">
-                </div>
+                    <div class="col-12">
+                      <hr class="txt-danger">
+                    </div>
 
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Tipo de persona</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="tipoPersona" >
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Razón social</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="razonSocial" >
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Tipo de documento</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="tipoDocumento" [readonly]="validadorResponsableFacturacion">
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Identificación</label>
-                </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Tipo de persona</label>
+                    </div>
 
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="identificacion" [readonly]="validadorResponsableFacturacion">
-                </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="tipoPersona">
+                      <div class="invalid-feedback">
+                        El campo Tipo de persona no puede estar vacío.
+                      </div>
+                    </div>
 
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Correo electrónico</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="correoElectronico" [readonly]="validadorResponsableFacturacion">
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Celular</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="celular" [readonly]="validadorResponsableFacturacion">
-                </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Razón social</label>
+                    </div>
 
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">País</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="pais">
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Ciudad</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="ciudad" >
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Departamento</label>
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control"  formControlName="departamento" >
-                </div>
-  
-                <div class="col-12 col-xs-12  col-md-2 my-4">
-                  <label class="">Dirección</label>
-                </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="razonSocial">
+                      <div class="invalid-feedback">
+                        El campo Razón social no puede estar vacío.
+                      </div>
+                    </div>
 
-                <div class="col-12 col-xs-12  col-md-4 my-4">
-                  <input type="text" class="form-control" formControlName="direccion">
-                </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Tipo de documento</label>
+                    </div>
 
-                <div class="col-9">
-         
-                </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="tipoDocumento"
+                        [readonly]="validadorResponsableFacturacion">
+                      <div class="invalid-feedback">
+                        El campo Tipo de documento no puede estar vacío.
+                      </div>
+                    </div>
 
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Identificación</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="identificacion"
+                        [readonly]="validadorResponsableFacturacion">
+                      <div class="invalid-feedback">
+                        El campo Identificación no puede estar vacío.
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Correo electrónico</label>
+                    </div>
+
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="correoElectronico"
+                        [readonly]="validadorResponsableFacturacion">
+                      <div class="invalid-feedback">
+                        El campo Correo electrónico no puede estar vacío.
+                      </div>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Celular</label>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="celular"
+                        [readonly]="validadorResponsableFacturacion">
+                      <div class="invalid-feedback">
+                        El campo Celular no puede estar vacío.
+                      </div>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">País</label>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="pais">
+                      <div class="invalid-feedback">
+                        El campo País no puede estar vacío.
+                      </div>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Ciudad</label>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="ciudad">
+                      <div class="invalid-feedback">
+                        El campo Ciudad no puede estar vacío.
+                      </div>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Departamento</label>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="departamento">
+                      <div class="invalid-feedback">
+                        El campo Departamento no puede estar vacío.
+                      </div>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-2 my-4">
+                      <label class="">Dirección</label>
+                    </div>
+                    <div class="col-12 col-xs-12  col-md-4 my-4">
+                      <input type="text" class="form-control" required formControlName="direccion">
+                      <div class="invalid-feedback">
+                        El campo Dirección no puede estar vacío.
+                      </div>
+                    </div>
+                    <div class="col-9">
+                    </div>
                   </div>
-                
-              </form>
-              <div class="col-12 col-xs-12  col-md-3 my-3">
-                <button  class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
-                <button  class="btn btn-primary m-3" matStepperNext> Guardar y seguir</button>
+                </form>
+
+                <div class="col-12 col-xs-12  col-md-3 my-3">
+                  <button class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                  <button class="btn btn-primary m-3" (click)="validarDatosAdicionales(formValueDatosAdicionales)"
+                    matStepperNext>
+                    Guardar y seguir</button>
+                </div>
               </div>
             </div>
-          </div>
           </form>
         </mat-step>
-  
         <!-- Canal de referencia -->
         <mat-step [stepControl]="formValueCanalReferencia" [optional]="isOptional">
-          <form [formGroup]="formValueCanalReferencia">
-          <ng-template matStepLabel>Canal de referencia</ng-template>
-          <div class="container">
-            <h6 class="text-primary">Canal de referencia:</h6>
-            <div class="row align-items-end">
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Cómo se entero del colegio?</label>
-                <input type="textarea" class="form-control" formControlName="comoSeEntero">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Qué sabe del colegio católico?</label>
-                <input type="textarea" class="form-control" formControlName="comoSabe">
-              </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-4">
-                <label class="">¿Por qué desea ingresar al colegio católico?</label>
-                <input type="textarea" class="form-control" formControlName="porqueIngresar">
-              </div>
+          <form [formGroup]="formValueCanalReferencia" [class.was-validated]="formSubmitted">
+            <ng-template matStepLabel>Canal de referencia</ng-template>
+            <div class="container">
+              <h6 class="text-primary">Canal de referencia:</h6>
+              <div class="row align-items-end">
 
-              <h6 class="text-primary">Compromiso de los padres:</h6>
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Cómo se entero del colegio?</label>
+                  <input type="textarea" class="form-control" required formControlName="comoSeEntero">
+                  <div class="invalid-feedback">
+                    El campo no puede estar vacío.
+                  </div>
+                </div>
 
-              <p>Señores Padres de Familia y/ó acudiente:
-                Si su hijo (a) es admitido como estudiante del COLEGIO CATÓLICO usted se
-                compromete a:</p>
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Qué sabe del colegio católico?</label>
+                  <input type="textarea" class="form-control" required formControlName="comoSabe">
+                  <div class="invalid-feedback">
+                    El campo no puede estar vacío.
+                  </div>
+                </div>
 
-              <p>Leer la agenda y utilizarla.
-                Leer y cumplir el Manual de Convivencia.
-                Asistir puntualmente a las reuniones de Padres de Familia y citaciones que realice el Colegio.
-                Recibir el boletín de calificación de su hijo (a) al finalizar cada periodo.
-                Participar y apoyar las actividades de integración: culturales, académicas, deportivas y religiosas que organiza el Colegio, para Bien de sus estudiantes.
-                Consignar el valor de los costos educativos cumplidamente en los cinco (5) primeros días de cada mes, en la Corporación Indicada.
-                Suministrar el vestuario y transporte de su hijo (a) si es seleccionado o quiere tomar parte en las actividades de danza, teatro, coros, deporte, etc.
-                Aceptar los planes, programas y normas que contribuyen para la educación académica, cultural y formativa de sus hijos (as).</p>
+                <div class="col-12 col-xs-12  col-md-4 my-4">
+                  <label class="">¿Por qué desea ingresar al colegio católico?</label>
+                  <input type="textarea" class="form-control" required formControlName="porqueIngresar">
+                  <div class="invalid-feedback">
+                    El campo no puede estar vacío.
+                  </div>
+                </div>
 
-                <p>Si no cumplo estos compromisos, me acerco a dialogar y buscar soluciones.  Si el compromiso es financiero cancelo inmediatamente</p>
+                <h6 class="text-primary">Compromiso de los padres:</h6>
+
+                <p>Señores Padres de Familia y/ó acudiente:
+                  Si su hijo (a) es admitido como estudiante del COLEGIO CATÓLICO usted se
+                  compromete a:</p>
+
+                <p>Leer la agenda y utilizarla.
+                  Leer y cumplir el Manual de Convivencia.
+                  Asistir puntualmente a las reuniones de Padres de Familia y citaciones que realice el Colegio.
+                  Recibir el boletín de calificación de su hijo (a) al finalizar cada periodo.
+                  Participar y apoyar las actividades de integración: culturales, académicas, deportivas y religiosas
+                  que organiza el Colegio, para Bien de sus estudiantes.
+                  Consignar el valor de los costos educativos cumplidamente en los cinco (5) primeros días de cada mes,
+                  en la Corporación Indicada.
+                  Suministrar el vestuario y transporte de su hijo (a) si es seleccionado o quiere tomar parte en las
+                  actividades de danza, teatro, coros, deporte, etc.
+                  Aceptar los planes, programas y normas que contribuyen para la educación académica, cultural y
+                  formativa de sus hijos (as).</p>
+
+                <p>Si no cumplo estos compromisos, me acerco a dialogar y buscar soluciones. Si el compromiso es
+                  financiero cancelo inmediatamente</p>
                 <p>Este formulario es una solicitud de ingreso, no es una matrícula</p>
 
                 <div class="col-12 col-xs-12  col-md-4 my-4">
                   <label class="">Nombre del padre o acudiente</label>
-                  <input type="text" class="form-control" formControlName="nombreAcudiente">
+                  <input type="text" class="form-control" required formControlName="nombreAcudiente">
+                  <div class="invalid-feedback">
+                    El campo no puede estar vacío.
+                  </div>
                 </div>
 
-      
+
                 <div class="col-12 col-xs-12  col-md-9 my-3">
-                  <label class="m-2">¿Acepta el compromiso?  </label>
+                  <label class="m-2">¿Acepta el compromiso? </label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" formControlName="aceptaCompromisos" (change)="validarCanalReferencia()">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1"
+                      formControlName="aceptaCompromisos" (change)="validarCanalReferencia()">
                     <label class="form-check-label" for="inlineCheckbox1">Si</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="0" formControlName="aceptaCompromisos">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="0"
+                      formControlName="aceptaCompromisos">
                     <label class="form-check-label" for="inlineCheckbox2">No</label>
                   </div>
-    
+
                 </div>
-  
-              <div class="col-12 col-xs-12  col-md-4 my-3" >
-                <button  class="btn btn-outline-primary m-3" matStepperPrevious > Volver</button>
-                <button  class="btn btn-primary m-3" matStepperNext (click)="guardarFormularios()" [disabled]="validadorTerminos"> Guardar y seguir</button>
-              </div>
-              <h6 class="text-primary">Seleccione el método de pago</h6>
-              <p>Valor de matrícula $30.000</p>
-              <p>Seleccione el método de pago digital</p>
 
-              <div class=" col-12 col-xs-12  col-md-2 my-1">
-                <img src="../../../../../assets/acudiente/pse.png" class="btn" alt="..." style="width:150px ; height:150px">
+                <div class="col-12 col-xs-12  col-md-4 my-3">
+                  <button class="btn btn-outline-primary m-3" matStepperPrevious> Volver</button>
+                  <button class="btn btn-primary m-3" matStepperNext
+                    (click)="guardarFormularios(formValueCanalReferencia)" [disabled]="validadorTerminos"> Guardar y
+                    seguir</button>
+                </div>
+                <h6 class="text-primary">Seleccione el método de pago</h6>
+                <p>Valor de matrícula ${{formatCurrency(matricula)}}</p>
+                <div class="row cardPago">
+                  <div class="col-md-3 d-flex justify-content-center" [class.disabled]="disabledPaymentButton"
+                    [ngClass]="{'fade-opacity': true}" (click)="paymentAvalPayComponent()">
+                    <img class="p-4" src="assets/img-pagomatricula/image1.png" alt="">
+                  </div>
+                </div>
               </div>
-
-              <div class=" col-12 col-xs-12  col-md-2 my-1">
-                <img src="../../../../../assets/acudiente/tarjeta.png" class="btn" alt="..." style="width:150px ; height:150px">
-              </div>
-
-              <div class=" col-12 col-xs-12  col-md-2 my-1">
-                <img src="../../../../../assets/acudiente/paypal.png" class="btn" alt="..." style="width:150px ; height:150px">
-              </div>
-
             </div>
-          </div>
           </form>
         </mat-step>
       </mat-stepper>
     </div>
- 
+
   </div>
 
 

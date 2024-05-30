@@ -47,8 +47,8 @@
               <td>{{data.channel}}</td>
               <td>{{data.price}}</td>
               <td>{{data.applicant}}</td>
-              <td *ngIf="data.isActive==0">Inactivo</td>
-              <td *ngIf="data.isActive==1">Activo</td>
+              <td *ngIf="data.isActive==0"><span class="badge badge-danger text-uppercase">Inactiva</span></td>
+              <td *ngIf="data.isActive==1"><span class="badge badge-success text-uppercase">Activa</span></td>
 
               <td>
                 <button  class="text-info btn"  routerLink="/certificate-editar/{{data.id}}">Editar</button>|

@@ -1,130 +1,521 @@
 <app-dashboard>
-    <app-nav-title [navTitle]="navTitle"></app-nav-title>
-    <div class="container my-xl-2">
-            <div class="card"> 
-              <div *ngIf="mensaje_ok">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <strong>{{mensaje_ok}}</strong>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container my-xl-2">
+    <div class="card">
+      <div *ngIf="mensaje_ok">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{mensaje_ok}}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="container row ">
+          <div class="col-md-5 col-12 ml-4">
+            <h5 class="text-info btn">Admisión</h5>
+          </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-md-3 col-12 my-2">
+            <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+              <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                <div class="input-group-append">
+                  <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+                </div>
+                <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro"
+                  [(ngModel)]="filterText">
+              </div>
+            </form>
+          </div>
+          <div class="col-md-1 col-4 my-2">
+            <button class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+          </div>
+        </div>
+        <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Código</th>
+                <th scope="col">Nombre del estudiante</th>
+                <th scope="col">Apellidos del estudiante</th>
+                <th scope="col">Correro electrónico</th>
+                <th scope="col">Grado</th>
+                <th scope="col">Fecha de solicitud</th>
+                <th scope="col">¿Pago inscripción?</th>
+                <th scope="col">Tipo de pago</th>
+                <th scope="col">Estado</th>
+                <th scope="col" class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let data of dataStudentDatabase; let index = index ">
+              <tr class="align-bottom">
+                <th scope="row">{{index+1}}</th>
+                <td>{{data.codigo}}</td>
+                <td>{{data.nombres}}</td>
+                <td>{{data.apellidos}}</td>
+                <td>{{data.correo}}</td>
+                <td>{{data.grado}}</td>
+                <td>{{data.createdAt | date:'dd/MM/yy'}}</td>
+                <td>{{data.correo}}</td>
+                <td>N/A</td>
+                <td *ngIf="data.estadoEstudiante=='Aspirante'"><span
+                    class="badge badge-warning text-uppercase">Aspirante</span></td>
+                <td *ngIf="data.estadoEstudiante=='Inscrito'"><span
+                    class="badge badge-success text-uppercase">Inscrito</span></td>
+                <td *ngIf="data.estadoEstudiante=='Rechazado'"><span
+                    class="badge badge-danger text-uppercase">Rechazado</span></td>
+                <td *ngIf="data.estadoEstudiante=='Matriculado'"><span
+                    class="badge badge-secondary text-uppercase">Matriculado</span></td>
+
+                <td *ngIf="data.estadoEstudiante !='Inscrito'">
+                  <button class="text-info btn" data-bs-target="#verModalToggle" data-bs-toggle="modal"
+                    (click)="idEstudiante = data.id">Ver</button>|
+                  <button class="text-success btn" [attr.data-target]="'#aprobarModalToggle' + data.id"
+                    data-toggle="modal">Admitir</button>|
+                  <button class="text-danger btn" [attr.data-target]="'#rechazarModalToggle' + data.id"
+                    data-toggle="modal">Rechazar</button>
+                </td>
+              </tr>
+              <!-- modal cambiar estado -->
+              <div class="modal fade" id="aprobarModalToggle{{data.id}}" aria-hidden="true"
+                aria-labelledby="editarModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <br>
+                      <h4 class="text-center text-primary">¿Estas seguro de que quieres
+                        aceptar el ingreso este estudiante?</h4>
+                      <br>
+
+                      <div class="row justify-content-center">
+
+                        <div class="col-4 my-4 ml-5">
+                          <button type="button" class="btn btn-outline-danger m-2"
+                            data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="col-4 my-4">
+                          <button type="button" class="btn btn-primary m-2" data-dismiss="modal" data-dismiss="modal"
+                            (click)="actualizarEstado(data,'Inscrito')">Aceptar</button>
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="card-body"> 
-                <div class="container row ">
-                  <div class="col-md-5 col-12 ml-4">
-                    <h5 class="text-info btn">Admisión</h5>
-                  </div>
-                 </div>
-                <div class="row justify-content-end">
-                      <div class="col-md-3 col-12 my-2">
-                        <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
-                            <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
-                              <div class="input-group-append">
-                                <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
-                            </div>
-                                <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-1 col-4 my-2">
-                      <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
-                    </div>
-                </div>
-                <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
-                  <table class="table table-hover table-bordered">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre del estudiante</th>
-                        <th scope="col">Apellidos del estudiante</th>
-                        <th scope="col">Correro electrónico</th>
-                        <th scope="col">Grado</th>
-                        <th scope="col">Fecha de solicitud</th>
-                        <th scope="col">¿Pago inscripción?</th>
-                        <th scope="col">Tipo de pago</th>
-                        <th scope="col"  class = "text-center">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody  *ngFor="let data of dataStudentDatabase; let index = index ">
-                      <tr class="align-bottom">
-                        <th scope="row">{{index+1}}</th>
-                        <td>{{data.nombres}}</td>
-                        <td>{{data.apellidos}}</td>
-                        <td>{{data.correo}}</td>
-                        <td>Grado</td>
-                        <td>{{data.createdAt | date:'dd/MM/yy'}}</td>
-                        <td>Pago</td>
-                        <td>Tpo Pago</td>
-                        <td>
-                            <button  class="text-dark btn">Ver</button>|
-                            <button  class="text-info btn" [attr.data-target]="'#aprobarModalToggle' + data.id" data-toggle="modal" >Aprobar</button>|
-                            <button  class="text-danger btn" [attr.data-target]="'#rechazarModalToggle' + data.id" data-toggle="modal" >Rechazar</button>
-                        </td>
-                      </tr>
-                      <!-- modal cambiar estado -->
-                      <div class="modal fade" id="aprobarModalToggle{{data.id}}" aria-hidden="true" aria-labelledby="editarModalToggleLabel" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content">
-                            <div class="modal-body">
-                              <br>
-                              <h4 class="text-center text-primary">¿Estas seguro de que quieres 
-                                aceptar el ingreso este estudiante?</h4>
-                              <br>
-                            
-                              <div class="row justify-content-center">
+              <!-- modal rechazar -->
+              <div class="modal fade" id="rechazarModalToggle{{data.id}}" aria-hidden="true"
+                aria-labelledby="editarModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <br>
+                      <h4 class="text-center text-primary">¿Estas seguro de que quieres
+                        rechazar el ingreso este estudiante?</h4>
+                      <br>
 
-                                <div class="col-4 my-4 ml-5">
-                                  <button type="button" class="btn btn-outline-danger m-2" data-dismiss="modal">Cancelar</button>
-                                </div>
-                                <div class="col-4 my-4">
-                                  <button type="button" class="btn btn-primary m-2" data-dismiss="modal" data-dismiss="modal" (click)="actualizarEstado(data,'Inscrito')">Aceptar</button>
-                                </div>
-                                
-                                <br>
-                                <br>
-                                <br>
-                              </div>
+                      <div class="row justify-content-center">
+
+                        <div class="col-4 my-4 ml-5">
+                          <button type="button" class="btn btn-outline-danger m-2"
+                            data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="col-4 my-4">
+                          <button type="button" class="btn btn-danger m-2" data-dismiss="modal" data-dismiss="modal"
+                            (click)="actualizarEstado(data,'Rechazado')">Rechazar</button>
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Primer modal -->
+              <div class="modal fade" id="verModalToggle" tabindex="-1" aria-labelledby="verModalToggleLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <h4 class="text-center text-black">¿Qué deseas ver?</h4>
+                      <div class="row justify-content-center">
+                        <div class="col-5 d-grid gap-1 align-self-center">
+                          <button type="button" class="btn btn-outline-primary m-2"
+                            (click)="listarEstudiante(idEstudiante); tipoContenido = 'estudiante'"
+                            data-bs-target="#verDatosModalToggle" data-bs-toggle="modal">Estudiante</button>
+                        </div>
+                        <div class="col-5 d-grid gap-1 align-self-center">
+                          <button type="button" class="btn btn-outline-primary m-2"
+                            (click)="listarDatos(idEstudiante); tipoContenido = 'acudiente'"
+                            data-bs-target="#verDatosModalToggle" data-bs-toggle="modal">Acudiente</button>
+                        </div>
+                        <div class="col-5 d-grid gap-1 align-self-center">
+                          <button type="button" class="btn btn-outline-primary m-2"
+                            (click)="listarDatos(idEstudiante); tipoContenido = 'madre'"
+                            data-bs-target="#verDatosModalToggle" data-bs-toggle="modal">Madre</button>
+                        </div>
+                        <div class="col-5 d-grid gap-1 align-self-center">
+                          <button type="button" disabled class="btn btn-outline-primary m-2"
+                            (click)="tipoContenido = 'codeudor'" data-bs-target="#verDatosModalToggle"
+                            data-bs-toggle="modal">Codeudor</button>
+                        </div>
+                        <div class="col-5 d-grid gap-1 align-self-center">
+                          <button type="button" class="btn btn-outline-primary m-2"
+                            (click)="listarDatos(idEstudiante); tipoContenido = 'padre'"
+                            data-bs-target="#verDatosModalToggle" data-bs-toggle="modal">Padre</button>
+                        </div>
+                        <div class="col-5 d-grid gap-1 align-self-center">
+                          <button type="button" disabled class="btn btn-outline-primary m-2"
+                            (click)="tipoContenido = 'hEstudiantes'" data-bs-target="#verDatosModalToggle"
+                            data-bs-toggle="modal">H.Estudiantes</button>
+                        </div>
+                        <div class="col-5 d-grid gap-1 align-self-center">
+                          <button type="button" disabled class="btn btn-outline-primary m-2"
+                            (click)="tipoContenido = 'hClinica'" data-bs-target="#verDatosModalToggle"
+                            data-bs-toggle="modal">H.Clinica</button>
+                        </div>
+                        <div class="col-5 d-grid gap-1 align-self-center">
+                          <button type="button" class="btn btn-outline-primary m-2"
+                            (click)="listarDatos(idEstudiante); tipoContenido = 'grupoFamiliar'"
+                            data-bs-target="#verDatosModalToggle" data-bs-toggle="modal">Grupo familiar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Segundo modal -->
+              <div class="modal fade" id="verDatosModalToggle" tabindex="-1" aria-labelledby="verDatosModalToggleLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Datos del {{tipoContenido == 'grupoFamiliar' ? 'Grupo Familiar' :
+                        tipoContenido}}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-1">
+                      <div *ngIf="tipoContenido === 'estudiante'">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Código:</label>
+                              <p>{{ estudiante?.codigo }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Nombres:</label>
+                              <p>{{ estudiante?.nombres }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Apellidos:</label>
+                              <p>{{ estudiante?.apellidos }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Tipo de Documento:</label>
+                              <p>{{ estudiante?.tipoDocumento }}</p>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Identificación:</label>
+                              <p>{{ estudiante?.identificacion }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Fecha de Nacimiento:</label>
+                              <p>{{ estudiante?.fechaNacimiento | date:'dd/MM/yyyy' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Dirección:</label>
+                              <p>{{ estudiante?.direccion }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Teléfono:</label>
+                              <p>{{ estudiante?.telefono }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Grado:</label>
+                              <p>{{ estudiante?.tipoCupo }}</p>
                             </div>
                           </div>
                         </div>
                       </div>
-                      
-                          <!-- modal rechazar -->
-                          <div class="modal fade" id="rechazarModalToggle{{data.id}}" aria-hidden="true" aria-labelledby="editarModalToggleLabel" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                      <br>
-                                      <h4 class="text-center text-primary">¿Estas seguro de que quieres 
-                                        rechazar el ingreso este estudiante?</h4>
-                                      <br>
-                                    
-                                      <div class="row justify-content-center">
-        
-                                        <div class="col-4 my-4 ml-5">
-                                          <button type="button" class="btn btn-outline-danger m-2" data-dismiss="modal">Cancelar</button>
-                                        </div>
-                                        <div class="col-4 my-4">
-                                          <button type="button" class="btn btn-danger m-2" data-dismiss="modal" data-dismiss="modal" (click)="actualizarEstado(data,'Rechazado')">Rechazar</button>
-                                        </div>
-                                        
-                                        <br>
-                                        <br>
-                                        <br>
-                                      </div>
-                                    </div>
-                                  </div>
+                      <div *ngIf="tipoContenido === 'acudiente'">
+                        <div *ngFor="let acudiente of acudiente; let last = last; let i = index;" class="row mb-3">
+                          <h4 class="text-secondary">#{{i+1}}</h4>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Parentesco:</label>
+                              <p>{{ acudiente.parentesco }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Nombres:</label>
+                              <p>{{ acudiente.nombres }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Apellidos:</label>
+                              <p>{{ acudiente.apellidos }}</p>
+                            </div>
+                            <div>
+                              <a href="/gestion-acudiente-editar/{{acudiente.id}}"
+                                class="btn btn-outline-primary">Editar Datos</a>
                             </div>
                           </div>
-                    </tbody>
-                  </table>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Tipo de Documento:</label>
+                              <p>{{ acudiente.tipoDocumento }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Identificación:</label>
+                              <p>{{ acudiente.identificacion }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Profesión:</label>
+                              <p>{{ acudiente.profesion }}</p>
+                            </div>
+                          </div>
+                          <hr *ngIf="!last" class="my-3" style="width: -webkit-fill-available;">
+                        </div>
+                      </div>
+
+                      <div *ngIf="tipoContenido === 'madre' && madre">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Parentesco:</label>
+                              <p>{{ madre.parentesco }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Nombres:</label>
+                              <p>{{ madre.nombres !== 'N/A' ? madre.nombres : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Apellidos:</label>
+                              <p>{{ madre.apellidos !== 'N/A' ? madre.apellidos : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Correo:</label>
+                              <p>{{ madre.correoElectronico !== 'N/A' ? madre.correoElectronico : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Telefono:</label>
+                              <p>{{ madre.telefono !== 'N/A' ? madre.telefono : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Celular:</label>
+                              <p>{{ madre.celular !== 'N/A' ? madre.celular : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Dirección:</label>
+                              <p>{{ madre.direccion !== 'N/A' ? madre.direccion : 'No disponible' }}</p>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Tipo de Documento:</label>
+                              <p>{{ madre.tipoDocumento !== 'NO' ? madre.tipoDocumento : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Identificación:</label>
+                              <p>{{ madre.identificacion !== 'N/A' ? madre.identificacion : 'No disponible' }}
+                              </p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Profesión:</label>
+                              <p>{{ madre.profesion !== 'N/A' ? madre.profesion : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">¿Donde Trabaja?:</label>
+                              <p>{{ madre.dondeTrabaja !== 'N/A' ? madre.dondeTrabaja : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Ingreso Mensual:</label>
+                              <p>{{ madre.ingresoMensual !== 'N/A' ? madre.ingresoMensual : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Cargo:</label>
+                              <p>{{ madre.cargo !== 'N/A' ? madre.cargo : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">¿Vive?:</label>
+                              <p>{{ madre.vive == "1" ? 'Si' : 'No' }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="tipoContenido === 'codeudor'">
+                        Contenido específico del codeudor
+                      </div>
+                      <div *ngIf="tipoContenido === 'padre'">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Parentesco:</label>
+                              <p>{{ padre.parentesco }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Nombres:</label>
+                              <p>{{ padre.nombres !== 'N/A' ? padre.nombres : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Apellidos:</label>
+                              <p>{{ padre.apellidos !== 'N/A' ? padre.apellidos : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Correo:</label>
+                              <p>{{ padre.correoElectronico !== 'N/A' ? padre.correoElectronico : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Telefono:</label>
+                              <p>{{ padre.telefono !== 'N/A' ? padre.telefono : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Celular:</label>
+                              <p>{{ padre.celular !== 'N/A' ? padre.celular : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Dirección:</label>
+                              <p>{{ padre.direccion !== 'N/A' ? padre.direccion : 'No disponible' }}</p>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Tipo de Documento:</label>
+                              <p>{{ padre.tipoDocumento !== 'NO' ? padre.tipoDocumento : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Identificación:</label>
+                              <p>{{ padre.identificacion !== 'N/A' ? padre.identificacion : 'No disponible' }}
+                              </p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Profesión:</label>
+                              <p>{{ padre.profesion !== 'N/A' ? padre.profesion : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">¿Donde Trabaja?:</label>
+                              <p>{{ padre.dondeTrabaja !== 'N/A' ? padre.dondeTrabaja : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Ingreso Mensual:</label>
+                              <p>{{ padre.ingresoMensual !== 'N/A' ? padre.ingresoMensual : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Cargo:</label>
+                              <p>{{ padre.cargo !== 'N/A' ? padre.cargo : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">¿Vive?:</label>
+                              <p>{{ padre.vive == "1" ? 'Si' : 'No' }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="tipoContenido === 'hEstudiantes'">
+                        <span>Contenido específico del historial de estudiantes</span>
+                      </div>
+                      <div *ngIf="tipoContenido === 'hClinica'">
+                        <span>Contenido específico del historial clínico</span>
+                      </div>
+                      <div *ngIf="tipoContenido === 'grupoFamiliar'">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Parentesco:</label>
+                              <p>{{ madre.parentesco }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Nombres:</label>
+                              <p>{{ madre.nombres !== 'N/A' ? madre.nombres : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Apellidos:</label>
+                              <p>{{ madre.apellidos !== 'N/A' ? madre.apellidos : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Correo:</label>
+                              <p>{{ madre.correoElectronico !== 'N/A' ? madre.correoElectronico : 'No disponible' }}</p>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Tipo de Documento:</label>
+                              <p>{{ madre.tipoDocumento !== 'NO' ? madre.tipoDocumento : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Identificación:</label>
+                              <p>{{ madre.identificacion !== 'N/A' ? madre.identificacion : 'No disponible' }}
+                              </p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Telefono:</label>
+                              <p>{{ madre.telefono !== 'N/A' ? madre.telefono : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Celular:</label>
+                              <p>{{ madre.celular !== 'N/A' ? madre.celular : 'No disponible' }}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <hr class="my-3" style="width: -webkit-fill-available;">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Parentesco:</label>
+                              <p>{{ padre.parentesco }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Nombres:</label>
+                              <p>{{ padre.nombres !== 'N/A' ? padre.nombres : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Apellidos:</label>
+                              <p>{{ padre.apellidos !== 'N/A' ? padre.apellidos : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Correo:</label>
+                              <p>{{ padre.correoElectronico !== 'N/A' ? padre.correoElectronico : 'No disponible' }}</p>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Tipo de Documento:</label>
+                              <p>{{ padre.tipoDocumento !== 'NO' ? padre.tipoDocumento : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Identificación:</label>
+                              <p>{{ padre.identificacion !== 'N/A' ? padre.identificacion : 'No disponible' }}
+                              </p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Telefono:</label>
+                              <p>{{ padre.telefono !== 'N/A' ? padre.telefono : 'No disponible' }}</p>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label font-weight-bold">Celular:</label>
+                              <p>{{ padre.celular !== 'N/A' ? padre.celular : 'No disponible' }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </app-dashboard>
-  
-  
-
-
-
+  </div>
+</app-dashboard>

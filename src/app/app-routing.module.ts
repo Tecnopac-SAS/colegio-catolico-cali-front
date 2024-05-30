@@ -8,6 +8,9 @@ import { IndexUserComponent } from './component/user-manager/index-user/index-us
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
 import { HomepageComponent } from './component/homepage/homepage.component';
 import { PeriodIndexComponent } from './component/period/period-index/period-index.component';
+import { AcuerdosPagoComponent } from './component/acuerdos-pago/acuerdos-pago-index/acuerdos-pago.component';
+import { AcuerdosPagoUpdateComponent } from './component/acuerdos-pago/acuerdos-pago-update/acuerdos-pago-update.component';
+import { AcuerdosPagoCreateComponent } from './component/acuerdos-pago/acuerdos-pago-create/acuerdos-pago-create.component';
 import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
 import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
@@ -17,9 +20,11 @@ import { TuitionUpdateComponent } from './component/tuition/tuition-update/tuiti
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
 import { ExtracurricularUpdateComponent } from './component/extracurricular/extracurricular-update/extracurricular-update.component';
+import { ExtracurricularVerComponent } from './component/extracurricular/extracurricular-ver/extracurricular-ver.component';
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 import { PensionUpdateComponent } from './component/pension/pension-update/pension-update.component';
+import { InformesPagoComponent } from './component/informes-pago/informes-pago.component';
 import { ServicesIndexComponent } from './component/services-index/services-index.component';
 import { CoursesExtraordinarioComponent } from './component/curses/courses-extraordinario/courses-extraordinario.component';
 import { CoursesCreateComponent } from './component/curses/courses-create/courses-create.component';
@@ -72,6 +77,7 @@ import { BackupIndexComponent } from './component/backup/backup-index/backup-ind
 import { AdmisionIndexComponent } from './component/admision/admision-index/admision-index.component';
 import { LoginAcudienteComponent } from './component/login/login-acudiente/login-acudiente.component';
 import { BolsilloComponent } from './component/bolsillo/bolsillo.component';
+import { PagosPresencialesComponent } from './component/pagos-presenciales/pagos-presenciales.component';
 
 //gestion acudiente
 import { SolicitudEstudiantesComponent } from './component/acudiente/questionario/solicitud-estudiantes/solicitud-estudiantes.component';
@@ -85,6 +91,10 @@ import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecn
 import { ExtracurricularInscripcionComponent } from './component/extracurricular/extracurricular-inscripcion/extracurricular-inscripcion.component';
 import { ExtracurricularListComponent } from './component/extracurricular/extracurricular-list/extracurricular-list.component';
 import { CafeteriaPagoComponent } from './component/cafeteria/cafeteria-pago/cafeteria-pago.component';
+import { DeudasIndexComponent } from './component/deudas/deudas-index/deudas-index.component';
+import { DeudasUpdateComponent } from './component/deudas/deudas-update/deudas-update.component';
+import { DeudasViewComponent } from './component/deudas/deudas-view/deudas-view.component';
+import { DeudasCreateComponent } from './component/deudas/deudas-create/deudas-create.component';
 import { SoportesPagoComponent } from './component/soportes-pago/soportes-pago.component';
 import { CertificadosComponent } from './component/certificados/certificados.component';
 import { SolicitudCertificadoComponent } from './component/solicitud-certificado/solicitud-certificado.component';
@@ -98,6 +108,10 @@ import { AjustesPerfilEstudianteComponent } from './component/perfil/ajustes-per
 import { AjustesPerfilAcudienteComponent } from './component/perfil/ajustes-perfil-acudiente/ajustes-perfil-acudiente.component';
 import { PazysalvocuatrosellosComponent } from './component/pazysalvocuatrosellos/pazysalvocuatrosellos.component';
 import { EstadoCarteraComponent } from './component/estado-cartera/estado-cartera.component';
+import { AcudienteTransportationComponent } from './component/acudiente-transportation/acudiente-transportation.component';
+import { GestionDocumentosComponent } from './component/documentos/gestion-documentos/gestion-documentos.component';
+import { CrearDocumentosComponent } from './component/documentos/crear-documentos/crear-documentos.component';
+import { EditarDocumentosComponent } from './component/documentos/editar-documentos/editar-documentos.component';
 
 const routes: Routes = [
   {path: '', component: LoginAcudienteComponent },
@@ -107,9 +121,13 @@ const routes: Routes = [
   {path: 'crear-usuario', component: CreateUserComponent },
   {path: 'sidebar', component: SidebarComponent },
   {path: 'listar-usuarios', component: IndexUserComponent },
+  {path: 'informes-pago',component: InformesPagoComponent},
   {path: 'inicio', component: HomepageComponent },
   {path: 'inscripcion', component: InscriptionIndexComponent },
   {path: 'periodo', component: PeriodIndexComponent },
+  {path: 'acuerdos-pago', component: AcuerdosPagoComponent },
+  {path: 'acuerdos-pago/:id', component: AcuerdosPagoUpdateComponent },
+  {path: 'acuerdos-pago-crear/:id', component: AcuerdosPagoCreateComponent },
   {path: 'periodo-crear', component: PeriodCreateComponent },
   {path: 'inscripcion-crear', component: InscriptionCreateComponent },
   {path: 'matriculas-crear', component: TuitionCreateComponent },
@@ -118,6 +136,7 @@ const routes: Routes = [
   {path: 'extracurriculares', component: ExtracurricularIndexComponent },
   {path: 'extracurriculares-crear', component: ExtracurricularCreateComponent },
   {path: 'extracurriculares-editar/:id', component: ExtracurricularUpdateComponent },
+  {path: 'extracurriculares-ver/:id', component: ExtracurricularVerComponent },
   {path: 'pension', component: PensionIndexComponent },
   {path: 'pension-crear', component: PensionCreateComponent },
   {path: 'pension-editar/:id', component: PensionUpdateComponent },
@@ -155,6 +174,9 @@ const routes: Routes = [
   {path: 'gestion-acudiente',component: AttendingManagementsIndexComponent},
   {path: 'gestion-acudiente-editar/:id',component: AttendingManagementsUpdateComponent},
   {path: 'gestion-acudiente-crear',component: AttendingManagementsCreateComponent},
+  {path: 'gestion-documentos',component: GestionDocumentosComponent},
+  {path: 'documentos-crear',component: CrearDocumentosComponent},
+  {path: 'documentos-editar/:id',component: EditarDocumentosComponent},
   {path: 'docente',component: TeacherIndexComponent},
   {path: 'docente-editar/:id',component: TeacherUpdateComponent},
   {path: 'docente-crear',component: TeacherCreateComponent},
@@ -173,6 +195,12 @@ const routes: Routes = [
   {path: 'admision',component: AdmisionIndexComponent},
   {path: 'pazysalvocuatrosellos',component: PazysalvocuatrosellosComponent},
   {path: 'estado-cartera',component: EstadoCarteraComponent},
+  {path: 'gestion-deudas',component: DeudasIndexComponent},
+  {path: 'gestion-deudas-crear',component: DeudasCreateComponent},
+  {path: 'gestion-deudas/:id',component: DeudasUpdateComponent},
+  {path: 'gestion-deudas-ver/:id',component: DeudasViewComponent},
+  {path: 'pagos-presenciales',component: PagosPresencialesComponent},
+  
   //gestion acudientes
   {path: 'solicitud-estudiante',component: SolicitudEstudiantesComponent},
   {path: 'bolsillo',component: BolsilloComponent},
@@ -197,7 +225,7 @@ const routes: Routes = [
   {path: 'cambio-pass',component: AjustesPerfilPassComponent},
   {path: 'datos-estudiante',component: AjustesPerfilEstudianteComponent},
   {path: 'datos-acudiente',component: AjustesPerfilAcudienteComponent},
-
+  {path: 'acudiente-transporte',component: AcudienteTransportationComponent},
   
 ];
 

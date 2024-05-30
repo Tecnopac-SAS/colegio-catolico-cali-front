@@ -45,13 +45,21 @@ export class DashboardComponent implements OnInit {
    
   ngOnInit(): void {
     this.sessionValidation();
+    console.log(this.role);
+    
+    if(this.role == 'acudiente'){
+      this.checkBolsillo();
+    }
     this.navTitle="Estoy en dash " + this.name
     this.bolsillo= localStorage.getItem('bolsillo');
-    this.historicoCarteraService.totalDeuda({idAcudiente:localStorage.getItem('idAcudiente')}).subscribe(response=>{
-      this.saldoPendiente = response.result
-    },error=>{
 
-    });
+    if (this.role != 'admin') {
+      this.historicoCarteraService.totalDeuda({idAcudiente:localStorage.getItem('idAcudiente')}).subscribe(response=>{
+        this.saldoPendiente = response.result
+      },error=>{
+  
+      });
+    }
   }
 
   sessionValidation(){
@@ -63,6 +71,7 @@ export class DashboardComponent implements OnInit {
     }
   }
   checkBolsillo(){
+    console.log('bolsillo');
      this.bolsilloService.getCant(localStorage.getItem('idAcudiente')).subscribe(response=>{
       this.bolsillo = response.resp
       localStorage.setItem('bolsillo',this.bolsillo)

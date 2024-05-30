@@ -1,19 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder,FormControl,FormGroup,Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Hermano2, StudentDatabase } from 'src/app/models/studentDatabase.model';
 import { StudentDatabaseService } from 'src/app/services/student-database.service';
+import { PensionService } from 'src/app/services/pension.service';
 import { HistorialAcademico } from 'src/app/models/studentDatabase.model';
 import { Aptitudes } from 'src/app/models/studentDatabase.model';
 import { Padres } from 'src/app/models/studentDatabase.model';
 import { Hermano } from 'src/app/models/studentDatabase.model';
 import { Acudiente } from 'src/app/models/studentDatabase.model';
 import { Responsable } from 'src/app/models/studentDatabase.model';
+import { Avalpay } from 'src/utils/avalpay';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { CanalReferencia } from 'src/app/models/canalReferencia.model';
 import { CanalReferenciaService } from 'src/app/services/canal-referencia.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TuitionService } from 'src/app/services/tuition.service';
 import { HermanosComponent } from '../../hermanos/hermanos.component';
-import { Router } from '@angular/router';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import Swal from'sweetalert2';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -23,7 +28,7 @@ import Swal from'sweetalert2';
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {showError: true},
+      useValue: { showError: true },
     },
   ],
 })
@@ -39,7 +44,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
   habilitarCampoPadre!: boolean;
   habilitarCampoMadre!: boolean;
   isOptional = false;
-  dataEstudiantes:any
+  dataEstudiantes: any
   formValueEstudiantes!: FormGroup;
   formValueHistorialAcademico!: FormGroup;
   formValueAptitudes!: FormGroup;
@@ -50,44 +55,103 @@ export class SolicitudEstudiantesComponent implements OnInit {
   formValueDatosAdicionalesHermanos2!: FormGroup;
   formValueDatosAdicionalesResponsable!: FormGroup;
   formValueCanalReferencia!: FormGroup;
-  studentDatabaseModel:StudentDatabase= new StudentDatabase();
-  historialAcademicoModel:HistorialAcademico= new HistorialAcademico();
-  aptitudModel:Aptitudes= new Aptitudes();
-  padreModel:Padres= new Padres();
-  madreModel:Padres= new Padres();
-  acudienteModel:Acudiente= new Acudiente();
-  responsableModel:Responsable= new Responsable();
-  hermanoModel:Hermano= new Hermano();
-  hermanoModel2:Hermano2= new Hermano2();
-  canalReferenciaModel:CanalReferencia= new CanalReferencia();
-  checkSi:any
-  validadorTerminos:any
+  studentDatabaseModel: StudentDatabase = new StudentDatabase();
+  historialAcademicoModel: HistorialAcademico = new HistorialAcademico();
+  aptitudModel: Aptitudes = new Aptitudes();
+  padreModel: Padres = new Padres();
+  madreModel: Padres = new Padres();
+  acudienteModel: Acudiente = new Acudiente();
+  responsableModel: Responsable = new Responsable();
+  hermanoModel: Hermano = new Hermano();
+  hermanoModel2: Hermano2 = new Hermano2();
+  canalReferenciaModel: CanalReferencia = new CanalReferencia();
+  checkSi: any
+  validadorTerminos: any
   validadorResponsable !: any;
   validadorResponsableFacturacion !: any;
-  mensaje_ok:any;
-  mensaje_error:any;
+  mensaje_ok: any;
+  mensaje_error: any;
   @Input()
-  idHermano:any;
+  idHermano: any;
   newFormHermano: any;
+  //Avalpay
+  paymentData: object;
+  moduleName: string;
+  pmtId: any;
+  descPagoAvalPay: string;
+  dataPagoAvalPay: any;
+  navigateTo: string;
+  public disabledPaymentButton: boolean = true;
+  public matricula: any
 
+  addPrescolarLimit: number;
+  disabledAddPrescolar: boolean;
+
+  addPrimariaLimit: number;
+  disabledAddPrimaria: boolean;
+
+  addBachilleratoLimit: number;
+  disabledAddBachillerato: boolean;
+  formSubmitted: boolean;
+  validarCamposEstudianteFormFull: boolean;
+  validarCamposHistorialAcademicoFormFull: boolean;
+  validarCamposHistorialEstadoFisicoFormFull: boolean;
+  validarCamposPadresFormFull: boolean;
+  validarCamposAdicionalesFormFull: boolean;
+  codigo: string;
+  listGrades: any;
 
   constructor(
-    private formBuilder:FormBuilder,
-    private studentDatabaseService:StudentDatabaseService,
-    private canalReferenciaService:CanalReferenciaService,
-    private router:Router
+    private formBuilder: FormBuilder,
+    private studentDatabaseService: StudentDatabaseService,
+    private canalReferenciaService: CanalReferenciaService,
+    private router: Router,
+    public Avalpay: Avalpay,
+    private currencyUtils: CurrencyUtils,
+    private MatriculaService:TuitionService,
+    private pensionService:PensionService,
+    private route: ActivatedRoute,
   ) {
-   
-  }
+
+    this.codigo = '';
+    this.listGrades = [];
+
+    //Avalpay
+    this.paymentData = {};
+
+    this.addPrescolarLimit = 1;
+    this.disabledAddPrescolar = false
+
+    this.addPrimariaLimit = 1;
+    this.disabledAddPrimaria = false
+
+    this.addBachilleratoLimit = 1;
+    this.disabledAddBachillerato = false
+
+
+    this.moduleName = 'solicitud-estudiante';
+    this.descPagoAvalPay = 'Solicitud Estudiante';
+    this.navigateTo = 'solicitud-estudiante';
+    this.matricula = 30000;
+
+    this.formSubmitted = false;
+
+    this.validarCamposEstudianteFormFull = false;
+    this.validarCamposHistorialAcademicoFormFull = false;
+    this.validarCamposHistorialEstadoFisicoFormFull = false;
+    this.validarCamposPadresFormFull = false;
+    this.validarCamposAdicionalesFormFull = false;
+
+    }
 
 
   ngOnInit(): void {
-    this.validadorResponsable= true
-    this.validadorResponsableFacturacion= true
-    this.validadorTerminos=true
-    this.validadorCheckHermano=true
-    this.validadorBotonHermano=true
-    this.validadorAgregarOtroHermano=false
+    this.validadorResponsable = true
+    this.validadorResponsableFacturacion = true
+    this.validadorTerminos = true
+    this.validadorCheckHermano = true
+    this.validadorBotonHermano = true
+    this.validadorAgregarOtroHermano = false
     this.fieldCaptureEstudiantes()
     this.fieldCaptureHistorialAcademico()
     this.fieldCaptureAptitudes()
@@ -97,12 +161,33 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.fieldCaptureDatosAdicionalesHermanos()
     this.fieldCaptureDatosAdicionalesHermanos2()
     this.fieldCaptureDatosAdicionalesResponsable()
-    this.fieldCaptureCanalReferencia()
+    this.fieldCaptureCanalReferencia();
+    this.generarCodigoEstudiante();
     this.hermanosForm();
+
+
+    this.pensionService.listGrades().subscribe(response=>{
+      this.listGrades = response.result
+    },error=>{})
+
+
+    //Valida estado de matricula
+    this.route.queryParams.subscribe(params => {
+      if (params['pmtId']) {
+        this.pmtId = params['pmtId'];
+        this.Avalpay.validateTransactions(this.pmtId, () => {
+
+          let lsMatricula: string = localStorage.getItem(`${this.moduleName}-transaction-status`) || '';
+          let paymentAvalPay = JSON.parse(lsMatricula).data;
+          this.MatriculaService.pagoMatricula(paymentAvalPay).subscribe(response=>{},error=>{})
+
+        }, () => { }, this.navigateTo, this.moduleName);
+      }
+    });
 
   }
 
-  fieldCaptureEstudiantes(){
+  fieldCaptureEstudiantes() {
     this.formValueEstudiantes = this.formBuilder.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
@@ -119,71 +204,160 @@ export class SolicitudEstudiantesComponent implements OnInit {
       telefono: ['', Validators.required],
       correo: ['', Validators.required],
       tipoCupo: ['', Validators.required],
-      // codigo: ['', Validators.required],
-      // estadoEstudiante: ['', Validators.required],
     })
   }
-  addPrescolar(){
-    this.formValueHistorialAcademico.value.preescolar.push({nombre:'',gradoCursadoPreescolar:'',gradoCursadoJardin:'',gradoCursadoTransicion:''})
+
+  paymentAvalPayComponent() {
+    this.paymentData = {
+      monto: this.matricula,
+      metodoPago: 'AvalPay',
+    }
+    this.Avalpay.paymentAvalPay(this.moduleName, this.paymentData, this.matricula, 1, this.navigateTo, this.descPagoAvalPay)
   }
-  removePrescolar(id:any){
-    if (this.formValueHistorialAcademico.value.preescolar.length>1) {
-      let newArray = this.formValueHistorialAcademico.value.preescolar.filter((o:any,i:any) => i !== id)
-      this.formValueHistorialAcademico.value.preescolar=newArray
+  formatCurrency(amount: number): string {
+    return this.currencyUtils.formatCurrency(amount);
+  }
+
+
+  validateCheckboxes(id: any, messageError: string, event: any) {
+    const checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(`#${id}`);
+    let checkboxesMarcados = 0;
+
+    checkboxes.forEach((checkbox: HTMLInputElement) => {
+      if (checkbox.checked) {
+        checkboxesMarcados++;
+      }
+    });
+
+    if (checkboxesMarcados > 1) {
+      this.mensaje_error = messageError;
+      // Desmarcar el checkbox que causó el evento
+      (event.target as HTMLInputElement).checked = false;
+    } else {
+      this.mensaje_error = "";
     }
   }
-  addPrimaria(){
-    this.formValueHistorialAcademico.value.primaria.push({nombre:'',gradoCursadoPrimaria1:'',gradoCursadoPrimaria2:'',gradoCursadoPrimaria3:'',gradoCursadoPrimaria4:'',gradoCursadoPrimaria5:''})
+
+
+  validateCheckPrescolar(event: any) {
+    this.validateCheckboxes('inlineCheckbox1', 'No puedes repetir el curso por cada institución', event);
   }
-  removePrimaria(id:any){
-    if (this.formValueHistorialAcademico.value.primaria.length>1) {
-      let newArray = this.formValueHistorialAcademico.value.primaria.filter((o:any,i:any) => i !== id)
-      this.formValueHistorialAcademico.value.primaria=newArray
+  validateCheckJardin(event: any) {
+    this.validateCheckboxes('inlineCheckbox2', 'No puedes repetir el curso por cada institución', event);
+  }
+  validateCheckTransicion(event: any) {
+    this.validateCheckboxes('inlineCheckbox3', 'No puedes repetir el curso por cada institución', event);
+  }
+
+
+  validateCheckPrimero(event: any) {
+    this.validateCheckboxes('inlineCheckboxP1', 'No puedes repetir el curso por cada institución', event);
+  }
+  validateCheckSegundo(event: any) {
+    this.validateCheckboxes('inlineCheckboxP2', 'No puedes repetir el curso por cada institución', event);
+  }
+  validateCheckTercero(event: any) {
+    this.validateCheckboxes('inlineCheckboxP3', 'No puedes repetir el curso por cada institución', event);
+  }
+  validateCheckCuarto(event: any) {
+    this.validateCheckboxes('inlineCheckboxP4', 'No puedes repetir el curso por cada institución', event);
+  }
+  validateCheckQuinto(event: any) {
+    this.validateCheckboxes('inlineCheckboxP5', 'No puedes repetir el curso por cada institución', event);
+  }
+
+
+  validateCheckSexto(event: any) {
+    this.validateCheckboxes('inlineCheckboxB1', 'No puedes repetir el curso por cada institución', event);
+  }
+  validateCheckSeptimo(event: any) {
+    this.validateCheckboxes('inlineCheckboxB2', 'No puedes repetir el curso por cada institución', event);
+  }
+  validateCheckOctavo(event: any) {
+    this.validateCheckboxes('inlineCheckboxB3', 'No puedes repetir el curso por cada institución', event);
+  }
+
+
+
+  addPrescolar() {
+    this.formValueHistorialAcademico.value.preescolar.push({ nombre: '', gradoCursadoPreescolar: '', gradoCursadoJardin: '', gradoCursadoTransicion: '' })
+    this.addPrescolarLimit += 1;
+    if (this.addPrescolarLimit >= 3) {
+      this.disabledAddPrescolar = true;
     }
   }
-  addBachillerato(){
-    this.formValueHistorialAcademico.value.bachillerato.push({nombre:'',gradoCursadoBachillerato6:'',gradoCursadoBachillerato7:'',gradoCursadoBachillerato8:''})
-  }
-  removeBachillerato(id:any){
-    if (this.formValueHistorialAcademico.value.bachillerato.length>1) {
-      let newArray = this.formValueHistorialAcademico.value.bachillerato.filter((o:any,i:any) => i !== id)
-      this.formValueHistorialAcademico.value.bachillerato=newArray
+  removePrescolar(id: any) {
+    if (this.formValueHistorialAcademico.value.preescolar.length > 1) {
+      let newArray = this.formValueHistorialAcademico.value.preescolar.filter((o: any, i: any) => i !== id)
+      this.formValueHistorialAcademico.value.preescolar = newArray
+      this.disabledAddPrescolar = false;
+      this.addPrescolarLimit - 1;
     }
   }
-  fieldCaptureHistorialAcademico(){
+  addPrimaria() {
+    this.addPrimariaLimit += 1;
+    this.formValueHistorialAcademico.value.primaria.push({ nombre: '', gradoCursadoPrimaria1: '', gradoCursadoPrimaria2: '', gradoCursadoPrimaria3: '', gradoCursadoPrimaria4: '', gradoCursadoPrimaria5: '' })
+    if (this.addPrimariaLimit >= 5) {
+      this.disabledAddPrimaria = true;
+    }
+  }
+  removePrimaria(id: any) {
+    if (this.formValueHistorialAcademico.value.primaria.length > 1) {
+      let newArray = this.formValueHistorialAcademico.value.primaria.filter((o: any, i: any) => i !== id)
+      this.formValueHistorialAcademico.value.primaria = newArray
+      this.disabledAddPrimaria = false;
+      this.addPrimariaLimit - 1;
+    }
+  }
+  addBachillerato() {
+    this.addBachilleratoLimit += 1;
+    this.formValueHistorialAcademico.value.bachillerato.push({ nombre: '', gradoCursadoBachillerato6: '', gradoCursadoBachillerato7: '', gradoCursadoBachillerato8: '' })
+    if (this.addBachilleratoLimit >= 3) {
+      this.disabledAddBachillerato = true;
+    }
+  }
+  removeBachillerato(id: any) {
+    if (this.formValueHistorialAcademico.value.bachillerato.length > 1) {
+      let newArray = this.formValueHistorialAcademico.value.bachillerato.filter((o: any, i: any) => i !== id)
+      this.formValueHistorialAcademico.value.bachillerato = newArray
+      this.disabledAddBachillerato = false;
+      this.addBachilleratoLimit - 1;
+    }
+  }
+  fieldCaptureHistorialAcademico() {
     this.formValueHistorialAcademico = this.formBuilder.group({
-    preescolar: this.formBuilder.array([
-      {nombre:'',gradoCursadoPreescolar:'',gradoCursadoJardin:'',gradoCursadoTransicion:''},
-  ]),
-    // gradoCursadoPreescolar: [false],
-    // gradoCursadoJardin: [false],
-    // gradoCursadoTransicion: [false],
-    checkPreescolar: [''],
-    checkJardin: [''],
-    checkTransicion: [''],
-    primaria: this.formBuilder.array([
-      {nombre:'',gradoCursadoPrimaria1:'',gradoCursadoPrimaria2:'',gradoCursadoPrimaria3:'',gradoCursadoPrimaria4:'',gradoCursadoPrimaria5:''},
-  ]),
-    // gradoCursadoPrimaria1: [false],
-    // gradoCursadoPrimaria2: [false],
-    // gradoCursadoPrimaria3: [false ],
-    // gradoCursadoPrimaria4: [false],
-    // gradoCursadoPrimaria5: [false],
-    bachillerato: this.formBuilder.array([
-      {nombre:'',gradoCursadoBachillerato6:'',gradoCursadoBachillerato7:'',gradoCursadoBachillerato8:''},
-  ]),
-    // gradoCursadoBachillerato6: [false],
-    // gradoCursadoBachillerato7: [false],
-    // gradoCursadoBachillerato8: [false,],
-    anioAnterior: ['', Validators.required],
-    motivoRetiro: [''],
-    repeticionAnio: ['', Validators.required],
-    distincionAcademica: ['', Validators.required],
+      preescolar: this.formBuilder.array([
+        { nombre: '', gradoCursadoPreescolar: '', gradoCursadoJardin: '', gradoCursadoTransicion: '' },
+      ]),
+      // gradoCursadoPreescolar: [false],
+      // gradoCursadoJardin: [false],
+      // gradoCursadoTransicion: [false],
+      checkPreescolar: [''],
+      checkJardin: [''],
+      checkTransicion: [''],
+      primaria: this.formBuilder.array([
+        { nombre: '', gradoCursadoPrimaria1: '', gradoCursadoPrimaria2: '', gradoCursadoPrimaria3: '', gradoCursadoPrimaria4: '', gradoCursadoPrimaria5: '' },
+      ]),
+      // gradoCursadoPrimaria1: [false],
+      // gradoCursadoPrimaria2: [false],
+      // gradoCursadoPrimaria3: [false ],
+      // gradoCursadoPrimaria4: [false],
+      // gradoCursadoPrimaria5: [false],
+      bachillerato: this.formBuilder.array([
+        { nombre: '', gradoCursadoBachillerato6: '', gradoCursadoBachillerato7: '', gradoCursadoBachillerato8: '' },
+      ]),
+      // gradoCursadoBachillerato6: [false],
+      // gradoCursadoBachillerato7: [false],
+      // gradoCursadoBachillerato8: [false,],
+      anioAnterior: ['', Validators.required],
+      motivoRetiro: [''],
+      repeticionAnio: ['', Validators.required],
+      distincionAcademica: ['', Validators.required],
     })
   }
-  
-  fieldCaptureAptitudes(){
-    this.formValueAptitudes= this.formBuilder.group({
+
+  fieldCaptureAptitudes() {
+    this.formValueAptitudes = this.formBuilder.group({
       deporteGusto: ['', Validators.required],
       arteGusto: ['', Validators.required],
       distincionDeporte: ['', Validators.required],
@@ -198,52 +372,52 @@ export class SolicitudEstudiantesComponent implements OnInit {
     })
   }
 
-  
-  fieldCapturePadre(){
-    this.formValuePadre= this.formBuilder.group({
-       estado: ['', Validators.required],
-       vive: ['', Validators.required],
-       tipoDocumento: ['', Validators.required],
-       identificacion: ['', Validators.required],
-       nombres: ['', Validators.required],
-       apellidos: ['', Validators.required],
-       profesion: ['', Validators.required],
-       dondeTrabaja: ['', Validators.required],
-       cargo: ['', Validators.required],
-       ingresoMensual: ['', Validators.required],
-       correoElectronico: ['', Validators.required],
-       direccion: ['', Validators.required],
-       telefono: ['', Validators.required],
-       celular: ['', Validators.required],
-       continuar: ['', Validators.required],
+
+  fieldCapturePadre() {
+    this.formValuePadre = this.formBuilder.group({
+      estado: ['', Validators.required],
+      vive: ['', Validators.required],
+      tipoDocumento: ['', Validators.required],
+      identificacion: ['', Validators.required],
+      nombres: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      profesion: ['', Validators.required],
+      dondeTrabaja: ['', Validators.required],
+      cargo: ['', Validators.required],
+      ingresoMensual: ['', Validators.required],
+      correoElectronico: ['', Validators.required],
+      direccion: ['', Validators.required],
+      telefono: ['', Validators.required],
+      celular: ['', Validators.required],
+      continuar: ['ok', Validators.required],
     })
   }
 
-  fieldCaptureMadre(){
-    this.formValueMadre= this.formBuilder.group({
-       estado: ['', Validators.required],
-       vive: ['', Validators.required],
-       tipoDocumento: ['', Validators.required],
-       identificacion: ['', Validators.required],
-       nombres: ['', Validators.required],
-       apellidos: ['', Validators.required],
-       profesion: ['', Validators.required],
-       dondeTrabaja: ['', Validators.required],
-       cargo: ['', Validators.required],
-       ingresoMensual: ['', Validators.required],
-       correoElectronico: ['', Validators.required],
-       direccion: ['', Validators.required],
-       telefono: ['', Validators.required],
-       celular: ['', Validators.required],
-    
+  fieldCaptureMadre() {
+    this.formValueMadre = this.formBuilder.group({
+      estado: ['', Validators.required],
+      vive: ['', Validators.required],
+      tipoDocumento: ['', Validators.required],
+      identificacion: ['', Validators.required],
+      nombres: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      profesion: ['', Validators.required],
+      dondeTrabaja: ['', Validators.required],
+      cargo: ['', Validators.required],
+      ingresoMensual: ['', Validators.required],
+      correoElectronico: ['', Validators.required],
+      direccion: ['', Validators.required],
+      telefono: ['', Validators.required],
+      celular: ['', Validators.required],
+
     })
   }
 
-  fieldCaptureDatosAdicionales(){
-    this.formValueDatosAdicionales= this.formBuilder.group({
+  fieldCaptureDatosAdicionales() {
+    this.formValueDatosAdicionales = this.formBuilder.group({
       parentesco: ['', Validators.required],
-      checkSi:[true],
-      checkNo:[true],
+      checkSi: [true],
+      checkNo: [true],
       responsable: ['', Validators.required],
       //estado: ['', Validators.required],
       vive: ['', Validators.required],
@@ -262,26 +436,26 @@ export class SolicitudEstudiantesComponent implements OnInit {
     })
   }
 
-  fieldCaptureDatosAdicionalesHermanos(){
-    this.formValueDatosAdicionalesHermanos= this.formBuilder.group({
-      nombres: new FormControl('',[Validators.required]),
-      apellidos: new FormControl('',[Validators.required]),
-      nivelEstudio: new FormControl('',[Validators.required]),
-      institucion: new FormControl('',[Validators.required])
+  fieldCaptureDatosAdicionalesHermanos() {
+    this.formValueDatosAdicionalesHermanos = this.formBuilder.group({
+      nombres: new FormControl('', [Validators.required]),
+      apellidos: new FormControl('', [Validators.required]),
+      nivelEstudio: new FormControl('', [Validators.required]),
+      institucion: new FormControl('', [Validators.required])
     })
   }
 
-  fieldCaptureDatosAdicionalesHermanos2(){
-    this.formValueDatosAdicionalesHermanos2= this.formBuilder.group({
-      nombres: new FormControl('',[Validators.required]),
-      apellidos: new FormControl('',[Validators.required]),
-      nivelEstudio: new FormControl('',[Validators.required]),
-      institucion: new FormControl('',[Validators.required])
+  fieldCaptureDatosAdicionalesHermanos2() {
+    this.formValueDatosAdicionalesHermanos2 = this.formBuilder.group({
+      nombres: new FormControl('', [Validators.required]),
+      apellidos: new FormControl('', [Validators.required]),
+      nivelEstudio: new FormControl('', [Validators.required]),
+      institucion: new FormControl('', [Validators.required])
     })
   }
 
-  fieldCaptureDatosAdicionalesResponsable(){
-    this.formValueDatosAdicionalesResponsable= this.formBuilder.group({
+  fieldCaptureDatosAdicionalesResponsable() {
+    this.formValueDatosAdicionalesResponsable = this.formBuilder.group({
       responsable: ['', Validators.required],
       tipoPersona: ['', Validators.required],
       razonSocial: ['', Validators.required],
@@ -296,34 +470,32 @@ export class SolicitudEstudiantesComponent implements OnInit {
     })
   }
 
-  fieldCaptureCanalReferencia(){
-    this.formValueCanalReferencia= this.formBuilder.group({
+  fieldCaptureCanalReferencia() {
+    this.formValueCanalReferencia = this.formBuilder.group({
       aceptaCompromisos: ['', Validators.required],
       comoSabe: ['', Validators.required],
       comoSeEntero: ['', Validators.required],
-      estadoPago: ['', Validators.required],
       nombreAcudiente: ['', Validators.required],
       porqueIngresar: ['', Validators.required],
-
     })
   }
 
-  formularioHermanos(){
+  formularioHermanos() {
     return new FormGroup({
-      nombres: new FormControl('',[Validators.required]),
-      apellidos: new FormControl('',[Validators.required]),
-      nivelEstudio: new FormControl('',[Validators.required]),
-      institucion: new FormControl('',[Validators.required])
+      nombres: new FormControl('', [Validators.required]),
+      apellidos: new FormControl('', [Validators.required]),
+      nivelEstudio: new FormControl('', [Validators.required]),
+      institucion: new FormControl('', [Validators.required])
     })
   }
 
- 
-  get datosFormArray():FormArray{
+
+  get datosFormArray(): FormArray {
     return this.newFormHermano.get('Contenido') as FormArray;
   }
 
-  hermanosForm(){
-    this.newFormHermano = new FormGroup({  
+  hermanosForm() {
+    this.newFormHermano = new FormGroup({
       Contenido: new FormArray([
         HermanosComponent.formulario()
       ])
@@ -331,16 +503,27 @@ export class SolicitudEstudiantesComponent implements OnInit {
     })
   }
 
-  addHermano(){
-    this.datosFormArray.push( HermanosComponent.formulario());
+  addHermano() {
+    this.datosFormArray.push(HermanosComponent.formulario());
   }
 
-  removeHermano(index:number){
+  removeHermano(index: number) {
     this.datosFormArray.removeAt(index)
   }
 
+  generarCodigoEstudiante(){
+    this.studentDatabaseService.listStudentDatabases().subscribe(res => {
+      const cantidadEstudiantes = res.result.length;
+      const codigoBase = moment().format('YY'); // Obtener los primeros cuatro dígitos del año actual
+      const codigoEstudiantes = (cantidadEstudiantes + 1).toString().padStart(2, '0'); // Agregar ceros a la izquierda si es necesario para completar 4 dígitos
 
-  CrearEstudiante(){
+      // Combinar los componentes del código
+      this.codigo = `${codigoBase}0${codigoEstudiantes}`;
+    });
+  }
+
+  CrearEstudiante() {
+    this.studentDatabaseModel.codigo = this.codigo;
     this.studentDatabaseModel.nombres = this.formValueEstudiantes.value.nombres;
     this.studentDatabaseModel.apellidos = this.formValueEstudiantes.value.apellidos;
     this.studentDatabaseModel.tipoDocumento = this.formValueEstudiantes.value.tipoDocumento;
@@ -357,40 +540,36 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.studentDatabaseModel.correo = this.formValueEstudiantes.value.correo;
     this.studentDatabaseModel.tipoCupo = this.formValueEstudiantes.value.tipoCupo;
 
-    if(this.formValueCanalReferencia.value.aceptaCompromisos =="" ){
-      this.mensaje_error="El campo acepta los compromisos no puede estar vacio"
+    if (this.formValueCanalReferencia.value.aceptaCompromisos == "") {
+      this.mensaje_error = "El campo acepta los compromisos no puede estar vacio"
     }
-
-    
-    else{
+    else {
       this.studentDatabaseService.createStudentDatabase(this.studentDatabaseModel)
-      .subscribe(res=>{
-      this.idEstudiante=res.idEstudiante
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-          console.log(this.idEstudiante)
-          // this.formValueEstudiantes = this.formBuilder.group({
-          // })
-          this.CrearHistorialAcademico()
-          this.CrearAptitudes()
-          this.CrearPadre()
-          this.CrearHermano()
-          this.CrearAcudiente()
-          this.CrearCanalReferencia()
-        }
-      },
-      err=>{
-        console.log(err)
-      })
+        .subscribe(res => {
+          this.idEstudiante = res.idEstudiante
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
+            console.log(this.idEstudiante)
+            this.CrearHistorialAcademico()
+            this.CrearAptitudes()
+            this.CrearPadre()
+            this.CrearHermano()
+            this.CrearAcudiente()
+            this.CrearCanalReferencia()
+          }
+        },
+          err => {
+            console.log(err)
+          })
     }
   }
 
-  CrearHistorialAcademico(){
-    this.historialAcademicoModel.idEstudiante=this.idEstudiante
+  CrearHistorialAcademico() {
+    this.historialAcademicoModel.idEstudiante = this.idEstudiante
     this.historialAcademicoModel.preescolar = this.formValueHistorialAcademico.value.preescolar;
     // this.historialAcademicoModel.gradoCursadoPreescolar= this.formValueHistorialAcademico.value.gradoCursadoPreescolar
     // this.historialAcademicoModel.gradoCursadoJardin= this.formValueHistorialAcademico.value.gradoCursadoJardin
@@ -410,57 +589,57 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.historialAcademicoModel.repeticionAnio = this.formValueHistorialAcademico.value.repeticionAnio;
     this.historialAcademicoModel.distincionAcademica = this.formValueHistorialAcademico.value.distincionAcademica;
 
-  
 
-    if(this.historialAcademicoModel.preescolar =="" ){
-      this.mensaje_error="El campo preescolar no puede estar vacio"
+
+    if (this.historialAcademicoModel.preescolar == "") {
+      this.mensaje_error = "El campo preescolar no puede estar vacio"
     }
 
-    else if(this.historialAcademicoModel.preescolar=="" ){
-      this.mensaje_error="El campo donde curso preescolar no puede estar vacio"
+    else if (this.historialAcademicoModel.preescolar == "") {
+      this.mensaje_error = "El campo donde curso preescolar no puede estar vacio"
     }
-    else{
+    else {
       this.studentDatabaseService.createHistorialAcademico(this.historialAcademicoModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-          /*this.formValueHistorialAcademico = this.formBuilder.group({
-            preescolar: ['', Validators.required],
-            gradoCursadoPreescolar: [false, Validators.required],
-            gradoCursadoJardin: [false, Validators.required],
-            gradoCursadoTransicion: [false, Validators.required],
-            checkPreescolar: [''],
-            checkJardin: [''],
-            checkTransicion: [''],
-            primaria: ['', Validators.required],
-            gradoCursadoPrimaria1: [false, Validators.required],
-            gradoCursadoPrimaria2: [false, Validators.required],
-            gradoCursadoPrimaria3: [false, Validators.required],
-            gradoCursadoPrimaria4: [false, Validators.required],
-            gradoCursadoPrimaria5: [false, Validators.required],
-            bachillerato: ['', Validators.required],
-            gradoCursadoBachillerato6: [false, Validators.required],
-            gradoCursadoBachillerato7: [false, Validators.required],
-            gradoCursadoBachillerato8: [false, Validators.required],
-            anioAnterior: ['', Validators.required],
-            motivoRetiro: ['', Validators.required],
-            repeticionAnio: ['', Validators.required],
-            distincionAcademica: ['', Validators.required],
-            })*/
-        }
-      },
-      err=>{
-        console.log(err)
-      })
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
+            /*this.formValueHistorialAcademico = this.formBuilder.group({
+              preescolar: ['', Validators.required],
+              gradoCursadoPreescolar: [false, Validators.required],
+              gradoCursadoJardin: [false, Validators.required],
+              gradoCursadoTransicion: [false, Validators.required],
+              checkPreescolar: [''],
+              checkJardin: [''],
+              checkTransicion: [''],
+              primaria: ['', Validators.required],
+              gradoCursadoPrimaria1: [false, Validators.required],
+              gradoCursadoPrimaria2: [false, Validators.required],
+              gradoCursadoPrimaria3: [false, Validators.required],
+              gradoCursadoPrimaria4: [false, Validators.required],
+              gradoCursadoPrimaria5: [false, Validators.required],
+              bachillerato: ['', Validators.required],
+              gradoCursadoBachillerato6: [false, Validators.required],
+              gradoCursadoBachillerato7: [false, Validators.required],
+              gradoCursadoBachillerato8: [false, Validators.required],
+              anioAnterior: ['', Validators.required],
+              motivoRetiro: ['', Validators.required],
+              repeticionAnio: ['', Validators.required],
+              distincionAcademica: ['', Validators.required],
+              })*/
+          }
+        },
+          err => {
+            console.log(err)
+          })
     }
   }
 
-  CrearAptitudes(){
-    this.aptitudModel.idEstudiante=this.idEstudiante
+  CrearAptitudes() {
+    this.aptitudModel.idEstudiante = this.idEstudiante
     this.aptitudModel.deporteGusto = this.formValueAptitudes.value.deporteGusto;
     this.aptitudModel.arteGusto = this.formValueAptitudes.value.arteGusto;
     this.aptitudModel.distincionDeporte = this.formValueAptitudes.value.distincionDeporte;
@@ -472,35 +651,35 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.aptitudModel.medicamentos = this.formValueAptitudes.value.medicamentos;
     this.aptitudModel.limitacionEducacionFisica = this.formValueAptitudes.value.limitacionEducacionFisica;
     this.aptitudModel.tipoSangre = this.formValueAptitudes.value.tipoSangre;
-    
-  
-    if(this.aptitudModel.deporteGusto=="" ){
-      this.mensaje_error="El campo el deporte que le gusta no puede estar vacio"
+
+
+    if (this.aptitudModel.deporteGusto == "") {
+      this.mensaje_error = "El campo el deporte que le gusta no puede estar vacio"
     }
 
-    else if( this.aptitudModel.arteGusto=="" ){
-      this.mensaje_error="El campo donde arte que le gusta no puede estar vacio"
+    else if (this.aptitudModel.arteGusto == "") {
+      this.mensaje_error = "El campo donde arte que le gusta no puede estar vacio"
     }
-    else{
+    else {
       this.studentDatabaseService.createAptitudes(this.aptitudModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-     
-        }
-      },
-      err=>{
-        console.log(err)
-      })
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
+
+          }
+        },
+          err => {
+            console.log(err)
+          })
     }
   }
 
-  CrearPadre(){
-    this.padreModel.idEstudiante=this.idEstudiante
+  CrearPadre() {
+    this.padreModel.idEstudiante = this.idEstudiante
     this.padreModel.estado = this.formValuePadre.value.estado;
     this.padreModel.vive = this.formValuePadre.value.vive;
     this.padreModel.tipoDocumento = this.formValuePadre.value.tipoDocumento;
@@ -516,7 +695,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.padreModel.telefono = this.formValuePadre.value.telefono;
     this.padreModel.celular = this.formValuePadre.value.celular;
 
-    this.madreModel.idEstudiante=this.idEstudiante
+    this.madreModel.idEstudiante = this.idEstudiante
     this.madreModel.estado = this.formValueMadre.value.estado;
     this.madreModel.vive = this.formValueMadre.value.vive;
     this.madreModel.tipoDocumento = this.formValueMadre.value.tipoDocumento;
@@ -532,81 +711,81 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.madreModel.telefono = this.formValueMadre.value.telefono;
     this.madreModel.celular = this.formValueMadre.value.celular;
 
-  
-    if(this.padreModel.estado=="" ){
-      this.mensaje_error="El campo estado no puede estar vacio"
+
+    if (this.padreModel.estado == "") {
+      this.mensaje_error = "El campo estado no puede estar vacio"
     }
 
-    else if(this.padreModel.vive=="" ){
-      this.mensaje_error="El campo vive no puede estar vacio"
+    else if (this.padreModel.vive == "") {
+      this.mensaje_error = "El campo vive no puede estar vacio"
     }
-    else{
+    else {
       this.studentDatabaseService.createPadre(this.padreModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-         /* this.formValuePadre= this.formBuilder.group({
-            estado: ['', Validators.required],
-            vive: ['', Validators.required],
-            tipoDocumento: ['', Validators.required],
-            identificacion: ['', Validators.required],
-            nombres: ['', Validators.required],
-            apellidos: ['', Validators.required],
-            profesion: ['', Validators.required],
-            dondeTrabaja: ['', Validators.required],
-            cargo: ['', Validators.required],
-            ingresoMensual: ['', Validators.required],
-            correoElectronico: ['', Validators.required],
-            direccion: ['', Validators.required],
-            telefono: ['', Validators.required],
-            celular: ['', Validators.required],
-         })*/
-        }
-      },
-      err=>{
-        console.log(err)
-      })
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
+            /* this.formValuePadre= this.formBuilder.group({
+               estado: ['', Validators.required],
+               vive: ['', Validators.required],
+               tipoDocumento: ['', Validators.required],
+               identificacion: ['', Validators.required],
+               nombres: ['', Validators.required],
+               apellidos: ['', Validators.required],
+               profesion: ['', Validators.required],
+               dondeTrabaja: ['', Validators.required],
+               cargo: ['', Validators.required],
+               ingresoMensual: ['', Validators.required],
+               correoElectronico: ['', Validators.required],
+               direccion: ['', Validators.required],
+               telefono: ['', Validators.required],
+               celular: ['', Validators.required],
+            })*/
+          }
+        },
+          err => {
+            console.log(err)
+          })
 
-      
+
       this.studentDatabaseService.createMadre(this.madreModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-          /*this.formValueMadre= this.formBuilder.group({
-            estado: ['', Validators.required],
-            vive: ['', Validators.required],
-            tipoDocumento: ['', Validators.required],
-            identificacion: ['', Validators.required],
-            nombres: ['', Validators.required],
-            apellidos: ['', Validators.required],
-            profesion: ['', Validators.required],
-            dondeTrabaja: ['', Validators.required],
-            cargo: ['', Validators.required],
-            ingresoMensual: ['', Validators.required],
-            correoElectronico: ['', Validators.required],
-            direccion: ['', Validators.required],
-            telefono: ['', Validators.required],
-            celular: ['', Validators.required],
-         })*/
-        }
-      },
-      err=>{
-        console.log(err)
-      })
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
+            /*this.formValueMadre= this.formBuilder.group({
+              estado: ['', Validators.required],
+              vive: ['', Validators.required],
+              tipoDocumento: ['', Validators.required],
+              identificacion: ['', Validators.required],
+              nombres: ['', Validators.required],
+              apellidos: ['', Validators.required],
+              profesion: ['', Validators.required],
+              dondeTrabaja: ['', Validators.required],
+              cargo: ['', Validators.required],
+              ingresoMensual: ['', Validators.required],
+              correoElectronico: ['', Validators.required],
+              direccion: ['', Validators.required],
+              telefono: ['', Validators.required],
+              celular: ['', Validators.required],
+           })*/
+          }
+        },
+          err => {
+            console.log(err)
+          })
     }
   }
 
 
-  CrearAcudiente(){
-    this.acudienteModel.idEstudiante=this.idEstudiante
+  CrearAcudiente() {
+    this.acudienteModel.idEstudiante = this.idEstudiante
     this.acudienteModel.responsable = this.formValueDatosAdicionalesResponsable.value.responsable;
     this.acudienteModel.parentesco = this.formValueDatosAdicionales.value.parentesco;
     this.acudienteModel.parentesco = this.parentesco;
@@ -625,7 +804,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.acudienteModel.telefono = this.formValueDatosAdicionales.value.telefono;
     this.acudienteModel.celular = this.formValueDatosAdicionales.value.celular;
 
-    this.responsableModel.idEstudiante=this.idEstudiante
+    this.responsableModel.idEstudiante = this.idEstudiante
     this.responsableModel.responsable = this.formValueDatosAdicionalesResponsable.value.responsable;
     this.responsableModel.tipoPersona = this.formValueDatosAdicionalesResponsable.value.tipoPersona;
     this.responsableModel.razonSocial = this.formValueDatosAdicionalesResponsable.value.razonSocial;
@@ -640,111 +819,96 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
     console.log(this.acudienteModel)
 
-    if(this.acudienteModel.parentesco=="" ){
-      this.mensaje_error="El campo parentesco no puede estar vacio"
-    }
-
-    else if( this.acudienteModel.nombres=="" ){
-      this.mensaje_error="El campo nombres no puede estar vacio"
-    }
-    else{
       this.studentDatabaseService.createAcudiente(this.acudienteModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-        }
-      },
-      err=>{
-        console.log(err)
-      })
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
+          }
+        },
+          err => {
+            console.log(err)
+          })
 
-      
+
       this.studentDatabaseService.createResponsable(this.responsableModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-        }
-      },
-      err=>{
-        console.log(err)
-      })
-    }
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
+          }
+        },
+          err => {
+            console.log(err)
+          })
   }
 
 
-  CrearHermano(){
-    this.hermanoModel.idEstudiante=this.idEstudiante
-    this.hermanoModel2.idEstudiante=this.idEstudiante
+  CrearHermano() {
+    this.hermanoModel.idEstudiante = this.idEstudiante
+    this.hermanoModel2.idEstudiante = this.idEstudiante
     //this.newFormHermano.value.nombres
     this.hermanoModel.nombres = this.formValueDatosAdicionalesHermanos.value.nombres
-    this.hermanoModel.apellidos= this.formValueDatosAdicionalesHermanos.value.apellidos
-    this.hermanoModel.institucion= this.formValueDatosAdicionalesHermanos.value.institucion
-    this.hermanoModel.nivelEstudio= this.formValueDatosAdicionalesHermanos.value.nivelEstudio
+    this.hermanoModel.apellidos = this.formValueDatosAdicionalesHermanos.value.apellidos
+    this.hermanoModel.institucion = this.formValueDatosAdicionalesHermanos.value.institucion
+    this.hermanoModel.nivelEstudio = this.formValueDatosAdicionalesHermanos.value.nivelEstudio
 
     this.hermanoModel2.nombres = this.formValueDatosAdicionalesHermanos2.value.nombres
-    this.hermanoModel2.apellidos= this.formValueDatosAdicionalesHermanos2.value.apellidos
-    this.hermanoModel2.institucion= this.formValueDatosAdicionalesHermanos2.value.institucion
-    this.hermanoModel2.nivelEstudio= this.formValueDatosAdicionalesHermanos2.value.nivelEstudio
+    this.hermanoModel2.apellidos = this.formValueDatosAdicionalesHermanos2.value.apellidos
+    this.hermanoModel2.institucion = this.formValueDatosAdicionalesHermanos2.value.institucion
+    this.hermanoModel2.nivelEstudio = this.formValueDatosAdicionalesHermanos2.value.nivelEstudio
 
 
     console.log(this.hermanoModel)
-    if(this.hermanoModel.nombres =="" ){
-      this.mensaje_error="El campo nombre no puede estar vacio"
-    }
+    if (this.hermanoModel.nombres != "") {
 
-    else if(this.hermanoModel.apellidos ="" ){
-      this.mensaje_error="El campo apellido no puede estar vacio"
-    }
-    else{
       this.studentDatabaseService.createHermanos(this.hermanoModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-  
-        }
-      },
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
 
-      err=>{
-        console.log(err)
-      })
+          }
+        },
+
+          err => {
+            console.log(err)
+          })
 
       this.studentDatabaseService.createHermanos(this.hermanoModel2)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-  
-        }
-      },
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
 
-      
-      
-      err=>{
-        console.log(err)
-      })
+          }
+        },
+
+
+
+          err => {
+            console.log(err)
+          })
     }
 
-    
+
   }
 
-  CrearCanalReferencia(){
-  
-    this.canalReferenciaModel.idEstudiante=this.idEstudiante
+  CrearCanalReferencia() {
+
+    this.canalReferenciaModel.idEstudiante = this.idEstudiante
     this.canalReferenciaModel.aceptaCompromisos = this.formValueCanalReferencia.value.aceptaCompromisos;
     this.canalReferenciaModel.comoSabe = this.formValueCanalReferencia.value.comoSabe;
     this.canalReferenciaModel.comoSeEntero = this.formValueCanalReferencia.value.comoSeEntero;
@@ -753,391 +917,64 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.canalReferenciaModel.porqueIngresar = this.formValueCanalReferencia.value.porqueIngresar;
     console.log(this.canalReferenciaModel)
 
-    if(this.formValueCanalReferencia.value.aceptaCompromisos =="" ){
-      this.mensaje_error="El campo acepta los compromisos no puede estar vacio"
+    if (this.formValueCanalReferencia.value.aceptaCompromisos == "") {
+      this.mensaje_error = "El campo acepta los compromisos no puede estar vacio"
     }
 
-    else{
+    else {
       this.canalReferenciaService.createCanalReferencia(this.canalReferenciaModel)
-      .subscribe(res=>{
-      console.log(res);
-        if (res.mensaje=="el dato ya existe") {
-          this.mensaje_error=res.mensaje;
-        }
-        else{
-          this.mensaje_ok="Se registro correctamente"
-      
-        }
-      },
-      err=>{
-        console.log(err)
-      })
+        .subscribe(res => {
+          console.log(res);
+          if (res.mensaje == "el dato ya existe") {
+            this.mensaje_error = res.mensaje;
+          }
+          else {
+            this.mensaje_ok = "Se registro correctamente"
 
-    
-   
+          }
+        },
+          err => {
+            console.log(err)
+          })
     }
   }
 
-  validarCamposEstudiante(){
-    if(this.formValueEstudiantes.value.nombres =="" ){
-      this.mensaje_error="El campo nombres no puede estar vacio"
+  validarCamposEstudiante(form: FormGroup) {
+    this.formSubmitted = true;
+    console.log(form);
+    if (form.valid) {
+      this.validarCamposEstudianteFormFull = true;
     }
-
-    else if(this.formValueEstudiantes.value.apellidos =="" ){
-      this.mensaje_error="El campo apellidos no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.tipoDocumento =="" ){
-      this.mensaje_error="El campo tipo de documento no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.identificacion =="" ){
-      this.mensaje_error="El campo tipo de identificacion no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.expedicion =="" ){
-      this.mensaje_error="El campo expedición no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.lugarNacimiento =="" ){
-      this.mensaje_error="El campo lugar de nacimiento no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.fechaNacimiento =="" ){
-      this.mensaje_error="El campo fecha de nacimiento no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.edad <=0 ){
-      this.mensaje_error="El campo edad no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.direccion =="" ){
-      this.mensaje_error="El campo dirección no puede estar vacio"
-    }
-
-
-    else if(this.formValueEstudiantes.value.tipoDireccion =="" ){
-      this.mensaje_error="El campo tipo de dirección no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.barrio =="" ){
-      this.mensaje_error="El campo barrio no puede estar vacio"
-    }
-
-    else if(this.formValueEstudiantes.value.estrato <=0 ){
-      this.mensaje_error="El campo estrato no puede estar vacio"
-    }
-    else if(this.formValueEstudiantes.value.telefono =="" ){
-      this.mensaje_error="El campo telefono no puede estar vacio"
-    }else if(!this.validateCelPhoneNumber(this.formValueEstudiantes.value.telefono)){
-      this.mensaje_error="El campo telefono no es un numero de 10 digitos"
-    }
-    else if(this.formValueEstudiantes.value.correo =="" ){
-      this.mensaje_error="El campo correo no puede estar vacio"
-    }else if(!this.isEmailValid(this.formValueEstudiantes.value.correo)){
-      this.mensaje_error="El campo correo no es valido"
-    }
-
-    else if(this.formValueEstudiantes.value.tipoCupo =="" ){
-      this.mensaje_error="El campo tipo de cupo no puede estar vacio"
-    }
-
   }
 
-  validarCamposHistorialAcademico(){
-   
-     if(this.formValueEstudiantes.value.tipoCupo =="" ){
-      this.mensaje_error="El campo tipo de cupo no puede estar vacio"
+  validarCamposHistorialAcademico(form: FormGroup) {
+    this.formSubmitted = true;
+    console.log(form);
+    if (form.valid) {
+      this.validarCamposHistorialAcademicoFormFull = true;
     }
-
-    else if(this.formValueHistorialAcademico.value.preescolar =="" ){
-      this.mensaje_error="El campo preescolar de cupo no puede estar vacio"
+  }
+  validarCamposHistorialEstadoFisico(form: FormGroup) {
+    this.formSubmitted = true;
+    console.log(form);
+    if (form.valid) {
+      this.validarCamposHistorialEstadoFisicoFormFull = true;
     }
+  }
 
-    else if(this.formValueHistorialAcademico.value.primaria =="" ){
-      this.mensaje_error="El campo primaria no puede estar vacio"
+  validarCamposPadres(form: FormGroup) {
+    this.formSubmitted = true;
+    console.log(form);
+    if (form.valid) {
+      this.validarCamposPadresFormFull = true;
+    } else {
     }
-
-    else if(this.formValueHistorialAcademico.value.bachillerato =="" ){
-      this.mensaje_error="El campo bachillerato no puede estar vacio"
-    }
-
-    else if(this.formValueHistorialAcademico.value.anioAnterior =="" ){
-      this.mensaje_error="El campo año anterior no puede estar vacio"
-    }
-
-    else if(this.formValueHistorialAcademico.value.motivoRetiro =="" ){
-      this.mensaje_error="El campo motivo de retiro no puede estar vacio"
-    }
-
-    else if(this.formValueHistorialAcademico.value.repeticionAnio =="" ){
-      this.mensaje_error="El campo si ha repetido año no puede estar vacio"
-    }
-
-    else if(this.formValueHistorialAcademico.value.distincionAcademica =="" ){
-      this.mensaje_error="El campo distinción académica no puede estar vacio"
-    }
-
-  
-  }
-  validarCamposHistorialEstadoFisico(){
-   
-    if(this.formValueAptitudes.value.deporteGusto =="" ){
-     this.mensaje_error="El campo deporte que le gusta no puede estar vacio"
-   }
-
-   else if(this.formValueAptitudes.value.arteGusto =="" ){
-     this.mensaje_error="El campo arte que le gusta no puede estar vacio"
-   }
-
-   else if(this.formValueAptitudes.value.distincionDeporte =="" ){
-     this.mensaje_error="El campo distinción de algún deporte puede estar vacio"
-   }
-
-   else if(this.formValueAptitudes.value.distincionArtistica=="" ){
-     this.mensaje_error="El campo distinción artística no puede estar vacio"
-   }
-
-   else if(this.formValueAptitudes.value.pasatiempos=="" ){
-     this.mensaje_error="El campo año pasatiempos no puede estar vacio"
-   }
-
-   else if(this.formValueAptitudes.value.coleccion =="" ){
-     this.mensaje_error="El campo colección no puede estar vacio"
-   }
-
-   else if(this.formValueAptitudes.value.estadoSalud =="" ){
-     this.mensaje_error="El campo estado de salud no puede estar vacio"
-   }
-
-   else if(this.formValueAptitudes.value.enfermedades=="" ){
-     this.mensaje_error="El campo si tiene alguna enfermedad no puede estar vacio"
-   }
-
-   else if(this.formValueAptitudes.value.medicamentos=="" ){
-    this.mensaje_error="El campo medicamentos no puede estar vacio"
   }
 
-  else if(this.formValueAptitudes.value.limitacionEducacionFisica=="" ){
-    this.mensaje_error="El campo limitación física no puede estar vacio"
-  }
+  bloquedarCamposPadre() {
 
-  else if(this.formValueAptitudes.value.tipoSangre=="" ){
-    this.mensaje_error="El campo tipo de sangre no puede estar vacio"
-  }
-
- 
-  }
-
-  validarCamposPadres(){
-   
-  if(this.formValuePadre.value.estado =="" ){
-     this.mensaje_error="El campo estado no puede estar vacio"
-   }
-
-   else if(this.formValuePadre.value.vive =="" ){
-     this.mensaje_error="El campo vive no puede estar vacio"
-   }
-   
-   else if(this.formValuePadre.value.tipoDocumento =="" ){
-    this.mensaje_error="El campo tipo documento no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.identificacion =="" ){
-    this.mensaje_error="El campo identificación no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.nombres =="" ){
-    this.mensaje_error="El campo nombres no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.apellidos =="" ){
-    this.mensaje_error="El campo apellidos no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.profesion =="" ){
-    this.mensaje_error="El campo profesión no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.dondeTrabaja =="" ){
-    this.mensaje_error="El campo donde trabaja no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.cargo =="" ){
-    this.mensaje_error="El campo cargo no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.ingresoMensual <=0 ){
-    this.mensaje_error="El campo ingreso mensual no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.correoElectronico =="" ){
-    this.mensaje_error="El campo correo electronico no puede estar vacio"
-  }else if(!this.isEmailValid(this.formValuePadre.value.correoElectronico) && this.formValuePadre.value.correoElectronico != 'N/A'){
-    this.mensaje_error="El campo correo no es valido"
-  }
-
-  else if(this.formValuePadre.value.direccion =="" ){
-    this.mensaje_error="El campo dirección no puede estar vacio"
-  }
-
-  else if(this.formValuePadre.value.telefono ==""){
-    this.mensaje_error="El campo telefono no puede estar vacio"
-  }else if(!this.validateCelPhoneNumber(this.formValuePadre.value.telefono) && this.formValuePadre.value.telefono != '1'){
-    this.mensaje_error="El campo telefono no es un numero de 10 digitos"
-  }
-
-  else if(this.formValuePadre.value.celular =="" ){
-    this.mensaje_error="El campo celular no puede estar vacio"
-  }else if(!this.validateCelPhoneNumber(this.formValuePadre.value.celular) && this.formValuePadre.value.celular != '1'){
-    this.mensaje_error="El campo celular no es un numero de 10 digitos"
-  }
-  else if(this.formValueMadre.value.estado =="" ){
-    this.mensaje_error="El campo estado no puede estar vacio"
-  }
-
-  else if(this.formValueMadre.value.vive =="" ){
-    this.mensaje_error="El campo vive no puede estar vacio"
-  }
-  
-  else if(this.formValueMadre.value.tipoDocumento =="" ){
-   this.mensaje_error="El campo tipo documento no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.identificacion =="" ){
-   this.mensaje_error="El campo identificación no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.nombres =="" ){
-   this.mensaje_error="El campo nombres no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.apellidos =="" ){
-   this.mensaje_error="El campo apellidos no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.profesion =="" ){
-   this.mensaje_error="El campo profesión no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.dondeTrabaja =="" ){
-   this.mensaje_error="El campo donde trabaja no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.cargo =="" ){
-   this.mensaje_error="El campo cargo no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.ingresoMensual <=0 ){
-   this.mensaje_error="El campo ingreso mensual no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.correoElectronico =="" ){
-   this.mensaje_error="El campo correo electronico no puede estar vacio"
- }else if(!this.isEmailValid(this.formValueMadre.value.correoElectronico) && this.formValueMadre.value.correoElectronico != 'N/A'){
-  this.mensaje_error="El campo correo no es valido"
-}
-
- else if(this.formValueMadre.value.direccion =="" ){
-   this.mensaje_error="El campo dirección no puede estar vacio"
- }
-
- else if(this.formValueMadre.value.telefono ==""){
-   this.mensaje_error="El campo telefono no puede estar vacio"
- }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.telefono) && this.formValueMadre.value.telefono != '1'){
-  this.mensaje_error="El campo telefono no es un numero de 10 digitos"
-}
-
- else if(this.formValueMadre.value.celular =="" ){
-   this.mensaje_error="El campo celular no puede estar vacio"
- }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.celular) && this.formValueMadre.value.telefono != '1'){
-  this.mensaje_error="El campo celular no es un numero de 10 digitos"
-}
-
- else{
-  this.formValuePadre.value.continuar="ok"
-  this.formValuePadre.controls['continuar'].setValue("ok")
-
- }
-  
-  }
-
-  validarCamposMadre(){
-   
-    if(this.formValueMadre.value.estado =="" ){
-      this.mensaje_error="El campo estado no puede estar vacio"
-    }
-  
-    else if(this.formValueMadre.value.vive =="" ){
-      this.mensaje_error="El campo vive no puede estar vacio"
-    }
-    
-    else if(this.formValueMadre.value.tipoDocumento =="" ){
-     this.mensaje_error="El campo tipo documento no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.identificacion =="" ){
-     this.mensaje_error="El campo identificación no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.nombres =="" ){
-     this.mensaje_error="El campo nombres no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.apellidos =="" ){
-     this.mensaje_error="El campo apellidos no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.profesion =="" ){
-     this.mensaje_error="El campo profesión no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.dondeTrabaja =="" ){
-     this.mensaje_error="El campo donde trabaja no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.cargo =="" ){
-     this.mensaje_error="El campo cargo no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.ingresoMensual <=0 ){
-     this.mensaje_error="El campo ingreso mensual no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.correoElectronico =="" ){
-     this.mensaje_error="El campo correo electronico no puede estar vacio"
-   }else if(!this.isEmailValid(this.formValueMadre.value.correoElectronico) && this.formValueMadre.value.correoElectronico != 'N/A'){
-    this.mensaje_error="El campo correo no es valido"
-  }
-  
-   else if(this.formValueMadre.value.direccion =="" ){
-     this.mensaje_error="El campo dirección no puede estar vacio"
-   }
-  
-   else if(this.formValueMadre.value.telefono ==""){
-     this.mensaje_error="El campo telefono no puede estar vacio"
-   }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.telefono) && this.formValueMadre.value.telefono != '1'){
-    this.mensaje_error="El campo telefono no es un numero de 10 digitos"
-  }
-  
-   else if(this.formValueMadre.value.celular =="" ){
-     this.mensaje_error="El campo celular no puede estar vacio"
-   }else if(!this.validateCelPhoneNumber(this.formValueMadre.value.celular) && this.formValueMadre.value.celular != '1'){
-    this.mensaje_error="El campo celular no es un numero de 10 digitos"
-  }
-  
-   else{
-    this.formValueMadre.value.continuar="ok"
-    this.formValuePadre.controls['continuar'].setValue("ok")
-  
-   }
-  
-  
-    }
-  bloquedarCamposPadre(){
-
-    if(this.formValuePadre.value.estado==0) {
-      this.habilitarCampoPadre=true;
+    if (this.formValuePadre.value.estado == 0) {
+      this.habilitarCampoPadre = true;
       this.formValuePadre.controls['vive'].setValue("2")
       this.formValuePadre.controls['tipoDocumento'].setValue("NO")
       this.formValuePadre.controls['identificacion'].setValue("N/A")
@@ -1147,13 +984,13 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValuePadre.controls['dondeTrabaja'].setValue("N/A")
       this.formValuePadre.controls['cargo'].setValue("N/A")
       this.formValuePadre.controls['ingresoMensual'].setValue(1)
-      this.formValuePadre.controls['correoElectronico'].setValue("N/A")
+      this.formValuePadre.controls['correoElectronico'].setValue("email@mail.com")
       this.formValuePadre.controls['direccion'].setValue("N/A")
       this.formValuePadre.controls['telefono'].setValue(1)
       this.formValuePadre.controls['celular'].setValue(1)
     }
-     else if(this.formValuePadre.value.estado==1) {
-      this.habilitarCampoPadre=false;
+    else if (this.formValuePadre.value.estado == 1) {
+      this.habilitarCampoPadre = false;
       this.formValuePadre.controls['vive'].setValue("")
       this.formValuePadre.controls['tipoDocumento'].setValue("")
       this.formValuePadre.controls['identificacion'].setValue("")
@@ -1172,10 +1009,10 @@ export class SolicitudEstudiantesComponent implements OnInit {
     console.log(this.formValueMadre.value.estado)
   }
 
-  bloquedarCamposMadre(){
+  bloquedarCamposMadre() {
 
-     if(this.formValueMadre.value.estado==0) {
-      this.habilitarCampoMadre=true;
+    if (this.formValueMadre.value.estado == 0) {
+      this.habilitarCampoMadre = true;
       this.formValueMadre.controls['vive'].setValue("2")
       this.formValueMadre.controls['tipoDocumento'].setValue("NO")
       this.formValueMadre.controls['identificacion'].setValue("N/A")
@@ -1185,15 +1022,15 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValueMadre.controls['dondeTrabaja'].setValue("N/A")
       this.formValueMadre.controls['cargo'].setValue("N/A")
       this.formValueMadre.controls['ingresoMensual'].setValue(1)
-      this.formValueMadre.controls['correoElectronico'].setValue("N/A")
+      this.formValueMadre.controls['correoElectronico'].setValue("email@mail.com")
       this.formValueMadre.controls['direccion'].setValue("N/A")
       this.formValueMadre.controls['telefono'].setValue(1)
       this.formValueMadre.controls['celular'].setValue(1)
- 
+
     }
 
-     else if(this.formValueMadre.value.estado==1) {
-      this.habilitarCampoMadre=false;
+    else if (this.formValueMadre.value.estado == 1) {
+      this.habilitarCampoMadre = false;
       this.formValueMadre.controls['vive'].setValue("")
       this.formValueMadre.controls['tipoDocumento'].setValue("")
       this.formValueMadre.controls['identificacion'].setValue("")
@@ -1209,90 +1046,102 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValueMadre.controls['celular'].setValue(0)
     }
 
-  
+
     console.log(this.formValuePadre.value.estado)
     console.log(this.formValueMadre.value.estado)
   }
 
-  guardarFormularios(){
-    if(this.formValueCanalReferencia.value.aceptaCompromisos =="" ){
-      this.mensaje_error="El campo acepta los compromisos no puede estar vacio"
-    }
-
-    else if(this.formValueCanalReferencia.value.comoSabe =="" ){
-      this.mensaje_error="El campo como sabe del colegio no puede estar vacio"
-    }
-
-    else if(this.formValueCanalReferencia.value.comoSeEntero =="" ){
-      this.mensaje_error="El campo como se entero del colegio puede estar vacio"
-    }
-
-    else if(this.formValueCanalReferencia.value.porqueIngresar =="" ){
-      this.mensaje_error="El campo por que desa ingresar no puede estar vacio"
-    }
-
-    else if(this.formValueCanalReferencia.value.nombreAcudiente =="" ){
-      this.mensaje_error="El campo nombre de acudiente no puede estar vacio"
-    }
-
-    else{
-      this.CrearEstudiante()
-      Swal.fire(
-        'Información enviada',
-        '',
-        'success'
-       )
-       setTimeout(() => {
-          this.router.navigate(['/login-acudiente']);
-        }, 1000);
+  validarDatosAdicionales(form: FormGroup) {
+    this.formSubmitted = true;
+    console.log(form);
+    if (form.valid) {
+      this.validarCamposAdicionalesFormFull = true;
+    } else {
     }
   }
-  validarCanalReferencia(){
-    if(this.formValueCanalReferencia.value.aceptaCompromisos==true){
-      this.validadorTerminos=false
+
+  guardarFormularios(form: FormGroup) {
+    this.formSubmitted = true;
+    console.log(form);
+    if (form.valid) {
+      if(
+        this.validarCamposEstudianteFormFull &&
+        this.validarCamposHistorialAcademicoFormFull &&
+        this.validarCamposHistorialEstadoFisicoFormFull &&
+        this.validarCamposAdicionalesFormFull &&
+        this.validarCamposPadresFormFull
+        ){
+        this.CrearEstudiante();
+        this.disabledPaymentButton = false;
+        Swal.fire(
+          'Información enviada',
+          '',
+          'success'
+        );
+        // setTimeout(() => {
+        //   this.router.navigate(['/login-acudiente']);
+        // }, 1000);
+      }else{
+        Swal.fire(
+          'Datos Faltantes o Incorrectos',
+          '',
+          'error'
+        );
+      }
+    }
+  }
+  validarCanalReferencia() {
+    if (this.formValueCanalReferencia.value.aceptaCompromisos == true) {
+      this.validadorTerminos = false
     }
 
-    else if(this.formValueCanalReferencia.value.aceptaCompromisos==false){
-      this.validadorTerminos=true
+    else if (this.formValueCanalReferencia.value.aceptaCompromisos == false) {
+      this.validadorTerminos = true
     }
 
     console.log(this.formValueCanalReferencia.value.aceptaCompromisos)
   }
 
-  isEmailValid = (email:string) => {
+  emailValidator(control: AbstractControl): ValidationErrors | null {
+    const email: string = control.value;
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-  };
-  validateCelPhoneNumber(input_str:string) {
+  
+    if (!re.test(email)) {
+      return { invalidEmail: true };
+    }
+  
+    return null;
+  }
+  validateCelPhoneNumber(input_str: string) {
     var re = /^[0-9]{10}$/;
     return re.test(input_str);
   }
 
-  validarCheckSi(){
-  this.formValueDatosAdicionales.value.checkSi=false
-  this.checkSi=this.formValueDatosAdicionales.value.checkSi
-  this.validadorCheckNo= false
-  this.validadorCheckHermano= false
-  this.validadorBotonHermano= false
+  validarCheckSi() {
+    this.formValueDatosAdicionales.value.checkSi = false
+    this.checkSi = this.formValueDatosAdicionales.value.checkSi
+    this.validadorCheckNo = false
+    this.validadorCheckHermano = false
+    this.validadorBotonHermano = false
   }
 
-  validarCheckNo(){
-    this.formValueDatosAdicionales.value.checkNo=true
-    this.checkSi=this.formValueDatosAdicionales.value.checkNo
-    this.validadorCheckSi=false
-    this.validadorCheckHermano= true
-    this.validadorBotonHermano= true
-    }
+  validarCheckNo() {
+    this.formValueDatosAdicionales.value.checkNo = true
+    this.checkSi = this.formValueDatosAdicionales.value.checkNo
+    this.validadorCheckSi = false
+    this.validadorCheckHermano = true
+    this.validadorBotonHermano = true
+  }
 
-  AgregarOtroHermano(){
-      this.validadorAgregarOtroHermano=!this.validadorAgregarOtroHermano
-      console.log(this.validadorAgregarOtroHermano)
-    }
+  AgregarOtroHermano() {
+    this.validadorAgregarOtroHermano = !this.validadorAgregarOtroHermano
+    console.log(this.validadorAgregarOtroHermano)
+  }
 
-  responsable(){
+  responsable() {
 
-    if(this.formValueDatosAdicionales.value.responsable==1) {
-      this.validadorResponsable= true
+    if (this.formValueDatosAdicionales.value.responsable == 1) {
+      this.validadorResponsable = true
       this.formValueDatosAdicionales.controls['responsable'].setValue(1)
       this.formValueDatosAdicionales.controls['parentesco'].setValue("Padre")
       this.formValueDatosAdicionales.controls['nombres'].setValue(this.formValuePadre.value.nombres)
@@ -1310,8 +1159,8 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValueDatosAdicionales.controls['celular'].setValue(this.formValuePadre.value.celular)
     }
 
-    if (this.formValueDatosAdicionales.value.responsable==2) {
-      this.validadorResponsable= true
+    if (this.formValueDatosAdicionales.value.responsable == 2) {
+      this.validadorResponsable = true
       this.formValueDatosAdicionales.controls['responsable'].setValue(2)
       this.formValueDatosAdicionales.controls['parentesco'].setValue("Madre")
       this.formValueDatosAdicionales.controls['nombres'].setValue(this.formValueMadre.value.nombres)
@@ -1330,9 +1179,9 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValueDatosAdicionales.controls['celular'].setValue(this.formValueMadre.value.celular)
     }
 
-    if (this.formValueDatosAdicionales.value.responsable==3) {
+    if (this.formValueDatosAdicionales.value.responsable == 3) {
 
-      this.validadorResponsable= false
+      this.validadorResponsable = false
       this.formValueDatosAdicionales.controls['responsable'].setValue(3)
       this.formValueDatosAdicionales.controls['parentesco'].setValue("Acudiente")
       this.formValueDatosAdicionales.controls['nombres'].setValue("")
@@ -1350,15 +1199,15 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValueDatosAdicionales.controls['telefono'].setValue("")
       this.formValueDatosAdicionales.controls['celular'].setValue("")
     }
-   
+
     console.log(this.formValueDatosAdicionales.value.responsable)
   }
-  
-  responsableFacturacion(){
 
-    if(this.formValueDatosAdicionalesResponsable.value.responsable==1) {
-      this.validadorResponsableFacturacion= true
-      this.parentesco= "Padre"
+  responsableFacturacion() {
+
+    if (this.formValueDatosAdicionalesResponsable.value.responsable == 1) {
+      this.validadorResponsableFacturacion = true
+      this.parentesco = "Padre"
       this.formValueDatosAdicionalesResponsable.controls['responsable'].setValue(1)
       this.formValueDatosAdicionalesResponsable.controls['tipoDocumento'].setValue(this.formValuePadre.value.tipoDocumento)
       this.formValueDatosAdicionalesResponsable.controls['identificacion'].setValue(this.formValuePadre.value.identificacion)
@@ -1369,9 +1218,9 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValueDatosAdicionalesResponsable.controls['celular'].setValue(this.formValuePadre.value.celular)
     }
 
-    if (this.formValueDatosAdicionalesResponsable.value.responsable==2) {
-      this.validadorResponsableFacturacion= true
-      this.parentesco= "Madre"
+    if (this.formValueDatosAdicionalesResponsable.value.responsable == 2) {
+      this.validadorResponsableFacturacion = true
+      this.parentesco = "Madre"
       this.formValueDatosAdicionalesResponsable.controls['responsable'].setValue(2)
       this.formValueDatosAdicionalesResponsable.controls['tipoDocumento'].setValue(this.formValueMadre.value.tipoDocumento)
       this.formValueDatosAdicionalesResponsable.controls['identificacion'].setValue(this.formValueMadre.value.identificacion)
@@ -1382,9 +1231,9 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValueDatosAdicionalesResponsable.controls['celular'].setValue(this.formValueMadre.value.celular)
     }
 
-    if (this.formValueDatosAdicionalesResponsable.value.responsable==3) {
-      this.validadorResponsableFacturacion= false
-      this.parentesco= "Acudiente"
+    if (this.formValueDatosAdicionalesResponsable.value.responsable == 3) {
+      this.validadorResponsableFacturacion = false
+      this.parentesco = "Acudiente"
       this.formValueDatosAdicionalesResponsable.controls['responsable'].setValue(3)
       this.formValueDatosAdicionalesResponsable.controls['tipoDocumento'].setValue("")
       this.formValueDatosAdicionalesResponsable.controls['identificacion'].setValue("")
@@ -1394,11 +1243,11 @@ export class SolicitudEstudiantesComponent implements OnInit {
       this.formValueDatosAdicionalesResponsable.controls['direccion'].setValue("")
       this.formValueDatosAdicionalesResponsable.controls['celular'].setValue("")
     }
-   
+
   }
 
-  cerrarAlerta(){
-    this.mensaje_error=""
+  cerrarAlerta() {
+    this.mensaje_error = ""
   }
 
 }

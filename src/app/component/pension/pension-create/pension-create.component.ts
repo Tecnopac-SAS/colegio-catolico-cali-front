@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { DiscountService } from 'src/app/services/discount.service';
 import { Pension } from 'src/app/models/pension.model';
 import { PensionService } from 'src/app/services/pension.service';
 
@@ -19,13 +20,30 @@ export class PensionCreateComponent implements OnInit {
   formValue!: FormGroup;
   formValueExtra!: FormGroup;
   pensionModel:Pension= new Pension();
+  dataDiscount: any;
+  listGrades: any;
   public mensaje_ok:any;
   public mensaje_error:any;
   constructor(
     private formBuilder:FormBuilder,
     private pensionService:PensionService,
+        public DiscountService:DiscountService,
     private router:Router
-  ) { }
+  ) { 
+    this.listGrades = [];
+    this.dataDiscount = [];
+
+    this.pensionService.listGrades().subscribe(response=>{
+      this.listGrades = response.result
+    },error=>{})
+
+    // Descuentos 
+    this.DiscountService.listDiscounts()
+    .subscribe(res=>{
+      this.dataDiscount=res.result
+    })  
+
+  }
 
   ngOnInit(): void {
     this.gradeList()
@@ -57,10 +75,6 @@ export class PensionCreateComponent implements OnInit {
 
     else if(this.pensionModel.price  <=0 ){
       this.mensaje_error="El campo precio no puede estar vacio"
-    }
-
-    else if(this.pensionModel.discount==0){
-      this.mensaje_error="El campo descuento no puede estar vacio"
     }
     else if(this.pensionModel.interes==null){
       this.mensaje_error="El campo interes no puede estar vacio"
