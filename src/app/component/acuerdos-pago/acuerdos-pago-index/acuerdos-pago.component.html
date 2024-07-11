@@ -1,0 +1,12 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <app-search-filters-datatable [navTitle]="navTitle" [tempData]="acuerdosPagos" [filtersColumns]="false" [columns]="columns">
+  </app-search-filters-datatable>
+  <ng-template #accionesTemplate let-item>
+    <button class="text-info btn" routerLink="/acuerdos-pago/{{item.id}}/{{item.AcuerdosPagosAsAcudiente.id}}" data-bs-toggle="modal">Ver Detalle (+)</button>
+  </ng-template>
+
+  <ng-template #estadoTemplate let-item>
+    <span class="badge badge-warning" *ngIf="item.estado === 'Pendiente'">{{ item.estado }}</span>
+  </ng-template>
+</app-dashboard>

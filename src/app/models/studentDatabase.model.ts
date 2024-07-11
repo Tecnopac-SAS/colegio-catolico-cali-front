@@ -79,6 +79,7 @@ export class StudentDatabase{
   }
 
   export class Acudiente{
+    public idAcudiente=""
     public responsable=""
     public parentesco=""
     //public estado=""

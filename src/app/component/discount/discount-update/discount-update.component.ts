@@ -45,6 +45,7 @@ export class DiscountUpdateComponent implements OnInit {
       starDate: [''],
       finalDate: [''],
       percentage:[''],
+      useType:[0],
       frequency:[''],
       service:[''],
       isActive:[''],
@@ -63,6 +64,7 @@ export class DiscountUpdateComponent implements OnInit {
           this.formValue.controls['name'].setValue(this.Discount.result.name)
           this.formValue.controls['starDate'].setValue(this.formatFecha(this.Discount.result.starDate))
           this.formValue.controls['finalDate'].setValue(this.formatFecha(this.Discount.result.finalDate))
+          this.formValue.controls['useType'].setValue(this.Discount.result.useType)
           this.formValue.controls['percentage'].setValue(this.Discount.result.percentage)
           this.formValue.controls['frequency'].setValue(this.Discount.result.frequency)
           this.formValue.controls['service'].setValue(this.Discount.result.service)
@@ -79,6 +81,7 @@ export class DiscountUpdateComponent implements OnInit {
     this.DiscountModel.name= this.formValue.value.name;
     this.DiscountModel.starDate= this.formValue.value.starDate;
     this.DiscountModel.finalDate= this.formValue.value.finalDate;
+    this.DiscountModel.useType= this.formValue.value.useType;
     this.DiscountModel.percentage= this.formValue.value.percentage;
     this.DiscountModel.frequency= this.formValue.value.frequency;
     this.DiscountModel.service= this.formValue.value.service;
@@ -101,8 +104,10 @@ export class DiscountUpdateComponent implements OnInit {
     else if(this.DiscountModel.percentage  == "" ){
       this.mensaje_error="El campo porcentaje no puede estar vacio"
     }
-
-    else if(this.DiscountModel.frequency  == "" ){
+    else if(this.DiscountModel.useType  != 0 &&  this.DiscountModel.useType  != 1){
+      this.mensaje_error="El campo tipo de uso no puede estar vacio"
+    }
+    else if(this.DiscountModel.frequency  < 1 ){
       this.mensaje_error="El campo frecuencia no puede estar vacio"
     }
 

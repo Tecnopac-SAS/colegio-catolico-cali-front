@@ -8,6 +8,9 @@ import { IndexUserComponent } from './component/user-manager/index-user/index-us
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
 import { HomepageComponent } from './component/homepage/homepage.component';
 import { PeriodIndexComponent } from './component/period/period-index/period-index.component';
+import { AcuerdosPagoComponent } from './component/acuerdos-pago/acuerdos-pago-index/acuerdos-pago.component';
+import { AcuerdosPagoViewComponent } from './component/acuerdos-pago/acuerdos-pago-view/acuerdos-pago-view.component';
+import { AcuerdosPagoCreateComponent } from './component/acuerdos-pago/acuerdos-pago-create/acuerdos-pago-create.component';
 import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
 import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
 import { InscriptionCreateComponent } from './component/incription/inscription-create/inscription-create.component';
@@ -21,6 +24,7 @@ import { ExtracurricularVerComponent } from './component/extracurricular/extracu
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 import { PensionUpdateComponent } from './component/pension/pension-update/pension-update.component';
+import { InformesPagoComponent } from './component/informes-pago/informes-pago.component';
 import { ServicesIndexComponent } from './component/services-index/services-index.component';
 import { CoursesExtraordinarioComponent } from './component/curses/courses-extraordinario/courses-extraordinario.component';
 import { CoursesCreateComponent } from './component/curses/courses-create/courses-create.component';
@@ -87,6 +91,10 @@ import { MediasTecnicasComponent } from './component/medias-tecnicas/medias-tecn
 import { ExtracurricularInscripcionComponent } from './component/extracurricular/extracurricular-inscripcion/extracurricular-inscripcion.component';
 import { ExtracurricularListComponent } from './component/extracurricular/extracurricular-list/extracurricular-list.component';
 import { CafeteriaPagoComponent } from './component/cafeteria/cafeteria-pago/cafeteria-pago.component';
+import { DeudasIndexComponent } from './component/deudas/deudas-index/deudas-index.component';
+import { DeudasUpdateComponent } from './component/deudas/deudas-update/deudas-update.component';
+import { DeudasViewComponent } from './component/deudas/deudas-view/deudas-view.component';
+import { DeudasCreateComponent } from './component/deudas/deudas-create/deudas-create.component';
 import { SoportesPagoComponent } from './component/soportes-pago/soportes-pago.component';
 import { CertificadosComponent } from './component/certificados/certificados.component';
 import { SolicitudCertificadoComponent } from './component/solicitud-certificado/solicitud-certificado.component';
@@ -113,9 +121,13 @@ const routes: Routes = [
   {path: 'crear-usuario', component: CreateUserComponent },
   {path: 'sidebar', component: SidebarComponent },
   {path: 'listar-usuarios', component: IndexUserComponent },
+  {path: 'informes-pago',component: InformesPagoComponent},
   {path: 'inicio', component: HomepageComponent },
   {path: 'inscripcion', component: InscriptionIndexComponent },
   {path: 'periodo', component: PeriodIndexComponent },
+  {path: 'acuerdos-pago', component: AcuerdosPagoComponent },
+  {path: 'acuerdos-pago/:id/:idAcudiente', component: AcuerdosPagoViewComponent },
+  {path: 'acuerdos-pago-crear/:id', component: AcuerdosPagoCreateComponent },
   {path: 'periodo-crear', component: PeriodCreateComponent },
   {path: 'inscripcion-crear', component: InscriptionCreateComponent },
   {path: 'matriculas-crear', component: TuitionCreateComponent },
@@ -183,6 +195,10 @@ const routes: Routes = [
   {path: 'admision',component: AdmisionIndexComponent},
   {path: 'pazysalvocuatrosellos',component: PazysalvocuatrosellosComponent},
   {path: 'estado-cartera',component: EstadoCarteraComponent},
+  {path: 'gestion-deudas',component: DeudasIndexComponent},
+  {path: 'gestion-deudas-crear',component: DeudasCreateComponent},
+  {path: 'gestion-deudas/:id',component: DeudasUpdateComponent},
+  {path: 'gestion-deudas-ver/:id',component: DeudasViewComponent},
   {path: 'pagos-presenciales',component: PagosPresencialesComponent},
   
   //gestion acudientes

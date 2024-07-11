@@ -77,7 +77,7 @@
               </div>
 
               <div class="col-md-5">
-                <input type="number" class="form-control" formControlName="price">
+                <input type="text" class="form-control" formControlName="price" (blur)="formatCurrencyInput($event)">
               </div>
 
               <div class="col-md-1">

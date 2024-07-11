@@ -37,7 +37,8 @@ export class DiscountCreateComponent implements OnInit {
       starDate: [''],
       finalDate: [''],
       percentage:[''],
-      frequency:[''],
+      useType:[1],
+      frequency:[1],
       service:[''],
       isActive:[''],
       status:['']
@@ -49,6 +50,7 @@ export class DiscountCreateComponent implements OnInit {
     this.DiscountModel.starDate = this.formValue.value.starDate;
     this.DiscountModel.finalDate = this.formValue.value.finalDate;
     this.DiscountModel.percentage = this.formValue.value.percentage;
+    this.DiscountModel.useType = this.formValue.value.useType;
     this.DiscountModel.frequency = this.formValue.value.frequency;
     this.DiscountModel.service = this.formValue.value.service;
     this.DiscountModel.isActive = this.formValue.value.isActive;
@@ -72,7 +74,11 @@ export class DiscountCreateComponent implements OnInit {
       this.mensaje_error="El campo porcentaje no puede estar vacio"
     }
 
-    else if(this.DiscountModel.frequency  == "" ){
+    else if(this.DiscountModel.useType  != 0 &&  this.DiscountModel.useType  != 1){
+      this.mensaje_error="El campo tipo de uso no puede estar vacio"
+    }
+
+    else if(this.DiscountModel.frequency  < 1 ){
       this.mensaje_error="El campo frecuencia no puede estar vacio"
     }
 
@@ -96,6 +102,7 @@ export class DiscountCreateComponent implements OnInit {
             starDate: [''],
             finalDate: [''],
             percentage:[''],
+            useType:[''],
             frequency:[''],
             service:[''],
             isActive:[''],

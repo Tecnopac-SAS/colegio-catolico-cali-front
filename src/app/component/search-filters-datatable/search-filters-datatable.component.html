@@ -1,0 +1,96 @@
+<div class="container my-xl-2">
+  <div class="row position-relative">
+    <div class="card">
+      <div class="card-body">
+        <!-- Loading Indicator -->
+        <div *ngIf="isLoading"
+          class="d-flex opacity-75 align-items-center justify-content-center z-3 index-1 bg-light z-10 h-100 w-100 top-0 start-0 position-absolute">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
+        </div>
+        <div class="row justify-content-end" *ngIf="!isLoading">
+          <div class="col-md-3 col-12 my-2">
+            <div class="d-flex gap-2">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="bi bi-search"></i></span>
+                </div>
+                <input type="text" placeholder="Buscar..." [(ngModel)]="filterInput" class="form-control"
+                  (keyup)="search()" aria-label="Buscar...">
+              </div>
+              <div class="dropdown" *ngIf="">
+                <button class="btn btn-outline-secondary opacity-50 dropdown-toggle" type="button"
+                  id="dropdownMenuButtonFilterColumns" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="bi bi-funnel"></i>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" (click)="exportToExcel()">Descargar Informe <span
+                        class="badge badge-success">Excel</span></a>
+                  </div>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonFilterColumns">
+                  <div *ngFor="let col of columns">
+                    <div class="dropdown-item">
+                      <input type="checkbox" [checked]="filterColumnsFiltersVisibility[col.field]"
+                        (change)="toggleColumnFilterVisibility(col.field)">
+                      {{ col.header }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown">
+                <button class="btn btn-outline-secondary opacity-50 dropdown-toggle" type="button"
+                  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#" (click)="exportToExcel()">Descargar Informe <span
+                      class="badge badge-success">Excel</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive-sm table-responsive-md table-responsive-lg" id="data-table" *ngIf="!isLoading">
+          <div class="table-responsive">
+            <table class="table table-hover" id="data-table">
+              <thead>
+                <tr>
+                  <th *ngFor="let column of columns">
+                    {{ column.header }}
+                    <div *ngIf="filterColumnsFiltersVisibility[column.field]">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="filters[column.field]"
+                        (input)="applyFilters()" placeholder="Filtrar {{ column.header }}">
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of filteredData">
+                  <td *ngFor="let column of columns">
+                    <ng-container [ngSwitch]="column.format">
+                      <span *ngSwitchCase="'date'">{{ formatFecha(item[column.field]) }}</span>
+                      <span *ngSwitchCase="'currency'">${{ formatCurrency(item[column.field]) }}</span>
+                      <span *ngSwitchCase="'status'"><span class="badge badge-primary">{{ item[column.field]
+                          }}</span></span>
+                      <div *ngSwitchCase="'template'">
+                        <ng-container *ngTemplateOutlet="column.template; context: {$implicit: item}"></ng-container>
+                      </div>
+                      <span *ngSwitchDefault>{{ item[column.field] }}</span>
+                    </ng-container>
+                  </td>
+                </tr>
+                <tr *ngIf="filteredData.length === 0">
+                  <td [attr.colspan]="columns.length" class="text-center">No se encontraron datos.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #defaultTemplate let-item></ng-template>

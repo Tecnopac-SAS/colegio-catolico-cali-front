@@ -14,7 +14,7 @@ import Swal from'sweetalert2'
 export class TransportationUpdateComponent implements OnInit {
 
   transportation !: any;
-  navTitle="transporte editar"
+  navTitle="Editar transporte"
   public dataTransporte:any
   formValue!: FormGroup;
   formValueExtra!: FormGroup;

@@ -2,8 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AttendingManagements } from 'src/app/models/attendingManagements.model';
 import { AttendingManagementsService } from 'src/app/services/attending-managements.service';
+import { HistoricoCarteraService } from 'src/app/services/historico-cartera.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { CurrencyUtils } from 'src/utils/currencyUtils';
 import { FormGroup } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from'sweetalert2';
@@ -14,6 +16,7 @@ import Swal from'sweetalert2';
   styleUrls: ['./estado-cartera.component.css']
 })
 export class EstadoCarteraComponent implements OnInit {
+  [x: string]: any;
 
   grade !: any;
   navTitle="Estado de Cartera"
@@ -27,6 +30,8 @@ export class EstadoCarteraComponent implements OnInit {
     private formBuilder:FormBuilder,
     private attendingManagementsService:AttendingManagementsService,
     private loginService:LoginService,
+    private currencyUtils: CurrencyUtils,
+    private historicoCarteraService:HistoricoCarteraService,
     private router:Router
   ) { }
 
@@ -49,27 +54,52 @@ export class EstadoCarteraComponent implements OnInit {
   }
 
   listAttendingManagements(){
-    this.attendingManagementsService.listAttendingManagements()
-    .subscribe(res=>{
-      this.dataAttendingManagements=res.result
-      console.log(this.dataAttendingManagements)
-    })
+    this.historicoCarteraService.totalDeudas().subscribe(response=>{
+      console.log(response.result);
+      this.dataAttendingManagements = response.result
+    },error=>{});
+  }
+
+  listAttendingManagement(id:any){
+    this.historicoCarteraService.totalDeudasAcudiente({idAcudiente: id}).subscribe(response=>{
+      this.dataAttendingManagementsByAcudiente = response.result
+    },error=>{
+    });
   }
 
   search(searchForm:any){
-
     if(this.filterText==""){
       this.listAttendingManagements();
-    }
-    else {
-      this.attendingManagementsService.listAttendingManagement(searchForm.value.filtro)
+    }else {
+      this.historicoCarteraService.historicoCarteraSearch(searchForm.value.filtro,localStorage.getItem('idAcudiente'))
       .subscribe(res=>{
-        this.dataAttendingManagements=res.result
-        console.log(res.result)
+        this.listPagos=res.result
       })
     }
 
   }
+
+  obtenerMes(fecha: string) {
+    const meses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    const date = new Date(fecha);
+
+    if (isNaN(date.getTime())) {
+        return "Fecha inválida";
+    }
+
+    const mes = date.getMonth();
+    return meses[mes];
+}
+
+  formatCurrency(amount: number): string {
+    return this.currencyUtils.formatCurrency(amount);
+  }
+
+
 
   deshabilitar(data:any){
    this.attendingManagementsModel.isActive = data.isActive

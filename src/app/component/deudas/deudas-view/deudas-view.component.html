@@ -1,0 +1,80 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="content container my-xl-2">
+    <div class="row">
+      <div class="content-section col-md-12 mx-auto">
+        <div class="card">
+         <div class="card-body">
+          <form [formGroup]="formValue">
+            <div class="row">
+
+              <div *ngIf="mensaje_ok">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_ok}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+
+              <div *ngIf="mensaje_error">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{mensaje_error}}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    (click)="cerrarAlerta()"></button>
+                </div>
+              </div>
+              <h5 class="text-primary">Ver Deuda:</h5>
+              <div class="col-md-2">
+                <label class="">Código Deuda</label>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="deudaCode" readonly>
+              </div>
+              <div class="col-md-12 my-2">
+              </div>
+              <div class="col-md-12 my-2">
+              </div>
+              <div class="col-md-2">
+                <label class="">Concepto de Cobro</label>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="concepto" readonly>
+              </div>
+              <div class="col-md-2">
+                <label class="">Monto</label>
+              </div>
+              <div class="col-md-4">
+                <input type="number" class="form-control" formControlName="monto" readonly>
+              </div>
+              <div class="col-md-12 my-4">
+              </div>
+              <div class="col-md-2">
+                <label class="">Fecha Inicio</label>
+              </div>
+              <div class="col-md-4">
+                <input type="date" class="form-control" formControlName="fechaInicio" readonly>
+              </div>
+              <div class="col-md-2">
+                <label class="">Fecha Final</label>
+              </div>
+              <div class="col-md-4">
+                <input type="date" class="form-control" formControlName="fechaFinal" readonly>
+              </div>
+            </div>
+            <div class="col-md-6 my-4">
+              <button type="submit" class="btn btn-outline-primary m-3" routerLink="/gestion-deudas"> Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>
+
+
+
+
+
+
+
+

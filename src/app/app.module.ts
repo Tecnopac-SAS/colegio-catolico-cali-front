@@ -21,6 +21,9 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavTitleComponent } from './component/nav-title/nav-title.component';
 import { HomepageComponent } from './component/homepage/homepage.component';
 import { PeriodIndexComponent } from './component/period/period-index/period-index.component';
+import { AcuerdosPagoCreateComponent } from './component/acuerdos-pago/acuerdos-pago-create/acuerdos-pago-create.component';
+import { AcuerdosPagoViewComponent } from './component/acuerdos-pago/acuerdos-pago-view/acuerdos-pago-view.component';
+import { AcuerdosPagoComponent } from './component/acuerdos-pago/acuerdos-pago-index/acuerdos-pago.component';
 import { PeriodCreateComponent } from './component/period/period-create/period-create.component';
 import { PeriodChangeComponent } from './component/period/period-change/period-change.component';
 import { InscriptionIndexComponent } from './component/incription/inscription-index/inscription-index.component';
@@ -30,6 +33,10 @@ import { TuitionCreateComponent } from './component/tuition/tuition-create/tuiti
 import { ExtracurricularIndexComponent } from './component/extracurricular/extracurricular-index/extracurricular-index.component';
 import { ExtracurricularCreateComponent } from './component/extracurricular/extracurricular-create/extracurricular-create.component';
 import { ExtracurricularVerComponent } from './component/extracurricular/extracurricular-ver/extracurricular-ver.component';
+import { DeudasIndexComponent } from './component/deudas/deudas-index/deudas-index.component';
+import { DeudasCreateComponent } from './component/deudas/deudas-create/deudas-create.component';
+import { DeudasUpdateComponent } from './component/deudas/deudas-update/deudas-update.component';
+import { DeudasViewComponent } from './component/deudas/deudas-view/deudas-view.component';
 import { PensionIndexComponent } from './component/pension/pension-index/pension-index.component';
 import { PensionCreateComponent } from './component/pension/pension-create/pension-create.component';
 import { ServicesIndexComponent } from './component/services-index/services-index.component';
@@ -121,6 +128,8 @@ import { AcudienteTransportationComponent } from './component/acudiente-transpor
 import { GestionDocumentosComponent } from './component/documentos/gestion-documentos/gestion-documentos.component';
 import { CrearDocumentosComponent } from './component/documentos/crear-documentos/crear-documentos.component';
 import { EditarDocumentosComponent } from './component/documentos/editar-documentos/editar-documentos.component';
+import { InformesPagoComponent } from './component/informes-pago/informes-pago.component';
+import { SearchFiltersDatatableComponent } from './component/search-filters-datatable/search-filters-datatable.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +143,9 @@ import { EditarDocumentosComponent } from './component/documentos/editar-documen
     NavTitleComponent,
     HomepageComponent,
     PeriodIndexComponent,
+    AcuerdosPagoCreateComponent,
+    AcuerdosPagoViewComponent,
+    AcuerdosPagoComponent,
     PeriodCreateComponent,
     PeriodChangeComponent,
     InscriptionIndexComponent,
@@ -214,6 +226,7 @@ import { EditarDocumentosComponent } from './component/documentos/editar-documen
     ExtracurricularListComponent,
     CafeteriaPagoComponent,
     SoportesPagoComponent,
+    InformesPagoComponent,
     CertificadosComponent,
     SolicitudCertificadoComponent,
     EstadoCertificadoComponent,
@@ -226,11 +239,16 @@ import { EditarDocumentosComponent } from './component/documentos/editar-documen
     AjustesPerfilAcudienteComponent,
     PagosPresencialesComponent,
     PazysalvocuatrosellosComponent,
+    DeudasIndexComponent,
+    DeudasCreateComponent,
+    DeudasUpdateComponent,
+    DeudasViewComponent,
     EstadoCarteraComponent,
     AcudienteTransportationComponent,
     GestionDocumentosComponent,
     CrearDocumentosComponent,
     EditarDocumentosComponent,
+    SearchFiltersDatatableComponent,
   ],
   imports: [
     BrowserAnimationsModule,

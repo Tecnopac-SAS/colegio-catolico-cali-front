@@ -518,7 +518,7 @@ export class SolicitudEstudiantesComponent implements OnInit {
       const codigoEstudiantes = (cantidadEstudiantes + 1).toString().padStart(2, '0'); // Agregar ceros a la izquierda si es necesario para completar 4 dígitos
 
       // Combinar los componentes del código
-      this.codigo = `${codigoBase}${codigoEstudiantes}`;
+      this.codigo = `${codigoBase}0${codigoEstudiantes}`;
     });
   }
 
@@ -532,7 +532,6 @@ export class SolicitudEstudiantesComponent implements OnInit {
     this.studentDatabaseModel.lugarNacimiento = this.formValueEstudiantes.value.lugarNacimiento;
     this.studentDatabaseModel.fechaNacimiento = this.formValueEstudiantes.value.fechaNacimiento;
     this.studentDatabaseModel.edad = this.formValueEstudiantes.value.edad;
-    this.studentDatabaseModel.grado = this.formValueEstudiantes.value.grado;
     this.studentDatabaseModel.direccion = this.formValueEstudiantes.value.direccion;
     this.studentDatabaseModel.tipoDireccion = this.formValueEstudiantes.value.tipoDireccion;
     this.studentDatabaseModel.barrio = this.formValueEstudiantes.value.barrio;
@@ -867,14 +866,8 @@ export class SolicitudEstudiantesComponent implements OnInit {
 
 
     console.log(this.hermanoModel)
-    if (this.hermanoModel.nombres == "") {
-      this.mensaje_error = "El campo nombre no puede estar vacio"
-    }
+    if (this.hermanoModel.nombres != "") {
 
-    else if (this.hermanoModel.apellidos = "") {
-      this.mensaje_error = "El campo apellido no puede estar vacio"
-    }
-    else {
       this.studentDatabaseService.createHermanos(this.hermanoModel)
         .subscribe(res => {
           console.log(res);

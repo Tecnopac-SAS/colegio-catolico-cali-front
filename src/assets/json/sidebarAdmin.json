@@ -63,7 +63,7 @@
           {
             "menuName": "Gestión docentes",
             "icon": "bi bi-book",
-            "url": "",  
+            "url": "/docente",  
             "toggle": true,
             "submenu": [
               {
@@ -75,7 +75,7 @@
           {
             "menuName": "Gestión administradores",
             "icon": "bi bi-house",
-            "url": "",  
+            "url": "/listar-usuarios",  
             "toggle": true,
             "submenu": [
               {
@@ -148,19 +148,19 @@
           {
             "menuName": "Informe de pago",
             "icon": "bi bi-file-earmark-text",
-            "url": "/",  
+            "url": "/informes-pago",  
             "toggle": false
           },
           {
-            "menuName": "Creación deuda",
+            "menuName": "Gestión de Deudas",
             "icon": "bi bi-coin text-dark",
-            "url": "/",  
+            "url": "/gestion-deudas",  
             "toggle": false
           },
           {
             "menuName": "Acuerdo de pago",
             "icon": "bi bi-card-text text-dark",
-            "url": "/",  
+            "url": "/acuerdos-pago",  
             "toggle": false
           },
           {

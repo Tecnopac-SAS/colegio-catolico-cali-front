@@ -1,96 +1,89 @@
 <app-dashboard>
-    <app-nav-title [navTitle]="navTitle"></app-nav-title>
-    <div class="container my-xl-2">
-            <div class="card"> 
-              <div class="card-body"> 
-                <div class="row justify-content-end">
-                      <div class="col-md-3 col-12 my-2">
-                        <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
-                            <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
-                              <div class="input-group-append">
-                                <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
-                            </div>
-                                <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro" [(ngModel)]="filterText">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-1 col-4 my-2">
-                      <button  class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
-                    </div>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container my-xl-2">
+    <div class="card">
+      <div class="card-body">
+        <div class="row justify-content-end">
+          <div class="col-md-3 col-12 my-2">
+            <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+              <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                <div class="input-group-append">
+                  <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
                 </div>
-                <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
-                  <table class="table table-hover table-bordered">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre Acudiente</th>
-                        <th scope="col">Apellido Acudiente</th>
-                        <th scope="col">Correro electrónico</th>
-                        <th scope="col">Saldo</th>
-                        <th scope="col">Días en Mora</th>
-                        <th scope="col">Pago total pendiente</th>
-                      </tr>
-                    </thead>
-                    <tbody  *ngFor="let data of dataAttendingManagements; let index = index ">
-                      <tr class="align-bottom">
-                        <th scope="row">{{index+1}}</th>
-                        <td>{{data.nombres}}</td>
-                        <td>{{data.apellidos}}</td>
-                        <td>{{data.correoElectronico}}</td>
-                        <td>{{data.bolsillo}}</td>
-                        <td class="font-weight-bold text-danger">2</td>
-                        <td class="text-danger">-$100.000</td>
-                      </tr>
-                      <!-- modal deshabilitar -->
-                      <div class="modal fade" id="deshabilitarModalToggle{{data.id}}" aria-hidden="true" aria-labelledby="deshabilitarModalToggleLabel" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content">
-                            <div class="modal-body">
-                              <br>
-                              <br>
-                              <br>
-                              <h4 class="text-center text-primary">¿Estás seguro de deshabilitar este  acudiente?</h4>
-                              <br>
-                              <br>
-                              <div class="text-center">
-                                <button type="button" class="btn btn-outline-primary m-2" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary m-2" data-target="#deshabilitarModalToggle" data-toggle="modal" data-dismiss="modal" (click)="deshabilitar(data)" >Deshabilitar</button>
-                                <br>
-                                <br>
-                                <br>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                          <!-- modal recuperar pass -->
-                          <div class="modal fade" id="recuperarPassModalToggle" aria-hidden="true" aria-labelledby="recuperarPassModalToggleLabel" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                              <div class="modal-content">
-                                <div class="modal-body">
-                                  <br>
-                                  <br>
-                                  <br>
-                                  <h4 class="text-center text-primary">¿Estás seguro de reestablecer esta contraseña?</h4>
-                                  <br>
-                                  
-                                  <br>
-                                  <div class="text-center">
-                                    <button type="button" class="btn btn-outline-primary m-2" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary m-2" data-bs-target="#recuperarPassModalToggle" data-bs-toggle="modal" (click)="restablecerContrasena(data)">Restablecer</button>
-                                    <br>
-                                    <br>
-                                    <br>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                    </tbody>
-                  </table>
-                </div>
+                <input type="text" class="form-control datetimepicker-input" #filtro="ngModel" name="filtro"
+                  [(ngModel)]="filterText">
               </div>
-            </div>
+            </form>
+          </div>
+          <div class="col-md-1 col-4 my-2">
+            <button class="btn btn-primary" (click)="search(searchForm)"><i class="bi bi-funnel"></i> Filtro</button>
+          </div>
+        </div>
+        <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre Acudiente</th>
+                <th scope="col">Apellido Acudiente</th>
+                <th scope="col">Correro electrónico</th>
+                <th scope="col">¿En Mora?</th>
+                <th scope="col">Pago total pendiente</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let data of dataAttendingManagements; let index = index ">
+              <tr class="align-bottom">
+                <th scope="row">{{index+1}}</th>
+                <td>{{data.pensionesMesesAsAcudiente.nombres}}</td>
+                <td>{{data.pensionesMesesAsAcudiente.apellidos}}</td>
+                <td>{{data.pensionesMesesAsAcudiente.correoElectronico}}</td>
+                <td>
+                  <span *ngIf="data.mora == 0">No</span>
+                  <span *ngIf="data.mora == 1" class="text-danger">Sí</span>
+                </td>
+                <td class="font-weight-bold text-danger">{{formatCurrency(data.valorTotal)}}</td>
+                <td class="font-weight-bold text-danger">
+                  <button class="text-info btn" data-bs-target="#verModalToggle" (click)="listAttendingManagement(data.idAcudiente)" data-bs-toggle="modal">Ver Detalle (+)</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </app-dashboard>
-  
+    <!-- Primer modal -->
+    <div class="modal fade" id="verModalToggle" tabindex="-1" aria-labelledby="verModalToggleLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4 class="text-center text-black">Detalle de la deuda</h4>
+            <div class="row justify-content-center pt-4">
+              <table class="table table-hover table-bordered mx-auto" style="width: 90%;">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Concepto</th>
+                    <th scope="col">valor</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let data of dataAttendingManagementsByAcudiente; let index = index ">
+                  <tr class="align-bottom">
+                    <th scope="row">{{index+1}}</th>
+                    <td>
+                      <span *ngIf="data.estatus == 'Pendiente'" class="badge badge-warning">Pendiente</span>
+                      <span *ngIf="data.estatus == 'En Mora'" class="badge badge-danger">En Mora</span>
+                    </td>
+                    <td><small>Pensión - {{obtenerMes(data.fechaPago)}}</small></td>
+                    <td class="text-danger">${{formatCurrency(data.valor)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>

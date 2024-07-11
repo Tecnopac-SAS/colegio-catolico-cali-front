@@ -149,8 +149,8 @@ export class StudentDatabaseService {
       return res;
     }))
   }
-  getMatricula(){
-    let data = {'id':localStorage.getItem('id')}
+  getMatricula(id?: any){
+    let data = id == null ? {'id':localStorage.getItem('id')} : {'id':id}
     return this._htpp.post<any>(base_url+'studentDatabase/get-matricula',data)
     .pipe(map((res:any)=>{
       return res;

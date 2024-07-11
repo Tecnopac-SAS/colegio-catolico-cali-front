@@ -76,10 +76,6 @@ export class PensionCreateComponent implements OnInit {
     else if(this.pensionModel.price  <=0 ){
       this.mensaje_error="El campo precio no puede estar vacio"
     }
-
-    else if(this.pensionModel.discount==0){
-      this.mensaje_error="El campo descuento no puede estar vacio"
-    }
     else if(this.pensionModel.interes==null){
       this.mensaje_error="El campo interes no puede estar vacio"
     }

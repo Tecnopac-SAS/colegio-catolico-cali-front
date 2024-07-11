@@ -1,0 +1,144 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="content container my-xl-2">
+    <div class="row">
+      <div class="content-section col-md-12 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="formValue">
+              <div class="row">
+
+                <div *ngIf="mensaje_ok">
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{mensaje_ok}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                </div>
+                <div *ngIf="mensaje_error">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{mensaje_error}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                      (click)="cerrarAlerta()"></button>
+                  </div>
+                </div>
+                <h5 class="text-primary">Datos del estudiante:</h5>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Consecutivo de acuerdo</label>
+                      <input type="text" class="form-control" formControlName="consecutivoAcuerdo" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Nombres del estudiante</label>
+                      <input type="text" class="form-control" formControlName="nombresEstudiante" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Grado</label>
+                      <input type="text" class="form-control" formControlName="grado" readonly>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Código del estudiante</label>
+                      <input type="text" class="form-control" formControlName="codigoEstudiante" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Apellidos del estudiante</label>
+                      <input type="text" class="form-control" formControlName="apellidosEstudiante" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Identificación</label>
+                      <input type="text" class="form-control" formControlName="identificacionEstudiante" readonly>
+                    </div>
+                  </div>
+                </div>
+                <h5 class="text-primary">Datos de quien se compromete al acuerdo de pago:</h5>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Nombres completos</label>
+                      <input type="text" class="form-control" formControlName="nombresAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Tipo de identificación</label>
+                      <input type="text" class="form-control" formControlName="tipoIdentificacionAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Correo electrónico</label>
+                      <input type="text" class="form-control" formControlName="emailAcudiente" readonly>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label>Valor total deuda</label>
+                          <input type="number" class="form-control" formControlName="valorTotalDeuda" readonly>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-group">
+                          <label>Fecha de firmado*</label>
+                          <input type="date" class="form-control" formControlName="fechaFirmado" readonly>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Apellidos completos</label>
+                      <input type="text" class="form-control" formControlName="apellidosAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Identificación</label>
+                      <input type="text" class="form-control" formControlName="identificacionAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Dirección</label>
+                      <input type="text" class="form-control" formControlName="direccionAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Descripción</label>
+                      <textarea class="form-control" formControlName="description" style="height: 123px" readonly></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card mt-3" style="background-color: #DEE2E6;" *ngIf="formValue.controls.valorTotalDeuda.value > 1">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col text-right pr-4">
+                      <button class="btn btn-primary" (click)="descargaSoporte()">Imprimir seguimiento</button>
+                    </div>
+                  </div>
+                  <hr class="my-2">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha de Pago</th>
+                        <th scope="col">Valor</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let data of acuerdosPagosCuotas; let index = index ">
+                      <tr class="align-bottom">
+                        <th scope="row">{{data.cuota}}</th>
+                        <td>{{formatFecha(data.fechaPago)}}</td>
+                        <td>${{formatCurrency(data.monto)}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <div class="row text-right">
+                <div class="col">
+                  <button type="submit" class="btn btn-outline-primary m-3" routerLink="/acuerdos-pago"> Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>

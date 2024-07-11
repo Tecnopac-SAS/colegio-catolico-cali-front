@@ -1,1 +1,142 @@
-<p>attending-managements-update works!</p>
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="content container my-xl-2">
+
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="formValue">
+          <div class="row">
+            <div *ngIf="mensaje_ok">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{mensaje_ok}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+
+
+            <div *ngIf="mensaje_error">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{mensaje_error}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                  (click)="cerrarAlerta()"></button>
+              </div>
+            </div>
+            <h4>Editar Acudiente:</h4>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Nombres</label>
+                  <input type="text" class="form-control" formControlName="nombres">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Apellidos</label>
+                  <input type="text" class="form-control" formControlName="apellidos">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Cargo</label>
+                  <input type="text" class="form-control" formControlName="cargo">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Vive</label>
+                  <select class="form-control" formControlName="vive">
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Celular</label>
+                  <input type="number" class="form-control" formControlName="celular">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="">CorreoElectronico</label>
+                  <input type="text" class="form-control" formControlName="correoElectronico">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Dirección</label>
+                  <input type="text" class="form-control" formControlName="direccion">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="">¿Donde Trabaja?</label>
+                  <input type="text" class="form-control" formControlName="dondeTrabaja">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Identificación</label>
+                  <input type="text" class="form-control" formControlName="identificacion">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Ingreso Mensual</label>
+                  <input type="text" class="form-control" formControlName="ingresoMensual">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Parentesco</label>
+                  <input type="text" class="form-control" formControlName="parentesco">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Profesion</label>
+                  <input type="text" class="form-control" formControlName="profesion">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Teléfono</label>
+                  <input type="text" class="form-control" formControlName="telefono">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="">Tipo Documento</label>
+                  <input type="text" class="form-control" formControlName="tipoDocumento">
+                </div>
+              </div>
+            </div>
+
+            <div class="text-right">
+              <button type="submit" class="btn btn-outline-primary m-3" routerLink="/gestion-acudiente"> Cancelar</button>
+              <button type="submit" class="btn btn-primary m-3" (click)="actualizarAcudiente()"> Guardar</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</app-dashboard>

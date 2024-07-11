@@ -25,6 +25,13 @@ export class SoportesPagosService {
     }))
   }
 
+  allSoportesPagos(){
+    return this._htpp.get<any>(base_url+'soportePagos/listarSoportesPagos')
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
   misSoportesPagosSearch(params:any,idAcudiente:any){
     return this._htpp.get<any>(base_url+`soportePagos/listarMisSoportesPagosSearch/${encodeURIComponent(params)}/${idAcudiente}`)
     .pipe(map((res:any)=>{

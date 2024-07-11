@@ -1,0 +1,91 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="container my-xl-2">
+    <div class="row">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/home"><i class="bi bi-house-door"></i>Inicio</a> / Página actual</li>
+      </ol>
+      <div class="card">
+        <div class="card-body">
+          <div class="row justify-content-end">
+            <div class="col-md-3 col-12 my-2">
+              <div class="d-flex gap-2">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                  </div>
+                  <input type="text" placeholder="Buscar..." [(ngModel)]="filterInput" class="form-control"
+                    (keyup)="search()" aria-label="Buscar..." aria-describedby="basic-addon1">
+                </div>
+                <div class="dropdown">
+                  <button class="btn btn-outline-secondary opacity-50 dropdown-toggle" type="button"
+                    id="dropdownMenuButtonFilterColumns" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="bi bi-funnel"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonFilterColumns">
+                    <div *ngFor="let col of columns">
+                      <div *ngIf="col !== '#' && col !== 'Descargar Soporte'" class="dropdown-item">
+                        <input type="checkbox" [checked]="filterColumnsVisibility[col]" (change)="toggleColumnVisibility(col)">
+                        {{ col }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dropdown">
+                  <button class="btn btn-outline-secondary opacity-50 dropdown-toggle" type="button"
+                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" (click)="exportToExcel()">Descargar Informe <span
+                        class="badge badge-success">Excel</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive-sm table-responsive-md  table-responsive-lg">
+            <table class="table table-hover table-bordered" id="data-table">
+              <thead>
+                <tr>
+                  <th scope="col" *ngFor="let col of columns; let i = index" class="text-center">
+                    {{ col }}
+                    <div *ngIf="filterColumnsVisibility[col] && col !== 'Descargar Soporte' && col !== '#'"
+                      class="mt-2">
+                      <input type="text" class="form-control" [(ngModel)]="filters[col]" (keyup)="search()">
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody *ngIf="noData">
+                <tr>
+                  <td colspan="10" class="text-center">No hay datos</td>
+                </tr>
+              </tbody>
+              <tbody *ngFor="let data of filteredData; let index = index">
+                <tr class="align-bottom">
+                  <th scope="row" class="text-center">{{ index + 1 }}</th>
+                  <td class="text-center">{{ data.paymentCode }}</td>
+                  <td class="text-center">{{ data.soportesPagosAsEstudiante.nombres + ' ' +
+                    data.soportesPagosAsEstudiante.apellidos + ' (' + data.soportesPagosAsEstudiante.identificacion +
+                    ')' }}</td>
+                  <td class="text-center">{{ data.tipoPago }}</td>
+                  <td class="text-center">{{ formatFecha(data.fecha) }}</td>
+                  <td class="text-center">{{ data.viaPago }}</td>
+                  <td class="text-center">${{ formatCurrency(data.monto) }}</td>
+                  <td class="text-center">
+                    <a class="btn btn-primary"
+                      (click)="descargaSoporte({ paymentCode: data.paymentCode, monto: data.monto, viaPago: data.viaPago })">
+                      <i class="bi bi-file-earmark-arrow-down"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>

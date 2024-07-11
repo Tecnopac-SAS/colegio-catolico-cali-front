@@ -1,0 +1,210 @@
+<app-dashboard>
+  <app-nav-title [navTitle]="navTitle"></app-nav-title>
+  <div class="content container my-xl-2">
+    <div class="row">
+      <div class="content-section col-md-12 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="formValue">
+              <div class="row">
+
+                <div *ngIf="mensaje_ok">
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{mensaje_ok}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                </div>
+                <div *ngIf="mensaje_error">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{mensaje_error}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                      (click)="cerrarAlerta()"></button>
+                  </div>
+                </div>
+                <h5 class="text-primary">Datos del estudiante:</h5>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Consecutivo de acuerdo</label>
+                      <input type="text" class="form-control" formControlName="consecutivoAcuerdo">
+                    </div>
+                    <div class="form-group">
+                      <label>Nombres del estudiante</label>
+                      <input type="text" class="form-control" formControlName="nombresEstudiante" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Grado</label>
+                      <input type="text" class="form-control" formControlName="grado" readonly>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Código del estudiante</label>
+                      <input type="text" class="form-control" formControlName="codigoEstudiante" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Apellidos del estudiante</label>
+                      <input type="text" class="form-control" formControlName="apellidosEstudiante" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Identificación</label>
+                      <input type="text" class="form-control" formControlName="identificacionEstudiante" readonly>
+                    </div>
+                  </div>
+                </div>
+                <h5 class="text-primary">Datos de quien se compromete al acuerdo de pago:</h5>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Nombres completos</label>
+                      <input type="text" class="form-control" formControlName="nombresAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Tipo de identificación</label>
+                      <input type="text" class="form-control" formControlName="tipoIdentificacionAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Correo electrónico</label>
+                      <input type="text" class="form-control" formControlName="emailAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Servicio</label>
+                      <select class="form-control" formControlName="service" (change)="setDescription($event)">
+                        <option value="">Seleccione opción</option>
+                        <option value="matricula">Matrícula</option>
+                        <option value="pension">Pensión</option>
+                      </select>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label>Valor total deuda</label>
+                          <input type="number" class="form-control" formControlName="valorTotalDeuda"
+                            (keyup)="deudaTotal = formValue.controls.valorTotalDeuda.value;" readonly>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-group">
+                          <label>Fecha de firmado*</label>
+                          <input type="date" class="form-control" formControlName="fechaFirmado">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Apellidos completos</label>
+                      <input type="text" class="form-control" formControlName="apellidosAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Identificación</label>
+                      <input type="text" class="form-control" formControlName="identificacionAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Dirección</label>
+                      <input type="text" class="form-control" formControlName="direccionAcudiente" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Descripción</label>
+                      <textarea class="form-control" formControlName="description" style="height: 123px"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card mt-3" style="background-color: #DEE2E6;" *ngIf="formValue.controls.valorTotalDeuda.value > 1">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group row mb-0">
+                        <label for="staticEmail" class="col-sm-6 col-form-label">El valor de las cuotas son iguales: </label>
+                        <div class="col-sm-6">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" value="true" (change)="onSelectChange($event)" formControlName="cuotasIguales">
+                            <label class="form-check-label">
+                              Si
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" value="false" (change)="onSelectChange($event)" formControlName="cuotasIguales">
+                            <label class="form-check-label">
+                              No
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col text-right pr-4">
+                      <button class="btn btn-primary mr-2" (click)="CrearAcuerdoPago()">Guardar acuerdo</button>
+                      <!-- <button class="btn btn-primary">Imprimir seguimiento</button> -->
+                    </div>
+                  </div>
+                  <hr class="my-2">
+                  <div class="row">
+                    <div class="form-group row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label">Deuda total<br>
+                        <span class="font-weight-bold">${{formatCurrency(formValue.controls.valorTotalDeuda.value)}}</span></label>
+                      <div class="col-sm-10">
+                        <div *ngIf="formValue.controls.cuotasIguales.value == 'false'">
+                          <div class="form-group">
+                            <label for="cuotas">Seleccione cuotas</label>
+                            <select class="form-control" name="cuotas" id="cuotas" (change)="onSelectChange($event)">
+                              <option value="">Seleccione cuotas</option>
+                              <option *ngFor="let cuota of cuotas" [value]="cuota">{{ cuota }}</option>
+                            </select>
+                          </div>
+                            <form [formGroup]="cuotasForm">
+                              <div formArrayName="cuotasArray">
+                                <div *ngFor="let cuota of cuotasArray.controls; let i = index" [formGroupName]="i" class="row mb-2">
+                                  <div class="col-md-6">
+                                    <label for="valor{{i}}">Valor de la cuota {{i + 1}}</label>
+                                    <input id="valor{{i}}" formControlName="valor" type="text" class="form-control">
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label for="fecha{{i}}">Fecha de la cuota {{i + 1}}</label>
+                                    <input id="fecha{{i}}" formControlName="fecha" type="date"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      class="form-control">
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                        </div>
+                        <div *ngIf="formValue.controls.cuotasIguales.value == 'true'" class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label for="cuotas">Seleccione cuotas</label>
+                              <select class="form-control" (change)="onSelectChange($event)" id="cuotasIgualesCuotas" formControlName="cuotasIgualesCuotas">
+                                <option value="">Seleccione cuotas</option>
+                                <option *ngFor="let cuota of cuotas" [value]="cuota">{{ cuota }}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <label>Día de Pago</label>
+                            <select class="form-control" formControlName="cuotasIgualesFechaPago">
+                              <option value="">Seleccione el día</option>
+                              <option *ngFor="let dia of dias" [value]="dia">{{ dia }} de cada mes</option>
+                            </select>
+                          </div>
+                          <div class="col">
+                            <label for="staticEmail" class="">Valor por cuota<br>
+                              <span class="font-weight-bold" *ngIf="formValue.controls.cuotasIgualesCuotas.value != null">${{formatCurrency(cuotasIgualesValorCuota)}}</span></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row text-right">
+                <div class="col">
+                  <button type="submit" class="btn btn-outline-primary m-3" routerLink="/acuerdos-pago"> Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-dashboard>
