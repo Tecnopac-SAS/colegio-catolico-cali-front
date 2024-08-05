@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../models/user.models';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from'sweetalert2';
 
@@ -15,7 +14,7 @@ import Swal from'sweetalert2';
 export class LoginComponent implements OnInit {
 
     //son variables auxiliares
-    
+
     public user: any;
     public token: any;
     public id:any;
@@ -38,7 +37,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.fieldCapture();
     this.sessionValidation();
-    
   }
 
   fieldCapture(){
