@@ -27,6 +27,7 @@ export class LoginService {
     }
 
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
+
     return this._htpp.post(base_url + 'user/login', json, {headers: headers})
   }
 
