@@ -56,7 +56,7 @@ export class CoursesCreateComponent implements OnInit {
     this.courseModel.finalDate = this.formValueExtra.value.finalDate;
     this.courseModel.price = this.formValueExtra.value.price;
     this.courseModel.idTeacher = this.formValueExtra.value.idTeacher;
-    this.courseModel.typeCourse = "verano";;
+    this.courseModel.typeCourse = "verano";
     this.courseModel.starHour = this.formValueExtra.value.starHour;
     this.courseModel.finalHour = this.formValueExtra.value.finalHour;
     this.courseModel.description = this.formValueExtra.value.description;
