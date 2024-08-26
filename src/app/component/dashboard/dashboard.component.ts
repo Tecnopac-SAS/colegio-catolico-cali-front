@@ -6,7 +6,6 @@ import { CurrencyUtils } from 'src/utils/currencyUtils';
 import menuAcudiente from 'src/assets/json/sidebarAcudiente.json'
 import menuAdmin from 'src/assets/json/sidebarAdmin.json'
 import Swal from'sweetalert2';
-import * as $ from 'jquery'
 import { BolsilloService } from 'src/app/services/bolsillo.service';
 import { HistoricoCarteraService } from 'src/app/services/historico-cartera.service';
 
@@ -36,13 +35,14 @@ export class DashboardComponent implements OnInit {
 
     this.token= this.loginService.getToken();
     this.name= this.userService.getName();
-    this.role= this.userService.getRol();  
+    this.role= this.userService.getRol();
     this.bolsillo= localStorage.getItem('bolsillo');
     this.isSidebarOpen = localStorage.getItem('toggle-sidebar') == 'true'? true : false ;
     //Menu por tipo de rol
+     console.log(this.role)
     this.role === 'admin' ? this.menuItems = menuAdmin : this.menuItems = menuAcudiente
    }
-   
+
   ngOnInit(): void {
     this.sessionValidation();
     this.navTitle="Estoy en dash " + this.name
